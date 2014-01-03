@@ -1,0 +1,25 @@
+-------------------------------------------------------------------
+1. Dzielenie kontentu pomiędzy poszczególnymi stronami
+-------------------------------------------------------------------
+
+Odpowiadają za to drzewa kategorii, których kategoria pierwszego poziomu nazywa sie:
+dla totemów:
+ totem1
+ totem2
+ totem3
+ totem4..
+dla www.centrumpoznawcze.pl
+ centrum-poznawcze 
+dla www.hala-stulecia.pl
+ hala-stulecia
+
+-------------------------------------------------------------------
+2. Wywołanie menu  
+-------------------------------------------------------------------
+<?php wp_nav_menu( array( 'menu' => $device_name.'-main-menu', 'theme_location' => 'primary');  ?>
+gdzie:
+'menu' => $device_name.'-main-menu' jest nazwą menu w ../wp-admin/nav-menus.php.
+
+zmienna $device_name przyjmuje taką samą nazwę jak nazwa głównej kategorii dla wywoływanego obszaru
+Nazwa zmiennej $device_name nie ulegnie zmianie po zmiane nazwy kategorii.
+Powinniśmy ustalić te wartośći jako wiążące - ostatecznie można je zdefiniować jako opcje systemu - nie wpłynie to jednak na zmapowanie nazwy głównej kategorii z wartością zmiennej
