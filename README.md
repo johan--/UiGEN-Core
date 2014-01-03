@@ -1,7 +1,8 @@
 UiGEN Core 
 =====================
 
-UiGEN Core 
+UiGEN Core is not stabile yet !!!
+First beta version will bi published on dedicated repo github/uigen soon.
 
 
 To get started, check out <http://uigen.org>!
