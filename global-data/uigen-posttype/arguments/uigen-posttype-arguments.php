@@ -15,6 +15,7 @@ $uigen_posttypes = array(
             'author'
         ),
         'public' => true,
+        'show_in_menu' => 'edit.php?post_type=entertainment',
         //'taxonomies' => array('category'),
         //'register_meta_box_cb' =>  'template_hierarchy_box',
     ),
