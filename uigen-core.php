@@ -118,8 +118,24 @@ function UiGEN_menu()
   add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
   add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
   //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
-}     
+} 
+function uigen_core(){
+
+  echo '<h1>Welcome to UiGEN CORE plugin.</h1>';
+  echo '<p>This is core methods package to work UiGEN family products.</p>';
+
+  echo 'UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme';
+
+
+  //wp_register_script( 'alpaca-js', plugins_url().'/uigen-core/js-lib/alpaca-component/alpaca.js');
+  //wp_enqueue_script( 'alpaca-js' );
+
+  //wp_register_style( 'alpaca-css', plugins_url().'/uigen-core/js-lib/alpaca-component/alpaca.css' );
+  //wp_enqueue_style('alpaca-css');
+  //include 'core-menu-files/uigen-template-hierarchy.php';
+}   
 function UiGEN_hierarchy_callback(){
+  echo 'soon';
   //wp_register_script( 'alpaca-js', plugins_url().'/uigen-core/js-lib/alpaca-component/alpaca.js');
   //wp_enqueue_script( 'alpaca-js' );
 
@@ -127,5 +143,4 @@ function UiGEN_hierarchy_callback(){
   //wp_enqueue_style('alpaca-css');
   //include 'core-menu-files/uigen-template-hierarchy.php';
 }
-
 ?>
