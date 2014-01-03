@@ -42,8 +42,7 @@ function alpacaform_box($post, $metabox){
 
 // save post function
 function save_alpaca_form_box( $post_id ) {
-echo 'save_alpaca_form_box';
-die();
+  
   include ABSPATH . 'wp-content/plugins/uigen-core/global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
   
   foreach ($uigen_metaboxes as $metabox) {
