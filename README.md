@@ -1,5 +1,5 @@
-UiGEN-Core
-==========
+UiGEN Core 
+=====================
 
 UiGEN Core 
 
@@ -33,4 +33,5 @@ Information about quick start soon.
 
 ## Copyright and license
 
-GPL2
+* Copyright 2014, Grzegorz Durtan <dadmor@gmail.com>, Maciej Dmowski <maciek@dmowsk.it>
+* Licensed under GPLv2, see LICENSE
