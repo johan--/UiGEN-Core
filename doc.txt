@@ -1,1 +1,2 @@
-doc is still undocumentable. 
+http://www.phpdoc.org/
+

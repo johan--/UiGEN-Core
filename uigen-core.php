@@ -3,11 +3,14 @@
 Plugin Name: UiGEN core
 Plugin URI: http://uigen.org
 Description: UiGEN classes - core functions to realize UiGEN process modeler
-Authors: UiGEN Team: dadmor | bastetmilo | minimal
+Authors: UiGEN Team: dadmor | minimal
 Authors URI: dadmor@gmail.com
 */
 
 /* This plugin add UiGEN classes to uour plugin directory */
+
+// Plugin VERSION
+define("UiGEN_CORE_VER", "0.1.1");
 
 $filename = __FILE__;
 register_activation_hook($filename,'my_first_install');
@@ -124,11 +127,20 @@ function UiGEN_menu()
 
 // main plugin menu callback
 function uigen_core(){
-
-  echo '<h1>Welcome to UiGEN CORE plugin.</h1>';
+  echo '<div class="wrap">';
+  echo '<h2>Welcome to UiGEN CORE plugin.</h2>';
   echo '<p>This is core methods package to work UiGEN family products.</p>';
+  
+  // check theme version
+  if(@constant('UiGEN_THEME_VER') != ''){
+    echo '<div id="message" class="updated"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:#7ad03a"> is CORRECT</span>';
+    echo '<br/>Your theme is: '.constant('UiGEN_THEME_VER').' </p><div>';
+  }else{
+    echo '<div id="message" class="error"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme</p><div>';
+  }
 
-  echo '<div id="message" class="error below-h2"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme<p><div>';
+  echo '</div>';
+
 }  
 
 // submenu calback function
