@@ -2,7 +2,7 @@
 /*
 Plugin Name: UiGEN core
 Plugin URI: http://uigen.org
-Description: UiGEN classes - core functions to realize UiGEN process modeler
+Description: UiGEN classes and libraries - core functions to realize UiGEN display and process modeler
 Authors: UiGEN Team: dadmor | minimal
 Authors URI: dadmor@gmail.com
 */
@@ -129,7 +129,7 @@ function UiGEN_menu()
 function uigen_core(){
   echo '<div class="wrap">';
   echo '<h2>Welcome to UiGEN CORE plugin.</h2>';
-  echo '<p>This is core methods package to work UiGEN family products.</p>';
+  echo '<p>UiGEN CORE plugin is pack of classes and libraries - core functions to realize UiGEN display and process modeler.</p>';
   
   // check theme version
   if(@constant('UiGEN_THEME_VER') != ''){
