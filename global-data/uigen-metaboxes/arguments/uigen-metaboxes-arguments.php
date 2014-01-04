@@ -28,5 +28,19 @@ $uigen_metaboxes = array(
 			'file_type' => 'json' // [json,php_array,css]
 		),						
 	),
+	/*'template_hierarchy_posttype_test' => array(
+		'template_hierarchy_posttype_test',			// $id
+		'Form box',								// $title
+		'alpacaform_box',						// $callback [alpaca_form_box,save_as_file_box]
+		'template_hierarchy',					// $post_type
+		'normal',								// $context
+		'high',									// $priority
+		array(
+			// Alpaca form box
+			'data_path' => plugins_url().'/uigen-core/global-data/uigen-alpacaform/arguments/',
+			'schema_file' => 'register-posttype-schema.json',				
+			'options_file' => 'register-posttype-options.json',
+		),						
+	),*/
 );
 ?>
