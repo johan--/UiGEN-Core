@@ -2,9 +2,11 @@
 // ###############################################################################
 
 function alpacaform_box($post, $metabox){
-  //echo get_post_meta($post->ID, 'ui_'.$metabox['id'],true);
+  $data = get_post_meta($post->ID, 'ui_'.$metabox['id'],true);
+  //var_dump($data);
+  
   echo '<div id="'.$metabox['id'].'_form" class="stuffbox"></div>';
-  echo '<div id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" /></div>';
+  echo '<div id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
   ?>
 
   <script type="text/javascript">
