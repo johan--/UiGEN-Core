@@ -14,8 +14,9 @@ $uigen_metaboxes = array(
 			'options_file' => 'template-hierarchy-options.json',
 			// Path to save alpaca form as file
 			'file_save_url' => ABSPATH . 'wp-content/plugins/uigen-core/global-data/template_hierarchy/arguments/',
-			'save_data_type' => 'json', // [json , php]
-			'save_data_model' => 'one_to_one'
+			'save_data_type' => 'php', // [json , php]
+			'save_data_model' => 'one_to_one',
+			'convert_to_wp_keys_format' => array('file_name','cell_name','key3')
 		),						
 	),
 	'template_hierarchy_savebox' => array(
@@ -32,7 +33,7 @@ $uigen_metaboxes = array(
 			//'file_type' => 'json' // [json,php_array,css]
 		),						
 	),
-	/*'template_hierarchy_posttype_test' => array(
+	'template_hierarchy_posttype_test' => array(
 		'template_hierarchy_posttype_test',			// $id
 		'Form box',								// $title
 		'alpacaform_box',						// $callback [alpaca_form_box,save_as_file_box]
@@ -47,6 +48,6 @@ $uigen_metaboxes = array(
 			// ----------------------------------------------------
 			'file_save_url' => ABSPATH . 'wp-content/plugins/uigen-core/global-data/template_hierarchy/arguments/',
 		),						
-	),*/
+	),
 );
 ?>
