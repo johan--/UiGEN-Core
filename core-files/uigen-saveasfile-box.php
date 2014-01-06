@@ -10,7 +10,7 @@ function saveasfile_box($post, $metabox){
 // save post function
 function save_saveasfile_box( $post_id ) {
 
-	include ABSPATH . 'wp-content/plugins/uigen-core/global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
+	include ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
 	
 	foreach ($uigen_metaboxes as $metabox) {
 		// check boxes into current posttype
