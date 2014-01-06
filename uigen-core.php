@@ -18,7 +18,7 @@ register_deactivation_hook($filename, 'my_first_reinstall');
 
 
 /* skort functions document */
-require_once( ABSPATH . '/wp-content/plugins/uigen-core/short-functions/short-functions.php' );
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/short-functions/short-functions.php' );
 
 
 
