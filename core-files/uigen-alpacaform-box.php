@@ -21,7 +21,10 @@ function alpacaform_box($post, $metabox){
           }
           ?>
           // ----------------------------------------------
-          //"optionsSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['options_file'];?>",
+          "optionsSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['options_file'];?>",
+          
+
+
           "schemaSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['schema_file'];?>",
           // ----------------------------------------------
           // add form methods
