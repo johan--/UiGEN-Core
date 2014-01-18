@@ -1,0 +1,22 @@
+{
+    "fields": {
+        "item": {
+            "fields": {
+                "grid_cells": {  
+                    "fields": {
+                        "item": {
+                            "fields": {
+                                "slots": {                 
+                                    "label": "Slots",
+                                    "helper": "Multi select with 'Ctrl'",
+                                    "type": "select",                                    
+                                    "multiple": true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }                
+}

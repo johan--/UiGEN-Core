@@ -1,0 +1,33 @@
+{
+
+	"type": "array",
+    "items": {
+        "title": "Template hierarchy file",
+        "type": "object",
+        "properties": { 
+        	"grid_name": {
+                "title": "Grid name",
+                "type": "string",
+                "enum": ["bstp2-h_4x8_f","bstp2-h_12_f","bstp2-h_8x4_f","bstp2-h_2x8x2_f"],
+                "optionLabels": ["Vanilla Flavor", "Chocolate Flavor", "Coffee Flavor", "Coffee Flavor"]
+            },
+            "grid_cells": {
+                "title": "Grid cells",
+                "type": "array",
+                "items": {
+                	"type": "object",
+                    "properties": {
+	                	"cell_name": {   		
+							"type": "string",
+			            	"enum": ["Header" , "Banner" , "Content", "Sidebar_left" , "Sidebar_right" , "Footer"]
+			        	},
+			        	"slots": {   		
+							"type": "string",
+			            	"enum": ["Logo", "Menu" , "Content" , "Excerpt-thumbnail" , "Post-loop" , "Message" , "Form"]
+			        	}
+		        	}
+                }
+            }           
+        }
+    } 
+}

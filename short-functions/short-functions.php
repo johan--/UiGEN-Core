@@ -5,6 +5,11 @@ function uigen_content(){
     $content = str_replace(']]>', ']]&gt;', $content);
     return $content;
 }
+function uigen_excerpt(){
+   	global $post;
+   	$content = $post->post_excerpt;
+    return $content;
+}
 function uigen_menu_swith($args){
 	if ( is_user_logged_in() ) {
 	    //var_dump('register',$args);
