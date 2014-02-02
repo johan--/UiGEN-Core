@@ -19,4 +19,18 @@ function uigen_menu_swith($args){
 	    return $args['unregister'];
 	}
 }
+// ------------------------------------
+function uigen_addattr($element_schema,$attr_data){
+	foreach ($element_schema['element_attr'] as $key => $value) {
+		if($key == $attr_data){
+
+			
+			$output = ' class="'.$value['class'].'" ';
+			$output .= ' style="'.$value['style'].'" ';
+
+			return $output;
+		}
+	}
+	
+}
 ?>

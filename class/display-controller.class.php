@@ -39,7 +39,7 @@ class ThemeDisplayController {
 	// loop user data model
 	private $loop_data;
 
-	public $string;
+	public $html;
 
 	public function __construct($args){
 		$this -> args = $args;
@@ -56,10 +56,16 @@ class ThemeDisplayController {
 		 	$this -> args = $args;
 		}
 		if($grid_name == 'false'){
-			echo 'data mishmashroom and die - i dont have grid'; die(); 
+			echo 'data mishmashroom and die - i dont have grid name'; die(); 
 		}else{
-			require(TEMPLATEPATH . $this -> grids_path .'/grid-'.$grid_name.'.php');
+			$grid_filename = TEMPLATEPATH . $this -> grids_path .'/grid-'.$grid_name.'.php';
+			if(file_exists($grid_filename )==false){
+				echo $grid_filename.'<br/>i dont find grid file :/';
+			}else{
+				require($grid_filename);
+			}
 		}
+		
 	}
 	// --------------------------------
 	public function tdc_get_slot($slotName){			
@@ -109,12 +115,6 @@ class ThemeDisplayController {
 			$slot['tpl_part'] = get_post_meta($post->ID, $slot['custom_tpl_part'], true);			
 		}
 
-		// set content as string
-		if(@$slot['string'] != ''){
-			// TODO string not working !!!!
-			$this -> string = $slot['string'];
-		
-		}	
 
 		// get tplpart name from queue
 		if(@$slot['tpl_part_queue'] != ''){	
@@ -129,12 +129,29 @@ class ThemeDisplayController {
 		}
 
 		
-		
+		// check: What da fuck is display guardian ????
 		$displayGuardian = $this -> tdc_list_owner_rules($slot);
 
+		// -------------------------------------------------------
+		// -------------------------------------------------------
+		// DISPLAY ELEMENT
+		// -------------------------------------------------------
 		if($displayGuardian == true){
-			get_template_part($slot['tpl_path'] , $slot['tpl_part']);
+			// debug template elements
+			if($_GET['debugtpl'] == 'true'){
+				echo '<pre style="background-color:#f0ad4e">'.$slot['tpl_part'].'</pre>';
+			}
+			
+			if(@$slot['html'] != ''){
+
+				echo $this -> html = $slot['html']; 		
+			}else{	
+			
+				get_template_part($slot['tpl_path'] , $slot['tpl_part']);
+			}
 		}
+		// -------------------------------------------------------
+		// -------------------------------------------------------
 
 	}
 
@@ -147,16 +164,17 @@ class ThemeDisplayController {
 			$post = get_post($slot['post_id']); 
 		}
 
-		var_dump($this -> string);
-		if($this -> string != ""){
+		var_dump($this -> content);
+		if($this -> content != ""){
 			include(TEMPLATEPATH . '/'. $slot['tpl_path'] . '-' . $slot['tpl_part'] . '.php');
 		}else{
-			print($this -> string);
+			print($this -> content);
 		}
 	}
 	// ------------------------------------------------
 	public function tdc_get_loop($slot){	
 		global $post;
+		$temp_post = $post;
 		query_posts( $slot['query_args'] );
 		$this -> loopCounter = 0;
 		if ( have_posts() ) { 
@@ -169,6 +187,7 @@ class ThemeDisplayController {
 	
 			get_template_part( 'theme-template-parts/content/content' , 'empty-query' ); 
 		}
+		$post = $temp_post;
 	}
 	// ------------------------------------------------
 	public function tdc_get_user_loop($slot){	
