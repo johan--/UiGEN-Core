@@ -187,16 +187,41 @@ function uigen_core(){
 
 
  <style>
-  .container{margin-bottom:20px; position:relative;}
+  .container{margin-top:20px; position:relative;}
+  #grid-panel {margin-top:10px;}
+  
+  /* SPAN element */
   .sortable-helper{position:relative; width:840px; height:140px;}
-  .sortable { width:100%; height:100%; position:relative; list-style-type: none; margin: 0; padding: 0;  border:1px dashed #ccc;  background-color:#fff; box-shadow: inset 3px 3px 5px rgba(0,0,0,0.1);}
-  .sortable li { background-image:none; background-color:#efefef; height: 70px; border:0; box-shadow: inset -1px -1px 1px rgba(0,0,0,0.2); margin:0; opacity:0.8;}
-  .sortable li span { position: absolute; }
+  .sortable { width:100%; height:100%; position:relative; list-style-type: none; margin: 0; padding: 0;  border:1px dashed #ccc;  background:#fff url('<?php echo plugins_url();?>/UiGEN-Core/img/grid_bg.png'); box-shadow: inset 3px 3px 5px rgba(0,0,0,0.1);}
+  .sortable .ui-state-default { background-image:none; background-color:#77C0DD; height: 70px; border:0; box-shadow: inset -1px -1px 1px rgba(0,0,0,0.3); margin:0; opacity:0.7;}
+  .sortable .ui-state-default:hover{opacity:0.9;}
+  .sortable .ui-state-default span { position: absolute; }
   .ui-state-default{display:inline; float:left; width:280px;}
-  .span-header{ width:100%; background-color:#333; color:#fff; }
+
+  .span-header{ width:100%; background-color:#333; color:#fff; height:20px; margin-top:-20px; padding:3px 0px; }
   .span-panel{position:absolute; left:845px; top:0;}
+  
+  /* SPAN add button */
   .ico{border:1px solid #ccc; width:100px; height:20px; padding:3px; text-align: center;}
   .delete-span{z-index: 2000;}
+  
+  /* BLOCKS  */
+  .blocks-repo{border:1px solid #ccc; background:#ddd;}
+  .block-container{width:100%; height:100%;}
+  .block{margin:0; padding:5px; background-color: rgba(255,255,255,0.3); box-shadow: inset -1px -1px 1px rgba(255,255,255,1);}
+  .block-body{background-color:#999;border:1px solid #888;}
+  .block-highlight{border-top:5px solid green;}
+
+  /* BLOCKS SPECYFIC */
+  .b_logo .block-body{  padding:19px 10px;}
+  .b_menu .block-body{ padding:2px 10px;}
+  
+  .b_excerpt .block-title{ padding:2px 10px 2px 10px; background-color:#999;border:1px solid #888;}
+  .b_excerpt .block-body{ padding:2px 10px 2px 10px; margin-top:1px;}
+
+
+
+
   </style>
   <script>
   
@@ -212,7 +237,8 @@ function uigen_core(){
     </thead>
     <tbody id="the-list">
       <tr class="active">
-        <td>
+        <!-- GRID -->
+        <td width="950">
           <div id="layout_creator">
           <div id="grid">
 
@@ -223,7 +249,18 @@ function uigen_core(){
           </div>
           </div>
         </td>
-        <td>Blocks</td>
+         <!-- GRID -->
+        <td>
+          <ul class="blocks-repo">
+            <li class="block b_logo"><div class="block-body">LOGO</div></li>
+            <li class="block b_menu"><div class="block-body">MENU: menu1 | menu2 | menu3</div></li>
+            <li class="block b_excerpt">
+               <div class="block-title">Excerpt title</div>
+              <div class="block-body">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+            </li>
+          </ul>
+
+        </td>
       </tr>    
     </tbody>  
   </table>
@@ -231,7 +268,8 @@ function uigen_core(){
 </div>
 
 <script>
-  var resizable_val = {
+    var zindex = 10000;
+    var resizable_val = {
       grid: 70,     
       containment: ".sortable",
       handles: "e, s",
@@ -239,13 +277,31 @@ function uigen_core(){
     };
     var sortable_val = {
       connectWith: ".sortable",
-      cursor: 'pointer',
+      //cursor: 'pointer',
     };
 
-  var resizable_container = {
-    grid: 70, 
-    handles: "s",   
-  }
+    var block_into_repo = {
+      connectToSortable: ".block-container",
+      helper: "clone",
+      start: function() {
+        //$(this).css('background-color','#666');
+      },
+      stop: function() {
+        //$(this).css('background-color','#999');
+      },
+      //revert: "invalid"
+    }
+
+    var block_container = {
+      connectWith:'.block-container',
+      placeholder: "block-highlight"
+      //revert: true
+    }
+
+    var resizable_container = {
+      grid: 70, 
+      handles: "s",   
+    }
 
 
   $(function() {
@@ -275,13 +331,22 @@ function uigen_core(){
   span += '<div style="float:right"><a class="delete-span" href="#">Remove [X]</a></div>';
   span += '<br style="clear:both"/>';
   span += '</div>  ';
+  span += '<ul class="block-container"></ul> ';
   span += '</li>   ';         
 
+
+$('.blocks-repo').children('.block').draggable(block_into_repo);
 
 
 $("#layout_creator").on( "click",'.add-span', function(event) {
     $(this).parent().parent().children('.sortable-helper').children('ul').append(span);
     $(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').resizable(resizable_val);
+
+
+    $(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').children('ul').sortable(block_container);
+   //$('.block-container').sortable(block_container);
+    //$('.block-container').children('.block').draggable( block_into_span );
+
 });
 
 
@@ -296,6 +361,19 @@ $("#layout_creator").on( "click",'.delete-span', function(event) {
     event.preventDefault();
     $(this).parent().parent().parent().remove();
 });
+
+
+$("#layout_creator").on( "click",'.ui-state-default', function(event) {
+    var display = $( this ).children('.span-header').css( "display" );
+
+    if(display == 'block'){
+      $(this).children('.span-header').css('display','none');
+    }else{
+      $(this).children('.span-header').css('display','block');
+    }
+});
+
+
 
 </script>
 
