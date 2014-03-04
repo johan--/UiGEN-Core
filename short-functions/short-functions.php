@@ -20,17 +20,27 @@ function uigen_menu_swith($args){
 	}
 }
 // ------------------------------------
+function uigen_nav_menu(){
+	global $TDC;
+    $menu = $TDC->args[$TDC->current_slot]['menu'];
+    if($TDC->args[$TDC->current_slot]['walker'] != false){
+        $walker = $TDC->args[$TDC->current_slot]['walker'];
+        include( TEMPLATEPATH . '/theme-template-parts/walkers/'.$walker.'.php' ); 
+        $obj = create_function('$name','return new $name;');
+        $menu['walker'] = $obj($walker);
+        return $menu;
+    }    
+}
+
 function uigen_addattr($element_schema,$attr_data){
 	foreach ($element_schema['element_attr'] as $key => $value) {
 		if($key == $attr_data){
-
 			
 			$output = ' class="'.$value['class'].'" ';
 			$output .= ' style="'.$value['style'].'" ';
 
 			return $output;
 		}
-	}
-	
+	}	
 }
 ?>

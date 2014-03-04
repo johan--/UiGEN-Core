@@ -47,9 +47,9 @@ class FlowController{
 			@$this -> next_step = $this -> flow_arg[$this -> post_type][$this -> current_step]['next_step'];	
 		}
 
-		//echo '<br/> ## Flow controll ---------------------------------------------------------------------- #<br/>';
-		//echo '## Jestem w kroku: '. $this -> current_step.' następny krok to: '.$this -> next_step;
-		//echo '<br/>## ----------------------------------------------------------------------------------------- #<br/>';
+		// echo '<br/> ## Flow controll ---------------------------------------------------------------------- #<br/>';
+		// echo '## Jestem w kroku: '. $this -> current_step.' następny krok to: '.$this -> next_step;
+		// echo '<br/>## ----------------------------------------------------------------------------------------- #<br/>';
 
 		return $this -> display_arg;
 		

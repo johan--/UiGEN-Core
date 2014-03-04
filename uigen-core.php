@@ -337,24 +337,31 @@ function uigen_core(){
 
 $('.blocks-repo').children('.block').draggable(block_into_repo);
 
-
+/* ADD SPAN ELEMENT */
 $("#layout_creator").on( "click",'.add-span', function(event) {
-    $(this).parent().parent().children('.sortable-helper').children('ul').append(span);
-    $(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').resizable(resizable_val);
-
-
-    $(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').children('ul').sortable(block_container);
-   //$('.block-container').sortable(block_container);
-    //$('.block-container').children('.block').draggable( block_into_span );
-
+    element =  $(this).parent().parent().children('.sortable-helper').children('ul');
+    add_span_element(element);
 });
+function add_span_element(element){
+    element.append(span);
+    element.children('li:last-child').resizable(resizable_val);
+    element.children('li:last-child').children('ul').sortable(block_container);
+}
+/* ^^^^^^^^^^^^^^^^^ */
 
-
+/* ADD CONTAINER ELEMENT */
 $("#layout_creator").on( "click",'.add-container', function(event) {
-    $(this).parent().parent().children('#grid').append(container);
-    $(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').children('ul').sortable(sortable_val);
-    $(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').resizable(resizable_container);
+    element =  $(this).parent().parent().children('#grid');
+    add_container_element(element);
+    
 });
+function add_container_element(element){
+    element.append(container);
+    element.children('.container:last-child').children('.sortable-helper').children('ul').sortable(sortable_val);
+    element.children('.container:last-child').children('.sortable-helper').resizable(resizable_container);
+}
+/* ^^^^^^^^^^^^^^^^^ */
+add_container_element( $("#grid") );
 
 
 $("#layout_creator").on( "click",'.delete-span', function(event) {

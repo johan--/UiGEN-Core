@@ -8,6 +8,7 @@ function add_posttype($args){
 	$my_post;
 	$posttype_regname = $args['call_prop']['posttype']; 	
 
+
 	foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
 
 			if($key == 'post_ID'){
@@ -41,6 +42,7 @@ function add_posttype($args){
 			//var_dump($my_post['ID']);
 			$my_post_ID = ($my_post['ID']);
 
+
 	}else{
 		
 			$my_post_ID = wp_insert_post( $my_post );
@@ -63,13 +65,15 @@ function add_posttype($args){
 					} 
 			}
 			// add taxonomy
-			foreach ($args['call_prop']['taxonomy'] as $prop_value) {	
+			if( $args['call_prop']['taxonomy'] != NULL ){
+				foreach ($args['call_prop']['taxonomy'] as $prop_value) {	
 
-					if($key == $prop_value){
+						if($key == $prop_value){
 
-						$cat_ids = intval($value['value']);
-						wp_set_object_terms( @$my_post_ID, $cat_ids, $value['args']['taxonomy'] );					
-					} 
+							$cat_ids = intval($value['value']);
+							wp_set_object_terms( @$my_post_ID, $cat_ids, $value['args']['taxonomy'] );					
+						} 
+				}
 			}
 			// add thumbnail
 			foreach ($args['call_prop']['thumbnail'] as $prop_value) {	

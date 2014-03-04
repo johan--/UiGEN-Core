@@ -45,6 +45,8 @@ class SendPostData {
 	//public $placeholder;
 	public $required;
 	public $pattern;
+	public $readonly;
+	public $disable;
 
 	public $name;
 	public $value;
@@ -102,6 +104,8 @@ class SendPostData {
 					@$this -> checked 		= 	$formElement['checked']; // który zaznaczony		
 					@$this -> required 		= 	$formElement['required']; // czy wymagane	
 					@$this -> pattern 		= 	$formElement['pattern']; // wyrażenie regularne dla walidacji
+					@$this -> readonly 		= 	$formElement['readonly']; // wyrażenie regularne dla walidacji
+					@$this -> disabled 		= 	$formElement['disabled']; // wyrażenie regularne dla walidacji
 					@$this -> name 			= 	$formElement['name'];	// atrybut obiektu forma
 					@$this -> value 		= 	$formElement['value'];	// atrybut obiektu forma 
 					
@@ -160,10 +164,22 @@ class SendPostData {
 		 				// dont display input field
 		 			}else{
 
+
+	 					// debug excerption
+						if($_GET['debug']=='true'){
+							echo '<div style="border:1px dashed #000; margin:5px; background-color:#F08043; background-color:#F7CEB7"><div style="background-color:#F08043; padding:3px;"><b>element:</b> '.$this->data_arg['prop']['tpl_path'].'-'.$this -> type.'</div>';
+							
+						}
+
 		 				// ------------------------------------------------------------------
 		 				// CREATE FORM ELEMENT
 		 				get_template_part($this->data_arg['prop']['tpl_path'] ,$this -> type);
 		 				// ------------------------------------------------------------------
+
+		 				// debug excerption
+						if($_GET['debug']=='true'){
+							echo '</div>';
+						}
 		 			}
 			 	}
 
@@ -293,7 +309,13 @@ class SendPostData {
 	            	}
 	            	if($attrName == 'pattern'){
 	            		$this -> pattern = $attrValue;	            		
-	            	}            	
+	            	}  
+	            	if($attrName == 'readonly'){
+	            		$this -> readonly = $attrValue;	            		
+	            	} 
+	            	if($attrName == 'disabled'){
+	            		$this -> disabled = $attrValue;	            		
+	            	}           	
 	            	if($attrName == 'name'){
 	            		$this -> name = $attrValue;	            		
 	            	}
@@ -308,7 +330,7 @@ class SendPostData {
 		            			$attrValue = $this->postMaper($this -> name, $this -> nameHash, $this -> value);
 		            			//echo $this -> name.'>'.$attrName."->".$attrValue.'<br/>';
 		            		}
-		            		
+
 							if($this -> cryptoValue == true){							
 		            			// ENCRYPTO
 								// ---------------------------------------
@@ -340,6 +362,9 @@ class SendPostData {
 						$this -> checked = '';
 						$this -> required = '';
 						$this -> pattern = '';
+						$this -> readonly = '';
+						$this -> disabled = '';
+
 						$this -> name = '';
 						$this -> value = '';
 
@@ -376,7 +401,7 @@ class SendPostData {
 	
 	public function crypto($pass , $str){
 		
-			/*$arr1 = str_split($str);
+			$arr1 = str_split($str);
 			$arr2 = array_reverse($arr1, true);
 			
 			$str = '';
@@ -385,14 +410,12 @@ class SendPostData {
 					$str .= $value;
 				}		
 			
-			return $str;*/
-			 
-			return str_rot13($str);
+			return $str;
 		
 	}
 	public function encrypto( $pass, $str){
 		
-			/*$arr1 = str_split($str);
+			$arr1 = str_split($str);
 			$arr2 = array_reverse($arr1, true);
 			
 			$str = '';
@@ -401,9 +424,7 @@ class SendPostData {
 					$str .= $value;
 				}		
 			
-			return $str;*/
-			
-			return str_rot13($str);
+			return $str;
 
 		
 	}
