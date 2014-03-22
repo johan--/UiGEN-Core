@@ -39,6 +39,25 @@ $uigen_posttypes = array(
         //'register_meta_box_cb' =>  'template_hierarchy_box',
     ),
     //----------------------------------------------------------------
+    'flows' => array(
+        'label' => 'Flows',
+        'labels' => array(
+            'name' => 'Flows',
+            'singular_name' => 'Flows',
+        ),
+        'supports' => array(
+            'title',
+            'editor',
+            'thumbnail',
+            'excerpt',                    
+            'author'
+        ),
+        'public' => true,
+        'show_in_menu' => false, 
+        //'taxonomies' => array('category'),
+        //'register_meta_box_cb' =>  'template_hierarchy_box',
+    ),
+    //----------------------------------------------------------------
     'logotypes' => array(
         'label' => 'Logotypy',
         'labels' => array(
