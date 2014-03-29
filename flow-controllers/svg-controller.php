@@ -30,8 +30,9 @@ function parse_svg($args){
 		);
 		function loadDone(svg, error) {  
 
-			$('#data_arg g').each(function (index,val) {
+			$('#data_arg g[name=form-element]').each(function (index,val) {
 				console.log(val);
+				alert($(this).attr('value'));
 			});
 			             
 			
