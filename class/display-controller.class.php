@@ -26,6 +26,7 @@ class ThemeDisplayController {
 	public $pstp_reg_id;  // register object ID - into acces properties
 	public $tpl_model; // 
 	public $args;
+	public $slotsHandler;
 	public $loopCounter;
 
 	public $postFormObject;
@@ -49,7 +50,9 @@ class ThemeDisplayController {
 	// --------------------------------
 	// MAIN DISPLAY CONTROLLERS
 	// --------------------------------
-	public function tdc_get_grid( $grid_name , $args , $postFormObject = false ){
+	public function tdc_get_grid( $grid_name , $args , $slotsHandler , $postFormObject = false ){
+
+
 
 		if( $_GET['debug'] == 'true' ){
 			decorate_debuged_page_header( $grid_name, $args );
@@ -59,6 +62,8 @@ class ThemeDisplayController {
 		// TODO: Remove args field if
 		if (!is_array($this->args)) {
 		 	$this -> args = $args;
+		 	$this -> slotsHandler = $slotsHandler;
+		 	
 		}
 		if($grid_name == 'false'){
 			echo 'data mishmashroom and die - i dont have grid name'; die(); 
@@ -73,8 +78,9 @@ class ThemeDisplayController {
 		
 	}
 	// --------------------------------
-	public function tdc_slots_handler($slotsArray,$handler){			
-			foreach ($slotsArray[$handler] as $value) {				
+	public function tdc_slots_handler($handler){			
+			
+			foreach ($this -> slotsHandler[$handler] as $value) {				
 				$this -> tdc_get_slot($value);
 			}
 	}

@@ -147,10 +147,22 @@ function decorate_slot($position,$slotName,$slot){
 	?>
 		<div class="debug-tplpart-decorator">
 			<div class="tplpart_decorator_options_panel">
-				<span class="glyphicon glyphicon-pushpin"></span> 
+				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
 				Slot name: <?php echo $slotName; ?>
 				
-				<button style="float:right;" type="button" class="debug-inspect btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> code</button>
+				<div class="btn-group" style="float:right; margin-top:-5px; margin-right:-5px">
+				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+				    <span class="glyphicon glyphicon-cog"></span>  <span class="caret" style="vertical-align:2px !important"></span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li><a href="#">Edit</a></li>
+				    <li class="debug-inspect"><a  href="#">Code</a></li>
+				    <li class="divider"></li>
+				    <li><a href="#">Delete slot</a></li>
+				  </ul>
+				</div>
+
+
 				<!-- <button style="float:right;" type="button" class="debug-edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button> -->
 				
 			</div>
@@ -225,25 +237,25 @@ window.onload=function(){
 	
 	jQuery( ".debug-inspect" ).click(function() {
 
-		jQuery(this).parent().parent().children('.portlet-inspect').css('left','10');
-		jQuery(this).parent().parent().children('.portlet-inspect').css('min-width',jQuery(window).width()-500);
+		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('left','10');
+		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('min-width',jQuery(window).width()-500);
 
 	 	if(jQuery(this).hasClass('open')==true){
 	 		
 
-	 		jQuery(this).parent().parent().children('.portlet-inspect').css('display','none');
+	 		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','none');
 	  		jQuery(this).removeClass('open');
 	  		jQuery(this).removeClass('btn-success');
 
 	 	}else{
- 			jQuery(this).parent().parent().children('.portlet-inspect').children('textarea').addClass('form-control');
-	  		jQuery(this).parent().parent().children('.portlet-inspect').css('display','block');
+ 			jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').addClass('form-control');
+	  		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','block');
 	  		jQuery(this).addClass('open');
 	  		jQuery(this).addClass('btn-success');
 
 	  		
-  			var height = jQuery(this).parent().parent().children('.portlet-inspect').children('pre').height();	  	
- 			jQuery(this).parent().parent().children('.portlet-inspect').children('textarea').css('height',height+22);
+  			var height = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('pre').height();	  	
+ 			jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').css('height',height+22);
 
 	  		
 		}
