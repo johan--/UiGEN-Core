@@ -1,5 +1,11 @@
 <style>
-.uigen-act-cell{border:1px dashed #999; padding:0px 5px; margin-bottom:10px; display:none;}
+.uigen-act-cell{
+	border:1px dashed #999; padding:10px 5px; margin-bottom:10px;  display:none;
+
+}
+.ui-state-hover,.ui-state-active,.ui-sortable-placeholder{
+	border:2px dashed green !important;
+}
 .modal-title{padding:10px; font-size:16px;}
 .container{
 	transition: border-width 0.5s ease-in-out;
@@ -217,6 +223,23 @@ window.onload=function(){
 		jQuery('#debugModal .modal-body').text('?data='+encodeURI(YAML));
 		
 	});
+
+
+	jQuery( ".uigen-act-cell" ).sortable({
+				connectWith: ".uigen-act-cell",
+      			cursor: 'pointer',
+			}
+		);
+	jQuery( ".uigen-act-cell" ).droppable({
+      accept: "debug-tplpart-decorator",
+      activeClass: "ui-state-hover",
+      hoverClass: "ui-state-active",
+      drop: function( event, ui ) {
+        jQuery( this )
+          .addClass( "ui-state-highlight" )
+         
+      }      
+    });
 };
 
 </script>
