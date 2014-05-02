@@ -46,8 +46,8 @@ $uigen_metaboxes = array(
 		array(
 			// Alpaca form box
 			'data_path' => plugins_url().'/UiGEN-Core/global-data/uigen-alpacaform/arguments/',
-			'schema_file' => 'btest-schema.json',				
-			'options_file' => 'btest-options.json',
+			'schema_file' => 'template-hierarchy-schema.json',				
+			'options_file' => 'template-hierarchy-options.json',
 			// ----------------------------------------------------
 
 			'file_save_url' => ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template_hierarchy/arguments/',

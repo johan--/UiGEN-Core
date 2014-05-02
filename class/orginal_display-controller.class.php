@@ -40,7 +40,6 @@ class ThemeDisplayController {
 	private $loop_data;
 
 	public $html;
-	public $string;
 
 	public function __construct($args){
 		$this -> args = $args;
@@ -49,11 +48,7 @@ class ThemeDisplayController {
 	// --------------------------------
 	// MAIN DISPLAY CONTROLLERS
 	// --------------------------------
-	public function tdc_get_grid( $grid_name , $args , $postFormObject = false ){
-
-		if( $_GET['debug'] == 'true' ){
-			decorate_debuged_page_header( $grid_name, $args );
-		}
+	public function tdc_get_grid( $grid_name , $args ,$postFormObject = false){
 		
 		$this -> postFormObject = $postFormObject;
 		// TODO: Remove args field if
@@ -73,17 +68,10 @@ class ThemeDisplayController {
 		
 	}
 	// --------------------------------
-	public function tdc_get_slot($slotName){	
-
-		
-
+	public function tdc_get_slot($slotName){			
 		$this -> current_slot = $slotName;
 		@$slot = $this -> args[$slotName];
-		if($slot != NULL){	
-
-			if($_GET['debug']=='true'){
-				decorate_slot('start',$slotName,$slot);
-			}		
+		if($slot != NULL){			
 			
 			// Add custom code before template code
 			if(@$slot['tpl_start'] != '') echo $slot['tpl_start'];
@@ -92,21 +80,13 @@ class ThemeDisplayController {
 				$functionName =  $slot['name'];
 				call_user_func_array(array($this, $functionName), array($slot));
 			}
-			if( $slot['type'] == 'tpl-part' ){
-
-					$this -> tdc_get_content($slot);
-
+			
+			if( $slot['type'] == 'tpl-part' ){	
+				$this -> tdc_get_content($slot);
 			}
 			
 			// Add custom code after template code
 			if(@$slot['tpl_end'] != '')  echo $slot['tpl_end'] ;
-
-			// debuger ----------------------------
-			if($_GET['debug']=='true'){
-				decorate_slot('end',$slotName,$slot);
-			}
-			// ------------------------------------
-
 		}else{
 			//echo '<br>----------------------<br>NIEZIDENTYFIKOWAŁEM NAZWY SLOTA<br>----------------------<br>';
 		}
@@ -116,7 +96,7 @@ class ThemeDisplayController {
 	// ------------------------------------------------
 	public function tdc_get_content($slot){
 		
-	
+		
 		global $post;
 
 
@@ -157,30 +137,18 @@ class ThemeDisplayController {
 		// DISPLAY ELEMENT
 		// -------------------------------------------------------
 		if($displayGuardian == true){
-
-			/*// debuger ----------------------------
-			if($_GET['debug']=='true'){
-				decorate_template_parts('start');
-			}*/
-			
-
-			if(@$slot['string'] != ''){
-				$this -> string = $slot['string'];
+			// debug template elements
+			if($_GET['debugtpl'] == 'true'){
+				echo '<pre style="background-color:#f0ad4e">'.$slot['tpl_part'].'</pre>';
 			}
 			
 			if(@$slot['html'] != ''){
+
 				echo $this -> html = $slot['html']; 		
 			}else{	
-				
-				get_template_part($slot['tpl_path'] , $slot['tpl_part']);
-				
-			}
-
-			/*// debuger ----------------------------
-			if($_GET['debug']=='true'){
-				decorate_template_parts('stop');
-			}*/
 			
+				get_template_part($slot['tpl_path'] , $slot['tpl_part']);
+			}
 		}
 		// -------------------------------------------------------
 		// -------------------------------------------------------
@@ -196,7 +164,7 @@ class ThemeDisplayController {
 			$post = get_post($slot['post_id']); 
 		}
 
-		//var_dump($this -> content);
+		var_dump($this -> content);
 		if($this -> content != ""){
 			include(TEMPLATEPATH . '/'. $slot['tpl_path'] . '-' . $slot['tpl_part'] . '.php');
 		}else{
@@ -229,7 +197,6 @@ class ThemeDisplayController {
 		//global $wp_query;
 		//
 		$user_query = new WP_User_Query(  $slot['query_args'] );
-		
 		// Get the results
 		$authors = $user_query->get_results();
 		
@@ -311,45 +278,59 @@ class ThemeDisplayController {
 		} 
 		
 	}
-	public function buildForm(){
-
-		
-
+	public function buildForm(){			
 		if($this -> postFormObject != null){
 			
 			$edit_id = $this->args[$this -> current_slot]['eid'];
-			
-			// debuger ----------------------------
-			if($_GET['debug']=='true'){
-				//decorate_slot('start','form-slot',key($this->args[$this -> current_slot]));
-			}
-			
+			$acces_hash = $this->args[$this -> current_slot]['hash'];
+		
+			$user_data = get_userdata( $edit_id );
+			$my_hash = sha1('sEWF343t34G#$FdWd22nf'.$edit_id.$user_data -> user_email.'fwe323dx');
+
+			//echo '<code>display_controller_acces_hash________:'. $acces_hash.'##</code><br>';
+			//echo '<code>display_controller_acces_rebuild_hash:'. $my_hash.'##</code><br>';
 
 			$accesGuardian = false;
 
 			// jeśli jest edit id to:
 			if($edit_id != ''){
+
+
+
 				// SPRAWDZ ADMINA I WŁASCICIELA OBIEKTU
 				$accesGuardian = $this -> tdc_list_owner_rules($slot);
+				
+				
+				/*echo '>>>>>>'.$edit_id;
+				var_dump($this->args[$this -> current_slot]);
+				$accesGuardian = $this -> tdc_list_owner_rules($this->args[$this -> current_slot]);
+				echo $accesGuardian;*/
+		
+
+
+				//------------------------------
+				// sprawdz czy zgadzają się hasze
+				if($my_hash == $acces_hash){
+					$accesGuardian = true;
+				}else{
+
+				}
+				//------------------------------
 			}else{
 				$accesGuardian = true;
 			}
+			
 
 			if($accesGuardian == true){
 				$this -> postFormObject -> addSendForm($edit_id);
 			}
 
-			// debuger ----------------------------
-			if($_GET['debug']=='true'){
-				//decorate_slot('end','form-slot',key($this->args[$this -> current_slot]));
-			}
-			
 
+		
 		}else{
 		
-			echo 'You try send form without $SPD data <br> set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);';
+			//echo 'You try send form without $SPD data <br> set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);';
 		}
-
 	}
 
 
@@ -375,6 +356,7 @@ class ThemeDisplayController {
 		// SPRAWDZ CZY RULES WYSTĘPUJE PODCZAS HASHOWANIA
 
 		if(@$slot['rules'] == 'owners_rules'){
+			
 			$displayGuardian = false;
 
 			// --------------------------------
