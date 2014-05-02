@@ -1,6 +1,36 @@
 <style>
+
+@media only screen 
+	and (min-width : 640px)
+	and (max-width : 1500px) {
+
+		.container{
+			width:80% !important;
+
+		}
+
+}
+#debug-manager{
+	position:fixed;
+	width: 250px;
+	height:100%;
+	right:0;
+	border-left:5px solid #333;
+	background-color: #555;
+	color:#eee;
+	padding:0px 20px;
+}
+body{
+	margin-right:250px !important;
+}
+
+
 .uigen-act-cell{
-	border:1px dashed #999; padding:10px 5px; margin-bottom:10px;  display:none;
+	border:2px dashed #999; 
+	padding:10px 5px;
+	margin-bottom:10px;
+	display:none;
+	box-shadow: 0px 0px 5px #888888;
 
 }
 .ui-state-hover,.ui-state-active,.ui-sortable-placeholder{
@@ -57,12 +87,22 @@
 	width:100%; 
 	z-index:1000; 
 	background-color:#ccc; 
-	border:1px solid #9E9E9E;
+	border:5px solid #9E9E9E;
+	margin-left:-20px;
+	margin-top:10px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 50px #333;
 }
 .portlet-inspect textarea{
 	float:left; width:50%; margin:0; padding:6px; font-family:courier; color:navy;
 }
+
 </style>
+
+<div id="debug-manager">
+	<h2>Slot list</h2>
+</div>
+
 <?php
 function decorate_debuged_page_header($gridName,$args){
 	?>
@@ -172,8 +212,13 @@ window.onload=function(){
 	 });
 	
 	jQuery( ".debug-inspect" ).click(function() {
+
+		jQuery(this).parent().parent().children('.portlet-inspect').css('left','10');
+		jQuery(this).parent().parent().children('.portlet-inspect').css('min-width',jQuery(window).width()-500);
+
 	 	if(jQuery(this).hasClass('open')==true){
 	 		
+
 	 		jQuery(this).parent().parent().children('.portlet-inspect').css('display','none');
 	  		jQuery(this).removeClass('open');
 	  		jQuery(this).removeClass('btn-success');
