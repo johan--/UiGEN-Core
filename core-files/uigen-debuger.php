@@ -38,7 +38,7 @@ body{
 	border:2px dashed green !important;
 }
 .modal-title{padding:10px; font-size:16px;}
-.container{
+/* .container{
 	transition: border-width 0.5s ease-in-out;
 }
 .row div{
@@ -47,7 +47,7 @@ body{
 	-o-transition: color 2s, outline-color .7s ease-out, margin 1s ease-in-out;
 	transition: color 2s, outline-color .7s ease-out, margin 1s ease-in-out;
 
-}
+} */
 /* ------------------------*/
 .debug-grid-bar-decorator{
 	background-color:#333; 
@@ -73,12 +73,13 @@ body{
 	background-color:#ccc; 
 	font-size:14px; 
 	display:none; 
-	padding:10px
+	padding:10px;
+	cursor:move;
 }
 .tplpart_decorator_options_panel span{
 	vertical-align:-1px; 
 	margin-left:3px; 
-	color:#666;
+	color:#666;	
 }
 
 .portlet-inspect{
@@ -96,6 +97,13 @@ body{
 }
 .portlet-inspect textarea{
 	float:left; width:50%; margin:0; padding:6px; font-family:courier; color:navy;
+}
+
+#pages_creator{
+	display:none;
+}
+#add_pages{
+	cursor:pointer;
 }
 
 </style>
@@ -119,11 +127,44 @@ body{
 function decorate_debuged_page_header($gridName,$args){
 	?>
 	<div class="debug-grid-bar-decorator">
+
+		<div id="pages_creator">
+			<h1>Pages Creator (not available yet)</h1>
+			<div style="margin-top:20px; margin-bottom:60px; padding-bottom:40px; border-bottom:1px solid #ccc;">
+
+				<a class="btn btn-primary btn-lg" role="button">
+					<div style="float:left; text-align:center; margin-top:10px;">
+						<span class="glyphicon glyphicon-file" style="font-size:90px"></span><br/>
+						<p>Page1</p>
+					</div>
+				</a>
+				<a class="btn btn-primary btn-lg" role="button">
+					<div style="float:left; text-align:center; margin-top:10px;">
+						<span class="glyphicon glyphicon-file" style="font-size:90px"></span><br/>
+						<p>Page2</p>
+					</div>
+				</a>
+				<a class="btn btn-primary btn-lg" role="button">
+					<div style="float:left; text-align:center; margin-top:10px;">
+						<span class="glyphicon glyphicon-file" style="font-size:90px"></span><br/>
+						<p>Page3</p>
+					</div>
+				</a>
+				
+				<br style="clear:both"/>
+			</div>
+
+		</div>
+
 		<span class="glyphicon glyphicon-th-large"></span> 
-		Grid name: <?php echo $gridName; ?>
+		<span>Grid name: <?php echo $gridName; ?></span>
+
+		<div id="add_pages" style="float:right; margin-right:10px">
+			<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
+		</div>
 		<?
-		decorate_slot('start',$gridName,$args);
-		decorate_slot('end',$gridName,$args);
+			decorate_slot('start',$gridName,$args);
+			decorate_slot('end',$gridName,$args);
 		?>			
 	</div>
 	
@@ -155,10 +196,10 @@ function decorate_slot($position,$slotName,$slot){
 				    <span class="glyphicon glyphicon-cog"></span>  <span class="caret" style="vertical-align:2px !important"></span>
 				  </button>
 				  <ul class="dropdown-menu" role="menu">
-				    <li><a href="#">Edit</a></li>
-				    <li class="debug-inspect"><a  href="#">Code</a></li>
+				    <li><a href="Javascript: void(0);">Edit</a></li>
+				    <li class="debug-inspect"><a  href="Javascript: void(0);">Code</a></li>
 				    <li class="divider"></li>
-				    <li><a href="#">Delete slot</a></li>
+				    <li><a href="Javascript: void(0);">Delete slot</a></li>
 				  </ul>
 				</div>
 
@@ -167,9 +208,12 @@ function decorate_slot($position,$slotName,$slot){
 				
 			</div>
 			<div class="portlet-inspect">
+
 				<button type="button" class="debug-urlencode btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon glyphicon-link"></span> Encode to URL</button>
 				<button type="button" class="debug-save btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save changes</button>
-				<br/>
+				<button type="button" class="debug-close btn btn-danger" style="float:right"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
+				
+				<h2>Programmers Mode::Object properties</h2>
 				
 				Data editor usage YAML syntax (<a href="http://wikipedia.org/wiki/YAML" target="_blank">about YAML on Wiki</a>)	
 				<br/>	
@@ -232,7 +276,7 @@ function decorate_template_parts($position){
 <script>
 window.onload=function(){
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
-	    jQuery( ".tplpart_decorator_options_panel" ).slideDown('slow');
+	    jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
 	 });
 	
 	jQuery( ".debug-inspect" ).click(function() {
@@ -259,6 +303,11 @@ window.onload=function(){
 
 	  		
 		}
+	});
+	jQuery( ".debug-close" ).click(function() {
+			jQuery(this).parent().css('display','none');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debug-inspect').removeClass('open');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debug-inspect').removeClass('btn-success');
 	});
 
 	jQuery( ".colored-grid" ).click(function() {
@@ -287,6 +336,19 @@ window.onload=function(){
 		}
 
 	});
+
+	jQuery( "#add_pages" ).click(function() {
+		if(jQuery(this).hasClass('open')==true){
+			jQuery(this).removeClass('open');
+			jQuery( "#pages_creator" ).slideUp(300);
+		}else{
+			jQuery(this).addClass('open');
+			jQuery( "#pages_creator" ).slideDown(500);
+		}
+
+	});
+
+
 	jQuery( ".debug-urlencode" ).click(function() {
 		var YAML = jQuery(this).parent().children('textarea').val();
 		jQuery('#debugModal .modal-body').text('?data='+encodeURI(YAML));
