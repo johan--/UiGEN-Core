@@ -73,9 +73,13 @@ class ThemeDisplayController {
 		
 	}
 	// --------------------------------
+	public function tdc_slots_handler($slotsArray,$handler){			
+			foreach ($slotsArray[$handler] as $value) {				
+				$this -> tdc_get_slot($value);
+			}
+	}
+	// --------------------------------
 	public function tdc_get_slot($slotName){	
-
-		
 
 		$this -> current_slot = $slotName;
 		@$slot = $this -> args[$slotName];

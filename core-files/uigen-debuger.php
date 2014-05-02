@@ -31,6 +31,7 @@ body{
 	margin-bottom:10px;
 	display:none;
 	box-shadow: 0px 0px 5px #888888;
+	min-height:60px !important;
 
 }
 .ui-state-hover,.ui-state-active,.ui-sortable-placeholder{
@@ -88,7 +89,7 @@ body{
 	z-index:1000; 
 	background-color:#ccc; 
 	border:5px solid #9E9E9E;
-	margin-left:-20px;
+	margin-left:-10px;
 	margin-top:10px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 50px #333;
@@ -101,6 +102,17 @@ body{
 
 <div id="debug-manager">
 	<h2>Slot list</h2>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Simple Logo</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Nav menu</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Single Post</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Post List</button><br/>	
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Promo Slider</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Clients Slider</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Shoping Cart</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Pagination</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Flow Form</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button><br/>
 </div>
 
 <?php
@@ -138,7 +150,7 @@ function decorate_slot($position,$slotName,$slot){
 				<span class="glyphicon glyphicon-pushpin"></span> 
 				Slot name: <?php echo $slotName; ?>
 				
-				<button style="float:right;" type="button" class="debug-inspect btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> Inspect</button>
+				<button style="float:right;" type="button" class="debug-inspect btn btn-default btn-xs"><span class="glyphicon glyphicon-search"></span> code</button>
 				<!-- <button style="float:right;" type="button" class="debug-edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button> -->
 				
 			</div>
