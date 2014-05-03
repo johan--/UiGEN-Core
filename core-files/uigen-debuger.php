@@ -34,9 +34,11 @@ body{
 	min-height:60px !important;
 
 }
-.ui-state-hover,.ui-state-active,.ui-sortable-placeholder{
-	border:2px dashed green !important;
+.ui-state-active{
+	border:3px solid #64992C !important;
+	box-shadow: 0px 0px 10px green;
 }
+/* .ui-draggable{max-width: 500px;} */
 .modal-title{padding:10px; font-size:16px;}
 /* .container{
 	transition: border-width 0.5s ease-in-out;
@@ -48,6 +50,16 @@ body{
 	transition: color 2s, outline-color .7s ease-out, margin 1s ease-in-out;
 
 } */
+#footer_save_info{
+	position:fixed; 
+	width:100%;
+	bottom:0;
+	z-index:10000;
+	padding:20px 20px 0px 20px;
+	display:none;
+	background-color: #555;
+	border-top:5px solid #333;
+}
 /* ------------------------*/
 .debug-grid-bar-decorator{
 	background-color:#333; 
@@ -64,17 +76,19 @@ body{
 /* ------------------------*/
 .debug-tplpart-decorator{
 	position:relative; 
-	border-top:2px solid #333; 
 	margin:10px; 
 	border:1px solid #9E9E9E; 
 	margin-bottom:5px; 
+	border-radius: 2px;
 }
 .tplpart_decorator_options_panel{
+	background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
 	background-color:#ccc; 
 	font-size:14px; 
 	display:none; 
 	padding:10px;
 	cursor:move;
+
 }
 .tplpart_decorator_options_panel span{
 	vertical-align:-1px; 
@@ -108,20 +122,7 @@ body{
 
 </style>
 
-<div id="debug-manager">
-	<h2>Slot list</h2>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Simple Logo</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Nav menu</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Single Post</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Post List</button><br/>	
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Promo Slider</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Clients Slider</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Shoping Cart</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Pagination</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Flow Form</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button><br/>
-</div>
+
 
 <?php
 function decorate_debuged_page_header($gridName,$args){
@@ -149,11 +150,9 @@ function decorate_debuged_page_header($gridName,$args){
 						<span class="glyphicon glyphicon-file" style="font-size:90px"></span><br/>
 						<p>Page3</p>
 					</div>
-				</a>
-				
+				</a>				
 				<br style="clear:both"/>
 			</div>
-
 		</div>
 
 		<span class="glyphicon glyphicon-th-large"></span> 
@@ -167,29 +166,42 @@ function decorate_debuged_page_header($gridName,$args){
 			decorate_slot('end',$gridName,$args);
 		?>			
 	</div>
+
+	<div id="footer_save_info">
+		<table>
+			<tr>
+				<td width="100%" valign="top">
+					<div id="saved_info_box" class="alert alert-success">
+
+					</div>
+				</td>
+				<td valign="top" style="padding-left:20px">
+					<button type="button" class="btn btn-default btn-success" style="width:210px; margin-bottom:10px">
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
+					</button>
+					<button type="button" class="btn btn-default" style="width:210px; margin-bottom:10px">
+						<span class="glyphicon glyphicon-step-backward"></span> Undo Last Change
+					</button>
+					<p>To reset changes refresh your browser</p>
+				</td>
+				
+			</tr>
+		</table>
+		
+	</div>
 	
 	<?php
 }
 
-function __decorate_slot($position,$slotName,$slot){
-	if($position=='start'){
-		?>
-			<div style="position:absolute; display:inline; border:2px solid red; background-color:yellow">
-		<?php
-	}
-	if($position=='end'){
-		?>
-			</div>
-		<?php
-	}
-}
+
+
 function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
 		<div class="debug-tplpart-decorator">
 			<div class="tplpart_decorator_options_panel">
 				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
-				Slot name: <?php echo $slotName; ?>
+				<!--Slot name: --><span class="slot_name"><?php echo $slotName; ?></span>
 				
 				<div class="btn-group" style="float:right; margin-top:-5px; margin-right:-5px">
 				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
@@ -273,6 +285,42 @@ function decorate_template_parts($position){
   </div>
 </div>
 
+
+<div id="debug-manager">
+	<h2>Slot list</h2>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Simple Logo</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Nav menu</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Single Post</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Post List</button><br/>	
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Promo Slider</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Clients Slider</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Shoping Cart</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Pagination</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Flow Form</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
+
+	
+	   
+
+
+	<div class="add_slot">dsfdsfsdfdsfdsfdsfdsf<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button></div><br/>
+	------------<br/>
+	<?php
+		require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+		$slotList = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/slot-list.yaml');		
+		
+
+	 
+		foreach ($slotList as $key => $value) {
+			decorate_slot('start',$slotName,$slot);
+			decorate_slot('end',$slotName,$slot);
+		}
+
+
+	?>
+
+</div>
+
 <script>
 window.onload=function(){
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
@@ -337,6 +385,18 @@ window.onload=function(){
 
 	});
 
+/*	jQuery( ".add_slot" ).mousedown(function() {
+		//alert('asdsa');
+
+	});*/
+	jQuery( "#debug-manager .debug-tplpart-decorator" ).draggable({
+      connectToSortable: ".uigen-act-cell",
+      helper: "clone",
+      containment:"document",
+      revert: "invalid"
+    });
+    jQuery( "div, button" ).disableSelection();
+
 	jQuery( "#add_pages" ).click(function() {
 		if(jQuery(this).hasClass('open')==true){
 			jQuery(this).removeClass('open');
@@ -355,22 +415,46 @@ window.onload=function(){
 		
 	});
 
+	
 
+	var reciveGuardian = 0;
 	jQuery( ".uigen-act-cell" ).sortable({
-				connectWith: ".uigen-act-cell",
-      			cursor: 'pointer',
-			}
-		);
+		connectWith: ".uigen-act-cell",
+      	cursor: 'pointer',
+      	// if change sort handler
+      	start: function( event, ui ) {
+      		reciveGuardian = 0;
+      	},
+      	receive: function( event, ui ) {
+      		reciveGuardian = 1;
+      	
+      	},
+      	stop: function( event, ui ) {
+      		if(reciveGuardian == 0){
+				jQuery('#saved_info_box').prepend('<p style="display:none">You sorted slots into grid handler. You must save this action.</p>');
+      		}else{
+      			jQuery('#saved_info_box').prepend('<p style="display:none">You remove slot into another handler. You must save this action.</p>');
+      		}
+      		jQuery('#saved_info_box').children('p').show('slow');
+      		jQuery('#footer_save_info').fadeIn('slow');
+      	}
+	});
 	jQuery( ".uigen-act-cell" ).droppable({
+      hoverClass: "ui-state-active" ,
+    });
+
+  
+
+
+	/*jQuery( ".uigen-act-cell" ).droppable({
       accept: "debug-tplpart-decorator",
       activeClass: "ui-state-hover",
       hoverClass: "ui-state-active",
       drop: function( event, ui ) {
-        jQuery( this )
-          .addClass( "ui-state-highlight" )
-         
+        jQuery( this ).addClass( "ui-state-highlight" )
+        alert('asdasd'); 
       }      
-    });
+    });*/
 };
 
 </script>

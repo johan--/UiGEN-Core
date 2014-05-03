@@ -70,7 +70,7 @@ class ThemeDisplayController {
 		}else{
 			$grid_filename = TEMPLATEPATH . $this -> grids_path .'/grid-'.$grid_name.'.php';
 			if(file_exists($grid_filename )==false){
-				echo $grid_filename.'<br/>i dont find grid file :/';
+				echo '<pre class="alert alert-warning" style="margin:20px"><b>GRID ERROR</b><br><br>'.$grid_filename.'<br/><b>I dont find grid file or you dont name it corectly :/ </b></pre>';
 			}else{
 				require($grid_filename);
 			}
@@ -79,11 +79,13 @@ class ThemeDisplayController {
 	}
 	// --------------------------------
 	public function tdc_slots_handler($handler){			
-			
-			foreach ($this -> slotsHandler[$handler] as $value) {				
+			//var_dump($this -> slotsHandler[$handler]);
+			foreach ($this -> slotsHandler[$handler] as $key=>$value) {				
 				$this -> tdc_get_slot($value);
 			}
 	}
+
+
 	// --------------------------------
 	public function tdc_get_slot($slotName){	
 
