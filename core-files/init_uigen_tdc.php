@@ -4,3 +4,6 @@ include(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/display-controller.class.
 @$TDC = new ThemeDisplayController( $post->ID ); 
 // depreciated args php array
 //include(get_template_directory().'/uigen_tpl_hierarchy.php' );
+
+
+

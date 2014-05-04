@@ -120,15 +120,7 @@ include 'core-files/uigen-shortcodes.php';
 //add_action('init', 'check_debuger');
 add_action('wp_enqueue_scripts', 'check_debuger');
 function check_debuger() {
-  //debuger
-  if($_GET['debug']=='true'){
-    include 'core-files/uigen-debuger.php';
-    //wp_register_script( 'jquery-ui', '//code.jquery.com/ui/1.10.4/jquery-ui.js');
-    wp_enqueue_script( 'jquery-ui-sortable' ); 
-    wp_enqueue_script( 'jquery-ui-droppable' ); 
-   
-   
-  }
+ 
 }
 
 

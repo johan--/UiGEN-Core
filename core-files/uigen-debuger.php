@@ -20,17 +20,23 @@
 	color:#eee;
 	padding:0px 20px;
 }
+#debug-manager .ui_slot_element{
+	display:none;
+}
+#debug-manager .btn-group{
+	display:none;
+}
 body{
 	margin-right:250px !important;
 }
 
 
 .uigen-act-cell{
-	border:2px dashed #999; 
-	padding:10px 5px;
+	border:2px solid #999; 
+	padding:10px;
 	margin-bottom:10px;
 	display:none;
-	box-shadow: 0px 0px 5px #888888;
+	box-shadow: 0px 0px 10px #888888;
 	min-height:60px !important;
 
 }
@@ -76,7 +82,7 @@ body{
 /* ------------------------*/
 .debug-tplpart-decorator{
 	position:relative; 
-	margin:10px; 
+	
 	border:1px solid #9E9E9E; 
 	margin-bottom:5px; 
 	border-radius: 2px;
@@ -209,7 +215,7 @@ function decorate_slot($position,$slotName,$slot){
 				  </button>
 				  <ul class="dropdown-menu" role="menu">
 				    <li><a href="Javascript: void(0);">Edit</a></li>
-				    <li class="debug-inspect"><a  href="Javascript: void(0);">Code</a></li>
+				    <li class="debugInspect"><a href="Javascript: void(0);">Code</a></li>
 				    <li class="divider"></li>
 				    <li><a href="Javascript: void(0);">Delete slot</a></li>
 				  </ul>
@@ -244,7 +250,7 @@ function decorate_slot($position,$slotName,$slot){
 	}
 	if($position=='end'){
 	?>
-		<br style="clear:both"/>
+		<div style="clear:both; height:0px; font-size:0px">&nbsp;</div>
 		</div>
 	<?php
 	}
@@ -288,6 +294,7 @@ function decorate_template_parts($position){
 
 <div id="debug-manager">
 	<h2>Slot list</h2>
+	<!--
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Simple Logo</button><br/>
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Nav menu</button><br/>
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Single Post</button><br/>
@@ -298,22 +305,24 @@ function decorate_template_parts($position){
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Pagination</button><br/>
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Flow Form</button><br/>
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
+	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button><br/>
+-->
 
-	
-	   
-
-
-	<div class="add_slot">dsfdsfsdfdsfdsfdsfdsf<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button></div><br/>
-	------------<br/>
 	<?php
 		require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-		$slotList = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/slot-list.yaml');		
-		
+			$slotList = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/slot-list.yaml');		
+			
+			global $DTDC;
+			//require_once(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/display-controller.class.php');	
+			@$DTDC = new ThemeDisplayController( $post->ID ); 
+	 		$DTDC -> args = $slotList;
 
-	 
 		foreach ($slotList as $key => $value) {
-			decorate_slot('start',$slotName,$slot);
-			decorate_slot('end',$slotName,$slot);
+			
+			//var_dump($TDC);
+			$DTDC -> tdc_get_slot($key);
+			//decorate_slot('start',$key,$slotList[$key]);
+			//decorate_slot('end',$slotName,$slot);
 		}
 
 
@@ -326,8 +335,11 @@ window.onload=function(){
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
 	    jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
 	 });
+	jQuery('#debug-manager').children('.debug-tplpart-decorator').children('.tplpart_decorator_options_panel').next().next().addClass('ui_slot_element');
 	
-	jQuery( ".debug-inspect" ).click(function() {
+
+
+	jQuery(document).on('click', "li.debugInspect", function() {
 
 		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('left','10');
 		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('min-width',jQuery(window).width()-500);
@@ -352,38 +364,13 @@ window.onload=function(){
 	  		
 		}
 	});
-	jQuery( ".debug-close" ).click(function() {
+	jQuery(document).on('click', "button.debug-close", function() {	
 			jQuery(this).parent().css('display','none');
-	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debug-inspect').removeClass('open');
-	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debug-inspect').removeClass('btn-success');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
 	});
 
-	jQuery( ".colored-grid" ).click(function() {
-		if(jQuery(this).hasClass('open')==true){
-			jQuery(this).removeClass('open');
-			jQuery(".container").css('background-color','rgba(72,136,239,0)');
-			jQuery(".container").css('border','0');
-
-			jQuery(".row div").css('outline','0');
-
-			jQuery(".debug-tplpart-decorator").css('-moz-box-shadow','none');
-			jQuery(".debug-tplpart-decorator").css('-webkit-box-shadow','none');
-			jQuery(".debug-tplpart-decorator").css('box-shadow','none');
-			
-		}else{
-			jQuery(this).addClass('open');
-			jQuery(".container").css('background-color','rgba(72,136,239,0.08)');
-			jQuery(".container").css('border','10px solid rgba(72,136,239,0.1)');
-
-			jQuery(".row div").css('outline','rgba(255,218,17,0.5) solid 1px');
-			jQuery(".row div").css('margin','10px');
-
-			jQuery(".debug-tplpart-decorator").css('-moz-box-shadow','1px 1px 5px #888');
-			jQuery(".debug-tplpart-decorator").css('-webkit-box-shadow','1px 1px 5px #888');
-			jQuery(".debug-tplpart-decorator").css('box-shadow','1px 1px 5px #888');
-		}
-
-	});
+	
 
 /*	jQuery( ".add_slot" ).mousedown(function() {
 		//alert('asdsa');
@@ -437,6 +424,9 @@ window.onload=function(){
       		}
       		jQuery('#saved_info_box').children('p').show('slow');
       		jQuery('#footer_save_info').fadeIn('slow');
+
+      		
+
       	}
 	});
 	jQuery( ".uigen-act-cell" ).droppable({
