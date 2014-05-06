@@ -52,12 +52,17 @@ class ThemeDisplayController {
 	// --------------------------------
 	// MAIN DISPLAY CONTROLLERS
 	// --------------------------------
-	public function tdc_get_grid( $grid_name , $args , $slotsHandler , $postFormObject = false ){
+	public function tdc_get_grid( $grid_name , $args , $slotsHandler = false, $postFormObject = false ){
 
 
 
 		if( $_GET['debug'] == 'true' ){
+			if($slotsHandler == false){
+				echo '<pre class="alert alert-warning" style="margin:20px"><b>SLOT HANDLER INFO</b><br>Slot handler is not defined</pre>'; 
+	
+			}
 			decorate_debuged_page_header( $grid_name, $args );
+
 		}
 		
 		$this -> postFormObject = $postFormObject;
@@ -68,7 +73,7 @@ class ThemeDisplayController {
 		 	
 		}
 		if($grid_name == 'false'){
-			echo 'data mishmashroom and die - i dont have grid name'; die(); 
+			echo '<pre class="alert alert-warning" style="margin:20px"><b>GRID ERROR</b><br><br>Grid name is false</pre>'; die(); 
 		}else{
 			$grid_filename = TEMPLATEPATH . $this -> grids_path .'/grid-'.$grid_name.'.php';
 			if(file_exists($grid_filename )==false){
@@ -366,7 +371,7 @@ class ThemeDisplayController {
 
 		}else{
 		
-			echo 'You try send form without $SPD data <br> set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);';
+			echo '<pre><b>FORM ERROR</b><br/>You try send form without $SPD data <br> set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);</pre>';
 		}
 
 	}

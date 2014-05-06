@@ -125,7 +125,17 @@ body{
 #add_pages{
 	cursor:pointer;
 }
+.modal-dialog{
+	margin:50px auto;
+}
 
+.purple{
+	background-image: linear-gradient(to bottom, #DFC2D0 0%, #95697F 100%)
+}
+.slot-fade{
+	outline:#FFD76E solid 6px;
+	box-shadow: 0px 0px 1100px 1180px #fff;
+}
 </style>
 
 
@@ -185,7 +195,7 @@ function decorate_debuged_page_header($gridName,$args){
 					<button type="button" class="btn btn-default btn-success" style="width:210px; margin-bottom:10px">
 						<span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
 					</button>
-					<button type="button" class="btn btn-default" style="width:210px; margin-bottom:10px">
+					<button type="button" class="undoLast btn btn-default" style="width:210px; margin-bottom:10px">
 						<span class="glyphicon glyphicon-step-backward"></span> Undo Last Change
 					</button>
 					<p>To reset changes refresh your browser</p>
@@ -205,7 +215,7 @@ function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
 		<div class="debug-tplpart-decorator">
-			<div class="tplpart_decorator_options_panel">
+			<div class="tplpart_decorator_options_panel <?php if($slot['debug_type'] == 'form'){ echo 'purple'; }?>">
 				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
 				<!--Slot name: --><span class="slot_name"><?php echo $slotName; ?></span>
 				
@@ -214,10 +224,26 @@ function decorate_slot($position,$slotName,$slot){
 				    <span class="glyphicon glyphicon-cog"></span>  <span class="caret" style="vertical-align:2px !important"></span>
 				  </button>
 				  <ul class="dropdown-menu" role="menu">
-				    <li><a href="Javascript: void(0);">Edit</a></li>
-				    <li class="debugInspect"><a href="Javascript: void(0);">Code</a></li>
+				  	<?php if($slot['debug_type'] == 'form'){ ?>
+				  	<li class="formSlotEdit">
+				  		<a href="Javascript: void(0);"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Edit Form </a>
+				  	</li>
+				  	<?php }else{ ?>
+				  	<li class="slotEdit  disabled">
+				  		<a href="Javascript: void(0);" ><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Edit Slot</a>
+				  	</li>
+				  	<?php } ?>
+
+				    <li class="slotProperties disabled">
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Properties</a>
+				    </li>
+				    <li class="debugInspect">
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Script</a>
+				    </li>
 				    <li class="divider"></li>
-				    <li><a href="Javascript: void(0);">Delete slot</a></li>
+				    <li class="deleteSlot">
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp; Delete slot</a>
+				    </li>
 				  </ul>
 				</div>
 
@@ -225,10 +251,11 @@ function decorate_slot($position,$slotName,$slot){
 				<!-- <button style="float:right;" type="button" class="debug-edit btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span> Edit</button> -->
 				
 			</div>
-			<div class="portlet-inspect">
 
+			<div class="portlet-inspect">
+			
 				<button type="button" class="debug-urlencode btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon glyphicon-link"></span> Encode to URL</button>
-				<button type="button" class="debug-save btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save changes</button>
+				<button type="button" class="debug-save-yaml btn btn-success" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save changes</button>
 				<button type="button" class="debug-close btn btn-danger" style="float:right"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
 				
 				<h2>Programmers Mode::Object properties</h2>
@@ -293,51 +320,45 @@ function decorate_template_parts($position){
 
 
 <div id="debug-manager">
-	<h2>Slot list</h2>
-	<!--
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Simple Logo</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Nav menu</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Single Post</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Post List</button><br/>	
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Promo Slider</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Clients Slider</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Shoping Cart</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Pagination</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Flow Form</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
-	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button><br/>
--->
 
-	<?php
-		require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-			$slotList = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/slot-list.yaml');		
-			
-			global $DTDC;
-			//require_once(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/display-controller.class.php');	
-			@$DTDC = new ThemeDisplayController( $post->ID ); 
-	 		$DTDC -> args = $slotList;
-
-		foreach ($slotList as $key => $value) {
-			
-			//var_dump($TDC);
-			$DTDC -> tdc_get_slot($key);
-			//decorate_slot('start',$key,$slotList[$key]);
-			//decorate_slot('end',$slotName,$slot);
-		}
-
-
-	?>
 
 </div>
 
 <script>
+var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
 window.onload=function(){
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
 	    jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
 	 });
-	jQuery('#debug-manager').children('.debug-tplpart-decorator').children('.tplpart_decorator_options_panel').next().next().addClass('ui_slot_element');
+	
+	jQuery(document).on('click', "li.slotEdit", function() {
+		alert(donateString);
+	});
+
+	jQuery(document).on('click', "li.formSlotEdit", function() {
+		jQuery(this).parent().parent().parent().parent().addClass('slot-fade');
+		jQuery(this).parent().parent().parent().parent().css('z-index','100');
+		jQuery('#debug-manager').css('z-index','101');
+		jQuery(this).parent().parent().parent().parent().find('.btn-group').css('display','none');
+
+		jQuery(this).parent().parent().parent().parent().find('.tplpart_decorator_options_panel').append('<button type="button" style="float:right; margin-top:-5px" class="btn btn-default btn-sm">Back to Slots drag&drop mode</button>');
+		
+
+	});
+	jQuery(document).on('click', "li.deleteSlot", function() {
+		jQuery(this).parent().parent().parent().parent().remove();
+	});
 	
 
+
+
+	jQuery(document).on('click', "li.slotProperties", function() {
+		alert(donateString);
+	});
+
+	jQuery(document).on('click', "#footer_save_info .undoLast", function() {
+		alert(donateString)
+	});
 
 	jQuery(document).on('click', "li.debugInspect", function() {
 
@@ -370,18 +391,38 @@ window.onload=function(){
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
 	});
 
-	
+	jQuery(document).on('click', "button.debug-save-yaml", function() {	
+			
+			jQuery(this).parent().css('display','none');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
+	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
+
+
+
+			var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
+			jQuery('.modal-content').children('div').remove();
+			jQuery('.modal-content').append(progressBar);
+
+			jQuery.ajax({
+			  type: "POST",
+			  url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-yaml.php",
+			  data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+			})
+			  .done(function( msg ) {
+			  	jQuery('.modal-content').children('div').remove();
+			  	jQuery('.modal-content').append(msg);
+			    
+			});
+	});
+
+
+
 
 /*	jQuery( ".add_slot" ).mousedown(function() {
 		//alert('asdsa');
 
 	});*/
-	jQuery( "#debug-manager .debug-tplpart-decorator" ).draggable({
-      connectToSortable: ".uigen-act-cell",
-      helper: "clone",
-      containment:"document",
-      revert: "invalid"
-    });
+	
     jQuery( "div, button" ).disableSelection();
 
 	jQuery( "#add_pages" ).click(function() {
@@ -433,9 +474,31 @@ window.onload=function(){
       hoverClass: "ui-state-active" ,
     });
 
-  
+	function loadSlotList(){
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-template-part-list.php?debug=true",
+			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+		})
+		.done(function( msg ) {	 
+			jQuery('#debug-manager').append(msg);
+			loadSlotListHandler();
+		});
+	}
+	loadSlotList();	
 
+	function loadSlotListHandler(){
 
+		jQuery('#debug-manager').children('.debug-tplpart-decorator').children('.tplpart_decorator_options_panel').next().next().addClass('ui_slot_element');
+		
+
+		jQuery( "#debug-manager .debug-tplpart-decorator" ).draggable({
+	      connectToSortable: ".uigen-act-cell",
+	      helper: "clone",
+	      containment:"document",
+	      revert: "invalid"
+	    });
+	}
 	/*jQuery( ".uigen-act-cell" ).droppable({
       accept: "debug-tplpart-decorator",
       activeClass: "ui-state-hover",
@@ -445,6 +508,14 @@ window.onload=function(){
         alert('asdasd'); 
       }      
     });*/
+
+	jQuery( "a" ).each(function( index ) {
+	  var debugerHref = jQuery( this ).attr('href') ;
+	  if(debugerHref != '#'){
+	  	jQuery( this ).attr('href',debugerHref+'?debug=true');
+	  }
+	});
+	
 };
 
 </script>

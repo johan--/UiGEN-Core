@@ -167,13 +167,17 @@ class SendPostData {
 
 	 					// debug excerption
 						if($_GET['debug']=='true'){
-							echo '<div style="border:1px dashed #000; margin:5px; background-color:#F08043; background-color:#F7CEB7"><div style="background-color:#F08043; padding:3px;"><b>element:</b> '.$this->data_arg['prop']['tpl_path'].'-'.$this -> type.'</div>';
+							echo '<div style="border:1px dashed #666; margin:5px; background-color:#eee">';
+/*								echo '<div style="background-color:#F08043; padding:3px;">';
+									echo '<b>element:</b> '.$this->data_arg['prop']['tpl_path'].'-'.$this -> type;
+								echo '</div>';*/
+							echo $this->data_arg['prop']['tpl_path'] ,$this -> type;
 							
 						}
 
 		 				// ------------------------------------------------------------------
 		 				// CREATE FORM ELEMENT
-		 				get_template_part($this->data_arg['prop']['tpl_path'] ,$this -> type);
+		 					get_template_part($this->data_arg['prop']['tpl_path'] ,$this -> type);
 		 				// ------------------------------------------------------------------
 
 		 				// debug excerption
