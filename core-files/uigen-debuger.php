@@ -146,70 +146,7 @@ function decorate_debuged_page_header($gridName,$args){
 	<div class="debug-grid-bar-decorator">
 
 		<div id="pages_creator">
-			<h1>Pages Creator (not available yet)</h1>
-
-			<div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
-				<div class="panel-heading"> 
-			  		<span class="glyphicon glyphicon-briefcase"></span>
-			  		Ośrodki
-				</div>
-				<!-- <div class="panel-body"></div> -->
-				<ul class="list-group">
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">View</a></li>	    
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">Form</a></li>
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">List</a></li>
-				</ul>
-				<div class="panel-footer"><a href="#">More options</a></div>
-			</div>
-
-			<div class="panel panel-primary" style="width:200px; float:left;">
-				<div class="panel-heading"> 
-			  		<span class="glyphicon glyphicon-briefcase"></span>
-			  		Ośrodki
-				</div>
-				<!-- <div class="panel-body"></div> -->
-				<ul class="list-group">
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">View</a></li>	    
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">Form</a></li>
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="#">List</a></li>
-				</ul>
-				<div class="panel-footer"><a href="#">More options</a></div>
-			</div>
-
-			
-			
-			<br style="clear:both"/>	
-			<button type="button" class="btn btn-primary btn-lg" style="">
-				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span> Add new page
-			</button>
-			<button type="button" class="btn btn-primary btn-lg" style="">
-				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-briefcase"></span> Add new posttype
-			</button>
-			<button type="button" class="btn btn-primary btn-lg" style="">
-				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> Add new users
-			</button>
-			<br style="clear:both"/>	
-
-			<div class="panel panel-primary" style="">
-				<div class="panel-heading"> 
-			  		<span class="glyphicon glyphicon-briefcase"></span>
-			  		Add new object
-				</div>
-				<div class="panel-body">
-					<div class="form-group">
-					    <label for="exampleInputEmail1">Object name</label>
-					    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter object name">
-					  </div>
-				</div>		
-				<div class="panel-footer">
-					<button type="button" class="btn btn-primary" style="float:right">
-						<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span> Add new object
-					</button>
-					<br style="clear:both"/>	
-				</div>
-			</div>
-
-			<br style="clear:both"/>	
+	
 		</div>
 
 		<span class="glyphicon glyphicon-th-large"></span> 
@@ -387,7 +324,7 @@ window.onload=function(){
 		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-forms-list.php",
-			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+			data: {  }
 		})
 		.done(function( msg ) {	 
 			jQuery('#debug-manager').append(msg);
@@ -463,6 +400,8 @@ window.onload=function(){
 			    
 			});
 	});
+
+
 
 
 
@@ -563,6 +502,17 @@ window.onload=function(){
 	  if(debugerHref != '#'){
 	  	jQuery( this ).attr('href',debugerHref+'?debug=true');
 	  }
+	});
+
+
+	jQuery.ajax({
+		type: "POST",
+		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel.php",
+		data: {  }
+	})
+	.done(function( msg ) {	 
+		jQuery('#pages_creator').append(msg);
+		//loadSlotListHandler();
 	});
 	
 };
