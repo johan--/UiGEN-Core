@@ -209,8 +209,6 @@ function decorate_debuged_page_header($gridName,$args){
 	<?php
 }
 
-
-
 function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
@@ -327,10 +325,11 @@ function decorate_template_parts($position){
 <script>
 var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
 window.onload=function(){
+
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
 	    jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
-	 });
-	
+	 });	
+
 	jQuery(document).on('click', "li.slotEdit", function() {
 		alert(donateString);
 	});
@@ -339,18 +338,29 @@ window.onload=function(){
 		jQuery(this).parent().parent().parent().parent().addClass('slot-fade');
 		jQuery(this).parent().parent().parent().parent().css('z-index','100');
 		jQuery('#debug-manager').css('z-index','101');
+		jQuery('#debug-manager').children().remove();
 		jQuery(this).parent().parent().parent().parent().find('.btn-group').css('display','none');
 
-		jQuery(this).parent().parent().parent().parent().find('.tplpart_decorator_options_panel').append('<button type="button" style="float:right; margin-top:-5px" class="btn btn-default btn-sm">Back to Slots drag&drop mode</button>');
+		jQuery(this).parent().parent().parent().parent().find('.tplpart_decorator_options_panel').append('<button type="button" style="float:right; margin-top:-5px" class="back-slots-mode btn btn-default btn-sm"><span class="glyphicon glyphicon-step-backward"></span> Back to Slots Mode</button>');
 		
-
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-forms-list.php",
+			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+		})
+		.done(function( msg ) {	 
+			jQuery('#debug-manager').append(msg);
+			//loadSlotListHandler();
+		});
 	});
+
+
 	jQuery(document).on('click', "li.deleteSlot", function() {
 		jQuery(this).parent().parent().parent().parent().remove();
+		jQuery('#saved_info_box').prepend('<p style="display:none">You deleted slot. You must save this action.</p>');
+		jQuery('#saved_info_box').children('p').show('slow');
+      	jQuery('#footer_save_info').fadeIn('slow');
 	});
-	
-
-
 
 	jQuery(document).on('click', "li.slotProperties", function() {
 		alert(donateString);
@@ -396,8 +406,6 @@ window.onload=function(){
 			jQuery(this).parent().css('display','none');
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
-
-
 
 			var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
 			jQuery('.modal-content').children('div').remove();
@@ -480,7 +488,7 @@ window.onload=function(){
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-template-part-list.php?debug=true",
 			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
 		})
-		.done(function( msg ) {	 
+		.done(function( msg ) {	
 			jQuery('#debug-manager').append(msg);
 			loadSlotListHandler();
 		});

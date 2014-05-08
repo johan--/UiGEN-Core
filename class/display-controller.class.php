@@ -47,6 +47,13 @@ class ThemeDisplayController {
 		$this -> args = $args;
 
 
+		// INIT DEBUGER
+		if($_GET['debug']=='true'){
+			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-debuger.php';
+			//wp_register_script( 'jquery-ui', '//code.jquery.com/ui/1.10.4/jquery-ui.js');
+			wp_enqueue_script( 'jquery-ui-sortable' ); 
+			wp_enqueue_script( 'jquery-ui-droppable' ); 
+		}
 		
 	}
 	// --------------------------------

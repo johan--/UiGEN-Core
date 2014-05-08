@@ -41,7 +41,12 @@ function my_first_reinstall(){
 
 add_action('admin_enqueue_scripts', 'alpaca_lib_init');
 function alpaca_lib_init() {
-  wp_register_script( 'alpaca-js', 'http://www.alpacajs.org/js/alpaca.min.js');
+
+  wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');
+  wp_enqueue_script( 'jquery-tmpl' );
+
+  //wp_register_script( 'alpaca-js', 'http://www.alpacajs.org/js/alpaca.min.js');
+  wp_register_script( 'alpaca-js',  plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.js');
   wp_enqueue_script( 'alpaca-js' );
 
   wp_register_style( 'alpaca-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.css' );
