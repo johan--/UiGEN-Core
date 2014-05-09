@@ -130,5 +130,3 @@ function outArray($array, $lvl=0){
     }
     return $return;
   }
-
-?>

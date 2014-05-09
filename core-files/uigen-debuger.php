@@ -137,9 +137,6 @@ body{
 	box-shadow: 0px 0px 1100px 1180px #fff;
 }
 </style>
-
-
-
 <?php
 function decorate_debuged_page_header($gridName,$args){
 	?>
@@ -518,4 +515,3 @@ window.onload=function(){
 };
 
 </script>
-

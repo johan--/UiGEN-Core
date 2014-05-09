@@ -25,4 +25,3 @@ class MyPlugin {
 }
 add_shortcode( 'listblock', array( 'MyPlugin', 'listblock_shortcode' ));
 add_shortcode( 'poststick', array( 'MyPlugin', 'add_shortpost' ));
-?>

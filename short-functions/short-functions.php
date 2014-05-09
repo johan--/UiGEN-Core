@@ -43,4 +43,3 @@ function uigen_addattr($element_schema,$attr_data){
 		}
 	}	
 }
-?>
