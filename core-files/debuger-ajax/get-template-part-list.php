@@ -16,7 +16,7 @@
 
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-	$slotList = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/slot-list.yaml');		
+	$slotList = Spyc::YAMLLoad(ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/schemas/slot-list.yaml');		
 	
 	global $DTDC;
 	require_once(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/display-controller.class.php');	

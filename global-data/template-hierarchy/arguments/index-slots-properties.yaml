@@ -1,0 +1,55 @@
+# This is index array properties 
+# of basic MVC theme template hierarchy
+---
+# Index grid ---------------------------------------------------
+grid: basic-list
+# Slot ---------------------------------------------------------
+logo:
+  type: tpl-part
+  tpl_part: basic-logo-simple
+# Menu Slot ----------------------------------------------------
+nav-menu-header:
+  debug_label: Nav Menu
+  debug_type: menu
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: nav-menu collapse navbar-collapse navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+# Slot ---------------------------------------------------------
+posts-cat-list:
+  type: controller
+  name: tdc_get_loop
+  tpl_part: basic-excerpt-promo
+  query_args:
+    post_type: post
+    posts_per_page: 1
+    category_name: main promo text
+# Slot ---------------------------------------------------------
+item-carousel:
+  type: tpl-part
+  name: tdc_get_loop
+  tpl_part: tiled-item-carousel
+# Menu Slot ----------------------------------------------------
+nav-menu-footer:
+  type: tpl-part
+  tpl_part: basic-nav-menu-simple
+  menu:
+    container: div
+    container_class: >
+      col-md-8 horizontal-links-menu
+      footermenu
+    theme_location: footer-menu
+    menu_class: ""
+    menu_id: footer-nav
+    items_wrap: %3$s
+  walker: horizontal_links
+# Slot ---------------------------------------------------------
+footer:
+  type: tpl-part
+  tpl_part: basic-footer

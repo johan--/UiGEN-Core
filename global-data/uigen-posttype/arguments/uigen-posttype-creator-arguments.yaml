@@ -55,3 +55,17 @@ pa-tera:
       - author
     public: true
     show_in_menu: true
+kontrakty:
+  template_hierarchy:
+    label: Kontrakty
+    labels:
+      name: Kontrakty
+      singular_name: Kontrakty
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true

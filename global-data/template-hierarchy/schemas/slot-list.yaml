@@ -1,0 +1,53 @@
+# Slot ---------------------------------------------------------
+# Template part with logotype options
+simple-logo:
+  debug_label: Simple Logo
+  debug_type: static
+  type: tpl-part
+  tpl_part: basic-logo-simple
+  tpl_part_prop: not_implemented
+# Menu Slot ----------------------------------------------------
+nav-menu-header:
+  debug_label: Nav Menu
+  debug_type: menu
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: nav-menu collapse navbar-collapse navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+# Slot ---------------------------------------------------------
+posts-cat-list:
+  debug_label: Promo text
+  debug_type: query
+  type: controller
+  name: tdc_get_loop
+  tpl_part: basic-excerpt-promo
+  query_args:
+    post_type: post
+    posts_per_page: 1
+    category_name: main promo text
+# Slot ---------------------------------------------------------
+simple-button:
+  debug_label: Simple Button
+  debug_type: static
+  type: tpl-part
+  tpl_part: basic-button
+  tpl_part_prop: not_implemented
+# Slot ---------------------------------------------------------
+item-carousel:
+  debug_label: Ico Slider
+  debug_type: ststic
+  type: tpl-part
+  name: tdc_get_loop
+  tpl_part: tiled-item-carousel
+# Slot ---------------------------------------------------------
+form-slot:
+  debug_label: Form Slot
+  debug_type: form
+  type: controller
+  name: buildForm
