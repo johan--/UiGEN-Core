@@ -5,7 +5,14 @@
 	$slots_handler = Spyc::YAMLLoad(TEMPLATEPATH . '/theme-template-parts/template-hierarchy/'.$ui_page_name.'-slots-hierarchy.yaml');				
 	// parse data url
 	if($_GET['data']!=''){
+
 		$getParsedYAML = urldecode($_GET['data'] ); 
 		$YAMLParsedArray = Spyc::YAMLLoadString($getParsedYAML);
-		$args = array_merge($args, $YAMLParsedArray);
+		$args = ui_merge_data_array($args,$YAMLParsedArray);
+		
+	}
+
+	function ui_merge_data_array($orgin_array,$part_to_merge){
+		$args = array_merge($orgin_array, $part_to_merge);
+		return $args;
 	}

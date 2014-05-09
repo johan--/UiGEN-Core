@@ -1,0 +1,18 @@
+---
+example_posttype:
+  template_hierarchy:
+    label: Example label
+    labels:
+      name: Example label
+      singular_name: Example label
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true
+    # taxonomies:
+    #   - category
+    # register_meta_box_cb: template_hierarchy_box

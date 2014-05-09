@@ -231,7 +231,7 @@ function decorate_slot($position,$slotName,$slot){
 			<div class="portlet-inspect">
 			
 				<button type="button" class="debug-urlencode btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon glyphicon-link"></span> Encode to URL</button>
-				<button type="button" class="debug-save-yaml btn btn-success" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save changes</button>
+				<button type="button" class="debug-save-yaml btn btn-success" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save code</button>
 				<button type="button" class="debug-close btn btn-danger" style="float:right"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
 				
 				<h2>Programmers Mode::Object properties</h2>
@@ -514,7 +514,7 @@ window.onload=function(){
 		jQuery('#pages_creator').append(msg);
 		//loadSlotListHandler();
 	});
-	
+
 };
 
 </script>

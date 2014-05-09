@@ -1,0 +1,57 @@
+---
+osrodki:
+  template_hierarchy:
+    label: Ośrodki
+    labels:
+      name: Ośrodki
+      singular_name: Ośrodki
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true
+lekarze:
+  template_hierarchy:
+    label: Lekarze
+    labels:
+      name: Lekarze
+      singular_name: Lekarze
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true
+w-dupe-z-tym:
+  template_hierarchy:
+    label: W dupę z tym
+    labels:
+      name: W dupę z tym
+      singular_name: W dupę z tym
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true
+pa-tera:
+  template_hierarchy:
+    label: Pa tera
+    labels:
+      name: Pa tera
+      singular_name: Pa tera
+    supports:
+      - title
+      - editor
+      - thumbnail
+      - excerpt
+      - author
+    public: true
+    show_in_menu: true
