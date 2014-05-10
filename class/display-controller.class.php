@@ -96,9 +96,10 @@ class ThemeDisplayController {
 		if($this -> slotsHandler == NULL){
 			echo '<pre class="alert alert-warning">ERROR<br><br>You defined into grid tdc_slots_handler but you dont add slotsHandler array prop</pre>';
 		}else{
-			//var_dump($this -> slotsHandler[$handler]);
-			foreach ($this -> slotsHandler[$handler] as $key=>$value) {				
-				$this -> tdc_get_slot($value);
+			if($this -> slotsHandler[$handler] != NULL){
+				foreach ($this -> slotsHandler[$handler] as $key=>$value) {				
+					$this -> tdc_get_slot($value);
+				}
 			}
 		}
 	}

@@ -23,22 +23,48 @@ require_once("../../../../../wp-load.php");
 	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
 	foreach ($posttypes_array as $key => $value) {
+			if(is_page_exist($key.'-view')==true){
+				$view_exist = '';
+			}else{
+				$view_exist = 'style="color:red"';
+			}
+			if(is_page_exist($key.'-form')==true){
+				$form_exist = '';
+			}else{
+				$form_exist = 'style="color:red"';
+			}
+			if(is_page_exist($key.'-list')==true){
+				$list_exist = '';
+			}else{
+				$list_exist = 'style="color:red"';
+			}
 		?>		
 			<div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
-				<div class="panel-heading"> 
+				<div class="panel-heading">
 			  		<span class="glyphicon glyphicon-briefcase"></span>
 			  		<?php echo $value['template_hierarchy']['label']; ?>
 				</div>
 				<!-- <div class="panel-body"></div> -->
 				<ul class="list-group">
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a></li>	    
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a></li>
-				    <li class="list-group-item"><span class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a></li>
+				    <li class="list-group-item"><span <?php echo $view_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a></li>	    
+				    <li class="list-group-item"><span <?php echo $form_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a></li>
+				    <li class="list-group-item"><span <?php echo $list_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a></li>
 				</ul>
 				<div class="panel-footer"><a href="#">More options</a></div>
 			</div>
 		<?
 	}
+
+	function is_page_exist($slug){
+		$pages = get_pages();
+		foreach ($pages as $page) { 
+			$apage = $page->post_name;
+			if ($apage == $slug) { 
+				return true;
+			 } 
+		}
+	}
+
 ?>
 
 

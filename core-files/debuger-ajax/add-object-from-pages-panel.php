@@ -16,24 +16,38 @@ if ( current_user_can( 'manage_options' ) ) {
 		die();
 	}
 
+	/* ---------------------------------------------------------------------- */
+	/* Swith to add PAGE                                                      */
+	/* ---------------------------------------------------------------------- */
 
 	if($_POST['objecttype']=='page'){
 		?>
 		<div>
-			<pre class="alert alert-warning">This feature not implemented yet.<br/>If You want donate this please contact me on</br>dadmor@gmail.com or wath me on GitHub:</br>https://github.com/dadmor/UiGEN-Core</pre>
+			<pre class="alert alert-warning">
+				<?php _e('This feature not implemented yet.<br/>If You want donate this please contact me on</br>dadmor@gmail.com or wath me on GitHub:</br>https://github.com/dadmor/UiGEN-Core','basic'); ?>
+			</pre>
 		</div>
 		<?php
-
 	}
+
+	/* ---------------------------------------------------------------------- */
+	/* Swith to add PAGE                                                      */
+	/* ---------------------------------------------------------------------- */
 
 	if($_POST['objecttype']=='posttype'){
 		ui_register_posttype($object_name);
 	}
 
+	/* ---------------------------------------------------------------------- */
+	/* Swith to add PAGE                                                      */
+	/* ---------------------------------------------------------------------- */
+
 	if($_POST['objecttype']=='user'){
 		?>
 		<div>
-			<pre class="alert alert-warning">This feature not implemented yet.<br/>If You want donate this please contact me on</br>dadmor@gmail.com or wath me on GitHub:</br>https://github.com/dadmor/UiGEN-Core</pre>
+			<pre class="alert alert-warning">
+				<?php _e('This feature not implemented yet.<br/>If You want donate this please contact me on</br>dadmor@gmail.com or wath me on GitHub:</br>https://github.com/dadmor/UiGEN-Core','basic'); ?>
+			</pre>
 		</div>
 		<?php
 	}
@@ -47,18 +61,16 @@ if ( current_user_can( 'manage_options' ) ) {
 
 function ui_register_posttype($object_name){
 
-		$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
+		$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
 
-		$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
-		$posttype_schema = Spyc::YAMLLoad( $prop_path . '/schemas/uigen-posttype-creator-schema.yaml' );
+		$posttypes_array = Spyc::YAMLLoad( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );
+		$posttype_schema = Spyc::YAMLLoad( $prop_path . 'uigen-posttype/schemas/uigen-posttype-creator-schema.yaml' );
 		
 		$slug_name = sanitize_title($object_name);
 		
 
-		// -----------------------------------
-		// 1.1. Create posttype declaration
-
-		// check is name exist
+		
+		/*      check is name exist            */
 		foreach ($posttypes_array as $key => $value) {
 			if($key == $slug_name){
 				?>
@@ -69,6 +81,9 @@ function ui_register_posttype($object_name){
 				die();
 			}
 		}
+
+		/* ----------------------------------- */
+		/* 1.1. Create posttype declaration    */
 
 		$posttype_added_array[$slug_name] = $posttype_schema['example_posttype'];
 		$posttype_added_array[$slug_name]['template_hierarchy']['label'] = $object_name;
@@ -82,40 +97,76 @@ function ui_register_posttype($object_name){
 		print_r(Spyc::YAMLDump($posttype_added_array ));
 		echo '</pre></div>';
 
-		// create posttype declarations array
-		file_put_contents( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump($posttypes_array ));
+		/* create posttype declarations array */
+		file_put_contents( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump($posttypes_array ));
 
-		// -----------------------------------
-		// 2.1. Create View page 
+		/* ----------------------------------- */
+		/* 2.1. Create View page               */
 		
-		ui_create_post($object_name . ' - view');
-
-		// -----------------------------------
-		// 2.2. Create Form page 
-
-		ui_create_post($object_name . ' - form');
+		ui_create_post($object_name . ' - view' , $slug_name);
+		echo '<div><h2>New view post - OK</h2></div>';
 		
-		// -----------------------------------
-		// 2.3. Create List page 
+
+		/* ----------------------------------- */
+		/* 2.2. Create Form page               */
+
+		ui_create_post($object_name . ' - form' , $slug_name);
+		echo '<div><h2>New form post - OK</h2></div>';
 		
-		ui_create_post($object_name . ' - list');
+		/* ----------------------------------- */
+		/* 2.3. Create List page               */
+		
+		ui_create_post($object_name . ' - list' , $slug_name);
+		echo '<div><h2>New list post - OK</h2></div>';
 
-		// -----------------------------------
-		// 3.1. Create View pagetemplate
+		/* ------------------------------------ */
+		/* 3.1. Create View properties and hierarchy yaml file */
+		
+		$view_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-view.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-view' . '-slots-properties.yaml' , Spyc::YAMLDump( $view_schema ));
 
+		$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-view' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $view_schema_h ));
+		echo '<div><h2>New view hierarchy and properties files created - OK</h2></div>';
+		
+		/* ------------------------------------ */
+		// 3.2. Create Form properties and hierarchy yaml file */
+		
+		$form_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-form.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-form' . '-slots-properties.yaml' , Spyc::YAMLDump( $form_schema ));
 
-		// -----------------------------------
-		// 3.2. Create Form pagetemplate
+		$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-form' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $view_schema_h ));
+		echo '<div><h2>New form hierarchy and properties files created - OK</h2></div>';
 
+		/* ------------------------------------ */
+		// 3.3. Create list properties and hierarchy yaml file */
 
-		// -----------------------------------
-		// 3.3. Create List pagetemplate
+		$list_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-list.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-list' . '-slots-properties.yaml' , Spyc::YAMLDump( $list_schema ));
+		
+		$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy.yaml' );
+		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-list' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $view_schema_h ));
+		echo '<div><h2>New list hierarchy and properties files created - OK</h2></div>';
 
+		/* ------------------------------------ */
+		// 4.1. Create page template php file */
+		
+		$output = "<?php\n";
+		$output .= "/* Template Name: Page Posttype Template */\n";
+		$output .= "get_header();\n";
+		$output .= "\$ui_page_name = \$post -> post_name;\n";
+		$output .= "require_once COREFILES_PATH . 'init-uigen-tdc.php';\n";
+		$output .= "require_once COREFILES_PATH . 'init-uigen-yaml-get-merge.php';\n";
+		$output .= "require_once COREFILES_PATH . 'init-uigen-flow.php';\n";
+		$output .= "\$TDC -> tdc_get_grid(\$args['grid'], \$args, \$slots_handler,\$SPD);\n";
+		$output .= "get_footer();\n";
 
-
+		file_put_contents(  TEMPLATEPATH . '/UiGEN_Tpl_' . $slug_name . '_posttype.php' , $output);
+		
 }
-function ui_create_post($object_name){
-	// Create post object
+function ui_create_post($object_name,$slug_name){
+	/* Create post object */
 	$my_post = array(
 		'post_type'     => 'page',
 		'post_title'    => $object_name,
@@ -124,7 +175,12 @@ function ui_create_post($object_name){
 		'post_author'   => 1,
 	);
 
-	// Insert the post into the database
-	wp_insert_post( $my_post );
+	/* Insert the post into the database */
+	$new_post = wp_insert_post( $my_post );
+ 	update_post_meta( $new_post, '_wp_page_template', 'UiGEN_Tpl_' . $slug_name . '_posttype.php' );
+	// TO DO - check $slug_name and post slug and reorganized process
+
+
+
 }
 ?>

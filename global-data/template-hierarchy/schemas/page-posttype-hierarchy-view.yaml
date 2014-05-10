@@ -1,0 +1,10 @@
+---
+logo:
+  - logo
+menu:
+  - nav-menu-header
+# -----------------
+footer-top:
+  - nav-menu-footer
+footer-main:
+  - footer

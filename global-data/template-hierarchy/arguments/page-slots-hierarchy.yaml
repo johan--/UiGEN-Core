@@ -1,17 +1,17 @@
 # This is index array properties 
 # of basic MVC theme template hierarchy
 ---
-0:
+logo:
   - logo
-1:
+menu:
   - nav-menu-header
-2:
+content-top:
   - posts-cat-list
   - form-slot
-3:
+content-main:
   - item-carousel  
   - post-list
-4:
+footer-top:
   - nav-menu-footer
-5:
+footer-main:
   - footer

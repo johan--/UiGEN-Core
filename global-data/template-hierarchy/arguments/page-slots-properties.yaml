@@ -2,7 +2,7 @@
 # of basic MVC theme template hierarchy
 ---
 # Index grid ---------------------------------------------------
-grid: basic-slim-list
+grid: basic-slim
 # Slot ---------------------------------------------------------
 logo:
   type: tpl-part

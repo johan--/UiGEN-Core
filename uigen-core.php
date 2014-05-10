@@ -10,8 +10,10 @@ Authors URI: dadmor@gmail.com
 /* This plugin add UiGEN classes to uour plugin directory */
 
 // Plugin VERSION
-define("UiGEN_CORE_VER", "0.1.2");
-define('EMAIL_SALT', ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV');
+define( 'UiGEN_CORE_VER' , '0.1.2' );
+define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
+
+define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
 
 $filename = __FILE__;
 register_activation_hook($filename,'my_first_install');
