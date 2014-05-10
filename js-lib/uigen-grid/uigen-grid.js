@@ -1,3 +1,5 @@
+/* Create dynamic JS table to serialize dala */
+
 function uigen_createNode( node_data ){
 
 	var output = '<';

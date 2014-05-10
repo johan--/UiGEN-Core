@@ -122,7 +122,7 @@ body{
 #pages_creator{
 	display:none;
 }
-#add_pages{
+#add_pages,#change-grid{
 	cursor:pointer;
 }
 .modal-dialog{
@@ -139,19 +139,31 @@ body{
 </style>
 <?php
 function decorate_debuged_page_header($gridName,$args){
+
 	?>
-	<div class="debug-grid-bar-decorator">
+	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
 		<div id="pages_creator">
 	
 		</div>
+		<div>
+			<span style="font-size:24px" class="glyphicon glyphicon-file"></span>
+			<span style="font-size:20px">Page:</span> <span style="font-size:22px"><?php echo $args['ui_page_name']; ?></span>
 
-		<span class="glyphicon glyphicon-th-large"></span> 
-		<span>Grid name: <?php echo $gridName; ?></span>
-
-		<div id="add_pages" style="float:right; margin-right:10px">
-			<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
+			<div id="add_pages" style="float:right; margin-right:10px; margin-top:3px; font-size:16px">
+				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
+			</div>
 		</div>
+		<div style="margin-top:5px; margin-left:5px; margin-bottom:10px">
+			<span class="glyphicon glyphicon-th-large"></span> 
+			<span>Grid name: <?php echo $gridName; ?></span>
+			<div id="change-grid" style="float:right; margin-right:10px; margin-top:3px; font-size:12px">
+				<span class="glyphicon glyphicon-refresh"></span><span class="glyphicon glyphicon-th-large"></span><span>Change grid</span>
+			</div>
+		</div>
+		
+
+
 		<?
 			decorate_slot('start',$gridName,$args);
 			decorate_slot('end',$gridName,$args);
@@ -187,7 +199,7 @@ function decorate_debuged_page_header($gridName,$args){
 function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
-		<div class="debug-tplpart-decorator">
+		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator">
 			<div class="tplpart_decorator_options_panel <?php if($slot['debug_type'] == 'form'){ echo 'purple'; }?>">
 				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
 				<!--Slot name: --><span class="slot_name"><?php echo $slotName; ?></span>
@@ -421,6 +433,9 @@ window.onload=function(){
 
 	});
 
+	jQuery( "#change-grid" ).click(function() {
+		alert(donateString);
+	});
 
 	jQuery( ".debug-urlencode" ).click(function() {
 		var YAML = jQuery(this).parent().children('textarea').val();

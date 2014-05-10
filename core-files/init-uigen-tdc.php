@@ -9,4 +9,5 @@
 
 	$slots_handler = Spyc::YAMLLoad( $global_path . $ui_page_name . '-slots-hierarchy.yaml' );				
 	$args = Spyc::YAMLLoad( $global_path . $ui_page_name . '-slots-properties.yaml');	
+	$args['ui_page_name'] = $ui_page_name;
 
