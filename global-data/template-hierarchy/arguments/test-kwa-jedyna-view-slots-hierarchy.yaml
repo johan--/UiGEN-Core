@@ -1,5 +1,7 @@
 ---
-- 
-  - logo
-- 
-  - nav-menu-header
+logo:
+  - simple-logo0
+menu:
+  - nav-menu-header1
+content-top: ""
+content-main: ""

@@ -1,9 +1,11 @@
 ---
-grid: basic-article
-logo:
+simple-logo0:
+  debug_label: Simple Logo
+  debug_type: static
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header:
+  tpl_part_prop: not_implemented
+nav-menu-header1:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -18,6 +20,5 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-footer:
-  type: tpl-part
-  tpl_part: basic-footer
+grid: basic-article
+ui_page_name: test-kwa-jedyna-view

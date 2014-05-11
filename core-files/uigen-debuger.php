@@ -165,8 +165,8 @@ function decorate_debuged_page_header($gridName,$args){
 			</div>
 		</div>
 		<div style="margin-top:5px; margin-left:5px; margin-bottom:10px">
-			<span class="glyphicon glyphicon-th-large"></span> 
-			<span id="ui_grid_name">Grid name: <?php echo $gridName; ?></span>
+			<span class="glyphicon glyphicon-th-large"></span> Grid name:
+			<span id="ui_grid_name"><?php echo $gridName; ?></span>
 			<div id="change-grid" style="float:right; margin-right:10px; margin-top:3px; font-size:12px">
 				<span class="glyphicon glyphicon-refresh"></span><span class="glyphicon glyphicon-th-large"></span><span>Change grid</span>
 			</div>
