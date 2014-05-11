@@ -136,11 +136,21 @@ body{
 	outline:#FFD76E solid 6px;
 	box-shadow: 0px 0px 1100px 1180px #fff;
 }
+.help-panel{
+	position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000; 
+}
 </style>
 <?php
 function decorate_debuged_page_header($gridName,$args){
 
 	?>
+
+	<!--
+	 	<div id="help_panel" class="help-panel">
+			<img src="<?php echo plugins_url();?>/UiGEN-Core/img/help_drag_and_drop.png" style="float:right; margin-right:100px">
+		</div>
+	 -->
+
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
 		<div id="pages_creator">
@@ -148,7 +158,7 @@ function decorate_debuged_page_header($gridName,$args){
 		</div>
 		<div>
 			<span style="font-size:24px" class="glyphicon glyphicon-file"></span>
-			<span style="font-size:20px">Page:</span> <span style="font-size:22px"><?php echo $args['ui_page_name']; ?></span>
+			<span style="font-size:20px">Page:</span> <span id="ui_page_name" style="font-size:22px"><?php echo $args['ui_page_name']; ?></span>
 
 			<div id="add_pages" style="float:right; margin-right:10px; margin-top:3px; font-size:16px">
 				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
@@ -156,7 +166,7 @@ function decorate_debuged_page_header($gridName,$args){
 		</div>
 		<div style="margin-top:5px; margin-left:5px; margin-bottom:10px">
 			<span class="glyphicon glyphicon-th-large"></span> 
-			<span>Grid name: <?php echo $gridName; ?></span>
+			<span id="ui_grid_name">Grid name: <?php echo $gridName; ?></span>
 			<div id="change-grid" style="float:right; margin-right:10px; margin-top:3px; font-size:12px">
 				<span class="glyphicon glyphicon-refresh"></span><span class="glyphicon glyphicon-th-large"></span><span>Change grid</span>
 			</div>
@@ -174,12 +184,12 @@ function decorate_debuged_page_header($gridName,$args){
 		<table>
 			<tr>
 				<td width="100%" valign="top">
-					<div id="saved_info_box" class="alert alert-success">
+					<div id="saved_info_box" style="font-size:12px" class="alert alert-success">
 
 					</div>
 				</td>
 				<td valign="top" style="padding-left:20px">
-					<button type="button" class="btn btn-default btn-success" style="width:210px; margin-bottom:10px">
+					<button type="button" class="save_slots_hierarchy btn btn-default btn-success" style="width:210px; margin-bottom:10px" data-toggle="modal" data-target="#debugModal">
 						<span class="glyphicon glyphicon-floppy-disk"></span> Save Changes
 					</button>
 					<button type="button" class="undoLast btn btn-default" style="width:210px; margin-bottom:10px">
@@ -443,36 +453,98 @@ window.onload=function(){
 		
 	});
 
-	
-
+	var hierarchyJSON = {};
 	var reciveGuardian = 0;
+	var newElement = 0;
+
 	jQuery( ".uigen-act-cell" ).sortable({
 		connectWith: ".uigen-act-cell",
       	cursor: 'pointer',
       	// if change sort handler
       	start: function( event, ui ) {
       		reciveGuardian = 0;
+			if(jQuery(ui.item.context).attr('id') == undefined){
+				newElement = 1;
+			}else{
+				newElement = 0;
+			}
+
       	},
       	receive: function( event, ui ) {
-      		reciveGuardian = 1;
-      	
+      		reciveGuardian = 1;      	
       	},
       	stop: function( event, ui ) {
+      		var droped_name = jQuery(ui.item.context).find('.slot_name').text();
       		if(reciveGuardian == 0){
-				jQuery('#saved_info_box').prepend('<p style="display:none">You sorted slots into grid handler. You must save this action.</p>');
+				jQuery('#saved_info_box').prepend('<p style="display:none">You sorted <b>'+droped_name+' slot</b> into grid handler. You must save this action.</p>');
       		}else{
-      			jQuery('#saved_info_box').prepend('<p style="display:none">You remove slot into another handler. You must save this action.</p>');
+      			if(newElement == 0){
+      				jQuery('#saved_info_box').prepend('<p style="display:none">You replace <b>'+droped_name+' slot</b> into another handler. You must save this action.</p>');
+      			}else{
+      				jQuery('#saved_info_box').prepend('<p style="display:none">You added new element into grid. You must save this action.</p>');
+     			}
       		}
       		jQuery('#saved_info_box').children('p').show('slow');
       		jQuery('#footer_save_info').fadeIn('slow');
 
       		
+      		// add new param to added object
+      		jQuery(ui.item.context).css('border','2px solid green');
+
 
       	}
 	});
 	jQuery( ".uigen-act-cell" ).droppable({
       hoverClass: "ui-state-active" ,
     });
+
+    jQuery( ".save_slots_hierarchy" ).click(function() {
+		jQuery('#saved_info_box').children().remove();
+		jQuery('#footer_save_info').slideUp('slow');
+
+		var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
+		jQuery('.modal-content').children('div').remove();
+		jQuery('.modal-content').append(progressBar);
+
+		var get_slot_yaml = '';
+		var get_slot_name = '';
+
+		var output_saved_yaml = '';
+	    jQuery( "#onHandler .debug-tplpart-decorator" ).each(function( index ) {
+					get_slot_name = jQuery( this ).find('.slot_name').text();
+	    			get_slot_yaml = jQuery( this ).find('textarea').val();
+					
+					get_slot_yaml = get_slot_yaml.replace(get_slot_name, get_slot_name + index);
+					get_slot_yaml = get_slot_yaml.replace('---\n', '');
+					output_saved_yaml += get_slot_yaml;				
+		});
+		output_saved_yaml = "---\n" + output_saved_yaml;
+		
+		var output_hierarchy_yaml = "";
+		var hierarchy_counter = 0;
+		jQuery( "#onHandler .uigen-act-cell" ).each(function( index ) {
+			output_hierarchy_yaml = output_hierarchy_yaml + jQuery(this).attr('data-cell') +  ":\n";
+			jQuery( jQuery(this).children('.debug-tplpart-decorator') ).each(function( index ) {
+				//alert(jQuery(this).attr('id'));
+				output_hierarchy_yaml = output_hierarchy_yaml + "  - " + jQuery( this ).find('.slot_name').text() + hierarchy_counter + "\n";
+				hierarchy_counter ++;	
+			});	
+			
+			
+		});
+		output_hierarchy_yaml = "---\n" + output_hierarchy_yaml;
+		
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-slot-history_and_properties.php",
+			data: { hierarchy_yaml: output_hierarchy_yaml , prop_yaml: output_saved_yaml ,ui_page_name: jQuery('#ui_page_name').text(), ui_grid_name: jQuery('#ui_grid_name').text()}
+		})
+		.done(function( msg ) {	
+			jQuery('.modal-content').children('div').remove();
+			jQuery('.modal-content').append(msg);
+		});
+      		
+	});
 
 	function loadSlotList(){
 		jQuery.ajax({
