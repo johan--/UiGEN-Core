@@ -378,8 +378,13 @@ class ThemeDisplayController {
 			
 
 		}else{
-		
-			echo '<pre><b>FORM ERROR</b><br/>You try send form without $SPD data <br> set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);</pre>';
+			
+			// depreciated warning - now dont use tdc_get_grid without SPD data
+			// debuger ----------------------------
+			/*	if($_GET['debug']=='true'){
+				echo '<pre><p><b>FORM WARNING</b></p>You try send form without $SPD data <br>set grid as example: $TDC -> tdc_get_grid($args["grid"],$args,$SPD);<br/><div style="font-size:11px; padding-top:10px">Error generated from display-controller.class</div></pre>';
+	
+			}*/
 		}
 
 	}

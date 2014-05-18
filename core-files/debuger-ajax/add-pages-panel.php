@@ -42,7 +42,7 @@ require_once("../../../../../wp-load.php");
 			<div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
 				<div class="panel-heading">
 			  		<span class="glyphicon glyphicon-briefcase"></span>
-			  		<?php echo $value['template_hierarchy']['label']; ?>
+			  		<?php echo $value['label']; ?>
 				</div>
 				<!-- <div class="panel-body"></div> -->
 				<ul class="list-group">
@@ -52,7 +52,7 @@ require_once("../../../../../wp-load.php");
 				</ul>
 				<div class="panel-footer"><a href="#">More options</a></div>
 			</div>
-		<?
+		<?php
 	}
 
 	function is_page_exist($slug){

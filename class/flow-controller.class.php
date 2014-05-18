@@ -154,9 +154,16 @@ class FlowController{
 				// deleted #+chars from string to callback function name
 				$key = explode('#',$key);
 				$key = $key[0];
-				//var_dump($key);
 
 				$value['form_data'] = &$data_arg;
+				$value['display_data'] = $this -> display_arg; 
+				
+				/*				
+				echo '<pre>';
+				print_r($value);
+				echo '</pre>';
+				*/
+
 				call_user_func_array($key,array($value)); 				   
 			}
 		}
@@ -164,7 +171,6 @@ class FlowController{
 
 	public function runInControllers($data_arg){
 		@$calls_array = $this -> flow_arg[$this -> post_type][$this -> current_step]['IN_controllers'];	
-		
 		if($calls_array != ''){
 			foreach ($calls_array as $key => $value) {
 				

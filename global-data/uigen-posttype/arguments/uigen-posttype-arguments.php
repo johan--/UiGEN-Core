@@ -115,7 +115,4 @@ $uigen_posttypes = array(
         //'register_meta_box_cb' =>  'template_hierarchy_box',
     ),
     //----------------------------------------------------------------
-
-
 );
-?>

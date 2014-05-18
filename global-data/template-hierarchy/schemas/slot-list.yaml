@@ -21,16 +21,19 @@ nav-menu-header:
     menu_id: main-nav
   walker: bootstrap_nav
 # Slot ---------------------------------------------------------
-posts-cat-list:
-  debug_label: Promo text
-  debug_type: query
-  type: controller
-  name: tdc_get_loop
+title-text:
+  debug_label: Title
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+# Slot ---------------------------------------------------------
+excerpt-text:
+  debug_label: Excerpt
+  debug_type: static
+  type: tpl-part
   tpl_part: basic-excerpt-promo
-  query_args:
-    post_type: post
-    posts_per_page: 1
-    category_name: main promo text
+  tpl_part_prop: not_implemented
 # Slot ---------------------------------------------------------
 simple-button:
   debug_label: Simple Button
@@ -38,16 +41,55 @@ simple-button:
   type: tpl-part
   tpl_part: basic-button
   tpl_part_prop: not_implemented
-# Slot ---------------------------------------------------------
-item-carousel:
-  debug_label: Ico Slider
-  debug_type: ststic
-  type: tpl-part
-  name: tdc_get_loop
-  tpl_part: tiled-item-carousel
+# User list ---------------------------------------------------------
+user-list:
+  debug_label: User list
+  debug_type: list
+  type: controller
+  name: tdc_get_user_loop 
+  tpl_part: basic-user-block
+    query_args:
+      fields: all_with_meta
+      role: subscriber
+      search: *'.esc_attr( 'dadmor' ).'*
+      role: administrator
+      role: only_subscriber
+      number:10
+# Post list ---------------------------------------------------------
+post-list:
+  debug_label: Post list
+  debug_type: list
+  type: controller
+  name: tdc_get_loop 
+  tpl_part: post-list-item
+  query_args:
+    post_type: example_posttype
+    posts_per_page: 10
+    # taxonomy'=>$arrayKey,
+    # term'=>$term,
+    paged: 1
 # Slot ---------------------------------------------------------
 form-slot:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
+# Slot ---------------------------------------------------------
+message-slot:
+  debug_label: Form Message
+  debug_type: form
+  type: tpl-part
+  name: message-box
+# Slot ---------------------------------------------------------
+paginator:
+  debug_label: User paginator
+  debug_type: form
+  paginate: user-list
+  type: tpl-part
+  tpl_part: user-paginator
+# Slot ---------------------------------------------------------
+query-filter:
+  debug_label: Form filter
+  debug_type: form
+  type: tpl-part
+  tpl_part: query-filter

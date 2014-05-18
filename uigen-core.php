@@ -14,6 +14,8 @@ define( 'UiGEN_CORE_VER' , '0.1.2' );
 define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
 
 define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
+define( 'GLOBALDATA_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/' );
+define( 'UIGENCLASS_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/class/' );
 
 $filename = __FILE__;
 register_activation_hook($filename,'my_first_install');
@@ -75,6 +77,13 @@ function uigen_posttypes() {
 
     // register posttypes from arguments array
     foreach ($uigen_posttypes as $posttype => $props) {
+      register_post_type($posttype, $props);
+    }
+
+    /* register posttypes createt form user with debuger !!! */
+    require_once UIGENCLASS_PATH . 'Spyc.php';
+    $debuger_custom_posttype = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );        
+    foreach ($debuger_custom_posttype as $posttype => $props) {
       register_post_type($posttype, $props);
     }
 }

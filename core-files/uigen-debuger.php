@@ -88,11 +88,13 @@ body{
 	border-radius: 2px;
 }
 .tplpart_decorator_options_panel{
+	font-weight: bold;
+	text-shadow: 1px 1px white;
 	background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
 	background-color:#ccc; 
-	font-size:14px; 
+	font-size:12px; 
 	display:none; 
-	padding:10px;
+	padding:8px;
 	cursor:move;
 
 }
@@ -130,7 +132,10 @@ body{
 }
 
 .purple{
-	background-image: linear-gradient(to bottom, #DFC2D0 0%, #95697F 100%)
+	background-image: linear-gradient(to bottom, #E5D6EC 0%, #C297D3 100%);
+}
+.light-green{
+	background-image: linear-gradient(to bottom, #D8ECD6 0%, #6CB46F 100%)
 }
 .slot-fade{
 	outline:#FFD76E solid 6px;
@@ -174,7 +179,7 @@ function decorate_debuged_page_header($gridName,$args){
 		
 
 
-		<?
+		<?php
 			decorate_slot('start',$gridName,$args);
 			decorate_slot('end',$gridName,$args);
 		?>			
@@ -210,11 +215,14 @@ function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
 		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator">
-			<div class="tplpart_decorator_options_panel <?php if($slot['debug_type'] == 'form'){ echo 'purple'; }?>">
+			<div class="tplpart_decorator_options_panel <?php
+			 	if($slot['debug_type'] == 'form'){ echo 'purple'; }
+			 	if($slot['debug_type'] == 'list'){ echo 'light-green'; }
+			 ?>">
 				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
 				<!--Slot name: --><span class="slot_name"><?php echo $slotName; ?></span>
 				
-				<div class="btn-group" style="float:right; margin-top:-5px; margin-right:-5px">
+				<div class="btn-group" style="float:right; margin-top:-6px; margin-right:-6px">
 				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
 				    <span class="glyphicon glyphicon-cog"></span>  <span class="caret" style="vertical-align:2px !important"></span>
 				  </button>

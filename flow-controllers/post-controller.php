@@ -4,12 +4,20 @@
 // -------------------------------------------------------------------------------------------------- //
 
 function add_posttype($args){
-
+	
 	$my_post;
-	$posttype_regname = $args['call_prop']['posttype']; 	
 
 
-	foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
+	// get posttype registration name from displayArgs -> ui_page_name
+	$posttype_regname = substr( $args['display_data']['ui_page_name'], 0, strrpos( $args['display_data']['ui_page_name'], "-"));
+	$my_post['post_type'] = $posttype_regname;
+	
+
+	// get first key name	
+	$elements_key = array_keys ($args['form_data']['data']);
+
+    foreach ($args['form_data']['data'][$elements_key[0]] as $key => $value) {	
+	//foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
 
 			if($key == 'post_ID'){
 				$my_post['ID'] = $value['value'];
@@ -35,6 +43,7 @@ function add_posttype($args){
 			}
 
 	}
+
 	// Insert the post into the database
 	if (array_key_exists('ID', $my_post)) {
 
@@ -53,8 +62,8 @@ function add_posttype($args){
 	if ( is_wp_error(@$my_post_ID) )
 	echo '<div id="message" class="alert  alert-block error">'.$my_post_ID->get_error_message().'</div>';
 
-
-	foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
+ 	foreach ($args['form_data']['data'][$elements_key[0]] as $key => $value) {	
+	//foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
 			
 			// add meta firlds
 			foreach ($args['call_prop']['meta'] as $prop_value) {	
