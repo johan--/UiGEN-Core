@@ -1,5 +1,11 @@
 ---
-nav-menu-header1110:
+simple-logo00010:
+  debug_label: Simple Logo
+  debug_type: static
+  type: tpl-part
+  tpl_part: basic-logo-simple
+  tpl_part_prop: not_implemented
+nav-menu-header11101:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -14,33 +20,5 @@ nav-menu-header1110:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-simple-logo0001:
-  debug_label: Simple Logo
-  debug_type: static
-  type: tpl-part
-  tpl_part: basic-logo-simple
-  tpl_part_prop: not_implemented
-posts-cat-list2232:
-  debug_label: Promo text
-  debug_type: query
-  type: controller
-  name: tdc_get_loop
-  tpl_part: basic-excerpt-promo
-  query_args:
-    post_type: post
-    posts_per_page: 1
-    category_name: main promo text
-simple-button3343:
-  debug_label: Simple Button
-  debug_type: static
-  type: tpl-part
-  tpl_part: basic-button
-  tpl_part_prop: not_implemented
-item-carousel454:
-  debug_label: Ico Slider
-  debug_type: ststic
-  type: tpl-part
-  name: tdc_get_loop
-  tpl_part: tiled-item-carousel
 grid: basic-fat
 ui_page_name: index

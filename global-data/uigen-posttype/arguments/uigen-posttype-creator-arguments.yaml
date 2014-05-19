@@ -1,1 +1,79 @@
 ---
+kontrakt:
+  label: Kontrakt
+  labels:
+    name: Kontrakt
+    singular_name: Kontrakt
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+koordynatorzy:
+  label: Koordynatorzy
+  labels:
+    name: Koordynatorzy
+    singular_name: Koordynatorzy
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+lekarze:
+  label: Lekarze
+  labels:
+    name: Lekarze
+    singular_name: Lekarze
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+osrodki:
+  label: Ośrodki
+  labels:
+    name: Ośrodki
+    singular_name: Ośrodki
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+platnicy:
+  label: Płatnicy
+  labels:
+    name: Płatnicy
+    singular_name: Płatnicy
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+wizyta:
+  label: Wizyta
+  labels:
+    name: Wizyta
+    singular_name: Wizyta
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true

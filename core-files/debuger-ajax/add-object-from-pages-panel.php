@@ -100,26 +100,28 @@ function ui_register_object($object_name, $objecttype){
 		/* ----------------------------------- */
 		/* 2.1. Create View page               */
 
-		ui_create_post($object_name . ' - view' , $slug_name);
+		ui_create_post($object_name . ' - view' , $objecttype,   $slug_name);
 		echo '<div><h2>New view '.$objecttype.' created</h2></div>';
 		
 
 		/* ----------------------------------- */
 		/* 2.2. Create Form page               */
 
-		ui_create_post($object_name . ' - form' , $slug_name, 'basic-create-post');
+		ui_create_post($object_name . ' - form' , $objecttype , $slug_name, 'basic-create-post');
 		echo '<div><h2>New form '.$objecttype.' created</h2></div>';
 		
 		/* ----------------------------------- */
 		/* 2.3. Create List page               */
 		
-		ui_create_post($object_name . ' - list' , $slug_name);
+		ui_create_post($object_name . ' - list' , $objecttype , $slug_name);
 		echo '<div><h2>New list '.$objecttype.' created</h2></div>';
 
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		/* 3.1. Create View properties and hierarchy yaml file */
 		
+		//chmod($prop_path . 'template-hierarchy/arguments', 0755);
+
 		if($objecttype == 'posttype' ){
 			$view_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-properties-view.yaml' );
 		}
@@ -219,10 +221,12 @@ function ui_register_object($object_name, $objecttype){
 		$output .= "\$TDC -> tdc_get_grid(\$args['grid'], \$args, \$slots_handler,\$SPD);\n";
 		$output .= "get_footer();\n";
 
+		//chmod($prop_path . TEMPLATEPATH, 0755);
 		file_put_contents(  TEMPLATEPATH . '/UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' , $output);
 		
 }
-function ui_create_post($object_name, $slug_name, $flow_name = false){
+
+function ui_create_post($object_name, $objecttype , $slug_name, $flow_name = false){
 	/* Create post object */
 	$my_post = array(
 		'post_type'     => 'page',

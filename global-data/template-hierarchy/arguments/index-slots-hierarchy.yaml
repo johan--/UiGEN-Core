@@ -1,12 +1,9 @@
 ---
 logo:
-  - nav-menu-header1110
+  - simple-logo00010
 menu:
-  - simple-logo0001
-content-top:
-  - posts-cat-list2232
-content-main:
-  - simple-button3343
-footer-top:
-  - item-carousel454
+  - nav-menu-header11101
+content-top: ""
+content-main: ""
+footer-top: ""
 footer-main: ""
