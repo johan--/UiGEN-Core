@@ -1,0 +1,68 @@
+---
+grid: basic-article
+logo:
+  type: tpl-part
+  tpl_part: basic-logo-simple
+nav-menu-header:
+  debug_label: Nav Menu
+  debug_type: menu
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: >
+      nav-menu collapse navbar-collapse
+      navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+title-text:
+  debug_label: Title
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+meta1:
+  type: tpl-part
+  tpl_part: basic-meta
+  args:
+    meta_name: ui_visit_contract
+    meta_type: value
+meta2:
+  type: tpl-part
+  tpl_part: basic-meta
+  args:
+    meta_label: Wizyta
+    meta_name: ui_visit
+    meta_type: value
+meta3:
+  type: tpl-part
+  tpl_part: basic-meta
+  args:
+    meta_label: Pcjent
+    meta_name: ui_visit_patient
+    meta_type: value
+meta4:
+  type: tpl-part
+  tpl_part: basic-meta
+  args:
+    meta_label: Lekarz
+    meta_name: ui_visit_doctor
+    meta_type: value
+meta5:
+  type: tpl-part
+  tpl_part: basic-meta
+  args:
+    meta_name: ui_visit_date
+    meta_type: value
+content-text:
+  debug_label: Content
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+footer:
+  type: tpl-part
+  tpl_part: basic-footer
