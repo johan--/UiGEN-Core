@@ -87,6 +87,43 @@ function uigen_posttypes() {
       register_post_type($posttype, $props);
     }
 }
+
+
+
+  add_action('init', 'uigen_form_repeater');
+  function uigen_form_repeater() {
+      
+      function field_repeater($name, $data, $type='text') {
+          if($type == 'select') {
+            print("<select  name=\"{$name}[{$key}]\">");
+          }
+          foreach ($data as $key => $value) {
+              switch($type) {
+                  case 'textarea':
+                      $field = "<textarea name=\"{$name}[{$key}]\">{$value}</textarea>";
+                      break;
+                  case 'select':
+                      $field = "<option value=\"{$value}";
+                  default:
+                      $field = "<input type=\"{$type}\" name=\"{4name}[{$key}]\" value=\"{$value}\" />";
+              }
+              print($field."\n");
+          }
+          if($type == 'select') {
+            print("</select>");
+          }
+      }
+
+
+    function field_repeater_save($name) {
+        $returnArray = array($name => array());
+        foreach ($_REQUEST[$name] as $key => $value) {
+            $returnArray[$name][$key] = $value;
+        }
+        return ($returnArray);
+    }
+
+  }
 // ================================================================================
 
 /* register metaboxes - from definition file. */
