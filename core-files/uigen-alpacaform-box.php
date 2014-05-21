@@ -21,11 +21,9 @@ function alpacaform_box($post, $metabox){
           }
           ?>
           // ----------------------------------------------
-          "optionsSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['options_file'];?>",
-          
-
-
+          //"optionsSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['options_file'];?>",
           "schemaSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['schema_file'];?>",
+          "options": <?php echo $metabox['args']['options'];?>,
           // ----------------------------------------------
           // add form methods
           "postRender": function(renderedForm) {          
@@ -43,6 +41,31 @@ function alpacaform_box($post, $metabox){
   </script>
   <?php
 }
+function render_posttype_to_alpaca_string($args){
+
+    $postTitleString = "";
+    global $wpdb;   
+    $query = "
+      SELECT $wpdb->posts.* 
+      FROM $wpdb->posts
+      AND $wpdb->posts.post_status = 'publish' 
+      AND $wpdb->posts.post_type = 'post'
+      ORDER BY $wpdb->posts.post_date DESC
+    ";
+
+  
+    $posts = $wpdb->get_results( $query , object );
+
+    var_dump( $posts);
+    foreach ( $posts as $db_post ){       
+        $postTitleString = $postTitleString.$db_post -> ID;
+    } 
+    var_dump($postTitleString);
+    return $postTitleString;
+}
+
+
+
 // ================================================================================
 
 // save post function

@@ -1,0 +1,34 @@
+{
+    "title":"Dodawanie wizyty",
+    "description":"Opis dodadkowy....",
+    "type":"object",
+    "properties":{        
+        "visit_name":{
+            "title":"Nazwa wizyty",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },
+        "price":{
+            "title":"Cena",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },
+        "currency":{
+            "title":"Waluta",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "PLN",
+                "USD",
+                "EURO",
+                "CHF",
+                "GPB"
+            ]         
+        }        
+       
+    }
+}

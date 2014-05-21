@@ -1,0 +1,116 @@
+{
+    "title":"Dodawanie kontraktu",
+    "description":"Opis dodadkowy....",
+    "type":"object",
+    "properties":{
+        "place":{
+            "title":"Ośrodek",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "payer":{
+            "title":"Płatnik",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "protocol_no":{
+            "title":"Numer protokołu",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },
+        "diagnistic_type":{
+            "title":"rodzaj badania",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "diagnistic_start_date":{
+            "title":"data rozpoczecia",
+            "data": "10/105/2001",
+            "description":"Description....",
+            "format": "date",
+            "required": true,
+            "datepicker": {
+                "hideIfNoPrevNextType": true,
+                "minDate": 0,
+                "maxDate": "+2w"
+            }
+                
+        },  
+        "diagnistic_end_date":{
+            "title":"data zakończenia",
+            "data": "10/105/2001",
+            "description":"Description....",
+            "format": "date",
+            "required": true,
+            "datepicker": {
+                "hideIfNoPrevNextType": true,
+                "minDate": 0,
+                "maxDate": "+2w"
+            }
+                
+        },  
+        "suspend":{
+            "title":"zawieszone %",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },   
+        "extra_profit":{
+            "title":"Dodadkowy przychód",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },  
+        "extra_profit_desc":{
+            "title":"Opis dodadkowego przychodu",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        },
+        "desc":{
+            "title":"Opis",
+            "description":"Description....",
+            "type": "string",
+            "required": true                
+        }, 
+        "contract_status":{
+            "title":"Stan kontraktu",
+            "description":"Description....",
+            "type": "radio",
+            "default":"podpisany",
+            "required": true,
+            "enum":[
+                "podpisany",
+                "rekrutacja",
+                "idące",
+                "zakończone"
+            ]         
+        }    
+       
+    }
+}

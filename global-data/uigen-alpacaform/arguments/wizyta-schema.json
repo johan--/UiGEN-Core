@@ -1,0 +1,94 @@
+{
+    "title":"Custom posttype",
+    "description":"Register custom posttype into wordpress",
+    "type":"object",
+    "properties":{
+        "contract":{
+            "title":"Kontrakt",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "visit":{
+            "title":"Wizyta",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "patient_no":{
+            "title":"Numer pacjenta",
+            "description":"Description....",
+            "type": "string",
+            "required": true
+                
+        },
+         "doctor":{
+            "title":"Lekarz",
+            "description":"Description....",
+            "type": "radio",
+            "default":"1",
+            "required": true,
+            "enum":[
+                "1",
+                "5",
+                "10",
+                "15"
+            ]         
+        }, 
+        "visit_data":{
+            "title":"data wizyty",
+            "data": "10/105/2001",
+            "description":"Description....",
+            "format": "date",
+            "required": true,
+            "datepicker": {
+                "hideIfNoPrevNextType": true,
+                "minDate": 0,
+                "maxDate": "+2w"
+            }
+                
+        },  
+        "extra_cost":{
+            "title":"dodadkowe koszty wizyty",
+            "description":"Description....",
+            "type": "string",
+            "required": true
+                
+        },   
+        "extra_cost_description":{
+            "title":"Dodadkowe koszty wizyty - opis",
+            "description":"Description....",
+            "type": "string",
+            "required": true
+                
+        },     
+        "supports": {
+            "title": "Supports",
+            "description":"An alias for calling add_post_type_support() directly. As of 3.5, boolean false can be passed as value instead of an array to prevent default (title and editor) behavior.",
+            "type": "array", 
+            "items": {
+                "type": "object",
+                "properties": {
+                    "cell_name": {                        
+                        "type": "string",
+                        "enum": ["title", "editor", "author","thumbnail", "excerpt", "trackbacks","custom-fields", "comments", "revisions","page-attributes"]
+                    }
+                }
+            }
+        }
+    }
+}
