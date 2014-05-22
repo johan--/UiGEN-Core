@@ -101,7 +101,8 @@ $uigen_metaboxes = array(
 			'options' => '			
 			{
 		   		"fields": {
-			        "contract": {            
+			        "contract": { 
+			        	"type":"select",           
 			            "optionLabels": ['.render_posttype_to_alpaca_string('kontrakt').']
 			        },		       
 		    	}
@@ -148,7 +149,7 @@ $uigen_metaboxes = array(
 			{
 		   		"fields": {
 			        "place": {            
-			            "optionLabels": ['.render_posttype_to_alpaca_string('kontrakt').']
+			            "optionLabels": ['.render_posttype_to_alpaca_string('osrodki').']
 			        },		       
 		    	}
 			}',

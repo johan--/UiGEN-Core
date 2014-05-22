@@ -7,13 +7,9 @@
             "title":"Kontrakt",
             "description":"Description....",
             "type": "radio",
-            "default":"1",
             "required": true,
             "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
+                "null"
             ]         
         }, 
         "visit":{

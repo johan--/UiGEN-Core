@@ -1,9 +1,10 @@
 ---
 logo:
-  - simple-logo00010
+  - simple-logo000100
 menu:
-  - nav-menu-header11101
-content-top: ""
+  - nav-menu-header111011
+content-top:
+  - form-slot2
 content-main: ""
 footer-top: ""
 footer-main: ""

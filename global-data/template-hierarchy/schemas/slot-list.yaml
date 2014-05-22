@@ -74,6 +74,7 @@ form-slot:
   debug_type: form
   type: controller
   name: buildForm
+  flow: basic-user-login
 # Slot ---------------------------------------------------------
 message-slot:
   debug_label: Form Message

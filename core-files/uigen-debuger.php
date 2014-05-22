@@ -29,7 +29,25 @@
 body{
 	margin-right:250px !important;
 }
+body.left200{
+	margin-left:200px !important;
+}
 
+#uigen_asset_list{
+	position:fixed;
+	top:0;
+	width:200px;
+	height:100%;
+	left:0;
+	border-right:5px solid #333;
+	background-color: #555;
+	font-size:12px;
+	display:none;
+}
+
+#uigen_asset_list .panel-title{
+	font-size:14px !important;
+}
 
 .uigen-act-cell{
 	border:2px solid #999; 
@@ -144,6 +162,8 @@ body{
 .help-panel{
 	position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000; 
 }
+
+
 </style>
 <?php
 function decorate_debuged_page_header($gridName,$args){
@@ -207,7 +227,10 @@ function decorate_debuged_page_header($gridName,$args){
 		</table>
 		
 	</div>
-	
+
+	<div id="uigen_asset_list">
+		
+	</div>
 	<?php
 }
 
@@ -231,6 +254,9 @@ function decorate_slot($position,$slotName,$slot){
 				  	<li class="formSlotEdit">
 				  		<a href="Javascript: void(0);"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Edit Form </a>
 				  	</li>
+				  	<li class="formSlotLoad">
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Load Form </a>
+				    </li>
 				  	<?php }else{ ?>
 				  	<li class="slotEdit  disabled">
 				  		<a href="Javascript: void(0);" ><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Edit Slot</a>
@@ -387,11 +413,15 @@ window.onload=function(){
 	  		jQuery(this).removeClass('open');
 	  		jQuery(this).removeClass('btn-success');
 
+
 	 	}else{
+
  			jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').addClass('form-control');
 	  		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','block');
 	  		jQuery(this).addClass('open');
 	  		jQuery(this).addClass('btn-success');
+			jQuery('body').addClass('left200');
+			jQuery('#uigen_asset_list').css('display','block');
 
 	  		
   			var height = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('pre').height();	  	
@@ -404,6 +434,8 @@ window.onload=function(){
 			jQuery(this).parent().css('display','none');
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
+			jQuery('body').removeClass('left200');
+			jQuery('#uigen_asset_list').css('display','none');
 	});
 
 	jQuery(document).on('click', "button.debug-save-yaml", function() {	
@@ -591,7 +623,8 @@ window.onload=function(){
 
 	jQuery( "a" ).each(function( index ) {
 	  var debugerHref = jQuery( this ).attr('href') ;
-	  if(debugerHref != '#'){
+
+	  if(debugerHref[0] != '#'){
 	  	jQuery( this ).attr('href',debugerHref+'?debug=true');
 	  }
 	});
@@ -606,6 +639,18 @@ window.onload=function(){
 		jQuery('#pages_creator').append(msg);
 		//loadSlotListHandler();
 	});
+
+
+	jQuery.ajax({
+		type: "POST",
+		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-uigen-assets-list.php",
+		data: {  }
+	})
+	.done(function( msg ) {	 
+		jQuery('#uigen_asset_list').append(msg);
+		//loadSlotListHandler();
+	});
+
 
 };
 

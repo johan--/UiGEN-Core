@@ -12,6 +12,7 @@ Authors URI: dadmor@gmail.com
 // Plugin VERSION
 define( 'UiGEN_CORE_VER' , '0.1.2' );
 define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
+define('PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core');
 
 define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
 define( 'GLOBALDATA_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/' );
@@ -29,11 +30,38 @@ require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/short-functions/short-fun
 require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
 
 /* tables creation */
+
+if(class_exists('Custom_Types_Creator')) {
+
+}
+
 function my_first_install() {
+
+  if(class_exists('Custom_Types_Creator')) {
+  $mpf = new Custom_Types_Creator();
+  $mpf_roles = array(
+    'doctor' => array('read' => false),
+    'worker' => array('publish_posts' => true),
+    'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
+    'operator' => array('publish_pages' => true, 'edit_published_pages' => true, 'edit_pages' => true, 'edit_othhers_pages' => true, 'delete_pages' => true),
+    );
+  $mpf->roles=$mpf_roles;
+    $mpf->add_roles();
+  }
 }
 
 function my_first_reinstall(){
- 
+  if(class_exists('Custom_Types_Creator')) {
+      $mpf = new Custom_Types_Creator();
+  $mpf_roles = array(
+    'doctor' => array('read' => false),
+    'worker' => array('publish_posts' => true),
+    'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
+    'operator' => array('publish_pages' => true, 'edit_published_pages' => true, 'edit_pages' => true, 'edit_othhers_pages' => true, 'delete_pages' => true),
+    );
+  $mpf->roles=$mpf_roles;
+    $mpf->remove_roles();
+  }
 }
 
 
