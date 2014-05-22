@@ -299,8 +299,8 @@ function decorate_slot($position,$slotName,$slot){
 					$Data = Spyc::YAMLDump($fullSlot);
 					echo $Data;
 					
-			?></textarea>
-			<pre style="float:left; width:50%; margin:0; padding:10px;"><?php echo $slotName.":"; print_r($slot); ?></pre>
+				?></textarea>
+				<pre style="float:left; width:50%; margin:0; padding:10px;"><?php echo $slotName.":"; print_r($slot); ?></pre>
 			</div>	
 	<?php
 	}
