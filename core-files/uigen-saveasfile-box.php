@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * ######################################################
+ * 
+ * 
+ *                        Co to niby ma robić?
+ * 
+ * 
+ * ######################################################
+ */ 
+
+
 // ###############################################################################
 
 function saveasfile_box($post, $metabox){
@@ -14,7 +26,7 @@ function save_saveasfile_box( $post_id ) {
 	
 	foreach ($uigen_metaboxes as $metabox) {
 		// check boxes into current posttype
-		if ( $_POST['post_type'] == $metabox[3]) {
+		if ( $_REQUEST['post_type'] == $metabox[3]) {
 			if($metabox[2] == 'alpacaform_box'){
 
 				/*	
@@ -62,7 +74,7 @@ function save_saveasfile_box( $post_id ) {
 	//die();   
 
 }
-add_action( 'save_post', 'save_saveasfile_box' );
+// add_action( 'save_post', 'save_saveasfile_box' );
 
 // ###############################################################################
 

@@ -1,79 +1,98 @@
 {
-    "title":"Dodawanie lekarza",
-    "description":"Opis dodadkowy....",
-    "type":"object",
-    "properties":{        
-        "doctor_name":{
-            "title":"Imię i nazwisko",
-            "description":"Description....",
-            "type": "string",
-            "required": true                
-        },
-        "wage_const":{
-            "title":"Wynagrodzenie stałe",
-            "description":"Description....",
-            "type": "string",
-            "required": true                
-        },
-        "currency":{
-            "title":"Waluta",
-            "description":"Description....",
-            "type": "radio",
-            "default":"1",
-            "required": true,
-            "enum":[
-                "PLN",
-                "USD",
-                "EURO",
-                "CHF",
-                "GPB"
-            ]         
-        },  
-        "wage_percent":{
-            "title":"Wynagrodzenie %",
-            "description":"Description....",
-            "type": "string",
-            "required": true                
-        },      
-        "supports": {
-            "title": "Inne warunki płatności",
-            "description":"Opis...",
-            "type": "array", 
-            "items": {
-                "type": "object",
-                "properties": {
-                    "visits": {   
-                        "title":"Wizyta",                     
-                        "type": "string",
-                        "enum": ["xxx", "yyy", "zzz","xxx"]
-                    },
-                    "wages_cost": {   
-                        "title":"Wynagrodzenie stałe",                     
-                        "type": "string"                        
-                    },
-                     "currency":{
-                        "title":"Waluta",
-                        "description":"Description....",
-                        "type": "radio",
-                        "default":"1",
-                        "required": true,
-                        "enum":[
-                            "PLN",
-                            "USD",
-                            "EURO",
-                            "CHF",
-                            "GPB"
-                        ]         
-                    },
-                     "wage_percent":{
-                        "title":"Wynagrodzenie %",
-                        "description":"Description....",
-                        "type": "string",
-                        "required": true                
+    "type": "array",
+    "items": {         
+        "type": "object",
+        "properties": {       
+
+                "add_doctor":{
+                    "title":"Wybierz lekarza",
+                    "description":"Description....",
+                    "type": "radio",
+                    "default":"Nowy",
+                    "required": true,
+                    "enum":[
+                       "new" 
+                    ]         
+                },       
+                "doctor_name":{
+                    "title":"Imię i nazwisko",
+                    "description":"Description....",
+                    "type": "string",
+                    "required": true                
+                },
+                "wage_const":{
+                    "title":"Wynagrodzenie stałe",
+                    "description":"Description....",
+                    "type": "string",
+                    "required": true                
+                },
+                "currency":{
+                    "title":"Waluta",
+                    "description":"Description....",
+                    "type": "radio",
+                    "default":"1",
+                    "required": true,
+                    "enum":[
+                        "PLN",
+                        "USD",
+                        "EURO",
+                        "CHF",
+                        "GPB"
+                    ]         
+                },  
+                "wage_percent":{
+                    "title":"Wynagrodzenie %",
+                    "description":"Description....",
+                    "type": "string",
+                    "required": true                
+                },
+
+            "grid_cells": {
+                "title": "Szczegóły płatności",
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "visits": {   
+                                "title":"Wizyta",                     
+                                "type": "string",
+                                "enum": ["xxx", "yyy", "zzz","xxx"]
+                            },
+                            "wages_cost": {   
+                                "title":"Wynagrodzenie stałe",                     
+                                "type": "string"                        
+                            },
+                             "currency":{
+                                "title":"Waluta",
+                                "description":"Description....",
+                                "type": "radio",
+                                "default":"1",
+                                "required": true,
+                                "enum":[
+                                    "PLN",
+                                    "USD",
+                                    "EURO",
+                                    "CHF",
+                                    "GPB"
+                                ]         
+                            },
+                             "wage_percent":{
+                                "title":"Wynagrodzenie %",
+                                "description":"Description....",
+                                "type": "string",
+                                "required": true                
+                            }
+                        
                     }
                 }
             }
 
+
+
+                   
+
+            }
+
         }
-    }
+       
 }

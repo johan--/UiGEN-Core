@@ -1,0 +1,28 @@
+{
+    "type":"object",
+    "properties":{
+        "supports": {
+            "type": "array", 
+            "items": {
+                "type": "object",
+                "properties": {                   
+                     "doctors":{
+                        "title":"Lekarze",
+                        "description":"Description....",
+                        "type": "radio",
+                        "required": true,
+                        "enum":[
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5"
+                        ]         
+                    }
+                }
+            }
+
+        }
+       
+    }
+}

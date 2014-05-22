@@ -7,6 +7,8 @@ Authors: UiGEN Team: dadmor | minimal
 Authors URI: dadmor@gmail.com
 */
 
+include('custom_admin_pages.php');
+
 /* This plugin add UiGEN classes to uour plugin directory */
 
 // Plugin VERSION
@@ -31,36 +33,93 @@ require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
 
 /* tables creation */
 
-if(class_exists('Custom_Types_Creator')) {
-
+if(!class_exists('Custom_Types_Creator')) {
+  include_once(PLUGIN_DIR.'/mpf_specyfic.php');
 }
 
 function my_first_install() {
 
   if(class_exists('Custom_Types_Creator')) {
-  $mpf = new Custom_Types_Creator();
-  $mpf_roles = array(
-    'doctor' => array('read' => false),
-    'worker' => array('publish_posts' => true),
-    'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
-    'operator' => array('publish_pages' => true, 'edit_published_pages' => true, 'edit_pages' => true, 'edit_othhers_pages' => true, 'delete_pages' => true),
-    );
-  $mpf->roles=$mpf_roles;
-    $mpf->add_roles();
-  }
+	$mpf = new Custom_Types_Creator();
+	$mpf_roles = array(
+		'doctor' => array('read' => false),
+		'payer' => array('publish_posts' => true),
+		'coordinator' => array(
+			'publish_wizyta' => true,
+			'edit_published_wizyta' => true
+		),
+		'operator' => array(
+			'edit_dashboard' => true,
+			'edit_wizyta' => true,
+			'read_wizyta' => true,
+			'publish_wizyty' => true,
+			'edit_published_wizyty' => true,
+			// 'edit_others_posts' => true,
+			// 'edit_pages' => true,
+			// 'edit_others_pages' => true,
+			// 'edit_published_pages' => true,
+			// 'publish_pages' => true,
+			// 'delete_pages' => true,
+			// 'delete_others_pages' => true,
+			// 'delete_published_pages' => true,
+			// 'delete_others_posts' => true,
+			// 'delete_private_posts' => true,
+			// 'edit_private_posts' => true,
+			// 'read_private_posts' => true,
+			// 'delete_private_pages' => true,
+			// 'edit_private_pages' => true,
+			// 'read_private_pages' => true,
+			// 'edit_published_posts' => true,
+			// 'upload_files' => true,
+			// 'publish_posts' => true,
+			// 'delete_published_posts' => true,
+			// 'edit_posts' => true,
+			// 'delete_posts' => true,
+			'read' => true
+		),
+	);
+	$mpf->roles=$mpf_roles;
+		$mpf->add_roles();
+	} else {
+		echo 'error, password wrong!';
+		die();
+	}
 }
 
 function my_first_reinstall(){
   if(class_exists('Custom_Types_Creator')) {
-      $mpf = new Custom_Types_Creator();
+	  $mpf = new Custom_Types_Creator();
   $mpf_roles = array(
-    'doctor' => array('read' => false),
-    'worker' => array('publish_posts' => true),
-    'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
-    'operator' => array('publish_pages' => true, 'edit_published_pages' => true, 'edit_pages' => true, 'edit_othhers_pages' => true, 'delete_pages' => true),
-    );
+	  'doctor' => array('read' => false),
+	  'payer' => array('publish_posts' => true),
+	  'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
+	  'operator' => array('edit_dashboard' => true,
+	  'edit_others_posts' => true,
+	  'edit_pages' => true,
+	  'edit_others_pages' => true,
+	  'edit_published_pages' => true,
+	  'publish_pages' => true,
+	  'delete_pages' => true,
+	  'delete_others_pages' => true,
+	  'delete_published_pages' => true,
+	  'delete_others_posts' => true,
+	  'delete_private_posts' => true,
+	  'edit_private_posts' => true,
+	  'read_private_posts' => true,
+	  'delete_private_pages' => true,
+	  'edit_private_pages' => true,
+	  'read_private_pages' => true,
+	  'edit_published_posts' => true,
+	  'upload_files' => true,
+	  'publish_posts' => true,
+	  'delete_published_posts' => true,
+	  'edit_posts' => true,
+	  'delete_posts' => true,
+	  'read' => true,
+	  ),
+	);
   $mpf->roles=$mpf_roles;
-    $mpf->remove_roles();
+	$mpf->remove_roles();
   }
 }
 
@@ -96,62 +155,27 @@ function alpaca_lib_init() {
 /* register posttypes - from definition file. */
 add_action('init', 'uigen_posttypes');
 function uigen_posttypes() {
-    // -------------------------
-    // Posttypes definitions
-    // -------------------------
-    
-    // include arguments array
-    include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
+	// -------------------------
+	// Posttypes definitions
+	// -------------------------
+	
+	// include arguments array
+	include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
 
-    // register posttypes from arguments array
-    foreach ($uigen_posttypes as $posttype => $props) {
-      register_post_type($posttype, $props);
-    }
+	// register posttypes from arguments array
+	foreach ($uigen_posttypes as $posttype => $props) {
+	  register_post_type($posttype, $props);
+	}
 
-    /* register posttypes createt form user with debuger !!! */
-    require_once UIGENCLASS_PATH . 'Spyc.php';
-    $debuger_custom_posttype = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );        
-    foreach ($debuger_custom_posttype as $posttype => $props) {
-      register_post_type($posttype, $props);
-    }
+	/* register posttypes createt form user with debuger !!! */
+	require_once UIGENCLASS_PATH . 'Spyc.php';
+	$debuger_custom_posttype = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );        
+	foreach ($debuger_custom_posttype as $posttype => $props) {
+	  register_post_type($posttype, $props);
+	}
 }
 
 
-
-  add_action('init', 'uigen_form_repeater');
-  function uigen_form_repeater() {
-      
-      function field_repeater($name, $data, $type='text') {
-          if($type == 'select') {
-            print("<select  name=\"{$name}[{$key}]\">");
-          }
-          foreach ($data as $key => $value) {
-              switch($type) {
-                  case 'textarea':
-                      $field = "<textarea name=\"{$name}[{$key}]\">{$value}</textarea>";
-                      break;
-                  case 'select':
-                      $field = "<option value=\"{$value}";
-                  default:
-                      $field = "<input type=\"{$type}\" name=\"{4name}[{$key}]\" value=\"{$value}\" />";
-              }
-              print($field."\n");
-          }
-          if($type == 'select') {
-            print("</select>");
-          }
-      }
-
-
-    function field_repeater_save($name) {
-        $returnArray = array($name => array());
-        foreach ($_REQUEST[$name] as $key => $value) {
-            $returnArray[$name][$key] = $value;
-        }
-        return ($returnArray);
-    }
-
-  }
 // ================================================================================
 
 /* register metaboxes - from definition file. */
@@ -166,20 +190,20 @@ function uigen_metaboxes() {
 
   // register posttypes from arguments array
   foreach ($uigen_metaboxes as $metabox) {
-      add_meta_box($metabox[0],$metabox[1],$metabox[2],$metabox[3],$metabox[4],$metabox[5],$metabox[6]);
+	  add_meta_box($metabox[0],$metabox[1],$metabox[2],$metabox[3],$metabox[4],$metabox[5],$metabox[6]);
   }
 }
 
 /* register sidebars - from definition file. */
 add_action( 'widgets_init', 'ui_register_sidebars' );
 function ui_register_sidebars() {
-    // -------------------------
-    // Metaboxes definitions
-    // -------------------------
-    include 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php';
-    foreach ($uigen_sidebars as $sidebar) {
-        register_sidebar( $sidebar);
-    }
+	// -------------------------
+	// Metaboxes definitions
+	// -------------------------
+	include 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php';
+	foreach ($uigen_sidebars as $sidebar) {
+		register_sidebar( $sidebar);
+	}
 }
 
 
@@ -207,21 +231,21 @@ function check_debuger() {
 
 // #################################################################################
 
-add_action( 'admin_head', 'admin_panel' ); 
-function admin_panel() {
-  if ( current_user_can( 'publish_posts' ) ) {
-      // If you are Admin to: ...
-        
-  } else {
-      // You don't admin - admin panel is not to you.
-      echo '<div style="margin:0px 20px;">';
-      echo 'Sorry man!!!<br/>Admin area is closed to non administrator users!<br/>check me in: ../UiGEN-Core.php';
-      echo '</div>';
-      wp_redirect( home_url() ); exit; 
-      die();
+// add_action( 'admin_head', 'admin_panel' ); 
+// function admin_panel() {
+//   if ( current_user_can( 'publish_posts' ) ) {
+//       // If you are Admin to: ...
+		
+//   } else {
+//       // You don't admin - admin panel is not to you.
+//       echo '<div style="margin:0px 20px;">';
+//       echo 'Sorry man!!!<br/>Admin area is closed to non administrator users!<br/>check me in: ../UiGEN-Core.php';
+//       echo '</div>';
+//       wp_redirect( home_url() ); exit; 
+//       die();
 
-  }
-}
+//   }
+// }
 
 // #################################################################################
 // UiGEN Admin Menu
@@ -247,10 +271,10 @@ function uigen_core(){
   
   // check theme version
   if(@constant('UiGEN_THEME_VER') != ''){
-    echo '<div id="message" class="updated"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:#7ad03a"> is CORRECT</span>';
-    echo '<br/>Your theme is: '.constant('UiGEN_THEME_VER').' </p></div>';
+	echo '<div id="message" class="updated"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:#7ad03a"> is CORRECT</span>';
+	echo '<br/>Your theme is: '.constant('UiGEN_THEME_VER').' </p></div>';
   }else{
-    echo '<div id="message" class="error"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme</p></div>';
+	echo '<div id="message" class="error"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme</p></div>';
   }
 
   echo '</div>';
@@ -293,53 +317,53 @@ function uigen_core(){
   <h3>Design your site layout</h3>
   <h4>Or select from custom <a href="#">layouts library</a></h4>
   <table class="wp-list-table widefat plugins">
-    <thead>
-    <tr>
-      <th>Grid</th><th>Blocks</th>
-    </tr>
-    </thead>
-    <tbody id="the-list">
-      <tr class="active">
-        <td>
-          <div id="layout_creator">
-          <div id="grid">
+	<thead>
+	<tr>
+	  <th>Grid</th><th>Blocks</th>
+	</tr>
+	</thead>
+	<tbody id="the-list">
+	  <tr class="active">
+		<td>
+		  <div id="layout_creator">
+		  <div id="grid">
 
 
-          </div>
-          <div id="grid-panel">
-            <div class="button add-container">Add Container [+]</div>
-          </div>
-          </div>
-        </td>
-        <td>Blocks</td>
-      </tr>    
-    </tbody>  
+		  </div>
+		  <div id="grid-panel">
+			<div class="button add-container">Add Container [+]</div>
+		  </div>
+		  </div>
+		</td>
+		<td>Blocks</td>
+	  </tr>    
+	</tbody>  
   </table>
 
 </div>
 
 <script>
   var resizable_val = {
-      grid: 70,     
-      containment: ".sortable",
-      handles: "e, s",
-      cancel:false
-    };
-    var sortable_val = {
-      connectWith: ".sortable",
-      cursor: 'pointer',
-    };
+	  grid: 70,     
+	  containment: ".sortable",
+	  handles: "e, s",
+	  cancel:false
+	};
+	var sortable_val = {
+	  connectWith: ".sortable",
+	  cursor: 'pointer',
+	};
 
   var resizable_container = {
-    grid: 70, 
-    handles: "s",   
+	grid: 70, 
+	handles: "s",   
   }
 
 
   $(function() {
-    //$( ".sortable" ).sortable(sortable_val);
-    // $( ".sortable" ).disableSelection();
-    //$( ".ui-state-default" ).resizable(resizable_val);
+	//$( ".sortable" ).sortable(sortable_val);
+	// $( ".sortable" ).disableSelection();
+	//$( ".ui-state-default" ).resizable(resizable_val);
 
   });
 
@@ -368,21 +392,21 @@ function uigen_core(){
 
 
 $("#layout_creator").on( "click",'.add-span', function(event) {
-    $(this).parent().parent().children('.sortable-helper').children('ul').append(span);
-    $(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').resizable(resizable_val);
+	$(this).parent().parent().children('.sortable-helper').children('ul').append(span);
+	$(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').resizable(resizable_val);
 });
 
 
 $("#layout_creator").on( "click",'.add-container', function(event) {
-    $(this).parent().parent().children('#grid').append(container);
-    $(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').children('ul').sortable(sortable_val);
-    $(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').resizable(resizable_container);
+	$(this).parent().parent().children('#grid').append(container);
+	$(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').children('ul').sortable(sortable_val);
+	$(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').resizable(resizable_container);
 });
 
 
 $("#layout_creator").on( "click",'.delete-span', function(event) {
-    event.preventDefault();
-    $(this).parent().parent().parent().remove();
+	event.preventDefault();
+	$(this).parent().parent().parent().remove();
 });
 
 </script>
@@ -405,9 +429,9 @@ function UiGEN_hierarchy_callback(){
  * @return $hash (string) hash that can be werified by validate_hash function
  **/
  function get_hash($user_id) {
-    $hash = hash_hmac('sha256', uniqid().$user_id.uniqid(), EMAIL_SALT);
-    update_user_meta( $user_id, 'ui_confirm_status', $hash );
-    return($hash);
+	$hash = hash_hmac('sha256', uniqid().$user_id.uniqid(), EMAIL_SALT);
+	update_user_meta( $user_id, 'ui_confirm_status', $hash );
+	return($hash);
  }
 
  /**
@@ -420,13 +444,13 @@ function UiGEN_hierarchy_callback(){
   * @return boolean true if hash maches given user; false if it does not
   **/
  function validate_hash($user_id, $hash, $remove = false) {
-    $users_hash = get_user_meta( $user_id, 'ui_confirm_status', true );
-    if ($hash == $users_hash) {
-      if ($remove) {
-        delete_user_meta($user_id, 'ui_confirm_status');
-      }
-      return(true);
-    } else {
-      return(false);
-    }
+	$users_hash = get_user_meta( $user_id, 'ui_confirm_status', true );
+	if ($hash == $users_hash) {
+	  if ($remove) {
+		delete_user_meta($user_id, 'ui_confirm_status');
+	  }
+	  return(true);
+	} else {
+	  return(false);
+	}
  }

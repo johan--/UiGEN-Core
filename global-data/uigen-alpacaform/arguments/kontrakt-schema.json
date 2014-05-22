@@ -1,33 +1,19 @@
 {
-    "title":"Dodawanie kontraktu",
-    "description":"Opis dodadkowy....",
     "type":"object",
     "properties":{
         "place":{
             "title":"Ośrodek",
             "description":"Description....",
-            "type": "radio",
             "default":"1",
-            "required": true,
-            "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
-            ]         
+            "required": true
+       
         }, 
         "payer":{
             "title":"Płatnik",
-            "description":"Description....",
-            "type": "radio",
+            "description":"Description....",           
             "default":"1",
-            "required": true,
-            "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
-            ]         
+            "required": true
+       
         }, 
         "protocol_no":{
             "title":"Numer protokołu",
@@ -38,15 +24,9 @@
         "diagnistic_type":{
             "title":"rodzaj badania",
             "description":"Description....",
-            "type": "radio",
+            "type": "string",
             "default":"1",
-            "required": true,
-            "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
-            ]         
+            "required": true          
         }, 
         "diagnistic_start_date":{
             "title":"data rozpoczecia",

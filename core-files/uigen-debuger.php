@@ -450,8 +450,12 @@ window.onload=function(){
 
 			jQuery.ajax({
 			  type: "POST",
-			  url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-yaml.php",
-			  data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+			  url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/inspector-save-yaml.php",
+			  data: { 
+			  	yaml: jQuery(this).parent().children('textarea').val(),
+			  	ui_page_name: jQuery('#ui_page_name').text(),
+			  	ui_grid_name: jQuery('#ui_grid_name').text(),
+			  	}
 			})
 			  .done(function( msg ) {
 			  	jQuery('.modal-content').children('div').remove();
@@ -590,7 +594,7 @@ window.onload=function(){
 		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-template-part-list.php?debug=true",
-			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: '<?php echo $ui_page_name; ?>' }
+			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: jQuery('#ui_page_name').text() }
 		})
 		.done(function( msg ) {	
 			jQuery('#debug-manager').append(msg);

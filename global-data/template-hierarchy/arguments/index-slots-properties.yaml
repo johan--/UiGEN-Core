@@ -21,10 +21,10 @@ nav-menu-header111011:
     menu_id: main-nav
   walker: bootstrap_nav
 form-slot2:
-  debug_label: Form Slot
-  debug_type: form
-  type: controller
-  name: buildForm
-  flow: basic-user-login
+  debug_label: Login form
+  debug_type: static
+  type: tpl-part
+  tpl_part: login-form
+  tpl_part_prop: not_implemented
 grid: basic-fat
 ui_page_name: index

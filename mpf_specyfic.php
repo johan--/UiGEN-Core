@@ -16,6 +16,7 @@
 					$errors[] = __('Problem with adding a role').': '.__($role);
 				}
 			}
+			var_dump($errors);
 			// $this->show_message($errors, 'Roles added');
 		}
 
@@ -40,3 +41,11 @@
 		}
 
 	};
+
+	add_filter('screen_layout_columns', function($columns) {
+		$columns['kontrakt'] = $columns['osrodki'] = $columns['wizyta'] = 1;
+		return $columns;
+	});
+	add_filter('get_user_option_screen_layout_kontrakt', function() {return 1;});
+	add_filter('get_user_option_screen_layout_osrodki', function() {return 1;});
+	add_filter('get_user_option_screen_layout_wizyta', function() {return 1;});
