@@ -21,17 +21,29 @@ Information about quick start soon.
 
 
 
-## Authors
+## TEAM
 
-**Grzegorz Durtan**
+**Grzegorz Durtan DADMOR**
 
 - <http://grzegorz.durtan.pl>
+- 
 
-**Maciej Dmowski**
+**Maciej Dmowski MINIMAL**
 
 - <http://dmowsk.it>
 
+**Katarzyna Świderska BASTETMILO**
 
+**Marcin Karpezo SIRMACIK**
+
+**Michał Cupiał UZIAEL**
+
+- <http://ftint.pl>
+
+**Jakub Niewiarowski MARSJANINZMARSA**
+
+- <http://dmowsk.it>
+- [TODO:in english] Przed przystąpieniem do UI-Gen Teamu zajmowałem się w zasadzie wszystkim od cięcia po wdrożenie, głównie pod kątem WordPressa. Nie jest mi straszne pisanie zarówno frontu, jak i backendu, przy czym zdecydowanie wolę to drugie. Nieszablonowe wykorzystanie WordPressa (bardziej jako frameworku, niż blogowego CMS-a), pisanie wtyczek, tworzenie całych layoutów wyciskając co się da z CSS3 i nowoczesnych przeglądarek praktycznie bez wykorzystania grafik czy JS sprawia mi największą frajdę. Czuję się dobrze w PHP (ciągle uczę się OOP), JavaScripcie (z naciskiem na jQuery). Nie umiem Pythona, Basha, Ruby C/C++, ani Common Lispa, co nie przeszkadza mi pisać w nich po godzinach pracy własnych projektów. Należę do bojówki Debiana, nie lubię Ubuntu, szanuję OS X i Windowsa (który jednak nieodmiennie mnie irytuje).
 
 ## Copyright and license
 
