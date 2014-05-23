@@ -3,21 +3,23 @@
 
 function alpacaform_box($post, $metabox){
   $data = get_post_meta($post->ID, 'ui_'.$metabox['id'],true);
-  //var_dump($data);
   
   $metadata = get_post_custom($post->ID);
   $tmp_visits = array();
   $tmp_visits2 = array();
-  foreach ($metadata as $key => $value) {
-    if(strpos($key, 'alpc_')===false) {
-      unset($metadata[$key]);
-    }
-    // Let the hardco[d|r]e begin...
-    if (in_array($key, array('alpc_visit_currency', 'alpc_visit_price', 'alpc_visit_visit_name'))) {
-      $tmp_visits[substr($key, 11)] = $value;
+
+
+  if($metadata!=false){
+    foreach ($metadata as $key => $value) {
+      if(strpos($key, 'alpc_')===false) {
+        unset($metadata[$key]);
+      }
+      // Let the hardco[d|r]e begin...
+      if (in_array($key, array('alpc_visit_currency', 'alpc_visit_price', 'alpc_visit_visit_name'))) {
+        $tmp_visits[substr($key, 11)] = $value;
+      }
     }
   }
-
   // var_dump($tmp_visits);
 
   if (count($tmp_visits) > 0) {
@@ -43,7 +45,6 @@ function alpacaform_box($post, $metabox){
   echo '<div id="'.$metabox['id'].'_form" class="stuffbox"></div>';
   echo '<div id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
   ?>
-
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var template_dir = "<?php echo get_template_directory_uri(); ?>";
