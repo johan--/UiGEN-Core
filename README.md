@@ -45,6 +45,8 @@ HTML, bash. Języki które znam, ale nie lubię: Java, C/C++, JavaScript.
 
 **Marcin Karpezo SIRMACIK**
 
+- http://www.sirmacik.net/
+
 - [TODO:in english]Project manager, w UIGen zajmuję się planowaniem, realizacją i zamykaniem projektów. Pracuję blisko z zespołem, dbam o rozwiązanie blokujących zadania problemów. Wspólnie z nim pracujemy nad poprawą naszej wydajności i jakości pracy.
 
 **Michał Cupiał UZIAEL**
@@ -53,7 +55,7 @@ HTML, bash. Języki które znam, ale nie lubię: Java, C/C++, JavaScript.
 
 **Jakub Niewiarowski MARSJANINZMARSA**
 
-- <http://dmowsk.it>
+- <http://niewiarowski.it>
 - [TODO:in english] Przed przystąpieniem do UI-Gen Teamu zajmowałem się w zasadzie wszystkim od cięcia po wdrożenie, głównie pod kątem WordPressa. Nie jest mi straszne pisanie zarówno frontu, jak i backendu, przy czym zdecydowanie wolę to drugie. Nieszablonowe wykorzystanie WordPressa (bardziej jako frameworku, niż blogowego CMS-a), pisanie wtyczek, tworzenie całych layoutów wyciskając co się da z CSS3 i nowoczesnych przeglądarek praktycznie bez wykorzystania grafik czy JS sprawia mi największą frajdę. Czuję się dobrze w PHP (ciągle uczę się OOP), JavaScripcie (z naciskiem na jQuery). Nie umiem Pythona, Basha, Ruby C/C++, ani Common Lispa, co nie przeszkadza mi pisać w nich po godzinach pracy własnych projektów. Należę do bojówki Debiana, nie lubię Ubuntu, szanuję OS X i Windowsa (który jednak nieodmiennie mnie irytuje).
 
 **Paweł Formela**
