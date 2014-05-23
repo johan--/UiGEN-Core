@@ -60,6 +60,12 @@ function alpacaform_box($post, $metabox){
           //"optionsSource": "<?php //echo $metabox['args']['data_path'].$metabox['args']['options_file'];?>",
           "schemaSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['schema_file'];?>",
           "options": <?php echo $metabox['args']['options'];?>,
+          <?php 
+          if($metabox['args']['view'] != ''){
+            echo '"view": "VIEW_WEB_DISPLAY",';
+          }
+  
+          ?>
           // ----------------------------------------------
           // add form methods
           "postRender": function(renderedForm) {          

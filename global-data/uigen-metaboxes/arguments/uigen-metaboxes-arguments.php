@@ -107,11 +107,13 @@ $uigen_metaboxes = array(
 			        },		       
 		    	}
 			}',
+
 			
 			// ----------------------------------------------------
 
 			'file_save_url' => ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template_hierarchy/arguments/',
 			'save_data_type' => 'json', // [json , php]
+			'view' => 'VIEW_WEB_DISPLAY',
 		),						
 	),
 	'wizyta_savebox' => array(
