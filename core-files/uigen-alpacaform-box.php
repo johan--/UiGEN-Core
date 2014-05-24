@@ -48,7 +48,9 @@ function alpacaform_box($post, $metabox){
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var template_dir = "<?php echo get_template_directory_uri(); ?>";
-      $("#<?php echo $metabox['id']; ?>_form").alpaca({          
+      var alpacaGlobalObj = new Array();       
+      $("#<?php echo $metabox['id']; ?>_form").alpaca({  
+
           // ----------------------------------------------
           // read data json from postmeta
           <?php

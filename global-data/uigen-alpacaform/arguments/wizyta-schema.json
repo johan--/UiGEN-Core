@@ -1,6 +1,5 @@
 {
-    "title":"Custom posttype",
-    "description":"Register custom posttype into wordpress",
+    "description":"opis...",
     "type":"object",
     "properties":{
         "contract":{

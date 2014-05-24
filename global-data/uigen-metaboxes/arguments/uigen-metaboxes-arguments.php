@@ -101,10 +101,14 @@ $uigen_metaboxes = array(
 			'options' => '			
 			{
 		   		"fields": {
-			        "contract": { 
-			        	"type":"select",           
-			            "optionLabels": ['.render_posttype_to_alpaca_string('kontrakt').']
-			        },		       
+			        "item": { 
+			        	"fields": {
+			        		"visit_name": {
+			        		"type":"select",           
+			            	"optionLabels": ['.render_posttype_to_alpaca_string('kontrakt').']
+			            	}
+			        	}
+			        }		       
 		    	}
 			}',
 
@@ -194,14 +198,29 @@ $uigen_metaboxes = array(
 			'data_path' => plugins_url().'/UiGEN-Core/global-data/uigen-alpacaform/arguments/',
 			'schema_file' => 'kontrakt-visit-schema.json',				
 			//'options_file' => 'kontrakt-doctor-options.json',
-			'options' => '			
-			{
-		   		"fields": {
-			        "place": {            
-			            "optionLabels": ['.render_posttype_to_alpaca_string('kontrakt').']
-			        },		       
+			'options' => '{
+		   		"fields": {		   			
+		   			"supports": {				
+						"fields": {	
+		   					"item": {		   				
+		   						"fields": {						        
+									"visit_name": {
+				        				"onFieldChange": function(e) {
+				        					var obj = new Object();
+				        					obj["name"] = this.name;
+				        					obj["value"] = this.getValue();
+				        					alpacaGlobalObj[alpacaGlobalObj.length]=obj;
+				                			console.log(alpacaGlobalObj);
+										}
+									}
+					        	}					    	
+					    	}
+						}
+					}	       
 		    	}
 			}',
+
+
 			
 			// ----------------------------------------------------
 
@@ -244,7 +263,22 @@ $uigen_metaboxes = array(
 		   					"add_doctor": {
 		   						"dataSource": '.render_users_to_alpaca_string('doctor').',
 		   						"type": "select"
-		   					}
+		   					},
+		   					
+		   						"grid_cells": {
+		   							"fields": {
+		   								"item": {
+		   									"fields": {
+				   								"visits": {
+							   						"dataSource": alpacaGlobalObj,
+							   						"type": "select"
+							   					}
+					   						}
+					   					}
+		   							}	
+		   						}
+		   					
+
 		   				}
 		   			}
 		    	}
