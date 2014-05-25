@@ -10,16 +10,39 @@
 		}
 
 }
+
+#onHandler{
+	border-right:5px solid #333;
+}
+#new-inspector{
+	position:absolute;
+	border:5px solid #333;
+	margin:10px;
+	padding:20px;
+	background-color: #555;
+	color:#eee;
+	display:none;
+	box-shadow: 0px 0px 20px #333;
+}
 #debug-manager{
 	position:fixed;
 	width: 250px;
-	height:100%;
-	right:0;
-	border-left:5px solid #333;
+	height:100%;	
 	background-color: #555;
 	color:#eee;
 	padding:0px 20px;
+	right:-250px;
+	z-index:2000;
+	transition: right 0.5s ease-in-out;
 }
+#debug-manager.right0{
+	right:0px;
+}
+#debug-manager.right-200{
+	right:-250px;
+}
+
+
 #debug-manager .ui_slot_element{
 	display:none;
 }
@@ -27,10 +50,14 @@
 	display:none;
 }
 body{
-	margin-right:250px !important;
+	position:relative;
+	transition: margin-left 0.5s ease-in-out,margin-right 0.5s ease-in-out;
+}
+body.right250{
+	margin-right:250px;
 }
 body.left200{
-	margin-left:200px !important;
+	margin-left:200px;
 }
 
 #uigen_asset_list{
@@ -38,11 +65,14 @@ body.left200{
 	top:0;
 	width:200px;
 	height:100%;
-	left:0;
+	left:-100px;
 	border-right:5px solid #333;
 	background-color: #555;
 	font-size:12px;
-	display:none;
+	margin-left:-200px;
+
+	transition: left 0.5s ease-in-out;
+
 }
 
 #uigen_asset_list .panel-title{
@@ -56,6 +86,7 @@ body.left200{
 	display:none;
 	box-shadow: 0px 0px 10px #888888;
 	min-height:60px !important;
+	background-color: rgb(255,255,255);
 
 }
 .ui-state-active{
@@ -134,6 +165,7 @@ body.left200{
 	margin-top:10px;
 	border-radius: 10px;
 	box-shadow: 0px 0px 50px #333;
+	left:0;
 }
 .portlet-inspect textarea{
 	float:left; width:50%; margin:0; padding:6px; font-family:courier; color:navy;
@@ -160,7 +192,7 @@ body.left200{
 	box-shadow: 0px 0px 1100px 1180px #fff;
 }
 .help-panel{
-	position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000; 
+	position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:3000; display:none;
 }
 
 
@@ -170,11 +202,10 @@ function decorate_debuged_page_header($gridName,$args){
 
 	?>
 
-	<!--
-	 	<div id="help_panel" class="help-panel">
-			<img src="<?php echo plugins_url();?>/UiGEN-Core/img/help_drag_and_drop.png" style="float:right; margin-right:100px">
+		<div id="help_panel" class="help-panel">
+			<img src="<?php echo plugins_url();?>/UiGEN-Core/img/help_drag_and_drop.png" style="float:right; margin-right:10px; margin-top:10px">
 		</div>
-	 -->
+
 
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
@@ -197,13 +228,19 @@ function decorate_debuged_page_header($gridName,$args){
 			</div>
 		</div>
 		
-
+		
 
 		<?php
 			decorate_slot('start',$gridName,$args);
 			decorate_slot('end',$gridName,$args);
-		?>			
+		?>	
+
+
 	</div>
+
+	<div id="new-inspector">
+
+	</div>	
 
 	<div id="footer_save_info">
 		<table>
@@ -313,19 +350,7 @@ function decorate_slot($position,$slotName,$slot){
 }	
 
 
-function decorate_template_parts($position){
-	/*if($position=='start'){
-	?>
-		<div style="outline:#9E9E9E dashed 1px; margin-top:2px">
-	<?php
-	}
-	if($position=='end'){
-	?>
-		<br style="clear:both"/>
-		</div>
-	<?php
-	}*/
-}
+
 ?>
 
 <!-- Modal -->
@@ -349,8 +374,6 @@ function decorate_template_parts($position){
 
 
 <div id="debug-manager">
-
-
 </div>
 
 <script>
@@ -358,8 +381,25 @@ var donateString = 'This feature not implemented yet.\n If You want donate this 
 window.onload=function(){
 
 	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
-	    jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
-	 });	
+	    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
+	    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
+		    // Animation complete.
+		    //jQuery('#debug-manager').css('display','block');
+		    jQuery('body').addClass('right250');
+			jQuery('#debug-manager').addClass('right0');
+			jQuery('#help_panel').fadeIn("slow");
+
+		});
+	   
+
+	 });
+
+	jQuery('#help_panel').click( "li.slotEdit", function() {
+		jQuery('#help_panel').children().remove();
+		jQuery('#help_panel').css('display','none');
+	});
+
+
 
 	jQuery(document).on('click', "li.slotEdit", function() {
 		alert(donateString);
@@ -402,40 +442,74 @@ window.onload=function(){
 	});
 
 	jQuery(document).on('click', "li.debugInspect", function() {
+		//alert('inspect');
 
-		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('left','10');
-		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('min-width',jQuery(window).width()-500);
+		//var insprector_width = jQuery('.debug-grid-bar-decorator').css('width-200');
+
+		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('left','-100px');
+		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('min-width',insprector_width);
+
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/inspector-add-inspector-form.php",
+			data: {  }
+		})
+		.done(function( msg ) {	 
+			jQuery('#new-inspector').append(msg);
+			//loadSlotListHandler();
+		});
+
+		var offset = jQuery(this).parent().parent().parent().parent().offset();
+		jQuery('#new-inspector').css('top',offset.top+30);
+		jQuery('#new-inspector').css('z-index','1000');
 
 	 	if(jQuery(this).hasClass('open')==true){
 	 		
 
-	 		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','none');
-	  		jQuery(this).removeClass('open');
-	  		jQuery(this).removeClass('btn-success');
+	 		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','none');
+	  		//jQuery(this).removeClass('open');
+	  		//jQuery(this).removeClass('btn-success');
 
 
 	 	}else{
 
- 			jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').addClass('form-control');
-	  		jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','block');
-	  		jQuery(this).addClass('open');
-	  		jQuery(this).addClass('btn-success');
+ 			//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').addClass('form-control');
+	  		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','block');
+	  		//jQuery(this).addClass('open');
+	  		//jQuery(this).addClass('btn-success');
 			jQuery('body').addClass('left200');
-			jQuery('#uigen_asset_list').css('display','block');
+
+			//jQuery('#uigen_asset_list').css('display','block');
+			jQuery('#uigen_asset_list').css('left','200px');
 
 	  		
-  			var height = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('pre').height();	  	
- 			jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').css('height',height+22);
+  			//var height = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('pre').height();	  	
+ 			//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').css('height',height+22);
+			jQuery('#new-inspector').fadeIn(1000);
 
+
+			jQuery('#debug-manager').removeClass('right0');
+			jQuery('#debug-manager').addClass('right-200');
+			jQuery('body').removeClass('right250');
 	  		
 		}
 	});
 	jQuery(document).on('click', "button.debug-close", function() {	
-			jQuery(this).parent().css('display','none');
-	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
-	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
+			//jQuery(this).parent().css('display','none');
+	  		//jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
+	  		//jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
 			jQuery('body').removeClass('left200');
-			jQuery('#uigen_asset_list').css('display','none');
+			jQuery('#new-inspector').css('display','none');
+
+			jQuery('#new-inspector').children().remove();
+			
+			jQuery('body').addClass('right250');
+
+			jQuery('#debug-manager').addClass('right0');
+			jQuery('#debug-manager').removeClass('right-200');
+
+			//jQuery('#uigen_asset_list').css('display','none');
+			jQuery('#uigen_asset_list').css('left','0');
 	});
 
 	jQuery(document).on('click', "button.debug-save-yaml", function() {	
