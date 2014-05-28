@@ -48,38 +48,38 @@ $uigen_metaboxes = array(
 	/* TEMPLATE HIERARCHY                                                                      */
 	/* --------------------------------------------------------------------------------------- */
 	
-	'atest' => array(
-		'atest',			// $id
-		'Form box test',						// $title
-		'alpacaform_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'template_hierarchy',					// $post_type
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			'data_path' => plugins_url().'/UiGEN-Core/global-data/uigen-alpacaform/arguments/',
-			'schema_file' => 'template-hierarchy-schema.json',				
-			//'options_file' => 'template-hierarchy-options.json',
-			// ----------------------------------------------------
+	// 'atest' => array(
+	// 	'atest',			// $id
+	// 	'Form box test',						// $title
+	// 	'alpacaform_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'template_hierarchy',					// $post_type
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		'data_path' => plugins_url().'/UiGEN-Core/global-data/uigen-alpacaform/arguments/',
+	// 		'schema_file' => 'template-hierarchy-schema.json',				
+	// 		//'options_file' => 'template-hierarchy-options.json',
+	// 		// ----------------------------------------------------
 
-			'file_save_url' => ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			'save_data_type' => 'json', // [json , php]
-		),						
-	),
-	'template_hierarchy_savebox' => array(
-		'template_hierarchy_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'template_hierarchy',					// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 		'file_save_url' => ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		'save_data_type' => 'json', // [json , php]
+	// 	),						
+	// ),
+	// 'template_hierarchy_savebox' => array(
+	// 	'template_hierarchy_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'template_hierarchy',					// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 
 	/* --------------------------------------------------------------------------------------- */
@@ -120,20 +120,20 @@ $uigen_metaboxes = array(
 			'view' => 'VIEW_WEB_DISPLAY',
 		),						
 	),
-	'wizyta_savebox' => array(
-		'wizyta_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'wizyta',								// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 'wizyta_savebox' => array(
+	// 	'wizyta_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'wizyta',								// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 	/* --------------------------------------------------------------------------------------- */
 	/* KONTRAKT                                                                  */
@@ -171,20 +171,20 @@ $uigen_metaboxes = array(
 			'save_data_type' => 'json', // [json , php]
 		),						
 	),
-	'kontrakt_savebox' => array(
-		'kontrakt_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'kontrakt',								// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 'kontrakt_savebox' => array(
+	// 	'kontrakt_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'kontrakt',								// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 	'kontrakt-visit-box' => array(
 		'kontrakt-visit-box',							// $id
@@ -207,10 +207,14 @@ $uigen_metaboxes = array(
 									"visit_name": {
 				        				"onFieldChange": function(e) {
 				        					var obj = new Object();
-				        					obj["name"] = this.name;
+				        					//obj["text"] = this.name;
+				        					obj["text"] = this.getValue();
 				        					obj["value"] = this.getValue();
-				        					alpacaGlobalObj[alpacaGlobalObj.length]=obj;
-				                			console.log(alpacaGlobalObj);
+				        					window.alpacaGlobalObj.push(obj)
+				        					//alpacaGlobalObj[window.alpacaGlobalObj.length]=obj;
+				                			console.log(JSON.stringify(window.alpacaGlobalObj));
+				                			$("#kontrakt-doctor-box_form").alpaca().reload();
+
 										}
 									}
 					        	}					    	
@@ -228,20 +232,20 @@ $uigen_metaboxes = array(
 			'save_data_type' => 'json', // [json , php]
 		),						
 	),
-	'kontrakt-visit_savebox' => array(
-		'kontrakt-visit_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'kontrakt',								// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 'kontrakt-visit_savebox' => array(
+	// 	'kontrakt-visit_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'kontrakt',								// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 	'kontrakt-doctor-box' => array(
 		'kontrakt-doctor-box',							// $id
@@ -270,7 +274,8 @@ $uigen_metaboxes = array(
 		   								"item": {
 		   									"fields": {
 				   								"visits": {
-							   						"dataSource": alpacaGlobalObj,
+							   						//"dataSource": window.alpacaGlobalObj,
+							   						"dataSource": function(field, callback) {callback(window.alpacaGlobalObj);},
 							   						"type": "select"
 							   					}
 					   						}
@@ -290,20 +295,20 @@ $uigen_metaboxes = array(
 			'save_data_type' => 'json', // [json , php]
 		),						
 	),
-	'kontrakt-doctor_savebox' => array(
-		'kontrakt-doctor_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'kontrakt',								// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 'kontrakt-doctor_savebox' => array(
+	// 	'kontrakt-doctor_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'kontrakt',								// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 	/* --------------------------------------------------------------------------------------- */
 	/* osrodki					                                                               */
@@ -342,20 +347,20 @@ $uigen_metaboxes = array(
 			'save_data_type' => 'json', // [json , php]
 		),						
 	),
-	'osrodki_savebox' => array(
-		'osrodki_savebox',			// $id
-		'Save box',								// $title
-		'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
-		'wizyta',								// $post_type 
-		'normal',								// $context
-		'high',									// $priority
-		array(
-			// Alpaca form box
-			//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
-			//'filename' => 'file',				
-			//'file_type' => 'json' // [json,php_array,css]
-		),						
-	),
+	// 'osrodki_savebox' => array(
+	// 	'osrodki_savebox',			// $id
+	// 	'Save box',								// $title
+	// 	'saveasfile_box',						// $callback [alpaca_form_box,save_as_file_box]
+	// 	'wizyta',								// $post_type 
+	// 	'normal',								// $context
+	// 	'high',									// $priority
+	// 	array(
+	// 		// Alpaca form box
+	// 		//'data_path' => plugins_url().'/UiGEN-Core/global-data/template_hierarchy/arguments/',
+	// 		//'filename' => 'file',				
+	// 		//'file_type' => 'json' // [json,php_array,css]
+	// 	),						
+	// ),
 
 );
 

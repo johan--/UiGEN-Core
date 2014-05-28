@@ -17,7 +17,6 @@ jQuery(document).ready(function($) {
 
 	$('.eHeight').each(function () {
 	  var eHeight = $(this).parent().innerHeight();
-	  alert(eHeight);
 	  $(this).outerHeight(eHeight);
 	});
 });

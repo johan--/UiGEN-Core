@@ -22,7 +22,7 @@
 	background-color: #555;
 	color:#eee;
 	display:none;
-	box-shadow: 0px 0px 20px #333;
+	/* box-shadow: 0px 0px 20px #333; */
 }
 #debug-manager{
 	position:fixed;
@@ -83,15 +83,15 @@ body.left200{
 	border:2px solid #999; 
 	padding:10px;
 	margin-bottom:10px;
-	display:none;
-	box-shadow: 0px 0px 10px #888888;
+	/* display:none; */
+	/* box-shadow: 0px 0px 10px #888888; */
 	min-height:60px !important;
 	background-color: rgb(255,255,255);
 
 }
 .ui-state-active{
 	border:3px solid #64992C !important;
-	box-shadow: 0px 0px 10px green;
+	/* box-shadow: 0px 0px 10px green; */
 }
 /* .ui-draggable{max-width: 500px;} */
 .modal-title{padding:10px; font-size:16px;}
@@ -138,7 +138,7 @@ body.left200{
 }
 .tplpart_decorator_options_panel{
 	font-weight: bold;
-	text-shadow: 1px 1px white;
+	/* text-shadow: 1px 1px white; */
 	background-image: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
 	background-color:#ccc; 
 	font-size:12px; 
@@ -164,7 +164,7 @@ body.left200{
 	margin-left:-10px;
 	margin-top:10px;
 	border-radius: 10px;
-	box-shadow: 0px 0px 50px #333;
+	/* box-shadow: 0px 0px 50px #333; */
 	left:0;
 }
 .portlet-inspect textarea{
@@ -192,7 +192,12 @@ body.left200{
 	box-shadow: 0px 0px 1100px 1180px #fff;
 }
 .help-panel{
-	position:fixed; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:3000; display:none;
+	position:fixed;
+	width:100%;
+	height:100%;
+	background-color:rgba(0,0,0,0.7);
+	z-index:3000;
+	display:none;
 }
 
 
@@ -201,17 +206,16 @@ body.left200{
 function decorate_debuged_page_header($gridName,$args){
 
 	?>
-
-		<div id="help_panel" class="help-panel">
-			<img src="<?php echo plugins_url();?>/UiGEN-Core/img/help_drag_and_drop.png" style="float:right; margin-right:10px; margin-top:10px">
-		</div>
+	<div id="help_panel" class="help-panel">
+		<img src="<?php echo plugins_url(); ?>/UiGEN-Core/img/help_drag_and_drop.png" style="float:right; margin-right:10px; margin-top:10px">
+	</div>
 
 
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
 		<div id="pages_creator">
-	
 		</div>
+
 		<div>
 			<span style="font-size:24px" class="glyphicon glyphicon-file"></span>
 			<span style="font-size:20px">Page:</span> <span id="ui_page_name" style="font-size:22px"><?php echo $args['ui_page_name']; ?></span>
@@ -226,16 +230,12 @@ function decorate_debuged_page_header($gridName,$args){
 			<div id="change-grid" style="float:right; margin-right:10px; margin-top:3px; font-size:12px">
 				<span class="glyphicon glyphicon-refresh"></span><span class="glyphicon glyphicon-th-large"></span><span>Change grid</span>
 			</div>
-		</div>
-		
-		
+		</div>		
 
 		<?php
 			decorate_slot('start',$gridName,$args);
 			decorate_slot('end',$gridName,$args);
-		?>	
-
-
+		?>
 	</div>
 
 	<div id="new-inspector">
@@ -258,11 +258,9 @@ function decorate_debuged_page_header($gridName,$args){
 						<span class="glyphicon glyphicon-step-backward"></span> Undo Last Change
 					</button>
 					<p>To reset changes refresh your browser</p>
-				</td>
-				
+				</td>				
 			</tr>
-		</table>
-		
+		</table>		
 	</div>
 
 	<div id="uigen_asset_list">
@@ -318,17 +316,7 @@ function decorate_slot($position,$slotName,$slot){
 				
 			</div>
 
-			<div class="portlet-inspect">
-			
-				<button type="button" class="debug-urlencode btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon glyphicon-link"></span> Encode to URL</button>
-				<button type="button" class="debug-save-yaml btn btn-success" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save code</button>
-				<button type="button" class="debug-close btn btn-danger" style="float:right"><span class="glyphicon glyphicon-remove-circle"></span> Close</button>
-				
-				<h2>Programmers Mode::Object properties</h2>
-				
-				Data editor usage YAML syntax (<a href="http://wikipedia.org/wiki/YAML" target="_blank">about YAML on Wiki</a>)	
-				<br/>	
-				<br/>			
+			<div class="portlet-inspect">				
 				<textarea  class="" rows="5"><?php
 					require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 					
@@ -337,7 +325,6 @@ function decorate_slot($position,$slotName,$slot){
 					echo $Data;
 					
 				?></textarea>
-				<pre style="float:left; width:50%; margin:0; padding:10px;"><?php echo $slotName.":"; print_r($slot); ?></pre>
 			</div>	
 	<?php
 	}
@@ -347,10 +334,7 @@ function decorate_slot($position,$slotName,$slot){
 		</div>
 	<?php
 	}
-}	
-
-
-
+}
 ?>
 
 <!-- Modal -->
@@ -380,26 +364,27 @@ function decorate_slot($position,$slotName,$slot){
 var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
 window.onload=function(){
 
-	jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
-	    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
-	    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
-		    // Animation complete.
-		    //jQuery('#debug-manager').css('display','block');
-		    jQuery('body').addClass('right250');
-			jQuery('#debug-manager').addClass('right0');
-			jQuery('#help_panel').fadeIn("slow");
+function startEffect(){
+	//jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
+			    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
+			    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
+				    // Animation complete.
+				    //jQuery('#debug-manager').css('display','block');
+				    jQuery('body').addClass('right250');
+					jQuery('#debug-manager').addClass('right0');
+				
+					jQuery('#onHandler').css('margin-bottom','500px');
+					jQuery("#debug-manager").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
+						jQuery('#help_panel').fadeIn('slow');
+					});
+				});
+			// });
+}
 
-		});
-	   
-
-	 });
 
 	jQuery('#help_panel').click( "li.slotEdit", function() {
-		jQuery('#help_panel').children().remove();
-		jQuery('#help_panel').css('display','none');
+		jQuery('#help_panel').remove();
 	});
-
-
 
 	jQuery(document).on('click', "li.slotEdit", function() {
 		alert(donateString);
@@ -443,16 +428,15 @@ window.onload=function(){
 
 	jQuery(document).on('click', "li.debugInspect", function() {
 		//alert('inspect');
-
 		//var insprector_width = jQuery('.debug-grid-bar-decorator').css('width-200');
 
-		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('left','-100px');
+		var textareaVal = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').val();
 		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('min-width',insprector_width);
 
 		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/inspector-add-inspector-form.php",
-			data: {  }
+			data: { 'yaml': textareaVal}
 		})
 		.done(function( msg ) {	 
 			jQuery('#new-inspector').append(msg);
@@ -463,13 +447,11 @@ window.onload=function(){
 		jQuery('#new-inspector').css('top',offset.top+30);
 		jQuery('#new-inspector').css('z-index','1000');
 
-	 	if(jQuery(this).hasClass('open')==true){
-	 		
+	 	if(jQuery(this).hasClass('open')==true){	 		
 
 	 		//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').css('display','none');
 	  		//jQuery(this).removeClass('open');
 	  		//jQuery(this).removeClass('btn-success');
-
 
 	 	}else{
 
@@ -481,12 +463,11 @@ window.onload=function(){
 
 			//jQuery('#uigen_asset_list').css('display','block');
 			jQuery('#uigen_asset_list').css('left','200px');
-
 	  		
   			//var height = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('pre').height();	  	
  			//jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').css('height',height+22);
 			jQuery('#new-inspector').fadeIn(1000);
-
+			jQuery("html, body").delay(500).animate({scrollTop: jQuery('#new-inspector').offset().top-50 }, 500);
 
 			jQuery('#debug-manager').removeClass('right0');
 			jQuery('#debug-manager').addClass('right-200');
@@ -538,16 +519,13 @@ window.onload=function(){
 			});
 	});
 
-
-
-
-
-
 /*	jQuery( ".add_slot" ).mousedown(function() {
 		//alert('asdsa');
 
 	});*/
-	
+
+
+
     jQuery( "div, button" ).disableSelection();
 
 	jQuery( "#add_pages" ).click(function() {
@@ -608,7 +586,6 @@ window.onload=function(){
       		
       		// add new param to added object
       		jQuery(ui.item.context).css('border','2px solid green');
-
 
       	}
 	});
@@ -673,6 +650,7 @@ window.onload=function(){
 		.done(function( msg ) {	
 			jQuery('#debug-manager').append(msg);
 			loadSlotListHandler();
+			startEffect();	
 		});
 	}
 	loadSlotList();	

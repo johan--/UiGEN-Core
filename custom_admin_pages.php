@@ -380,13 +380,13 @@ function mpf_menu()
   add_menu_page('Lekarze', 'Lekarze', 'manage_options', 'doctors', function() {custom_list('doctor');});
   add_menu_page('Płatnicy', 'Płatnicy', 'manage_options', 'payers', function() {custom_list('payer');});
   add_menu_page('Koordynatorzy', 'Koordynatorzy', 'administrator', 'coordinators',  function() {custom_list('coordinator');});
-  add_menu_page('Pracownicy', 'Pracownicy', 'administrator', 'workers',  function() {custom_list('worker');});
+  // add_menu_page('Pracownicy', 'Pracownicy', 'administrator', 'workers',  function() {custom_list('worker');});
   // submenu with calback
  
   add_submenu_page('doctors', 'Dodaj lekarza', 'Dodaj lekarza', 'manage_options', 'user-new.php?role=doctor');
   add_submenu_page('payers', 'Dodaj płatnika', 'Dodaj płatnika', 'manage_options', 'user-new.php?role=payer');
   add_submenu_page('coordinators', 'Dodaj koordynatora', 'Dodaj koordynatora', 'manage_options', 'user-new.php?role=coordinator');
-  add_submenu_page('workers', 'Dodaj pracownika', 'Dodaj pracownika', 'manage_options', 'user-new.php?role=worker');
+  // add_submenu_page('workers', 'Dodaj pracownika', 'Dodaj pracownika', 'manage_options', 'user-new.php?role=worker');
 
 } 
 
@@ -527,4 +527,5 @@ function profile_customizer_update($user_id){
 			break;
 	}
 	wp_redirect(get_bloginfo('url').'/wp-admin/admin.php?page='.$_REQUEST['role'].'s');
+	exit();
 }

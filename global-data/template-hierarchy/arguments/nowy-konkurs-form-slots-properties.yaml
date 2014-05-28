@@ -22,7 +22,7 @@ title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: tiled-title
+  tpl_part: titled-title
   tpl_part_prop: not_implemented
 message-slot:
   debug_label: Form Message
@@ -30,8 +30,10 @@ message-slot:
   type: tpl-part
   name: message-box
 form-slot:
-  type: tpl-part
-  tpl_part: alpaca
+  debug_label: Form Slot
+  debug_type: form
+  type: controller
+  name: buildForm
 footer:
   type: tpl-part
   tpl_part: basic-footer

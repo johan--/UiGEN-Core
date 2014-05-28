@@ -5,18 +5,48 @@ function alpacaform_box($post, $metabox){
   $data = get_post_meta($post->ID, 'ui_'.$metabox['id'],true);
   
   $metadata = get_post_custom($post->ID);
+  // print('<pre>');var_dump($metadata);print('</pre>');
   $tmp_visits = array();
   $tmp_visits2 = array();
-
+  $tmp_doctors = array();
 
   if($metadata!=false){
     foreach ($metadata as $key => $value) {
+      if ($key == 'doctors') {
+        foreach ($value as $doctor) {
+          $tmp_doctors[]['doctors'] = $doctor;
+        }
+      }
       if(strpos($key, 'alpc_')===false) {
         unset($metadata[$key]);
       }
       // Let the hardco[d|r]e begin...
       if (in_array($key, array('alpc_visit_currency', 'alpc_visit_price', 'alpc_visit_visit_name'))) {
         $tmp_visits[substr($key, 11)] = $value;
+      }
+      if ($key == 'alpc_doctor') {
+        foreach ($value as $doctor_id) {
+          $doctor_meta = get_user_meta($doctor_id);
+          // print('<pre>');var_dump($doctor_id);print('</pre>');
+          $tmp_vsts = array();
+          if(isset($doctor_meta['mpf_contract_'.$post->ID.'_visit_visits']))
+            foreach ($doctor_meta['mpf_contract_'.$post->ID.'_visit_visits'] as $key => $value) {
+              $tmp_vsts[$key] = array(
+                'visits' => $value,
+                'currency' => $doctor_meta['mpf_contract_'.$post->ID.'_visit_currency'][$key],
+                'wages_cost' => $doctor_meta['mpf_contract_'.$post->ID.'_visit_wages_cost'][$key],
+                'wage_percent' => $doctor_meta['mpf_contract_'.$post->ID.'_visit_wage_percent'][$key],
+              );
+            }
+          $tmp_arr = array(
+            'add_doctor' => $doctor_id,
+            'wage_const' => $doctor_meta['mpf_contract_'.$post->ID.'_wage_const'][0],
+            'currency' => $doctor_meta['mpf_contract_'.$post->ID.'_currency'][0],
+            'wage_percent' => $doctor_meta['mpf_contract_'.$post->ID.'_wage_percent'][0],
+            'grid_cells' => $tmp_vsts,
+          );
+          $tmp_doctors[] = $tmp_arr;
+        }
       }
     }
   }
@@ -31,24 +61,28 @@ function alpacaform_box($post, $metabox){
       );
     }
     $metadata['supports'] = $tmp_visits2;
-  // print('<pre>');
-  //   var_dump($tmp_visits2);
-  // print('</pre>');
   }
 
-  if(count($metadata) != 0) {
+  // print('<pre>');
+  //   var_dump($metadata);
+  // print('</pre>');
+
+  if (in_array($metabox['id'], array('kontrakt-doctor-box', 'osrodki-box'))) {
+    // print('<pre>Meh...');var_dump($tmp_doctors);print('</pre>');
+    $data = json_encode($tmp_doctors);
+  } else if (count($metadata) != 0) {
     $data = str_replace('alpc_', '', json_encode($metadata));
   } else {
     $data = urldecode($data);
   }
   // var_dump($data);
   echo '<div id="'.$metabox['id'].'_form" class="stuffbox"></div>';
-  echo '<div id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
+  echo '<div style="display: none;" id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
   ?>
   <script type="text/javascript">
     jQuery(document).ready(function($) {
       var template_dir = "<?php echo get_template_directory_uri(); ?>";
-      var alpacaGlobalObj = new Array();       
+      window.alpacaGlobalObj = new Array();       
       $("#<?php echo $metabox['id']; ?>_form").alpaca({  
 
           // ----------------------------------------------
@@ -63,7 +97,7 @@ function alpacaform_box($post, $metabox){
           "schemaSource": "<?php echo $metabox['args']['data_path'].$metabox['args']['schema_file'];?>",
           "options": <?php echo $metabox['args']['options'];?>,
           <?php 
-          if($metabox['args']['view'] != ''){
+          if(@$metabox['args']['view'] != ''){
             echo '"view": "VIEW_WEB_DISPLAY",';
           }
   
@@ -145,12 +179,10 @@ function save_alpaca_form_box( $post_id ) {
   include ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
   foreach ($uigen_metaboxes as $metabox) {
     if ( (isset($_POST['publish']) || isset($_POST['save'])) && $_REQUEST['post_type'] == $metabox[3]) {
-      if (strpos($metabox[0], 'savebox') !== false ) {
-        continue; // Ignore all saveboxes
-      }
       update_post_meta($post_id, 'ui_'.$metabox[0], $_POST[$metabox[0].'_output_field']);
       $data = json_decode(urldecode($_POST[$metabox[0].'_output_field']), true);
 
+      // print('<pre>');var_dump($metabox, $data);print('</pre>');
 
       switch ($metabox[0]) {
         case 'kontrakt-visit-box':
@@ -166,11 +198,37 @@ function save_alpaca_form_box( $post_id ) {
             }
           }
           break;
+        case 'osrodki-box':
+          foreach ($data as $index => $value) {
+            add_post_meta($post_id, "doctors", $value['doctors']);
+          }
+          break;
         case 'kontrakt-doctor-box':
-
+          delete_post_meta($post_id, 'alpc_doctor');  
+          foreach($data as $val) {
+            $doctor_id = $val['add_doctor'];
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_wage_const');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_currency');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_wage_percent');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_visits');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_currency');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_wages_const');
+            delete_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_wage_percent');
+            add_post_meta($post_id, 'alpc_doctor', $doctor_id);  
+            add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_wage_const', $val['wage_const']);
+            add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_currency', $val['currency']);
+            add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_wage_percent', $val['wage_percent']);
+            if(isset($val['grid_cells']))
+              foreach($val['grid_cells'] as $val2) {
+                add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_visits', $val2['visits']);
+                add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_currency', $val2['currency']);
+                add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_wages_cost', $val2['wages_cost']);
+                add_user_meta($doctor_id, 'mpf_contract_'.$post_id.'_visit_wage_percent', $val2['wage_percent']);
+              }
           // print('<pre>');
-          // var_dump($data);
+          // var_dump($val, get_user_meta($doctor_id));
           // print('</pre>');
+          }
           break;
         default:
           foreach($data as $name => $value) {

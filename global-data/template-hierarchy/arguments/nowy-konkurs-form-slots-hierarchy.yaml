@@ -6,8 +6,8 @@ menu:
 content-main:
   - title-text
   - message-slot
-footer-top:
   - form-slot
+footer-top:
   - nav-menu-footer
 footer-main:
   - footer

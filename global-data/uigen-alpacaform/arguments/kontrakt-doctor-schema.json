@@ -11,7 +11,7 @@
                     "enum":[
                        "new" 
                     ]         
-                },       
+                },
                 "doctor_name":{
                     "title":"Imię i nazwisko",
                     "description":"Description....",
@@ -37,7 +37,7 @@
                         "CHF",
                         "GPB"
                     ]         
-                },  
+                },
                 "wage_percent":{
                     "title":"Wynagrodzenie %",
                     "description":"Description....",
@@ -53,8 +53,8 @@
                         "properties": {
                             "visits": {   
                                     "title":"Wizyta",                     
-                                    "type": "string",
-                                    "enum": ["xxx"]
+                                    "type": "string"
+
                                 },
                                 "wages_cost": {   
                                     "title":"Wynagrodzenie stałe",                     

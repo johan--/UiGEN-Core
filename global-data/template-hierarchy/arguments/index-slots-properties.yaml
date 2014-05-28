@@ -1,11 +1,11 @@
 ---
-simple-logo000100:
+simple-logo000100000000:
   debug_label: Simple Logo
   debug_type: static
   type: tpl-part
   tpl_part: basic-logo-simple
   tpl_part_prop: not_implemented
-nav-menu-header111011:
+nav-menu-header111011111111:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -20,7 +20,7 @@ nav-menu-header111011:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-form-slot2:
+form-slot2332232:
   debug_label: Login form
   debug_type: static
   type: tpl-part
