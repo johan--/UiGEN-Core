@@ -174,7 +174,7 @@ body.left200{
 #pages_creator{
 	display:none;
 }
-#add_pages,#change-grid{
+#add_pages,#ui_grid_selector{
 	cursor:pointer;
 }
 .modal-dialog{
@@ -200,7 +200,6 @@ body.left200{
 	display:none;
 }
 
-
 </style>
 <?php
 function decorate_debuged_page_header($gridName,$args){
@@ -224,13 +223,16 @@ function decorate_debuged_page_header($gridName,$args){
 				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
 			</div>
 		</div>
-		<div style="margin-top:5px; margin-left:5px; margin-bottom:10px">
-			<span class="glyphicon glyphicon-th-large"></span> Grid name:
-			<span id="ui_grid_name"><?php echo $gridName; ?></span>
-			<div id="change-grid" style="float:right; margin-right:10px; margin-top:3px; font-size:12px">
-				<span class="glyphicon glyphicon-refresh"></span><span class="glyphicon glyphicon-th-large"></span><span>Change grid</span>
+		<div id="ui_grid_selector" style="margin-top:5px; margin-left:5px; margin-bottom:10px">
+			<div style="float:left">
+				<span class="glyphicon glyphicon-th-large"></span> <span>Grid name:</span>
+				<span id="ui_grid_name"><?php echo $gridName; ?></span>
 			</div>
-		</div>		
+			<div id="change-grid" style="float:left; margin-left:10px; margin-top:3px; font-size:12px">
+				<span class="glyphicon glyphicon-refresh"></span><span>Change grid</span>
+			</div>
+		</div>	
+		<br style="clear:both"/>	
 
 		<?php
 			decorate_slot('start',$gridName,$args);
@@ -364,22 +366,31 @@ function decorate_slot($position,$slotName,$slot){
 var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
 window.onload=function(){
 
-function startEffect(){
-	//jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
-			    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
-			    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
-				    // Animation complete.
-				    //jQuery('#debug-manager').css('display','block');
-				    jQuery('body').addClass('right250');
-					jQuery('#debug-manager').addClass('right0');
-				
-					jQuery('#onHandler').css('margin-bottom','500px');
-					jQuery("#debug-manager").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
-						jQuery('#help_panel').fadeIn('slow');
-					});
+	function startEffect(){
+		//jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
+		    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
+		    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
+			    // Animation complete.
+			    //jQuery('#debug-manager').css('display','block');
+			    jQuery('body').addClass('right250');
+				jQuery('#debug-manager').addClass('right0');
+			
+				jQuery('#onHandler').css('margin-bottom','500px');
+				jQuery("#debug-manager").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
+					jQuery('#help_panel').fadeIn('slow');
 				});
-			// });
-}
+			});
+		// });
+	}
+
+
+	jQuery('#ui_grid_selector').mouseenter(function() {
+		jQuery('#change-grid').find('span').css('color','#428bca');
+	});
+	jQuery('#ui_grid_selector').mouseleave(function() {
+		jQuery('#change-grid').find('span').css('color','#ccc');
+	});
+
 
 
 	jQuery('#help_panel').click( "li.slotEdit", function() {
@@ -539,7 +550,7 @@ function startEffect(){
 
 	});
 
-	jQuery( "#change-grid" ).click(function() {
+	jQuery( "#ui_grid_selector" ).click(function() {
 		alert(donateString);
 	});
 
