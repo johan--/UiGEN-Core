@@ -21,6 +21,8 @@ osrodki:
     - title
   public: true
   show_in_menu: true
+  # taxonomies:
+  #   - genre
   # capability_type:
   #   - osrodek
   #   - osrodki

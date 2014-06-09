@@ -173,6 +173,7 @@ body.left200{
 
 #pages_creator{
 	display:none;
+
 }
 #add_pages,#ui_grid_selector{
 	cursor:pointer;
@@ -213,14 +214,20 @@ function decorate_debuged_page_header($gridName,$args){
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
 		<div id="pages_creator">
+			<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>
 		</div>
 
 		<div>
-			<span style="font-size:24px" class="glyphicon glyphicon-file"></span>
-			<span style="font-size:20px">Page:</span> <span id="ui_page_name" style="font-size:22px"><?php echo $args['ui_page_name']; ?></span>
+			<span style="font-size:28px" class="glyphicon glyphicon-file"></span>
+			<span style="font-size:22px">Page:</span> <span id="ui_page_name" style="font-size:26px"><?php echo $args['ui_page_name']; ?></span>
 
-			<div id="add_pages" style="float:right; margin-right:10px; margin-top:3px; font-size:16px">
-				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add more Pages</span>
+			<div  style="float:right; margin-right:10px; margin-top:3px; font-size:18px">
+				<div id="add_pages">
+				<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span><span>Add/edit pages</span>
+				</div>
+				<div id="add_taxonomy" style="font-size:12px; margin-top:5px;">
+				<span style="margin-right:5px; margin-left:8px" class="glyphicon glyphicon-plus"></span><span style="margin-right:3px;" class="glyphicon glyphicon-tag"></span><span>Add/edit texonomiues</span>
+				</div>
 			</div>
 		</div>
 		<div id="ui_grid_selector" style="margin-top:5px; margin-left:5px; margin-bottom:10px">
@@ -345,14 +352,14 @@ function decorate_slot($position,$slotName,$slot){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="debugModalLabel">Debuger MESSAGE</h4>
+        <h4 class="modal-title" id="debugModalLabel">UiGEN MESSAGE</h4>
       </div>
       <div class="modal-body">
-        Not implemented YET
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" style="display:none" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -389,6 +396,13 @@ window.onload=function(){
 	});
 	jQuery('#ui_grid_selector').mouseleave(function() {
 		jQuery('#change-grid').find('span').css('color','#ccc');
+	});
+
+	jQuery('#add_pages').mouseenter(function() {
+		jQuery('#add_pages').find('span').css('color','#428bca');
+	});
+	jQuery('#add_pages').mouseleave(function() {
+		jQuery('#add_pages').find('span').css('color','#ccc');
 	});
 
 
@@ -510,9 +524,7 @@ window.onload=function(){
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('open');
 	  		jQuery(this).parent().prev().children('.btn-group').children('.dropdown-menu').children('.debugInspect').removeClass('btn-success');
 
-			var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
-			jQuery('.modal-content').children('div').remove();
-			jQuery('.modal-content').append(progressBar);
+			add_progressbar_to_modal();
 
 			jQuery.ajax({
 			  type: "POST",
@@ -540,12 +552,58 @@ window.onload=function(){
     jQuery( "div, button" ).disableSelection();
 
 	jQuery( "#add_pages" ).click(function() {
+		
 		if(jQuery(this).hasClass('open')==true){
+
+			jQuery(this).removeClass('open');
+			
+			jQuery( "#pages_creator" ).slideUp(300);
+		
+		}else{
+
+			add_progressbar_to_top_pages();
+			jQuery( "#pages_creator" ).slideDown(500);
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel.php",
+				data: {  }
+			})
+			.done(function( msg ) {	
+				
+				jQuery('#pages_creator').children().remove();
+				jQuery('#pages_creator').append(msg);
+				jQuery(this).addClass('open');
+				jQuery( "#pages_creator" ).slideDown(500);
+				
+				//loadSlotListHandler();
+			});
+		}
+
+	});
+
+	jQuery( "#add_taxonomy" ).click(function() {
+		
+		if(jQuery(this).hasClass('open')==true){
+
 			jQuery(this).removeClass('open');
 			jQuery( "#pages_creator" ).slideUp(300);
+		
 		}else{
-			jQuery(this).addClass('open');
-			jQuery( "#pages_creator" ).slideDown(500);
+
+			jQuery.ajax({
+				type: "POST",
+				url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-taxonomy-panel.php",
+				data: {  }
+			})
+			.done(function( msg ) {	 
+				jQuery( "#pages_creator" ).slideUp(500); 
+				jQuery('#pages_creator').children().remove();
+
+				jQuery('#pages_creator').append(msg);
+				jQuery(this).addClass('open');
+				jQuery( "#pages_creator" ).slideDown(500);
+				//loadSlotListHandler();
+			});
 		}
 
 	});
@@ -614,17 +672,34 @@ window.onload=function(){
 
 		var get_slot_yaml = '';
 		var get_slot_name = '';
+		var get_slot_new_name = '';
 
-		var output_saved_yaml = '';
+		var output_saved_yaml = "";
 	    jQuery( "#onHandler .debug-tplpart-decorator" ).each(function( index ) {
+	    			get_slot_new_name = '';
+	    			jQuery( this ).find('.slot_name').css('border','1px solid red');
 					get_slot_name = jQuery( this ).find('.slot_name').text();
+					
 	    			get_slot_yaml = jQuery( this ).find('textarea').val();
 					
-					get_slot_yaml = get_slot_yaml.replace(get_slot_name, get_slot_name + index);
+                   	// chck last char is number and remove it                  
+                    if (get_slot_name[get_slot_name.length - 1].match(/[0-9]/, "g") ){                    	
+                    	get_slot_new_name = get_slot_name.slice(0, -1);
+                    }
+                    // ad counter to last char
+                    if(get_slot_new_name != ""){
+						get_slot_yaml = get_slot_yaml.replace(get_slot_name, get_slot_new_name + index);
+					}else{
+						get_slot_yaml = get_slot_yaml.replace(get_slot_name, get_slot_name + index);
+					}
+
+					//get_slot_yaml = get_slot_yaml + "  - " + get_slot_name + index + "\n";
+
 					get_slot_yaml = get_slot_yaml.replace('---\n', '');
 					output_saved_yaml += get_slot_yaml;				
 		});
 		output_saved_yaml = "---\n" + output_saved_yaml;
+		alert(output_saved_yaml);
 		
 		var output_hierarchy_yaml = "";
 		var hierarchy_counter = 0;
@@ -632,7 +707,14 @@ window.onload=function(){
 			output_hierarchy_yaml = output_hierarchy_yaml + jQuery(this).attr('data-cell') +  ":\n";
 			jQuery( jQuery(this).children('.debug-tplpart-decorator') ).each(function( index ) {
 				//alert(jQuery(this).attr('id'));
-				output_hierarchy_yaml = output_hierarchy_yaml + "  - " + jQuery( this ).find('.slot_name').text() + hierarchy_counter + "\n";
+				get_hierarchy_name = jQuery( this ).find('.slot_name').text();
+				// chck last char is number and remove it                  
+                if (get_hierarchy_name[get_hierarchy_name.length - 1].match(/[0-9]/, "g") ){                    	
+                   	get_hierarchy_name = get_hierarchy_name.slice(0, -1);
+                }
+
+                    // ad counter to last char
+				output_hierarchy_yaml = output_hierarchy_yaml + "  - " + get_hierarchy_name + hierarchy_counter + "\n";
 				hierarchy_counter ++;	
 			});	
 			
@@ -640,7 +722,10 @@ window.onload=function(){
 		});
 		output_hierarchy_yaml = "---\n" + output_hierarchy_yaml;
 		
-		jQuery.ajax({
+		alert(output_hierarchy_yaml);
+		
+		
+/*		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-slot-history_and_properties.php",
 			data: { hierarchy_yaml: output_hierarchy_yaml , prop_yaml: output_saved_yaml ,ui_page_name: jQuery('#ui_page_name').text(), ui_grid_name: jQuery('#ui_grid_name').text()}
@@ -648,7 +733,7 @@ window.onload=function(){
 		.done(function( msg ) {	
 			jQuery('.modal-content').children('div').remove();
 			jQuery('.modal-content').append(msg);
-		});
+		});*/
       		
 	});
 
@@ -678,6 +763,17 @@ window.onload=function(){
 	      revert: "invalid"
 	    });
 	}
+
+	function add_progressbar_to_modal(){
+			var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
+			jQuery('.modal-content').children('div').remove();
+			jQuery('.modal-content').append(progressBar);
+	}
+	function add_progressbar_to_top_pages(){
+			var progressBar2 = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';
+			jQuery('#pages_creator').children('div').remove();
+			jQuery('#pages_creator').append(progressBar2);
+	}
 	/*jQuery( ".uigen-act-cell" ).droppable({
       accept: "debug-tplpart-decorator",
       activeClass: "ui-state-hover",
@@ -697,17 +793,7 @@ window.onload=function(){
 	});
 
 
-	jQuery.ajax({
-		type: "POST",
-		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel.php",
-		data: {  }
-	})
-	.done(function( msg ) {	 
-		jQuery('#pages_creator').append(msg);
-		//loadSlotListHandler();
-	});
-
-
+	
 	jQuery.ajax({
 		type: "POST",
 		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-uigen-assets-list.php",

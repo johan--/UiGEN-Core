@@ -75,9 +75,9 @@ function alpacaform_box($post, $metabox){
   } else {
     $data = urldecode($data);
   }
-  // var_dump($data);
+  //var_dump($data);
   echo '<div id="'.$metabox['id'].'_form" class="stuffbox"></div>';
-  echo '<div style="display: none;" id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
+  echo '<div style="display: none"  id="'.$metabox['id'].'_output_box"><input id="'.$metabox['id'].'_output_field" name="'.$metabox['id'].'_output_field" type="text" value="'.$data.'" /></div>';
   ?>
   <script type="text/javascript">
     jQuery(document).ready(function($) {
@@ -87,8 +87,10 @@ function alpacaform_box($post, $metabox){
 
           // ----------------------------------------------
           // read data json from postmeta
+          
+
           <?php
-          if(get_post_meta($post->ID, 'ui_'.$metabox['id'],true) != ""){
+          if(strlen($data)>0){
             echo '"data":'.$data.','; 
           }
           ?>
@@ -105,22 +107,40 @@ function alpacaform_box($post, $metabox){
           // ----------------------------------------------
           // add form methods
           "postRender": function(renderedForm) {          
-            $('select, input, textarea').live('change',function() {    
-              //if (renderedForm.isValid(true)) {
-                var val = renderedForm.getValue();
-                $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
-              //}
-            });
-          } 
-          // ----------------------------------------------      
-        }
-        );
-});
+            var val = renderedForm.getValue();
+            $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
+            /*$('button').click(function() {
+              var val = renderedForm.getValue();
+              console.log(val);
+              alert('dupa111111111');
+              $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
+            });*/
+
+          jQuery(document).on('click', 'button', function() {
+            var val = renderedForm.getValue();
+            // console.log(val);
+            // alert('dupa');
+            $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
+          })
+                      $('select, input, textarea').live('change',function() {    
+                        //if (renderedForm.isValid(true)) {
+                          var val = renderedForm.getValue();
+                          $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
+                        //}
+                      });
+                    } 
+                    // ----------------------------------------------      
+                  }
+                  );
+          });
+//jQuery(document).click(function() {
+
 </script>
 <?php
 }
 function render_posttype_to_alpaca_string($args){
   // var_dump($args);
+
   $postTitleString = "";
   global $wpdb;   
   $query = "
@@ -135,13 +155,106 @@ function render_posttype_to_alpaca_string($args){
   $posts = $wpdb->get_results( $query , object );
 
     // var_dump( $posts);
-  $postTitleString = '';
+  $postTitleString = 'function(field, callback) { callback([';
   foreach ( $posts as $db_post ){       
-      $postTitleString .= "'{$db_post->post_title}', ";
+      $postTitleString .= '{"text": "'. $db_post->post_name.'", "value": "'. $db_post->ID.'"},';
   } 
   $postTitleString = rtrim($postTitleString, ', ');
     // var_dump($postTitleString);
+  $postTitleString = $postTitleString.']);}';
   return $postTitleString;
+
+}
+
+function render_kontrakty_wizyty_to_alpaca_string($user_id){
+  
+  //var_dump($user_id);
+  
+  $args = array(
+  'post_type' => 'osrodki',
+  'meta_query' => array(
+       array(
+           'key' => 'doctors',
+           'value' => $user_id,
+           'compare' => 'IN',
+       )
+   )  
+  );
+ 
+
+  $query1 = new WP_Query( $args );
+    while ( $query1->have_posts() ) {
+
+    $query1->the_post();
+    $osrodki_ids[] = $query1->post->ID;
+
+  }
+  wp_reset_postdata();
+
+
+  // $osrodki_ids - jest to teraz tablica id osrodków do których przynalezy pracownik
+
+
+ $args2 = array(
+  'post_type' => 'kontrakt',
+  'meta_query' => array(
+       array(
+           'key' => 'alpc_place',
+           'value' => $osrodki_ids,
+           'compare' => 'IN',
+       )
+     )
+  );
+
+
+  $query2 = new WP_Query( $args2 );
+
+  // The Loop
+  $postTitleString = 'function(field, callback) { callback([';
+    
+  while ( $query2->have_posts() ) {
+    //var_dump($query2->post->post_name);
+    $query2->the_post();
+    $postTitleString .= '{"text": "'. $query2->post->post_name.'", "value": "'. $query2->post->ID.'"},';
+
+  }
+
+  foreach($query2->posts as $post){
+    $postTitleString .= '{"text": "'. $query2->post->post_name.'", "value": "'. $query2->post->ID.'"},';
+  }
+
+  wp_reset_postdata();
+  
+  $postTitleString = $postTitleString.']);}';
+  return $postTitleString;
+
+
+}
+
+function render_posttype_to_osrodek_id_by_user($user_ID){
+
+ $args = array(
+  'post_type' => 'osrodki',
+  'meta_query' => array(
+       array(
+           'key' => 'doctors',
+           'value' => $user_id,
+           'compare' => 'IN',
+       )
+   )  
+  );
+ 
+
+  $query1 = new WP_Query( $args );
+    while ( $query1->have_posts() ) {
+
+    $query1->the_post();
+    $osrodki_ids[] = $query1->post->ID;
+
+  }
+  echo $osrodki_ids[0];
+  wp_reset_postdata();
+
 }
 
 function render_users_to_alpaca_string($args){
@@ -162,6 +275,7 @@ function render_users_to_alpaca_string($args){
                   $postTitleString = $postTitleString. ',{"text": "'. $user->display_name.'", "value": "'. $user->ID.'"}';
                 }
                 $counter++;
+                
       }
       $postTitleString = $postTitleString.']);}';
       return $postTitleString;
@@ -171,6 +285,29 @@ function render_users_to_alpaca_string($args){
     return $postTitleString;
   }
 
+}
+function render_postmeta_to_alpaca_string($args){
+  /* $args = array(
+    '$post_id' => 1,
+    '$meta_name' => 1,
+  )
+  */
+  echo get_post_meta( $args['post_id'] , $args['meta_name'], true);
+}
+function render_taxonomy_to_alpaca_string($args){
+  $tx_args = array(
+        'hide_empty'    => false, 
+        'parent' => 0,
+        );
+  $terms = get_terms($args, $tx_args );
+
+  $postTitleString = 'function(field, callback) { callback([';
+  foreach ($terms as $term) {
+    $postTitleString = $postTitleString."{'text':'".$term->name."','value':'".$term->term_id."'},";
+  }
+  $postTitleString = rtrim($postTitleString, ', ');
+  $postTitleString = $postTitleString.']);}';
+  return $postTitleString;
 }
 // ================================================================================
 
@@ -187,11 +324,11 @@ function save_alpaca_form_box( $post_id ) {
       switch ($metabox[0]) {
         case 'kontrakt-visit-box':
           $data = $data['supports'];
-          if (is_array($data) && count($data) > 0) {
-            foreach ($data[0] as $field) {
-              delete_post_meta( $post_id, 'alpc_visit_'.$name);
-            }
-          }
+          print('<script>alert("test"; </acript>');
+          print('<script>alert("');var_dump($data);print('"); </script>');
+          delete_post_meta( $post_id, 'alpc_visit_visit_name');
+          delete_post_meta( $post_id, 'alpc_visit_price');
+          delete_post_meta( $post_id, 'alpc_visit_currency');
           foreach ($data as $array) {
             foreach ($array as $name => $value) {
               add_post_meta( $post_id, 'alpc_visit_'.$name, $value);
@@ -230,6 +367,10 @@ function save_alpaca_form_box( $post_id ) {
           // print('</pre>');
           }
           break;
+        case 'kontrakt-box':
+          global $wpdb;
+          $wpdb->update( $wpdb->posts, array( 'post_title' =>  ($_REQUEST['post_title'] == '')? $data['protocol_no']: $_REQUEST['post_title'] ), array( 'ID' => $post_id ) ); 
+          wp_set_post_terms($post_id, $data['diagnistic_type'], 'rodzaj_badania');
         default:
           foreach($data as $name => $value) {
             delete_post_meta( $post_id, "alpc_".$name);

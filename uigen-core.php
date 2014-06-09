@@ -3,18 +3,18 @@
 Plugin Name: UiGEN core
 Plugin URI: http://uigen.org
 Description: UiGEN classes and libraries - core functions to realize UiGEN display and process modeler
-Authors: UiGEN Team: dadmor | minimal
+Authors: UiGEN Team: dadmor | minimal | sirmacik | marsianin 
 Authors URI: dadmor@gmail.com
 */
 
 include('custom_admin_pages.php');
-
+include('hooks.php');
 /* This plugin add UiGEN classes to uour plugin directory */
 
 // Plugin VERSION
 define( 'UiGEN_CORE_VER' , '0.1.2' );
 define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
-define('PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core');
+define(' PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core');
 
 define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
 define( 'GLOBALDATA_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/' );
@@ -34,7 +34,7 @@ require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
 /* tables creation */
 
 if(!class_exists('Custom_Types_Creator')) {
-  include_once(PLUGIN_DIR.'/mpf_specyfic.php');
+  //include_once(PLUGIN_DIR.'/mpf_specyfic.php');
 }
 
 function my_first_install() {
@@ -48,33 +48,37 @@ function my_first_install() {
 			'publish_wizyta' => true,
 			'edit_published_wizyta' => true
 		),
+		'worker' => array(
+			'publish_wizyta' => true,
+			'edit_published_wizyta' => true
+		),
 		'operator' => array(
 			'edit_dashboard' => true,
 			'edit_wizyta' => true,
 			'read_wizyta' => true,
 			'publish_wizyty' => true,
 			'edit_published_wizyty' => true,
-			// 'edit_others_posts' => true,
-			// 'edit_pages' => true,
-			// 'edit_others_pages' => true,
-			// 'edit_published_pages' => true,
-			// 'publish_pages' => true,
-			// 'delete_pages' => true,
-			// 'delete_others_pages' => true,
-			// 'delete_published_pages' => true,
-			// 'delete_others_posts' => true,
-			// 'delete_private_posts' => true,
-			// 'edit_private_posts' => true,
-			// 'read_private_posts' => true,
-			// 'delete_private_pages' => true,
-			// 'edit_private_pages' => true,
-			// 'read_private_pages' => true,
-			// 'edit_published_posts' => true,
-			// 'upload_files' => true,
-			// 'publish_posts' => true,
-			// 'delete_published_posts' => true,
-			// 'edit_posts' => true,
-			// 'delete_posts' => true,
+			'edit_others_posts' => true,
+			'edit_pages' => true,
+			'edit_others_pages' => true,
+			'edit_published_pages' => true,
+			'publish_pages' => true,
+			'delete_pages' => true,
+			'delete_others_pages' => true,
+			'delete_published_pages' => true,
+			'delete_others_posts' => true,
+			'delete_private_posts' => true,
+			'edit_private_posts' => true,
+			'read_private_posts' => true,
+			'delete_private_pages' => true,
+			'edit_private_pages' => true,
+			'read_private_pages' => true,
+			'edit_published_posts' => true,
+			'upload_files' => true,
+			'publish_posts' => true,
+			'delete_published_posts' => true,
+			'edit_posts' => true,
+			'delete_posts' => true,
 			'read' => true
 		),
 	);
@@ -93,34 +97,76 @@ function my_first_reinstall(){
 	  'doctor' => array('read' => false),
 	  'payer' => array('publish_posts' => true),
 	  'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
-	  'operator' => array('edit_dashboard' => true,
-	  'edit_others_posts' => true,
-	  'edit_pages' => true,
-	  'edit_others_pages' => true,
-	  'edit_published_pages' => true,
-	  'publish_pages' => true,
-	  'delete_pages' => true,
-	  'delete_others_pages' => true,
-	  'delete_published_pages' => true,
-	  'delete_others_posts' => true,
-	  'delete_private_posts' => true,
-	  'edit_private_posts' => true,
-	  'read_private_posts' => true,
-	  'delete_private_pages' => true,
-	  'edit_private_pages' => true,
-	  'read_private_pages' => true,
-	  'edit_published_posts' => true,
-	  'upload_files' => true,
-	  'publish_posts' => true,
-	  'delete_published_posts' => true,
-	  'edit_posts' => true,
-	  'delete_posts' => true,
-	  'read' => true,
-	  ),
+	  'worker' => array(
+			'publish_wizyta' => true,
+			'edit_published_wizyta' => true
+		),
+	  'operator' => array(
+	  	'edit_dashboard' => true,
+	  	'edit_others_posts' => true,
+	  	'edit_pages' => true,
+	  	'edit_others_pages' => true,
+	  	'edit_published_pages' => true,
+	  	'publish_pages' => true,
+	  	'delete_pages' => true,
+	  	'delete_others_pages' => true,
+	  	'delete_published_pages' => true,
+	  	'delete_others_posts' => true,
+	  	'delete_private_posts' => true,
+	  	'edit_private_posts' => true,
+	  	'read_private_posts' => true,
+	  	'delete_private_pages' => true,
+	  	'edit_private_pages' => true,
+	  	'read_private_pages' => true,
+	  	'edit_published_posts' => true,
+	  	'upload_files' => true,
+	  	'publish_posts' => true,
+	  	'delete_published_posts' => true,
+	  	'edit_posts' => true,
+	  	'delete_posts' => true,
+	  	'read' => true,
+	  	),
 	);
   $mpf->roles=$mpf_roles;
 	$mpf->remove_roles();
   }
+
+
+  /* ---------------------- */
+  /* CREATE DATABASE TABLES */
+  global $wpdb;	
+
+    require_once UIGENCLASS_PATH . 'Spyc.php';
+	$debuger_db = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' );        
+	foreach ($debuger_db as $db_tb_name => $db_props) {
+
+		$db_create_table_string = '';
+		$db_create_table_string .= "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}".$db_tb_name."` ( \n";
+		$db_create_table_string .= "`ID` int(5) NOT NULL AUTO_INCREMENT, \n";
+			
+		foreach ($db_props['db_table_columns'] as $db_col_props) {
+			$db_create_table_string .= "`".$db_col_props['db_column_name']."` ".$db_col_props['db_column_type']." NOT NULL, \n";
+			//var_dump('db>' , $db_col_props['db_column_name']);
+			//var_dump('db>' , $db_col_props['db_column_type']);
+		}
+
+		$db_create_table_string .= " PRIMARY KEY (`ID`) \n";
+		//$db_create_table_string .= " CHARACTER SET utf8 COLLATE utf8_general_ci \n";
+		$db_create_table_string .= " )  \n";
+		$db_tables_array[$db_tb_name] = $db_create_table_string;
+	}
+	//var_dump($db_tables_array);
+
+	// Create tables
+	echo '<pre>';
+	foreach ($db_tables_array as $db_tb => $db_sql_synax) {
+		echo '<br/>----------------<br/>create '.$db_tb.'<br/>----------------<br/>';
+		echo $db_sql_synax;
+		$wpdb->query($db_sql_synax);
+	
+	}
+	echo '</pre>';
+	/* ---------------------- */
 }
 
 
@@ -131,13 +177,23 @@ function my_first_reinstall(){
 // -------------------------------------------------------------------------------- 
 
 add_action('admin_enqueue_scripts', 'alpaca_lib_init');
+if(@$_GET['debug']=='true'){
+	alpaca_lib_init();
+}
+
 function alpaca_lib_init() {
+
+
+  wp_enqueue_script( 'jquery-ui-datepicker' );
+  wp_enqueue_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.datepicker.css' );
+  wp_register_style('jquery-ui-datepicker', plugins_url().'/UiGEN-Core/js-lib/datepicker.css' );
+  wp_enqueue_style( 'jquery-ui-datepicker');
 
   wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');
   wp_enqueue_script( 'jquery-tmpl' );
 
   //wp_register_script( 'alpaca-js', 'http://www.alpacajs.org/js/alpaca.min.js');
-  wp_register_script( 'alpaca-js',  plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.js', array('jquery-ui-datepicker'));
+  wp_register_script( 'alpaca-js',  plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.js');
   wp_enqueue_script( 'alpaca-js' );
 
   wp_register_style( 'alpaca-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.css' );
@@ -155,17 +211,21 @@ function alpaca_lib_init() {
 /* register posttypes - from definition file. */
 add_action('init', 'uigen_posttypes');
 function uigen_posttypes() {
+
+	//echo '<pre>'.$db_create_table_string.'</pre>';
+
 	// -------------------------
 	// Posttypes definitions
 	// -------------------------
 	
-	// include arguments array
+	// include arguments array - depreciated Model !!!!!
 	include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
 
 	// register posttypes from arguments array
 	foreach ($uigen_posttypes as $posttype => $props) {
 	  register_post_type($posttype, $props);
 	}
+	// --------------------------------------------------
 
 	/* register posttypes createt form user with debuger !!! */
 	require_once UIGENCLASS_PATH . 'Spyc.php';
@@ -176,7 +236,29 @@ function uigen_posttypes() {
 }
 
 
+// ################################################################################
+// UiGEN taxonomy creator - native plugin methods
+// -------------------------------------------------------------------------------- 
+
+/* register posttypes - from definition file. */
+add_action('init', 'uigen_taxonomies');
+function uigen_taxonomies() {
+	// -------------------------
+	// Taxonomies definitions
+	// -------------------------
+	
+	/* register posttypes createt form user with debuger !!! */
+	require_once UIGENCLASS_PATH . 'Spyc.php';
+	$debuger_custom_taxonomies = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-taxonomy/arguments/uigen-taxonomy-creator-arguments.yaml' );        
+	foreach ($debuger_custom_taxonomies as $ui_taxonomy => $props) {
+		register_taxonomy( $ui_taxonomy, $props['post_type'], $props['tax_args'] );
+	}
+}
+
+
 // ================================================================================
+
+
 
 /* register metaboxes - from definition file. */
 add_action('admin_init', 'uigen_metaboxes');
@@ -288,10 +370,13 @@ function uigen_core(){
 
 
 
-
+<!--                   WTF!!!!!?????
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
+
+srsly, dadmor, please do it like a man, not like a pussy.
+-->
 
   
 

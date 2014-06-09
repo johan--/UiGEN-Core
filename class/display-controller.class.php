@@ -239,7 +239,18 @@ class ThemeDisplayController {
 	public function tdc_get_loop($slot){	
 		global $post;
 		$temp_post = $post;
+		
+
+		/* EXCERPTIONS */
+		
+		if($slot['query_args']['author'] == 'current'){
+			$slot['query_args']['author'] = get_current_user_id();
+		}
+
+		var_dump($slot['query_args']) ;
+		/* QUERY */
 		query_posts( $slot['query_args'] );
+
 		$this -> loopCounter = 0;
 		if ( have_posts() ) { 
 			while ( have_posts() ) : the_post(); 					

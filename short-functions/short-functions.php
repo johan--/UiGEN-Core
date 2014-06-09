@@ -33,13 +33,36 @@ function uigen_nav_menu(){
 }
 
 function uigen_addattr($element_schema,$attr_data){
-	foreach ($element_schema['element_attr'] as $key => $value) {
-		if($key == $attr_data){
-			
-			$output = ' class="'.$value['class'].'" ';
-			$output .= ' style="'.$value['style'].'" ';
+	
+	if( $element_schema['element_attr'] == NULL ) { return false; } else {
+		
+		foreach ($element_schema['element_attr'] as $key => $value) {
+			if($key == $attr_data){
+				
+				$output = ' class="'.$value['class'].'" ';
+				$output .= ' style="'.$value['style'].'" ';
 
-			return $output;
+				return $output;
+			}
 		}
-	}	
+			
+	}
+}
+
+function merge_tplpart_prop($element_schema){
+
+	global $TDC;
+	$element_schema = array_merge($element_schema,$TDC->args[$TDC->current_slot]);
+	return $element_schema;
+
+}
+
+function uigen_remove_post($post_id){
+
+	$args = array(
+      'ID'           => $post_id,
+      'post_ststus' => 'trash'
+  	);
+	wp_update_post( $args );
+
 }

@@ -1,9 +1,20 @@
 ---
-grid: basic-article
-logo:
+logo0:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header:
+button:
+  type: tpl-part
+  tpl_part: basic-button
+  args:
+    btn_name: Usuń wizytę
+    btn_type: remove_post
+  element_attr:
+    element_wraper:
+      style: >
+        margin-top:85px
+    content_wraper:
+      class: btn btn-primary active
+nav-menu-header1:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -18,7 +29,7 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text:
+title-text2:
   debug_label: Title
   debug_type: static
   type: tpl-part
@@ -28,41 +39,50 @@ meta1:
   type: tpl-part
   tpl_part: basic-meta
   args:
-    meta_name: ui_visit_contract
+    meta_label: Kontrakt
+    meta_name: alpc_contract
     meta_type: value
 meta2:
   type: tpl-part
   tpl_part: basic-meta
   args:
     meta_label: Wizyta
-    meta_name: ui_visit
+    meta_name: alpc_visit
     meta_type: value
 meta3:
   type: tpl-part
   tpl_part: basic-meta
   args:
     meta_label: Pcjent
-    meta_name: ui_visit_patient
+    meta_name: alpc_patient_no
     meta_type: value
 meta4:
   type: tpl-part
   tpl_part: basic-meta
   args:
     meta_label: Lekarz
-    meta_name: ui_visit_doctor
+    meta_name: alpc_doctor
     meta_type: value
 meta5:
   type: tpl-part
   tpl_part: basic-meta
   args:
-    meta_name: ui_visit_date
+    meta_label: Data wuizyty
+    meta_name: alpc_visit_data
     meta_type: value
-content-text:
-  debug_label: Content
-  debug_type: static
+meta6:
   type: tpl-part
-  tpl_part: tiled-content
-  tpl_part_prop: not_implemented
-footer:
+  tpl_part: basic-meta
+  args:
+    meta_label: Dodadkowy koszt
+    meta_name: alpc_extra_cost
+    meta_type: value
+meta7:
   type: tpl-part
-  tpl_part: basic-footer
+  tpl_part: basic-meta
+  args:
+    meta_label: Opis dodadkowego kosztu
+    meta_name: alpc_extra_cost_description
+    meta_type: value
+grid: basic-slim
+ui_page_name: wizyta-view

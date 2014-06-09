@@ -1,16 +1,18 @@
 ---
 logo:
-  - logo
+  - logo0
 menu:
-  - nav-menu-header
-content-main:
+  - nav-menu-header1
+action:
+  - button
+content-top:
+  - title-text2
+footer-top: 
   - title-text
-  - content-text
   - meta1
   - meta2
   - meta3
   - meta4
-footer-top:
-  - nav-menu-footer
-footer-main:
-  - footer
+  - meta5
+  - meta6
+  - meta7

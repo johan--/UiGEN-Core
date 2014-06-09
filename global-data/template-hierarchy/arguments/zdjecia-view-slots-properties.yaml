@@ -1,8 +1,9 @@
 ---
-logo0:
+grid: basic-article
+logo:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header1:
+nav-menu-header:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -16,29 +17,19 @@ nav-menu-header1:
     menu_class: nav navbar-nav
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
-  walker: horizontal_buttons
-simple-button2:
-  debug_label: Simple Button
-  debug_type: static
-  type: tpl-part
-  tpl_part: basic-button
-  tpl_part_prop: not_implemented
-title-text3:
+  walker: bootstrap_nav
+title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
   tpl_part: tiled-title
   tpl_part_prop: not_implemented
-message-slot4:
-  debug_label: Form Message
-  debug_type: form
+content-text:
+  debug_label: Content
+  debug_type: static
   type: tpl-part
-  name: message-box
-form-slot5:
-  debug_label: Form Slot
-  debug_type: form
-  type: controller
-  name: buildForm
-  flow: basic-user-login
-grid: basic-slim
-ui_page_name: osrodki-form
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+footer:
+  type: tpl-part
+  tpl_part: basic-footer

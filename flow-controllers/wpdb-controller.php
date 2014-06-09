@@ -15,22 +15,35 @@ function add_data($args){
 
 
 	$posttype_regname = $args['call_prop']['posttype']; 
-	$table_name = $args['call_prop']['table_name']; 	
+
+	$table_name = substr( $args['display_data']['ui_page_name'], 0, strrpos( $args['display_data']['ui_page_name'], "-"));
+	
+
+
+	//$table_name = $args['call_prop']['table_name']; 	
+	
 	$guardianArray;
 	$insertArray;
 
-	foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
+
+	//foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
+	foreach ($args['form_data']['data'][$table_name] as $key => $value) {	
 			
-			// add meta firlds
-			foreach ($args['call_prop']['meta'] as $prop_value) {	
-					
-					if($key == $prop_value['db']){
-						$insertArray[$key] = $value['value'];
-						//echo $key."::".$value['value']."<br/>";	
-						//$ajax_message = 'dane zostały dodane';								
-					}					
-			}			
+		//var_dump('>>>>>',$value);
+		// add meta fields
+		foreach ($args['call_prop']['meta'] as $prop_value) {	
+
+			if($key == $prop_value['db']){
+				$insertArray[$key] = $value['value'];
+				//echo $key."::".$value['value']."<br/>";	
+				//$ajax_message = 'dane zostały dodane';								
+			}
+
+		}
+
 	}
+
+	
 
 	// Guardian Sql section
 	foreach ($args['call_prop']['meta'] as $key => $prop_value) {	
@@ -50,7 +63,7 @@ function add_data($args){
 	$insertGuardian = ncb_guardianSqlFunction($tableName, $guardianArray);
 	
 
-
+var_dump($insertArray);
 
 	// ------------------------------------
 	//echo $guardianSql;
@@ -61,14 +74,17 @@ function add_data($args){
 		$wpdb->insert( $tableName, $insertArray );
 	}
 	// ------------------------------------
-            //print('Add users points');
-            if(!$wpdb->insert($wpdb->prefix.'points_users', array(
-                    'user_id' => $user_id,
-                    'import_id' => $import_id,
-                    'points' => '0',
-                ))) {
-                $error = true;
-            }      
+          
+	// GROWINGAME SHIT ???? - I hide it [GD]
+    //print('Add users points');
+/*    if(!$wpdb->insert($wpdb->prefix.'points_users', array(
+            'user_id' => $user_id,
+            'import_id' => $import_id,
+            'points' => '0',
+        ))) {
+        $error = true;
+    }     */ 
+    // ^^^^^^^^^^^^^^^^^^^^
 
 }
 

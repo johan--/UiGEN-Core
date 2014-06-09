@@ -154,13 +154,23 @@ $uigen_metaboxes = array(
 			'options' => '			
 			{
 		   		"fields": {
+		   			"diagnistic_start_date": {
+		   				"dateFormat": "yymmdd"
+		   			},
+		   			"diagnistic_end_date": {
+		   				"dateFormat": "yymmdd"
+		   			},
 			        "place": {            
 			            "type":"select",
-			            "dataSource": ['.render_posttype_to_alpaca_string('osrodki').']
+			            "dataSource": '.render_posttype_to_alpaca_string('osrodki').'
 			        },
 			        "payer": {
 			        	"type":"select",
 			        	"dataSource": '.render_users_to_alpaca_string('payer').'
+			        },
+			        "diagnistic_type": {
+			        	"type":"select",
+			        	"dataSource": '.render_taxonomy_to_alpaca_string('rodzaj_badania').'
 			        }		       
 		    	}
 			}',
@@ -266,8 +276,50 @@ $uigen_metaboxes = array(
 		   				"fields": {
 		   					"add_doctor": {
 		   						"dataSource": '.render_users_to_alpaca_string('doctor').',
-		   						"type": "select"
-		   					},
+		   						"type": "select",
+		   						"onFieldChange": function(e) {
+
+
+
+										var thisvalue = this.getValue();
+										var setInput = $(e["currentTarget"]).parent().parent().parent().next().find("input");
+			   							$.ajax({
+											type: "POST",
+											url: "'. plugins_url().'/UiGEN-Core/core-files/ajax/ajax_get_wp_objects.php",
+											data: { "callback":"ui_get_usermeta" , "args":{ "user_id":thisvalue , "meta_name":"wage_const" } }
+										})
+										.done(function( msg_event ) {	 
+											$(setInput).val(msg_event);
+											//alert( msg_event );
+										});
+
+										var thisvalue2 = this.getValue();
+										var setInput2 = $(e["currentTarget"]).parent().parent().parent().next().next().next().find("input");
+			   							$.ajax({
+											type: "POST",
+											url: "'. plugins_url().'/UiGEN-Core/core-files/ajax/ajax_get_wp_objects.php",
+											data: { "callback":"ui_get_usermeta" , "args":{ "user_id":thisvalue2 , "meta_name":"wage_percent" } }
+										})
+										.done(function( msg_event ) {	 
+											$(setInput2).val(msg_event);
+											//alert( msg_event );
+										});
+
+										var thisvalue3 = this.getValue();
+										var setInput3 = $(e["currentTarget"]).parent().parent().parent().next().next().find("select");
+			   							$.ajax({
+											type: "POST",
+											url: "'. plugins_url().'/UiGEN-Core/core-files/ajax/ajax_get_wp_objects.php",
+											data: { "callback":"ui_get_usermeta" , "args":{ "user_id":thisvalue2 , "meta_name":"currency" } }
+										})
+										.done(function( msg_event ) {	 
+											$(setInput3).val(msg_event);
+											//alert( msg_event );
+										});
+				        					
+									}
+		   						},
+
 		   					
 		   						"grid_cells": {
 		   							"fields": {
@@ -316,7 +368,7 @@ $uigen_metaboxes = array(
 	
 	'osrodki-box' => array(
 		'osrodki-box',							// $id
-		'Dodawanie lekarzy',							// $title
+		'Dodawanie pracowników',							// $title
 		'alpacaform_box',						// $callback [alpaca_form_box,save_as_file_box]
 		'osrodki',								// $post_type
 		'normal',								// $context
@@ -332,7 +384,7 @@ $uigen_metaboxes = array(
 		   			"item": {
 		   				"fields": {
 		   					"doctors": {
-		   						"dataSource": '.render_users_to_alpaca_string('doctor').',
+		   						"dataSource": '.render_users_to_alpaca_string('worker').',
 		   						"type": "select"
 		   					}
 		   				}

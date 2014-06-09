@@ -1,28 +1,15 @@
 {
-    "description":"opis...",
+    "description":" Wizyta: Tutaj powinienes wybrac ustawienia dla konktetnej wizyty...",
     "type":"object",
     "properties":{
         "contract":{
             "title":"Kontrakt",
-            "description":"Description....",
-            "type": "radio",
-            "required": true,
-            "enum":[
-                "null"
-            ]         
+            "description":" Opis tego o co chodzi w tym polu - czyli prawdopodobnie wybiersz kontrakt który jest związany z tą wizytą"
         }, 
         "visit":{
             "title":"Wizyta",
-            "description":"Description....",
-            "type": "radio",
-            "default":"1",
-            "required": true,
-            "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
-            ]         
+            "description":" Tutaj wyświetlamy wizyty wybrane wcześniej dla kontraktu, który tutaj wskazaliśmy ????"
+   
         }, 
         "patient_no":{
             "title":"Numer pacjenta",
@@ -33,16 +20,8 @@
         },
          "doctor":{
             "title":"Lekarz",
-            "description":"Description....",
-            "type": "radio",
-            "default":"1",
-            "required": true,
-            "enum":[
-                "1",
-                "5",
-                "10",
-                "15"
-            ]         
+            "description":"Czy lekarze są tutaj jakoś szczególnie sortowani ?"
+            
         }, 
         "visit_data":{
             "title":"data wizyty",
@@ -70,20 +49,20 @@
             "type": "string",
             "required": true
                 
-        },     
-        "supports": {
-            "title": "Supports",
-            "description":"An alias for calling add_post_type_support() directly. As of 3.5, boolean false can be passed as value instead of an array to prevent default (title and editor) behavior.",
-            "type": "array", 
-            "items": {
-                "type": "object",
-                "properties": {
-                    "cell_name": {                        
-                        "type": "string",
-                        "enum": ["title", "editor", "author","thumbnail", "excerpt", "trackbacks","custom-fields", "comments", "revisions","page-attributes"]
-                    }
-                }
-            }
-        }
+        },
+        "place":{
+            "type": "string"
+                
+        },   
+        "visit_currency":{
+            "type": "string"
+                
+        }, 
+        "visit_price":{
+            "type": "string"
+                
+        },   
+
+        
     }
 }

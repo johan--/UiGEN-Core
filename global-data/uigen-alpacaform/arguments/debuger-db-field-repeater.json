@@ -1,0 +1,17 @@
+{
+    "type": "array",
+    "items": {         
+        "type": "object",
+        "properties": {                   
+             "column_name":{
+                "title":"Column Name",
+                "description":"Name of your column into database",
+            },
+            "column_type":{
+                "title":"Column Type",
+                "description":"Data type of your column",
+            }
+        }
+               
+    }
+}

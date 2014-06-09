@@ -121,3 +121,32 @@ require_once("../../../../../wp-load.php");
 		  </div>
 
 		</div>
+
+		<script>
+
+	jQuery('#uigen_asset_list .panel-body div').mouseenter(function() {
+		jQuery(this).css('color','#428bca');
+		jQuery(this).css('background-color','#333');
+		jQuery(this).css('outline','#333 solid thick');
+
+	});
+	jQuery('#uigen_asset_list .panel-body div').mouseleave(function() {
+		jQuery(this).css('color','#333');
+		jQuery(this).css('background-color','initial');
+		jQuery(this).css('outline','initial');
+	});
+	jQuery('#uigen_asset_list .panel-body div').click(function() {
+		var donateString = 'Copy asset name to CLIPBOARD.\n\nThis feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
+		alert(donateString)
+	});
+
+
+jQuery('body').bind('paste', function(e) {
+	var data = e.originalEvent.clipboardData.getData('Text');
+	if (data.length > 10) {
+		return false;
+	} else {
+		return true;
+	}
+});
+		</script>

@@ -6,17 +6,8 @@
                 "add_doctor":{
                     "title":"Wybierz lekarza",
                     "description":"Description....",
-                    "default":"Nowy",
-                    "required": true,
-                    "enum":[
-                       "new" 
-                    ]         
-                },
-                "doctor_name":{
-                    "title":"Imię i nazwisko",
-                    "description":"Description....",
-                    "type": "string",
-                    "required": true                
+                    "required": true
+                      
                 },
                 "wage_const":{
                     "title":"Wynagrodzenie stałe",

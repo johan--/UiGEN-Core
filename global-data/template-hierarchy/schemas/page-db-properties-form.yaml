@@ -38,7 +38,7 @@ form-slot:
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-user-login
+  flow: basic-add-db-data
 # Footer Slot ----------------------------------------------------
 footer:
   type: tpl-part

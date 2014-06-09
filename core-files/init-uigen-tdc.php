@@ -1,4 +1,10 @@
 <?php
+
+	if (!defined('UIGENCLASS_PATH')) {
+    	echo '<div class="alert alert-danger" style="margin:20px;">UiGEN Core plugin is not inslall or acitve. Check it in your admin panell</div>';
+    	die();
+	}
+
 	global $TDC;
 	
 	include( UIGENCLASS_PATH . 'display-controller.class.php' );	

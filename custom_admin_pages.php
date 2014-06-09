@@ -94,22 +94,35 @@ class Custom_List extends WP_List_Table {
      * @param array $item A singular item (one full row's worth of data)
      * @return string Text to be placed inside the column <td> (movie title only)
      **************************************************************************/
-    // function column_first_name($item){
+    function column_first_name($item){
         
-    //     //Build row actions
-    //     $actions = array(
-    //         'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-    //         'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
-    //     );
+        //Build row actions
+        $actions = array(
+            'edit'      => sprintf('<a href="user-edit.php?user_id=%d&wp_http_referer=%s&role=%s">Edit</a>',$item->ID, urlencode($_SERVER["REQUEST_URI"]), $this->what),
+            'delete'    => sprintf('<a href="?page=%s&action=delete&user=%d&_wpnonce=%s">Delete</a>', $_REQUEST['page'], $item->ID, wp_create_nonce('delete '.$this->what.'-'.$item->ID)),
+        );
         
-    //     //Return the title contents
-    //     return sprintf('%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-    //         /*$1%s*/ $item['title'],
-    //         /*$2%s*/ $item['ID'],
-    //         /*$3%s*/ $this->row_actions($actions)
-    //     );
-    // }
+        //Return the title contents
+        return sprintf('%1$s%2$s',
+            /*$1%s*/ $item->first_name,
+            /*$3%s*/ $this->row_actions($actions)
+        );
+    }
 
+    function column_company($item){
+        
+        //Build row actions
+        $actions = array(
+            'edit'      => sprintf('<a href="user-edit.php?user_id=%d&wp_http_referer=%s&role=%s">Edit</a>',$item->ID, urlencode($_SERVER["REQUEST_URI"]), $this->what),
+            'delete'    => sprintf('<a href="?page=%s&action=delete&user=%d&_wpnonce=%s">Delete</a>', $_REQUEST['page'], $item->ID, wp_create_nonce('delete '.$this->what.'-'.$item->ID)),
+        );
+        
+        //Return the title contents
+        return sprintf('%1$s%2$s',
+            /*$1%s*/ get_user_meta($item->ID, 'company', true),
+            /*$3%s*/ $this->row_actions($actions)
+        );
+    }
 
     /** ************************************************************************
      * REQUIRED if displaying checkboxes or using bulk actions! The 'cb' column
@@ -166,7 +179,7 @@ class Custom_List extends WP_List_Table {
 			case 'payer':
 				$columns = array(
 				    'cb'        		=> '<input type="checkbox" />', //Render a checkbox instead of text
-				    'company'     	=> 'Nazwa',
+				    'company'     	    => 'Nazwa',
 				    'user_email'		=> 'E-mail',
 				    'address'			=> 'Adres',
 				    'nip'				=> 'NIP',
@@ -175,7 +188,7 @@ class Custom_List extends WP_List_Table {
 			case 'worker':
 				$columns = array(
 				    'cb'        		=> '<input type="checkbox" />', //Render a checkbox instead of text
-				    'company'     	=> 'Nazwa',
+				    'company'     	    => 'Nazwa',
 				    'first_name'   		=> 'Imie',
 				    'last_name'  		=> 'Nazwisko',
 				    'mobile'			=> 'Telefon',
@@ -205,14 +218,14 @@ class Custom_List extends WP_List_Table {
      **************************************************************************/
     function get_sortable_columns() {
         $sortable_columns = array(
-		    'organization'     	=> 'Nazwa',
-		    'first_name'    	=> 'Imie',
-		    'last_name' 	 	=> 'Nazwisko',
-		    'specialization'	=> 'Specjalizacja',
-		    'mobile'			=> 'Telefon',
-		    'user_email'		=> 'E-mail',
-		    'adress'			=> 'Adres',
-		    'nip'				=> 'NIP',
+		    "company"     	=> array("company", false),
+		    "first_name"    	=> array('first_name', false),
+		    "last_name" 	 	=> array('last_name', false),
+		    "specialization"	=> array('specialization', false),
+		    "mobile"			=> array('mobile', false),
+		    "user_email"		=> array('', false),
+		    // "adress"			=> array('address', false),
+		    // "nip"				=> array('nip', false),
         );
         return $sortable_columns;
     }
@@ -251,7 +264,18 @@ class Custom_List extends WP_List_Table {
         
         //Detect when a bulk action is being triggered...
         if( 'delete'===$this->current_action() ) {
-            wp_die('Items deleted (or they would be if we had items to delete)!');
+            // wp_die('Items deleted (or they would be if we had items to delete)!');
+            // if(wp_verify_nonce($_REQUEST['_wpnonce'], 'delete-'.$this->what.'-'.$_REQUEST['user'])) {
+                if(is_array($_REQUEST['user'])) {
+                    foreach ($_REQUEST['user'] as $us) {
+                        wp_delete_user((int)$us);
+                    }
+                } else {
+                    wp_delete_user((int)$_REQUEST['user'] );
+                }
+            // } else {
+            //     wp_die('Problem with nonce...');
+            // }
         }
         
     }
@@ -327,13 +351,14 @@ class Custom_List extends WP_List_Table {
          */
         if (!empty($_REQUEST['orderby'])) 
         	$this->args['orderby'] = $_REQUEST['orderby'];
+            $this->args['meta_key'] = $_REQUEST['orderby'];
         if (!empty($_REQUEST['order'])) 
         	$this->args['order'] = $_REQUEST['order'];
-
+        $this->args['query_id'] = 'wps_last_name';
         $data = new WP_User_Query($this->args);
         $ndata = $data->get_results();
 
-        // print('<pre>');var_dump($ndata);print('</pre>');
+        // print('<pre>');var_dump($data);print('</pre>');
         
         /**
          * REQUIRED for pagination. Let's check how many items are in our data array. 
@@ -373,6 +398,13 @@ class Custom_List extends WP_List_Table {
 
 }
 
+add_action( 'pre_user_query', 'wps_pre_user_query' ); 
+function wps_pre_user_query( &$query ) {
+    global $wpdb;
+    if ( isset($query->query_vars['query_id'] ) && 'wps_last_name' == $query->query_vars['query_id'] )
+        $query->query_orderby = str_replace('user_login', "$wpdb->usermeta.meta_value", $query->query_orderby ); 
+}
+
 add_action('admin_menu', 'mpf_menu');
 function mpf_menu()
 {   
@@ -380,13 +412,13 @@ function mpf_menu()
   add_menu_page('Lekarze', 'Lekarze', 'manage_options', 'doctors', function() {custom_list('doctor');});
   add_menu_page('Płatnicy', 'Płatnicy', 'manage_options', 'payers', function() {custom_list('payer');});
   add_menu_page('Koordynatorzy', 'Koordynatorzy', 'administrator', 'coordinators',  function() {custom_list('coordinator');});
-  // add_menu_page('Pracownicy', 'Pracownicy', 'administrator', 'workers',  function() {custom_list('worker');});
+  add_menu_page('Pracownicy', 'Pracownicy', 'administrator', 'workers',  function() {custom_list('worker');});
   // submenu with calback
  
   add_submenu_page('doctors', 'Dodaj lekarza', 'Dodaj lekarza', 'manage_options', 'user-new.php?role=doctor');
   add_submenu_page('payers', 'Dodaj płatnika', 'Dodaj płatnika', 'manage_options', 'user-new.php?role=payer');
   add_submenu_page('coordinators', 'Dodaj koordynatora', 'Dodaj koordynatora', 'manage_options', 'user-new.php?role=coordinator');
-  // add_submenu_page('workers', 'Dodaj pracownika', 'Dodaj pracownika', 'manage_options', 'user-new.php?role=worker');
+  add_submenu_page('workers', 'Dodaj pracownika', 'Dodaj pracownika', 'manage_options', 'user-new.php?role=worker');
 
 } 
 
@@ -403,6 +435,9 @@ function custom_list($what) {
 			break;
 		case 'doctor':
 			$page_title = 'Lekarze';
+			break;
+		case 'worker':
+			$page_title = "Pracownicy";
 			break;
 		default:
 			$page_title = 'Lista';
@@ -433,9 +468,10 @@ function custom_list($what) {
     <?php
 }
 
-add_action('personal_options_update', 'profile_customizer_update', 10, 1);
+add_action('profile_update', 'profile_customizer_update', 10, 1);
 add_action ('user_register', "profile_customizer_update", 10, 1);
 add_action( "user_new_form_tag", "profile_customizer_add" );
+add_action("user_edit_form_tag", "profile_customizer_add");
 
 
 function profile_customizer_add(){ 
@@ -462,7 +498,17 @@ function profile_customizer_add(){
 				$('#role').val(role);
 				$('#role').parent().parent().hide();
 				$('#url').parent().parent().hide();
+                $('h3').each(function(index, element) {
+                    element.remove();
+                });
+                $('#color-picker').parent().parent().hide();
+                $('#comment_shortcuts').parent().parent().parent().hide();
+                $('#admin_bar_front').parent().parent().parent().parent().hide();
+                $('#nickname').parent().parent().hide();
+                $('#description').parent().parent().hide();
+                $('#rich_editing').parent().parent().parent().hide();
 				$('#user_login').parent().parent().hide();
+                $('#display_name').parent().parent().hide();
 				var password = '<?php print(wp_generate_password(16)); ?>';
 				console.log(password);
 				switch (role) {
@@ -474,12 +520,16 @@ function profile_customizer_add(){
 						$('#send_password').parent().parent().parent().hide();
 						$('#pass11').val(password);
 						$('#pass22').val(password);
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="mobile">Telefon</label></th><td><input type="text" name="mobile" />');
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="specialization">Specjalizacja</label></th><td><input type="text" name="specialization" />');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="mobile">Telefon</label></th><td><input type="text" name="mobile" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'mobile', true)); ?>" />');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="specialization">Specjalizacja</label></th><td><input type="text" name="specialization" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'specialization', true)); ?>" />');
+                        $('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="wage_const">Wynagrodzenie stałe</label></th><td><input type="text" name="wage_const" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'wage_const', true)); ?>" />');
+                        $('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="wage_percent">Wynagrodzenie %</label></th><td><input type="text" name="wage_percent" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'wage_percent', true)); ?>" />');
+                        $('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="currency">Waluta<a/label></th><td><input type="text" name="currency" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'currency', true)); ?>" />');
 						break;
 					case 'coordinator':
-						$('#add-new-user').html('Dodaj nowego koordynatora');
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="mobile">Telefon</label></th><td><input type="text" name="mobile" />');
+					case 'worker':
+						$('#add-new-user').html((role == 'coordinator') ? 'Dodaj nowego koordynatora': 'Dodaj nowego pracownika');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="mobile">Telefon</label></th><td><input type="text" name="mobile" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST['user_id'], 'mobile', true)); ?>" />');
 						break;
 					case 'payer':
 						$('#add-new-user').html('Dodaj nowego płatnika');
@@ -491,15 +541,18 @@ function profile_customizer_add(){
 						$('#send_password').parent().parent().parent().hide();
 						$('#pass11').val(password);
 						$('#pass22').val(password);
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="company">Nazwa</label></th><td><input type="text" name="company" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST["user_id"], "company", true)); ?>" />');
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="nip">Numer NIP</label></th><td><input type="text" name="nip" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST["user_id"], "nip", true)); ?>" />');
-						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="address">Adres</label></th><td><textarea rows=4 cols=30 name="address"><?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST["user_id"], "address", true)); ?>" </textarea>');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="company">Nazwa</label></th><td><input type="text" id="company" name="company" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST["user_id"], "company", true)); ?>" />');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="nip">Numer NIP</label></th><td><input type="text" id="nip" name="nip" value="<?php if(isset($_REQUEST["user_id"])) print(get_user_meta($_REQUEST["user_id"], "nip", true)); ?>" />');
+						$('#custom_fields').append('<tr class="form-field"><th scope="row"><label for="address">Adres</label></th><td><textarea rows=4 cols=30 name="address"><?php if(isset($_REQUEST["user_id"])) print(str_replace("\r\n", "\\n", get_user_meta($_REQUEST["user_id"], "address", true))); ?></textarea>');
 						break;
 				}
 				$('#createuser').submit(function(e) {
 					// e.preventDefault();
 					$('#user_login').val($('#email').val());
-					console.log($('#user_login').val())
+                    if(role == 'payer') {
+                        $('#last_name').val($('#company').val());
+                    }
+					// console.log($('#user_login').val())
 				});
 			});
 		}
@@ -516,8 +569,12 @@ function profile_customizer_update($user_id){
 		case 'doctor':
 			update_user_meta( $user_id, 'mobile', $_REQUEST['mobile']);
 			update_user_meta( $user_id, 'specialization', $_REQUEST['specialization']);
+            update_user_meta( $user_id, 'wage_const', $_REQUEST['wage_const']);
+            update_user_meta( $user_id, 'wage_percent', $_REQUEST['wage_percent']);
+            update_user_meta( $user_id, 'currency', $_REQUEST['currency']);
 			break;
 		case 'coordinator':
+		case 'worker':
 			update_user_meta( $user_id, 'mobile', $_REQUEST['mobile']);
 			break;
 		case 'payer':
