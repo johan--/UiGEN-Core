@@ -19,6 +19,17 @@
 			var_dump($errors);
 			// $this->show_message($errors, 'Roles added');
 		}
+		public function add_cap() {
+			$errors = array();
+			foreach ($this->roles as $role => $caps) {
+				$base_role = get_role($role);
+				var_dump($base_role);
+				if (NULL === $base_role -> add_cap($caps)) {
+					$errors[] = __('Problem with adding a role').': '.__($role);
+				}
+			}
+			var_dump($errors);			
+		}
 
 		public function remove_roles() {
 			foreach ($this->roles as $role => $caps) {

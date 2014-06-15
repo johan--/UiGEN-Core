@@ -115,6 +115,7 @@ add_action( 'restrict_manage_posts', 'bs_kontrakt_table_filtering' );
 function bs_kontrakt_table_filtering() {
   global $wpdb;
   $screen = get_current_screen();
+  // var_dump($screen);
   // global $screen;
   if ( $screen->post_type == 'kontrakt' ) {
 
@@ -198,6 +199,13 @@ function bs_kontrakt_table_filtering() {
   }
 
   if ( $screen->post_type == 'wizyta' ) {
+      print('<select name="bulk">
+        <option value="-1" selected="selected" disabled="disabled">Masowe działania</option>
+        <option value="export_general">Wygeneruj raport</option>
+        <option value="export_doctors">Dane dla lekarzy</option>
+        <option value="export_costs">Przychody i koszty</option>
+      </select>');
+
       $users = new WP_User_Query(array('role' => 'doctor'));
       foreach ($users->results as $user) {
         // print('<pre>');var_dump($user);print('</pre>');
@@ -248,6 +256,26 @@ function bs_kontrakt_table_filter( $query ) {
     $qv = &$query->query_vars;
     $qv['meta_query'] = array();
 
+    if(!empty($_REQUEST['bulk']) && $_REQUEST['bulk'] == 'export_general') {
+      $url = get_bloginfo('url').'/export/?mode=general&id%5B%5D='.implode('&id%5B%5D=',$_REQUEST['post']);
+      // var_dump($url);
+      // die();
+      wp_redirect($url);
+    }
+
+    if(!empty($_REQUEST['bulk']) && $_REQUEST['bulk'] == 'export_doctors') {
+      $url = get_bloginfo('url').'/export/?mode=doctors&id%5B%5D='.implode('&id%5B%5D=',$_REQUEST['post']);
+      // var_dump($url);
+      // die();
+      wp_redirect($url);
+    }
+
+    if(!empty($_REQUEST['bulk']) && $_REQUEST['bulk'] == 'export_costs') {
+      $url = get_bloginfo('url').'/export/?mode=costs&id%5B%5D='.implode('&id%5B%5D=',$_REQUEST['post']);
+      // var_dump($url);
+      // die();
+      wp_redirect($url);
+    }
 
     if( !empty($_REQUEST['starts_from']) ) {
       $start_time = date( "Ymd", strtotime($_REQUEST['starts_from']) );
@@ -424,12 +452,12 @@ function bs_wizyta_table_content( $column_name, $post_id ) {
     print($string);
   }
 
-  if($column_name == 'patient') {
-    printf("%s", $meta['alpc_patient'][0]);
+  if($column_name == 'patvarient') {
+    printf("%s", $meta['alpc_patient_no'][0]);
   }
 
   if($column_name == 'contract') {
-    printf('%s - %s', $meta['alpc_diagnistic_start_date'][0], $meta['alpc_diagnistic_end_date'][0]);
+    printf('<a href="%s">%s</a>', get_bloginfo('url').'/wp-admin/post.php?post='.(int)$meta['alpc_contract'][0].'&action=edit', get_post((int)$meta['alpc_contract'][0])->post_title);
   }
 
 }
@@ -442,3 +470,5 @@ function bs_wizyta_table_sorting( $columns ) {
   $columns['doctor'] = 'alpc_doctor';
   return $columns;
 }
+
+add_filter( 'bulk_actions-edit-wizyta', '__return_empty_array' );

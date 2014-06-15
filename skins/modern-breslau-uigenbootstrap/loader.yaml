@@ -1,0 +1,9 @@
+---
+skinloader:
+  css:
+    - bootstrap.min.css
+    - bootstrap-theme.min.css
+    - uigen.css
+  js:
+    - bootstrap.min.js
+

@@ -19,6 +19,8 @@ function uigen_menu_swith($args){
 	    return $args['unregister'];
 	}
 }
+
+
 // ------------------------------------
 function uigen_nav_menu(){
 	global $TDC;
@@ -57,12 +59,3 @@ function merge_tplpart_prop($element_schema){
 
 }
 
-function uigen_remove_post($post_id){
-
-	$args = array(
-      'ID'           => $post_id,
-      'post_ststus' => 'trash'
-  	);
-	wp_update_post( $args );
-
-}

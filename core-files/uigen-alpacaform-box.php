@@ -108,7 +108,7 @@ function alpacaform_box($post, $metabox){
           // add form methods
           "postRender": function(renderedForm) {          
             var val = renderedForm.getValue();
-            $('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); 
+            <?php if(isset($metabox["id"])): ?>$('#<?php echo $metabox["id"]."_output_field"; ?>').val(encodeURIComponent(JSON.stringify(val))); <?php endif; ?>
             /*$('button').click(function() {
               var val = renderedForm.getValue();
               console.log(val);
@@ -236,12 +236,12 @@ function render_posttype_to_osrodek_id_by_user($user_ID){
  $args = array(
   'post_type' => 'osrodki',
   'meta_query' => array(
-       array(
-           'key' => 'doctors',
-           'value' => $user_id,
-           'compare' => 'IN',
-       )
-   )  
+     array(
+         'key' => 'doctors',
+         'value' => $user_id,
+         'compare' => 'IN',
+         )
+      )  
   );
  
 
@@ -252,8 +252,12 @@ function render_posttype_to_osrodek_id_by_user($user_ID){
     $osrodki_ids[] = $query1->post->ID;
 
   }
-  echo $osrodki_ids[0];
+
+    $postTitleString = 'function(field, callback) {callback([{"text": "xx", "value": "xx"}]);}';
+    
+
   wp_reset_postdata();
+  return $postTitleString;
 
 }
 

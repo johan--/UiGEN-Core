@@ -15,6 +15,12 @@
 #pages-panel-add-buttons span{
 	color:#428BCA;
 }
+.untrash_object:hover{
+	color:#428BCA; cursor:pointer;
+}
+.recreatre_object:hover{
+	color:#428BCA; cursor:pointer;
+}
 </style>
 
 
@@ -34,19 +40,42 @@
 
 	foreach ($posttypes_array as $key => $value) {
 			if(is_page_exist($key.'-view')==true){
-				$view_exist = '';
+				$view_exist = 'class="glyphicon glyphicon-file"';
 			}else{
-				$view_exist = 'style="color:red"';
+				$object_action_view = '';
+				$check_page = get_page_by_path($key.'-view');
+				$view_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_view = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID )=='trash'){ 
+					$view_exist = 'style="color:red" class="glyphicon glyphicon-trash"'; 
+					$object_action_view = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
 			}
+
 			if(is_page_exist($key.'-form')==true){
-				$form_exist = '';
+				$form_exist = 'class="glyphicon glyphicon-file"';
 			}else{
-				$form_exist = 'style="color:red"';
+				$object_action_form = '';
+				$check_page = get_page_by_path($key.'-form');
+				$form_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_form = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID )=='trash'){ 
+					$form_exist = 'style="color:red" class="glyphicon glyphicon-trash"'; 
+					$object_action_form = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
 			}
+
 			if(is_page_exist($key.'-list')==true){
-				$list_exist = '';
+				$list_exist = 'class="glyphicon glyphicon-file"';
 			}else{
-				$list_exist = 'style="color:red"';
+				$object_action_list = '';
+				$check_page = get_page_by_path($key.'-list');
+				$list_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_list = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID )=='trash'){ 
+					$list_exist = 'style="color:red" class="glyphicon glyphicon-trash"'; 
+					$object_action_list = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
 			}
 		?>		
 			<div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
@@ -56,16 +85,57 @@
 				</div>
 				<!-- <div class="panel-body"></div> -->
 				<ul class="list-group">
-				    <li class="list-group-item"><span <?php echo $view_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a></li>	    
-				    <li class="list-group-item"><span <?php echo $form_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a></li>
-				    <li class="list-group-item"><span <?php echo $list_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a></li>
+				    <li class="list-group-item"><span <?php echo $view_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a><?php echo $object_action_view ?></li>	    
+				    <li class="list-group-item"><span <?php echo $form_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a><?php echo $object_action_form ?></li>
+				    <li class="list-group-item"><span <?php echo $list_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a><?php echo $object_action_list ?></li>
 				</ul>
-				<div class="panel-footer"><a href="#">More options</a></div>
+				<div class="panel-footer"><a class="more_options" href="#">More options</a></div>
 			</div>
 		<?php
 	}
 
 	foreach ($db_array as $key => $value) {
+			
+			if(is_page_exist($key.'-view')==true){
+				$view_exist = 'class="glyphicon glyphicon-file"';
+				
+			}else{
+				$object_action_view = '';
+				$check_page = get_page_by_path($key.'-view');
+				$view_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_view = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID )=='trash'){ 
+					$view_exist = 'style="color:red" class="glyphicon glyphicon-trash"'; 
+					$object_action_view = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
+				
+			}
+			if(is_page_exist($key.'-form')==true){
+				$form_exist = 'class="glyphicon glyphicon-file"';
+				
+			}else{
+				$object_action_form = '';
+				$check_page = get_page_by_path($key.'-form');
+				$form_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_form = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID )=='trash'){
+				 $form_exist = 'style="color:red" class="glyphicon glyphicon-trash"'; 
+				 $object_action_form = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
+			}
+			if(is_page_exist($key.'-list')==true){
+				$list_exist = 'class="glyphicon glyphicon-file"';
+				
+			}else{
+				$object_action_list = '';
+				$check_page = get_page_by_path($key.'-list');				
+				$list_exist = 'style="color:red" class="glyphicon glyphicon-ban-circle"';
+				$object_action_list = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate</span>';
+				if(get_post_status( $check_page -> ID ) == 'trash'){
+				 $list_exist = 'style="color:orange" class="glyphicon glyphicon-trash"'; 
+				 $object_action_list = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
+				}
+			}
 		?>		
 			<div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
 				<div class="panel-heading" style="background-color:#38B1AC;">
@@ -74,11 +144,11 @@
 				</div>
 				<!-- <div class="panel-body"></div> -->
 				<ul class="list-group">
-				    <li class="list-group-item"><span <?php echo $view_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a></li>	    
-				    <li class="list-group-item"><span <?php echo $form_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a></li>
-				    <li class="list-group-item"><span <?php echo $list_exist; ?> class="glyphicon glyphicon-file"></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a></li>
+				    <li class="list-group-item"><span <?php echo $view_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a><?php echo $object_action_view ?></li>	    
+				    <li class="list-group-item"><span <?php echo $form_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a><?php echo $object_action_form ?></li>
+				    <li class="list-group-item"><span <?php echo $list_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a><?php echo $object_action_list ?></li>
 				</ul>
-				<div class="panel-footer"><a href="#">More options</a></div>
+				<div class="panel-footer"><a class="more_options" href="#">More options</a></div>
 			</div>
 		<?php
 
@@ -99,11 +169,6 @@
 
 
 ?>
-
-
-
-
-
 
 
 
@@ -172,6 +237,18 @@ jQuery( ".add-new-page-button" ).click(function() {
 		jQuery('#add_posttype').css('display','block');
 	}
 });
+var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
+
+jQuery( ".untrash_object" ).click(function() {
+	alert(donateString);
+});
+jQuery( ".recreatre_object" ).click(function() {
+	alert(donateString);
+});
+jQuery( ".more_options" ).click(function() {
+	alert(donateString);
+});
+
 </script>
 
 

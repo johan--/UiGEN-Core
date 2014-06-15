@@ -12,9 +12,9 @@ include('hooks.php');
 /* This plugin add UiGEN classes to uour plugin directory */
 
 // Plugin VERSION
-define( 'UiGEN_CORE_VER' , '0.1.2' );
+define( 'UiGEN_CORE_VER' , '0.1.3' );
 define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
-define(' PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core');
+define( 'PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core/');
 
 define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
 define( 'GLOBALDATA_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/' );
@@ -34,107 +34,67 @@ require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
 /* tables creation */
 
 if(!class_exists('Custom_Types_Creator')) {
-  //include_once(PLUGIN_DIR.'/mpf_specyfic.php');
+  include_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/mpf_specyfic.php');
 }
+
+/*$mpf_roles = array(
+	'doctor' => array('read' => false),
+	'payer' => array('publish_posts' => true),
+	'coordinator' => array(
+		'publish_wizyty' => true,
+		'edit_published_wizyty' => true
+		//delete also
+	),
+	'worker' => array(
+		'publish_wizyty' => true,
+		'edit_published_wizyty' => true
+	),
+	'operator' => array(
+		'edit_dashboard' => true,
+		'edit_wizyty' => true,
+		'read_wizyty' => true,
+		'publish_wizyty' => true,
+		'edit_published_wizyty' => true,
+		// 'edit_others_posts' => true,
+		// 'edit_pages' => true,
+		// 'edit_others_pages' => true,
+		// 'edit_published_pages' => true,
+		// 'publish_pages' => true,
+		// 'delete_pages' => true,
+		// 'delete_others_pages' => true,
+		// 'delete_published_pages' => true,
+		// 'delete_others_posts' => true,
+		// 'delete_private_posts' => true,
+		// 'edit_private_posts' => true,
+		// 'read_private_posts' => true,
+		// 'delete_private_pages' => true,
+		// 'edit_private_pages' => true,
+		// 'read_private_pages' => true,
+		// 'edit_published_posts' => true,
+		'upload_files' => true,
+		// 'publish_posts' => true,
+		// 'delete_published_posts' => true,
+		// 'edit_posts' => true,
+		// 'delete_posts' => true,
+		'read' => true
+	),
+);*/
 
 function my_first_install() {
 
   if(class_exists('Custom_Types_Creator')) {
 	$mpf = new Custom_Types_Creator();
-	$mpf_roles = array(
-		'doctor' => array('read' => false),
-		'payer' => array('publish_posts' => true),
-		'coordinator' => array(
-			'publish_wizyta' => true,
-			'edit_published_wizyta' => true
-		),
-		'worker' => array(
-			'publish_wizyta' => true,
-			'edit_published_wizyta' => true
-		),
-		'operator' => array(
-			'edit_dashboard' => true,
-			'edit_wizyta' => true,
-			'read_wizyta' => true,
-			'publish_wizyty' => true,
-			'edit_published_wizyty' => true,
-			'edit_others_posts' => true,
-			'edit_pages' => true,
-			'edit_others_pages' => true,
-			'edit_published_pages' => true,
-			'publish_pages' => true,
-			'delete_pages' => true,
-			'delete_others_pages' => true,
-			'delete_published_pages' => true,
-			'delete_others_posts' => true,
-			'delete_private_posts' => true,
-			'edit_private_posts' => true,
-			'read_private_posts' => true,
-			'delete_private_pages' => true,
-			'edit_private_pages' => true,
-			'read_private_pages' => true,
-			'edit_published_posts' => true,
-			'upload_files' => true,
-			'publish_posts' => true,
-			'delete_published_posts' => true,
-			'edit_posts' => true,
-			'delete_posts' => true,
-			'read' => true
-		),
-	);
+	global $mpf_roles;
 	$mpf->roles=$mpf_roles;
 		$mpf->add_roles();
 	} else {
 		echo 'error, password wrong!';
 		die();
 	}
-}
 
-function my_first_reinstall(){
-  if(class_exists('Custom_Types_Creator')) {
-	  $mpf = new Custom_Types_Creator();
-  $mpf_roles = array(
-	  'doctor' => array('read' => false),
-	  'payer' => array('publish_posts' => true),
-	  'coordinator' => array('publish_pages' => true, 'edit_published_pages' => true),
-	  'worker' => array(
-			'publish_wizyta' => true,
-			'edit_published_wizyta' => true
-		),
-	  'operator' => array(
-	  	'edit_dashboard' => true,
-	  	'edit_others_posts' => true,
-	  	'edit_pages' => true,
-	  	'edit_others_pages' => true,
-	  	'edit_published_pages' => true,
-	  	'publish_pages' => true,
-	  	'delete_pages' => true,
-	  	'delete_others_pages' => true,
-	  	'delete_published_pages' => true,
-	  	'delete_others_posts' => true,
-	  	'delete_private_posts' => true,
-	  	'edit_private_posts' => true,
-	  	'read_private_posts' => true,
-	  	'delete_private_pages' => true,
-	  	'edit_private_pages' => true,
-	  	'read_private_pages' => true,
-	  	'edit_published_posts' => true,
-	  	'upload_files' => true,
-	  	'publish_posts' => true,
-	  	'delete_published_posts' => true,
-	  	'edit_posts' => true,
-	  	'delete_posts' => true,
-	  	'read' => true,
-	  	),
-	);
-  $mpf->roles=$mpf_roles;
-	$mpf->remove_roles();
-  }
-
-
-  /* ---------------------- */
-  /* CREATE DATABASE TABLES */
-  global $wpdb;	
+	/* ---------------------- */
+	/* CREATE DATABASE TABLES */
+	global $wpdb;	
 
     require_once UIGENCLASS_PATH . 'Spyc.php';
 	$debuger_db = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' );        
@@ -167,6 +127,17 @@ function my_first_reinstall(){
 	}
 	echo '</pre>';
 	/* ---------------------- */
+
+}
+
+function my_first_reinstall(){
+  if(class_exists('Custom_Types_Creator')) {
+	  $mpf = new Custom_Types_Creator();
+	  global $mpf_roles;
+  $mpf->roles=$mpf_roles;
+	$mpf->remove_roles();
+  }
+
 }
 
 
@@ -232,6 +203,17 @@ function uigen_posttypes() {
 	$debuger_custom_posttype = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );        
 	foreach ($debuger_custom_posttype as $posttype => $props) {
 	  register_post_type($posttype, $props);
+	}
+
+	/* rewrite user roles (bad way) */
+	if(class_exists('Custom_Types_Creator')) {
+		$mpf = new Custom_Types_Creator();
+		global $mpf_roles;
+		$mpf->roles=$mpf_roles;
+			// $mpf->add_cap();
+	} else {
+		echo 'error, password wrong!';
+		die();
 	}
 }
 

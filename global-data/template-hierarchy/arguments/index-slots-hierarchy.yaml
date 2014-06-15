@@ -1,10 +1,13 @@
 ---
 logo:
-  - simple-logo000100000000000
+  - simple-logo0
 menu:
-  - nav-menu-header111011111111111
+  - nav-menu-header1
+action:
+  - simple-button2
 content-top:
-  - form-slot2332232222
+  - title-text3
+  - form-slot4
 content-main: ""
 footer-top: ""
 footer-main: ""

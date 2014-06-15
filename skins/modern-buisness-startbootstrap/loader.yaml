@@ -1,0 +1,8 @@
+---
+skinloader:
+  css:
+    - bootstrap.min.css
+    - business-frontpage.css
+  js:
+    - bootstrap.min.js
+

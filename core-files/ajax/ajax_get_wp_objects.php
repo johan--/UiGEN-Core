@@ -34,7 +34,7 @@ var_dump($obj);
 function ui_get_postmeta_options($obj) {
  // var_dump(get_post_meta($obj["post_id"],$obj['meta_name']));
   foreach (get_post_meta($obj["post_id"],$obj['meta_name']) as $key => $value) {
-    echo '<option value="'.$value.'">'.$value.'</option>';
+    echo '<option value="'.$key.'">'.$value.'</option>';
   }
 
 

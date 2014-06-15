@@ -247,7 +247,7 @@ class ThemeDisplayController {
 			$slot['query_args']['author'] = get_current_user_id();
 		}
 
-		var_dump($slot['query_args']) ;
+		//var_dump($slot['query_args']) ;
 		/* QUERY */
 		query_posts( $slot['query_args'] );
 

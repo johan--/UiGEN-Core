@@ -2,7 +2,7 @@
 	font-size: 90%;
 }
 
-.ui-widget {
+#ui-datepicker-div.ui-widget {
 	font-family: "Helvetica","Trebuchet MS",Tahoma,Verdana,Arial,sans-serif;
 	background: #1c1c1c;
 	border: none;
@@ -78,7 +78,7 @@
 	border-right: none;
 }
 
-td .ui-state-default {
+#ui-datepicker-div td .ui-state-default {
 	border: none;
 	text-align: center;
 	padding: .7em 0;
@@ -99,13 +99,13 @@ td .ui-state-default {
 
 }
 
-td.ui-state-disabled .ui-state-default {
+#ui-datepicker-div td.ui-state-disabled .ui-state-default {
 	background: #666;
 	color: #ccc;
 	text-shadow: none;
 }
 
-td .ui-state-hover {
+#ui-datepicker-div td .ui-state-hover {
 	background-color: #373737; /* layer fill content */
 	-moz-box-shadow: inset 0 0 4px rgba(0,0,0,.7);  /*inner shadow */
 	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2); /* inner shadow */
@@ -117,7 +117,7 @@ td .ui-state-hover {
 	background-image: linear-gradient(bottom, #424242 0%, #373737 100%); /* gradient overlay */
 }
 
-td .ui-state-active {
+#ui-datepicker-div td .ui-state-active {
 	background: #3f6b8a; /* layer fill content */
 	-moz-box-shadow: inset 0 0 5px rgba(7,15,21,.9); /* inner shadow */
 	-webkit-box-shadow: inset 0 0 5px rgba(7,15,21,.9); /* inner shadow */
