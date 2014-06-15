@@ -60,7 +60,7 @@ outline:#333 solid 1px; */
 				           ?>
 					      </div>
 					       <div class="panel-footer">
-								<a href="" style="float:right"><span class="glyphicon glyphicon-ok-circle"></span> Set this grid</a>
+								<a class="set_this_grid" href="" style="float:right"><span class="glyphicon glyphicon-ok-circle"></span> Set this grid</a>
 								<br style="clear:both"/>
 					       </div>
 					    </div>
@@ -75,4 +75,21 @@ outline:#333 solid 1px; */
 
  
 </div>
-
+<script>
+jQuery(document).on('click', "button.debug-save-yaml", function() {	
+	jQuery.ajax({
+		type: "POST",
+		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/inspector-save-yaml.php",
+		data: { 
+			yaml: 'grid:xshit',
+			ui_page_name: jQuery('#ui_page_name').text(),
+			ui_grid_name: jQuery('#ui_grid_name').text(),
+		}
+	})
+	  .done(function( msg ) {
+	  	jQuery('.modal-content').children('div').remove();
+	  	jQuery('.modal-content').append(msg);
+	    
+	});
+});
+</script>

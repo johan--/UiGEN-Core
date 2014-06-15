@@ -31,12 +31,12 @@ title-text3:
   debug_type: static
   type: tpl-part
   tpl_part: tiled-title
-  tpl_part_prop: not_implemented
+  tpl_part_prop: not_implementedx
 form-slot4:
   debug_label: Login form
   debug_type: static
   type: tpl-part
   tpl_part: login-form
   tpl_part_prop: not_implemented
-grid: basic-fat
+grid: basic-article
 ui_page_name: index

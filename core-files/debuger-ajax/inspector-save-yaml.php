@@ -1,10 +1,10 @@
 <div class="modal-content">
-  <div class="modal-header">
+  <div class="modal-header modal-success">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title" id="debugModalLabel">SUCCESS</h4>
+    <h2 class="modal-title" id="debugModalLabel"><span class="glyphicon glyphicon-thumbs-up"></span> SUCCESS</h2>
   </div>
   <div class="modal-body">
-  	<p>Your Slot CODE was SAVED!</p>
+  	<h1>Your Slot CODE was SAVED !!!</h1>
     <?php
     
     //echo $_POST['ui_page_name'].'</br>';
@@ -22,18 +22,17 @@
     //$YAMLParsedArray = Spyc::YAMLDump($loadedYAML);
 
 
+    // if grid-name == first key then this is all properties array
+    // if grid-name != first key then this is slot properties
+    $first_key = key($loaded_saved_YAML);
 
-    $returnYAML = Spyc::YAMLDump(ui_merge_data_array($loaded_orginal_YAML,$loaded_saved_YAML));
+    if($first_key == $_POST['ui_grid_name']){
+      //var_dump($loaded_saved_YAML[$_POST['ui_grid_name']]);
+      $returnYAML = Spyc::YAMLDump(ui_merge_data_array($loaded_orginal_YAML,$loaded_saved_YAML[$_POST['ui_grid_name']]));
+      file_put_contents( GLOBALDATA_PATH.'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-properties.yaml' , $returnYAML);
 
-  // if grid-name == first key then this is all properties array
-  // if grid-name != first key then this is slot properties
-
-    if($_POST['ui_page_name'] == $_POST['ui_grid_name']){
-      echo '<pre>';
-      echo 'change main properties not implemented YET';
-      echo '</pre>';
     }else{
-     
+      $returnYAML = Spyc::YAMLDump(ui_merge_data_array($loaded_orginal_YAML,$loaded_saved_YAML));
       file_put_contents( GLOBALDATA_PATH.'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-properties.yaml' , $returnYAML);
     }
 

@@ -18,13 +18,14 @@ h1, h2,span{
 }
 #new-inspector{
 	position:absolute;
-	border:10px solid #333;
+	border:50px solid #333;
 	margin:10px;
 	padding:20px;
 	background-color: #333;
 	color:#eee;
 	display:none;
-	/* box-shadow: 0px 0px 20px #333; */
+
+/* 	box-shadow: 0px 0px 20px #000;  */
 }
 #debug-manager{
 	position:fixed;
@@ -98,7 +99,7 @@ body.left200{
 
 }
 .ui-state-active{
-	border:3px solid #64992C !important;
+	/* border:3px solid #64992C !important; */
 	/* box-shadow: 0px 0px 10px green; */
 }
 /* .ui-draggable{max-width: 500px;} */
@@ -415,14 +416,14 @@ window.onload=function(){
 		jQuery('#change-grid').find('span').css('color','#428bca');
 	});
 	jQuery('#ui_grid_selector').mouseleave(function() {
-		jQuery('#change-grid').find('span').css('color','#ccc');
+		jQuery('#change-grid').find('span').css('color','#A0CBEF');
 	});
 
 	jQuery('#add_pages').mouseenter(function() {
 		jQuery('#add_pages').find('span').css('color','#428bca');
 	});
 	jQuery('#add_pages').mouseleave(function() {
-		jQuery('#add_pages').find('span').css('color','#ccc');
+		jQuery('#add_pages').find('span').css('color','#A0CBEF');
 	});
 
 
@@ -675,6 +676,15 @@ window.onload=function(){
 			}else{
 				newElement = 0;
 			}
+		    
+		    /* hide element content while drag it */
+			jQuery(ui.item.context).children().css('display','none');
+			jQuery(ui.item.context).children('.tplpart_decorator_options_panel ').css('display','block');
+			jQuery(ui.item.context).css('height','36px');
+			jQuery(ui.item.context).css('width','300px');
+		
+			
+	
 
       	},
       	receive: function( event, ui ) {
@@ -696,7 +706,12 @@ window.onload=function(){
 
       		
       		// add new param to added object
-      		jQuery(ui.item.context).css('border','2px solid green');
+      		//jQuery(ui.item.context).css('border','2px solid green');
+
+			/* show element content while drop it */
+      		jQuery(ui.item.context).children().css('display','block');
+      		jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
+      		
 
       	}
 	});
@@ -801,7 +816,8 @@ window.onload=function(){
 	      connectToSortable: ".uigen-act-cell",
 	      helper: "clone",
 	      containment:"document",
-	      revert: "invalid"
+	      revert: "invalid",
+	      
 	    });
 	}
 
