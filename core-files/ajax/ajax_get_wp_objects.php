@@ -11,10 +11,8 @@ function ui_get_usermeta($obj) {
 }
 
 function ui_post_list_as_options($obj) {
-	
-var_dump($obj);
   $args = array(
-  	'post_type' => $obj['post_type'],
+  'post_type' => $obj['post_type'],
  	'meta_query' => array(
        array(
            'key' => $obj['key'],
@@ -32,17 +30,34 @@ var_dump($obj);
 }
 
 function ui_get_postmeta_options($obj) {
- // var_dump(get_post_meta($obj["post_id"],$obj['meta_name']));
   foreach (get_post_meta($obj["post_id"],$obj['meta_name']) as $key => $value) {
     echo '<option value="'.$key.'">'.$value.'</option>';
   }
-
-
 }
 
 
+/* ------------------------------------------------- */
+/* ---------------- CALLBACK BLOCK ----------------- */
+/* ------------------------------------------------- */
 
+$cb = $_POST['callback'];
 
-$obj = array($_POST['args']);
-call_user_func_array($_POST['callback'],$obj);
+if( 
+
+  ($cb == 'ui_get_postmeta') ||
+  ($cb == 'ui_get_usermeta') ||
+  ($cb == 'ui_post_list_as_options') ||
+  ($cb == 'ui_get_postmeta_options')
+
+){
+
+  $obj = array($_POST['args']);
+  call_user_func_array($cb,$obj);
+
+}else{
+
+  echo 'U`3 fuck my ???';
+
+}
+
 ?>

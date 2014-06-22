@@ -39,6 +39,15 @@ simple-button:
   debug_label: Simple Button
   debug_type: static
   type: tpl-part
+  args:
+    btn_name: Example Button
+    btn_type: href
+  element_attr:
+    element_wraper:
+      style: >
+        float:right; margin-left:10px
+    content_wraper:
+      class: btn btn-primary active    
   tpl_part: basic-button
   tpl_part_prop: not_implemented
 # User list ---------------------------------------------------------

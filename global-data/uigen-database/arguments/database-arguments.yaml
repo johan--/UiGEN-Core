@@ -1,1 +1,36 @@
 ---
+zdjecia:
+  object_name: zdjecia
+  db_table_columns:
+    - 
+      db_column_name: user_id
+      db_column_type: int(255)
+glosy:
+  object_name: glosy
+  db_table_columns:
+    - 
+      db_column_name: voter_id
+      db_column_type: int(255)
+waski-palak:
+  object_name: waski-palak
+  db_table_columns:
+    - 
+      db_column_name: Świerzbiący gwóźdź
+      db_column_type: text(4095)
+dsfsd-fdsfdfsdf:
+  object_name: dsfsd-fdsfdfsdf
+szdxsadsad:
+  object_name: szdxsadsad
+szdxsadsad-sadsad:
+  object_name: szdxsadsad-sadsad
+  db_table_columns:
+    - 
+      db_column_name: sadsad
+      db_column_type: int(255)
+asdsadsad:
+  object_name: asdsadsad
+  db_table_columns:
+    - 
+      db_column_name: asdsadsadsad
+kojacy-spektakl:
+  object_name: kojacy-spektakl

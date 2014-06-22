@@ -1,13 +1,16 @@
 ---
 logo:
   - simple-logo0
-menu:
   - nav-menu-header1
-action:
+menu:
   - simple-button2
+action:
+  - post-list3
 content-top:
-  - title-text3
-  - form-slot4
-content-main: ""
-footer-top: ""
+  - title-text4
+  - user-list5
+content-main:
+  - form-slot6
+footer-top:
+  - excerpt-text7
 footer-main: ""

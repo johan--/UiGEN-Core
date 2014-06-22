@@ -54,6 +54,10 @@ h1, h2,span{
 #debug-manager .btn-group{
 	display:none;
 }
+
+.ui_page_label, .ui_page_ico, #ui_page_name{
+	color:#D2D84F !important;
+}
 body{
 	position:relative;
 	transition: margin-left 0.5s ease-in-out,margin-right 0.5s ease-in-out;
@@ -173,17 +177,17 @@ body.left200{
 	display:none; 
 	position:absolute; 
 	width:100%; 
-	z-index:1000; 
-	background-color:#ccc; 
-	border:5px solid #9E9E9E;
-	margin-left:-10px;
-	margin-top:10px;
-	border-radius: 10px;
+	z-index:900; 
+	background-color:#333; 
 	/* box-shadow: 0px 0px 50px #333; */
 	left:0;
 }
 .portlet-inspect textarea{
-	float:left; width:50%; margin:0; padding:6px; font-family:courier; color:navy;
+	float:left;	 
+	margin:0; 
+	padding:20px; 
+	font-family:courier; 
+	color:navy;
 }
 
 #pages_creator{
@@ -230,7 +234,11 @@ body.left200{
 function decorate_debuged_page_header($gridName,$args){
 
 	?>
-
+<div style="background-color:rgb(209, 66, 66); color:#fff; padding:20px">
+<span style="line-height:34px">You don't have login as <b>administrator !!!</b> Some of Your actions can't be saved.</span>
+<button type="button" class="btn btn-success" style="float:right">LOGIN</button>
+<br style="clear:both"/>
+</div>
 
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
@@ -239,8 +247,8 @@ function decorate_debuged_page_header($gridName,$args){
 		</div>
 
 		<div>
-			<span style="font-size:28px" class="glyphicon glyphicon-file"></span>
-			<span style="font-size:22px">Page:</span> <span id="ui_page_name" style="font-size:26px"><?php echo $args['ui_page_name']; ?></span>
+			<span style="font-size:28px" class="ui_page_ico glyphicon glyphicon-file"></span>
+			<span class="ui_page_label" style="font-size:22px">Page:</span> <span id="ui_page_name" style="font-size:26px"><?php echo $args['ui_page_name']; ?></span>
 
 			<div  style="float:right; margin-right:10px; margin-top:3px; font-size:18px">
 				<div id="add_pages">
@@ -328,7 +336,7 @@ function decorate_slot($position,$slotName,$slot){
 				  	</li>
 				  	<?php } ?>
 
-				    <li class="slotProperties disabled">
+				    <li class="slotProperties">
 				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Properties</a>
 				    </li>
 				    <li class="debugInspect">
@@ -498,7 +506,9 @@ window.onload=function(){
 	});
 
 	jQuery(document).on('click', "li.slotProperties", function() {
-		alert(donateString);
+		//alert(donateString);
+		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').css('display','block');
+
 	});
 
 	jQuery(document).on('click', "#footer_save_info .undoLast", function() {
@@ -675,13 +685,15 @@ window.onload=function(){
 				newElement = 1;
 			}else{
 				newElement = 0;
+
+				/* hide element content while drag it */
+				jQuery(ui.item.context).children().css('display','none');
+				jQuery(ui.item.context).children('.tplpart_decorator_options_panel ').css('display','block');
+				jQuery(ui.item.context).css('height','36px');
+				jQuery(ui.item.context).css('width','300px');
 			}
+
 		    
-		    /* hide element content while drag it */
-			jQuery(ui.item.context).children().css('display','none');
-			jQuery(ui.item.context).children('.tplpart_decorator_options_panel ').css('display','block');
-			jQuery(ui.item.context).css('height','36px');
-			jQuery(ui.item.context).css('width','300px');
 		
 			
 	
@@ -694,9 +706,18 @@ window.onload=function(){
       		var droped_name = jQuery(ui.item.context).find('.slot_name').text();
       		if(reciveGuardian == 0){
 				jQuery('#saved_info_box').prepend('<p style="display:none">You sorted <b>'+droped_name+' slot</b> into grid handler. You must save this action.</p>');
+      		
+					/* show element content while drop it */
+      				jQuery(ui.item.context).children().css('display','block');
+      				jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
       		}else{
       			if(newElement == 0){
       				jQuery('#saved_info_box').prepend('<p style="display:none">You replace <b>'+droped_name+' slot</b> into another handler. You must save this action.</p>');
+      			
+					/* show element content while drop it */
+      				jQuery(ui.item.context).children().css('display','block');
+      				jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
+
       			}else{
       				jQuery('#saved_info_box').prepend('<p style="display:none">You added new element into grid. You must save this action.</p>');
      			}
@@ -708,9 +729,7 @@ window.onload=function(){
       		// add new param to added object
       		//jQuery(ui.item.context).css('border','2px solid green');
 
-			/* show element content while drop it */
-      		jQuery(ui.item.context).children().css('display','block');
-      		jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
+			
       		
 
       	}
@@ -735,7 +754,7 @@ window.onload=function(){
 		var output_saved_yaml = "";
 	    jQuery( "#onHandler .debug-tplpart-decorator" ).each(function( index ) {
 	    			get_slot_new_name = '';
-	    			jQuery( this ).find('.slot_name').css('border','1px solid red');
+	    			//jQuery( this ).find('.slot_name').css('border','1px solid red');
 					get_slot_name = jQuery( this ).find('.slot_name').text();
 					
 	    			get_slot_yaml = jQuery( this ).find('textarea').val();
@@ -757,7 +776,7 @@ window.onload=function(){
 					output_saved_yaml += get_slot_yaml;				
 		});
 		output_saved_yaml = "---\n" + output_saved_yaml;
-		alert(output_saved_yaml);
+		//alert(output_saved_yaml);
 		
 		var output_hierarchy_yaml = "";
 		var hierarchy_counter = 0;
@@ -780,7 +799,7 @@ window.onload=function(){
 		});
 		output_hierarchy_yaml = "---\n" + output_hierarchy_yaml;
 		
-		alert(output_hierarchy_yaml);
+		//alert(output_hierarchy_yaml);
 		
 		
 		jQuery.ajax({

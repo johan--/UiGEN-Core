@@ -71,6 +71,29 @@ function ui_register_object($object_name, $objecttype){
 		
 
 		
+
+
+		/* ----------------------------------- */
+		/* 2.1. Create View page               */
+
+		ui_create_post($object_name . ' - view' , $objecttype,   $slug_name);
+		echo '<div><p style="font-family:courier; color:green;">New view '.$objecttype.' created</p></div>';
+		
+
+		/* ----------------------------------- */
+		/* 2.2. Create Form page               */
+
+		ui_create_post($object_name . ' - form' , $objecttype , $slug_name, 'basic-create-post');
+		echo '<div><p style="font-family:courier; color:green;">New form '.$objecttype.' created</p></div>';
+		
+		/* ----------------------------------- */
+		/* 2.3. Create List page               */
+		
+		ui_create_post($object_name . ' - list' , $objecttype , $slug_name);
+		echo '<div><p style="font-family:courier; color:green;">New list '.$objecttype.' created</p></div>';
+
+		/* ------------------------------------ */
+		
 		
 
 		if($objecttype == 'posttype' ){
@@ -116,7 +139,7 @@ function ui_register_object($object_name, $objecttype){
 			/* ----------------------------------- */
 			/* 1.1. Create database declaration    */
 			$db_array[$object_name] = $_POST['object_data'];
-			$db_array[$object_name]['object_name'] = $object_name;
+			$db_array[$object_name]['object_name'] = $slug_name;
 
 			/* create posttype declarations array */
 			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
@@ -129,151 +152,30 @@ function ui_register_object($object_name, $objecttype){
 
 
 
-
-
-
 			file_put_contents( $prop_path . 'uigen-database/arguments/database-arguments.yaml' , Spyc::YAMLDump( $db_array ));
 
 
 		}
 
-		/* ----------------------------------- */
-		/* 2.1. Create View page               */
-
-		ui_create_post($object_name . ' - view' , $objecttype,   $slug_name);
-		echo '<div><p style="font-family:courier; color:green;">New view '.$objecttype.' created</p></div>';
 		
-
-		/* ----------------------------------- */
-		/* 2.2. Create Form page               */
-
-		ui_create_post($object_name . ' - form' , $objecttype , $slug_name, 'basic-create-post');
-		echo '<div><p style="font-family:courier; color:green;">New form '.$objecttype.' created</p></div>';
-		
-		/* ----------------------------------- */
-		/* 2.3. Create List page               */
-		
-		ui_create_post($object_name . ' - list' , $objecttype , $slug_name);
-		echo '<div><p style="font-family:courier; color:green;">New list '.$objecttype.' created</p></div>';
-
-		/* ------------------------------------ */
 		/* ------------------------------------ */
 		/* 3.1. Create View properties and hierarchy yaml file */
 		
 		//chmod($prop_path . 'template-hierarchy/arguments', 0755);
 
-		if($objecttype == 'posttype' ){
-			$view_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-properties-view.yaml' );
-		}
-		if($objecttype == 'user' ){
-			$view_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-properties-view.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$view_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-db-properties-view.yaml' );
-		}
-
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-view' . '-slots-properties.yaml' , Spyc::YAMLDump( $view_schema ));
-		
-		if($objecttype == 'posttype' ){
-			$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy-view.yaml' );		
-		}
-		if($objecttype == 'user' ){
-			$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-hierarchy-view.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$view_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-db-hierarchy-view.yaml' );
-		}
-		
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-view' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $view_schema_h ));
-		
-/*		echo '<div><h2>Add view properties</h2><pre>';
-		print_r(Spyc::YAMLDump($view_schema ));
-		echo '</pre></div>';
-		echo '<div><h2>Add view hierarchy</h2><pre>';
-		print_r(Spyc::YAMLDump($view_schema_h ));
-		echo '</pre></div>';*/
-
-		echo '<div><p style="font-family:courier; color:green;">Add view properties<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
-		echo '<div><p style="font-family:courier; color:green;">Add view hierarchy<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+		create_properties_and_hierarchy_files($slug_name, $objecttype , 'view');
 		
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		// 3.2. Create Form properties and hierarchy yaml file */
+
+		create_properties_and_hierarchy_files($slug_name, $objecttype , 'form');
 		
-		if($objecttype == 'posttype' ){
-			$form_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-properties-form.yaml' );
-		}
-		if($objecttype == 'user' ){
-			$form_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-properties-form.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$form_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-db-properties-form.yaml' );
-		}
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-form' . '-slots-properties.yaml' , Spyc::YAMLDump( $form_schema ));
-	
-		if($objecttype == 'posttype' ){
-			$form_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy-form.yaml' );
-		}
-		if($objecttype == 'user' ){
-			$form_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-hierarchy-form.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$form_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-hierarchy-form.yaml' );
-		}
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-form' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $form_schema_h ));
-		
-		//echo '<div><h2>New form hierarchy and properties files created - OK</h2></div>';
-
-/*		echo '<div><h2>Add form properties</h2><pre>';
-		print_r(Spyc::YAMLDump( $form_schema ));
-		echo '</pre></div>';
-		echo '<div><h2>Add form hierarchy</h2><pre>';
-		print_r(Spyc::YAMLDump( $form_schema_h ));
-		echo '</pre></div>';*/
-
-		echo '<div><p style="font-family:courier; color:green;">Add form properties<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
-		echo '<div><p style="font-family:courier; color:green;">Add form hierarchy<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
-
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		// 3.3. Create list properties and hierarchy yaml file */
 
-		if($objecttype == 'posttype' ){
-			$list_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-properties-list.yaml' );
-		}
-		if($objecttype == 'user' ){
-			$list_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-properties-list.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$list_schema = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-db-properties-list.yaml' );
-		}
-		// set query post as current posttype list
-		$list_schema['post-list']['query_args']['post_type'] = $slug_name;
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-list' . '-slots-properties.yaml' , Spyc::YAMLDump( $list_schema ));
-		
-		if($objecttype == 'posttype' ){
-			$list_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-posttype-hierarchy-list.yaml' );
-		}
-		if($objecttype == 'user' ){
-			$list_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-user-hierarchy-list.yaml' );
-		}
-		if($objecttype == 'db' ){
-			$list_schema_h = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-db-hierarchy-list.yaml' );
-		}
-		
-		file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-list' . '-slots-hierarchy.yaml' , Spyc::YAMLDump( $list_schema_h ));
-		
-		//echo '<div><h2>New list hierarchy and properties files created - OK</h2></div>';
-
-/*		echo '<div><h2>Add list properties</h2><pre>';
-		print_r(Spyc::YAMLDump($list_schema ));
-		echo '</pre></div>';
-		echo '<div><h2>Add list hierarchy</h2><pre>';
-		print_r(Spyc::YAMLDump($list_schema_h ));
-		echo '</pre></div>';*/
-
-		echo '<div><p style="font-family:courier; color:green;">Add list properties<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
-		echo '<div><p style="font-family:courier; color:green;">Add list hierarchy<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+		create_properties_and_hierarchy_files($slug_name, $objecttype , 'list');
 
 		/* ------------------------------------ */
 		/* ------------------------------------ */
@@ -293,6 +195,7 @@ function ui_register_object($object_name, $objecttype){
 		file_put_contents(  TEMPLATEPATH . '/UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' , $output);
 		
 }
+
 
 function ui_create_post($object_name, $objecttype , $slug_name, $flow_name = false){
 	/* Create post object */
@@ -341,6 +244,76 @@ function ui_create_post($object_name, $objecttype , $slug_name, $flow_name = fal
 }
 
 
+function create_properties_and_hierarchy_files($slug_name , $objecttype , $element_type){
+		
+		// $element_type -> view form list
+		$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+		
+		$save_file_guardian = true;
+		$yamlDir = $prop_path . 'template-hierarchy/arguments/';
+		$yamlPath = $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'.$element_type.'-slots-properties.yaml';
+		//$yamlPath = $yamlDir . $yamlPath;
+		if (!is_writable($yamlDir)) {
+		    
+		    echo '<div><p style="font-family:courier; color:red;">Properties Error: directory '.$yamlDir.' doesn`t exist or isn`t writable.</p></div>';
+		    $save_file_guardian = false;
+		
+		} elseif (!is_writable($yamlPath)) {
+		   
+		    echo '<div><p style="font-family:courier; color:red;">Properties Error: the file '.$yamlPath.' exists and isn`t writable.</p></div>';
+		    $save_file_guardian = false;
+		
+		}
+		$el_schema_prop = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-'. $objecttype .'-properties-'. $element_type .'.yaml' );
+        
+		if($save_file_guardian == true){
+			
+			$yamlObject = file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'. $element_type .'-slots-properties.yaml' , Spyc::YAMLDump( $el_schema_prop ));
+			echo '<div><p style="font-family:courier; color:green;">Add form properties<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+		
+			if (empty($yamlObject)) {
+		    	echo '<div><p style="font-family:courier; color:red;">Properties Error: the '.$yamlPath.' is empty/not accessible.</p></div>';
+			}
+
+		}		
 
 
+		$save_file_guardian = true;
+		$yamlDir = $prop_path . 'template-hierarchy/arguments/';
+		$yamlPath = $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'.$element_type.'-slots-properties.yaml';
+		//$yamlPath = $yamlDir . $yamlPath;
+		if (!is_writable($yamlDir)) {
+			
+			echo '<div><p style="font-family:courier; color:red;">Hierarchy Error: directory '.$yamlDir.' doesn`t exist or isn`t writable.</p></div>';
+		    $save_file_guardian = false;
+		
+		} elseif (!is_writable($yamlPath)) {
+		    
+		    echo '<div><p style="font-family:courier; color:red;">Hierarchy Error: the file '.$yamlPath.' exists and isn`t writable.</p></div>';
+		    $save_file_guardian = false;
+		
+		}
+		$el_schema_hist = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-'. $objecttype .'-hierarchy-'. $element_type .'.yaml' );
+		
+		if($save_file_guardian == true){
+			
+			$yamlObject = file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'. $element_type .'-slots-hierarchy.yaml' , Spyc::YAMLDump( $el_schema_hist ));
+			echo '<div><p style="font-family:courier; color:green;">Add form hierarchy<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+			
+			if (empty($yamlObject)) {
+				echo '<div><p style="font-family:courier; color:red;">Hierarchy Error: the '.$yamlPath.' is empty/not accessible.</p></div>';
+			}
+		}
+
+
+		//echo '<div><h2>New form hierarchy and properties files created - OK</h2></div>';
+
+/*		echo '<div><h2>Add form properties</h2><pre>';
+		print_r(Spyc::YAMLDump( $form_schema ));
+		echo '</pre></div>';
+		echo '<div><h2>Add form hierarchy</h2><pre>';
+		print_r(Spyc::YAMLDump( $form_schema_h ));
+		echo '</pre></div>';*/
+		
+	}
 ?>

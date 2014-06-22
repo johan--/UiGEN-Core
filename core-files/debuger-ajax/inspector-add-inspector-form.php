@@ -10,8 +10,10 @@ Data editor usage YAML syntax (<a href="http://wikipedia.org/wiki/YAML" target="
 </p>
 	
 <textarea  style="width:100%" rows="15"><?php
-	
-	echo $_POST['yaml'];
+	$returnYAML = $_POST['yaml'];
+	$returnYAML = str_replace("'","",$returnYAML);
+    $returnYAML = stripslashes($returnYAML);
+	echo $returnYAML;
 	
 ?></textarea>
 <button type="button" class="debug-urlencode btn btn-primary" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon glyphicon-link"></span> Encode to URL</button>

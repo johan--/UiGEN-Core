@@ -54,7 +54,7 @@ function uigen_addattr($element_schema,$attr_data){
 function merge_tplpart_prop($element_schema){
 
 	global $TDC;
-	$element_schema = array_merge($element_schema,$TDC->args[$TDC->current_slot]);
+	$element_schema = @array_merge($element_schema,$TDC->args[$TDC->current_slot]);
 	return $element_schema;
 
 }

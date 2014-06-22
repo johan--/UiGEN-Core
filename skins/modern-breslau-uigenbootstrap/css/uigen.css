@@ -701,7 +701,20 @@ margin:2px 30px 2px 0; */
   color:#eee;
   text-shadow: -1px 0px #555;
 }
-
+.modal-wrong {
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EB5E5E), to(#B34A4A));
+  background-image: -webkit-linear-gradient(#EB5E5E 0%, #B34A4A 100%);
+  background-image: -moz-linear-gradient(#EB5E5E 0%, #B34A4A 100%);
+  background-image: -o-linear-gradient(#EB5E5E 0%, #B34A4A 100%);
+  background-image: linear-gradient(#EB5E5E 0%, #B34A4A 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdff0d8',     endColorstr='#ffc8e5bc', GradientType=0);
+  border-color: #b2dba1;
+  font-weight: bolder;
+  border-radius: 6px 6px 0 0;
+  color:#eee;
+  text-shadow: -1px 0px #555;
+}
 
 
 

@@ -43,6 +43,8 @@ class ThemeDisplayController {
 	public $html;
 	public $string;
 
+	public $db_row;
+
 	public function __construct($args){
 		$this -> args = $args;
 
@@ -308,6 +310,20 @@ class ThemeDisplayController {
 			else : 				
 				get_template_part( 'theme-template-parts/content/content' , 'empty-query' ); 
 		endif;
+	}
+	// ------------------------------------------------
+	public function tdc_get_db_loop($slot){
+		//$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." WHERE user_id = ".$current_user->ID."".$req_nr);
+		//$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." WHERE offer_id IN (".$posts_ids_Array.") ".$worker_id.$req_nr);
+
+		global $wpdb;	
+		$tableName = $wpdb->prefix . "zdjecia";
+     	$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." ORDER BY user_id DESC");
+     	foreach ($myresults  as $value) {
+     		$this -> db_row = $value;
+     		$this -> tdc_get_content($slot);	
+     		
+		}
 	}
 	// ------------------------------------------------
 	public function tdc_get_dbQuery($slot,$content=true){	
