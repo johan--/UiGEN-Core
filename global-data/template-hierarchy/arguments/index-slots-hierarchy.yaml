@@ -1,12 +1,12 @@
 ---
 logo:
   - simple-logo0
-  - nav-menu-header1
 menu:
-  - simple-button2
+  - simple-button1
 action:
-  - post-list3
+  - nav-menu-header2
 content-top:
+  - title-text3
   - title-text4
   - user-list5
 content-main:

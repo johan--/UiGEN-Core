@@ -42,15 +42,15 @@ if ( current_user_can( 'manage_options' ) ) {
 		//echo 'delete'.$object_slug . '-view';
 		//echo get_ID_by_slug( $object_slug . '-view' );
 		
-		wp_delete_post( get_ID_by_slug( $object_slug . '-view') );
-		wp_delete_post( get_ID_by_slug( $object_slug . '-list') );
-		wp_delete_post( get_ID_by_slug( $object_slug . '-form') );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-view') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-list') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-form') , true );
 
-		ui_delete_viev_and_hierarhy_files($object_slug, $objecttype);
+		ui_delete_viev_and_hierarhy_files($object_slug, 'db');
 
 		ui_remove_db_declarations($object_slug);
 
-		ui_remove_template_file( $object_slug , $objecttype );
+		ui_remove_template_file( $object_slug , 'db' );
 	}
 
 } else {
@@ -106,8 +106,8 @@ function ui_remove_db_declarations($object_name){
 
 function ui_remove_template_file( $object_name, $objecttype ){
 	
-	$theme_dir = get_template_directory_uri();
-	$file = 'UiGEN_Tpl_' . $object_name . '_' . $objecttype . '.php';
+	$theme_dir = get_template_directory();
+	$file = '/UiGEN_Tpl_' . $object_name . '_' . $objecttype . '.php';
 	unlink( $theme_dir . $file );
 
 }

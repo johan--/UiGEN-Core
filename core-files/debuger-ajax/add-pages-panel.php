@@ -1,13 +1,7 @@
 <?php
     require_once("../../../../../wp-load.php");
-
-
-
-
 ?>
 <style>
-
-
 
 #pages-panel-add-form{
 	display:none;
@@ -18,12 +12,9 @@
 #pages-panel-add-buttons span{
 	color:#428BCA;
 }
-
-
 .page-panel{
 	float:left; border:1px solid #9E9E9E; border-radius:2px; margin:20px 10px 10px 0px
 }
-
 .page-panel-single-object{
 	float:left;
 	padding-top:4px;
@@ -51,13 +42,7 @@
 	margin:0px;
 	padding:0px;
 }
-
-
 </style>
-
-
-
-
 
 <div id="pages-panel-add-buttons">	
 	<h1 style="float:left">Pages Creator</h1>
@@ -76,29 +61,24 @@
 </div>
 <br style="clear:both"/>	
 
-
 <div id="pages-panel-add-form" data-object-type="" class="panel panel-primary" style="">
 	<div class="panel-heading"> 
   		<span class="glyphicon glyphicon-briefcase"></span>
   		Add new object
 	</div>
 	<div class="panel-body">
-		<div id="add_posttype" style="display:none" class="form-group">
-		    <label for="exampleInputEmail1">Object name</label>
-		    <input  type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter object name">
-		 </div>
+		<div id="add_page" style="display:none"></div>
+		<div id="add_posttype" style="display:none" class="form-group"></div>
+		 <div id="add_users" style="display:none"></div>
 		 <div id="add_database" style="display:none"></div>
 	</div>		
 	<div class="panel-footer">
-		<button id="pages-panel-add-new" type="button" class="btn btn-success" style="float:right">
+		<button id="pages-panel-add-new" type="button" class="btn btn-success pages-panel-add-new" style="float:right">
 			<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span> Add new object
 		</button>
 		<br style="clear:both"/>	
 	</div>
 </div>
-
-
-
 
 <?php
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-alpacaform-yaml.php';
@@ -106,10 +86,8 @@
 	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
 	$db_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-database';
 	
-	
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
 	$db_array = Spyc::YAMLLoad( $db_prop_path . '/arguments/database-arguments.yaml' );
-
 
 	foreach ($posttypes_array as $key => $value) {
 			if(is_page_exist($key.'-view')==true){
@@ -151,7 +129,6 @@
 				}
 			}
 		?>	
-
 			<div style="border:1px solid red; float:left; border:1px solid #9E9E9E; border-radius:2px; margin:0px 5px 5px 0px">
 				<div style="border-bottom:1px solid #ccc; padding:5px 10px; background-color:#aaa; color:#333;">
 					<?php echo $value['label']; ?>
@@ -231,9 +208,6 @@
 
 	}
 
-
-
-
 	function create_display_pages_element( $key , $element_type ){
 			
 			$hierarchy = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments';
@@ -290,7 +264,6 @@
 	}
 
 	function is_page_exist($slug){
-
 		$pages = get_pages();
 		foreach ($pages as $page) { 
 			$apage = $page->post_name;
@@ -299,22 +272,10 @@
 			 } 
 		}
 	}
-
-
 ?>
 
-
-
-
-
-
 <br style="clear:both"/>
-
 <div style="border-top:1px dashed #ccc; margin-top:40px" style="clear:both">&nbsp;</div>
-
-
-
-
 
 <script>
 jQuery( ".add-new-page-button" ).click(function() {
@@ -324,18 +285,35 @@ jQuery( ".add-new-page-button" ).click(function() {
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'db'){
 		jQuery('#add_database').css('display','block');
 		jQuery('#add_posttype').css('display','none');
+		jQuery('#add_page').css('display','none');
+		jQuery('#add_users').css('display','none');
+
+		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-db');
+
 	}
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'page'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','none');
+		jQuery('#add_page').css('display','block');
+		jQuery('#add_users').css('display','none');
+
+		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-page');
 	}
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'user'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','none');
+		jQuery('#add_page').css('display','none');
+		jQuery('#add_users').css('display','block');
+
+		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-user');
 	}
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'posttype'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','block');
+		jQuery('#add_page').css('display','none');
+		jQuery('#add_users').css('display','none');
+
+		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-posttype');
 	}
 });
 var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
@@ -351,6 +329,7 @@ jQuery( ".more_options" ).click(function() {
 });
 jQuery( ".delete_element" ).click(function() {
 	//alert(jQuery(this).attr('data-target'));
+	var panel = jQuery(this).parents('.page-panel');
 	jQuery(this).text('processing...');
 	jQuery(this).css('color','green');
 	jQuery.ajax({
@@ -360,67 +339,158 @@ jQuery( ".delete_element" ).click(function() {
 		data: { object_slug: jQuery(this).attr('data-target'), objecttype: jQuery(this).parents('.page-panel').attr('data-type') }
 	})
 	.done(function( msg ) {	
-		//alert(msg);
-		//jQuery(this).append(msg);
-		jQuery(this).parents('.page-panel').remove();
+		panel.remove();
 	});
 });
 
 </script>
 
-
-
 <script type="text/javascript">
+	/* ----------------------------------------------------------- */
+	/*   NEW PAGE                                                  */
+	/* ----------------------------------------------------------- */
 	var json = "";
-  jQuery("#add_database").alpaca({
-    "data": {
-      "name": "Diego Maradona",
-      "feedback": "Very impressive.",
-      "ranking": "excellent"
-    },
-    "schema":{    
-        "type": "object",
-        "properties": {
-                "object_name":{
-                    "title":"Database Name"            
-                },
-                "db_table_columns": {
-                    "title": "Add columns to database",
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "db_column_name": {   
-                                    "title":"Database column name",                     
-                                    "type": "string"
+	jQuery("#add_page").alpaca({
+	"data": {
 
-                            },    
-                            "db_column_type": {   
-                                    "enum": ["int(1)", "int(255)", "char(255)", "text(4095)" , "date" , "datetime", "timestamp", "boolean"],
-                                    "default":"CHAR(255)"
-
-                            }                            
-                        }
-                    }
-                } 
-        }
-       
+	},
+	"schema":{    
+	    "type": "object",
+	    "properties": {
+	    	"object_name":{
+	            "title":"Page Name"            
+	        },
+	        "more_options": {                    
+	                "type": "boolean"
+	        },
+	        "link_to_exist_page":{
+                "title":"Link to exist page",
+                "enum": ["something-else-soon-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
+                "default":"simple-landing-page-1",
+                "description": "Create landing page from your exist wordpress page. NOT IMPLEMENTED YET !!!",
+                "dependencies": "more_options"         
+            }, 
+	        "view_schema":{
+                "title":"View Schema",
+                "enum": ["simple-landing-page-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
+                "default":"simple-landing-page-1",
+                "dependencies": "more_options"         
+            }, 
+		}
 	},
 	"options": {		
 		"fields": {
-			"db_table_columns": {
-              		"toolbarSticky": true        	
-             }
-   		}
+	         "more_options": {
+	                "rightLabel": "More options"
+	         }
+		}
+	}
+	});
+
+	/* ----------------------------------------------------------- */
+	/*   NEW POSTTYPE                                              */
+	/* ----------------------------------------------------------- */
+	var json = "";
+	jQuery("#add_posttype").alpaca({
+	"data": {
+
+	},
+	"schema":{    
+	    "type": "object",
+	    "properties": {
+	    	"object_name":{
+	            "title":"Posttype Name"            
+	        },
+	        "more_options": {                    
+	                "type": "boolean"
+	        },
+            "view_schema":{
+                "title":"View Schema",
+                "enum": ["clear-data-view", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"clear-data-view",
+                "dependencies": "more_options"         
+            }, 
+            "list_schema":{
+                "title":"List Schema",
+                "enum": ["clear-data-list", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"clear-data-list", 
+                "dependencies": "more_options"        
+            },
+            "form_schema":{
+                "title":"Form Schema",
+                "enum": ["simple-add-new-post", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"simple-add-new-post",  
+                "dependencies": "more_options"        
+            },
+		}
+	},
+	"options": {		
+		"fields": {
+	         "more_options": {
+	                "rightLabel": "More options"
+	         }
+		}
+	}
+	});
+
+	/* ----------------------------------------------------------- */
+	/*   NEW USERS                                                 */
+	/* ----------------------------------------------------------- */
+	var json = "";
+	jQuery("#add_users").alpaca({
+	"data": {
+
+	},
+	"schema":{    
+	    "type": "object",
+	    "properties": {
+	    	"object_name":{
+	            "title":"Users Name"            
+	        },
+	        "users_role":{
+	            "title":"Users Role",
+	            "enum": ["Administrator", "Contributor", "Author", "Subscriber" ],   
+                "default":"Subscriber",            
+	        },
+	        "more_options": {                    
+	                "type": "boolean"
+	        },
+            "view_schema":{
+                "title":"View Schema",
+                "enum": ["clear-users-view", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"clear-users-view",
+                "dependencies": "more_options"         
+            }, 
+            "list_schema":{
+                "title":"List Schema",
+                "enum": ["clear-users-list", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"clear-users-list", 
+                "dependencies": "more_options"        
+            },
+            "form_schema":{
+                "title":"Form Schema",
+                "enum": ["simple-register-user", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+                "default":"simple-register-user",  
+                "dependencies": "more_options"        
+            },
+		}
+	},
+	"options": {		
+		"fields": {
+	         "more_options": {
+	                "rightLabel": "More options"
+	         }
+		}
 	},
 	"postRender": function(form) {
-            jQuery("#pages-panel-add-new").click(function() {
-            	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'db'){
-            		jQuery('#debugModal').modal('show');
-            		jQuery('#pages-panel-add-form').slideUp(300);
-                	
-                	var json = form.getValue();
-                	jQuery.ajax({
+	        jQuery(document).on('click', "#pages-panel-add-new-user", function() {
+	        	alert(jQuery('#pages-panel-add-form').attr('data-object-type'));
+	        	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'user'){
+	        		jQuery('#debugModal').modal('show');
+	        		jQuery('#pages-panel-add-form').slideUp(300);
+	            	
+	            	var json = form.getValue();
+	            	jQuery.ajax({
 						type: "POST",
 						url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel-add-object.php",
 						data: { object_data: json, objecttype: jQuery('#pages-panel-add-form').attr('data-object-type') }
@@ -429,10 +499,103 @@ jQuery( ".delete_element" ).click(function() {
 						jQuery('.modal-content').children('.modal-body').children('div').remove();
 						jQuery('.modal-content').children('.modal-body').append(msg);
 					});
-                	//alert(JSON.stringify(json));
-            	}
-            });
-        }
-  });
+	            	//alert(JSON.stringify(json));
+	        	}
+	        });
+	    }
+	});
+
+
+
+
+	/* ----------------------------------------------------------- */
+	/*   NEW DATABASE                                              */
+	/* ----------------------------------------------------------- */
+	var json = "";
+	jQuery("#add_database").alpaca({
+	"data": {
+
+	},
+	"schema":{    
+	    "type": "object",
+	    "properties": {
+	            "object_name":{
+	                "title":"Database Name"            
+	            },
+	            "db_table_columns": {
+	                "title": "Add columns to database",
+	                "type": "array",
+	                "items": {
+	                    "type": "object",
+	                    "properties": {
+	                        "db_column_name": {   
+	                                "title":"Database column name",                     
+	                                "type": "string"
+
+	                        },    
+	                        "db_column_type": {   
+	                                "enum": ["int(1)", "int(255)", "char(255)", "text(4095)" , "date" , "datetime", "timestamp", "boolean"],
+	                                "default":"char(255)"
+
+	                        }                            
+	                    }
+	                }
+	            },
+	            "more_options": {                    
+	                "type": "boolean"
+	            },
+	            "view_schema":{
+	                "title":"View Schema",
+	                "enum": ["clear-data-contest", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+	                "default":"clear-data-contest",
+	                "dependencies": "more_options"         
+	            }, 
+	            "list_schema":{
+	                "title":"List Schema",
+	                "enum": ["clear-data-contest", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+	                "default":"clear-data-contest", 
+	                "dependencies": "more_options"        
+	            },
+	            "form_schema":{
+	                "title":"Form Schema",
+	                "enum": ["clear-data-contest", "something-else-soon-1", "something-else-soon-2", "something-else-soon-3" ],   
+	                "default":"clear-data-contest",  
+	                "dependencies": "more_options"        
+	            },
+	    }
+	   
+	},
+	"options": {		
+		"fields": {
+			"db_table_columns": {
+	          		"toolbarSticky": true        	
+	         },
+	         "more_options": {
+	                "rightLabel": "More options"
+	         }
+			}
+	},
+	"postRender": function(form) {
+			jQuery(document).on('click', "#pages-panel-add-new-db", function() {	
+	        	alert('sadsad');
+	        	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'db'){
+	        		jQuery('#debugModal').modal('show');
+	        		jQuery('#pages-panel-add-form').slideUp(300);
+	            	
+	            	var json = form.getValue();
+	            	jQuery.ajax({
+						type: "POST",
+						url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel-add-object.php",
+						data: { object_data: json, objecttype: jQuery('#pages-panel-add-form').attr('data-object-type') }
+					})
+					.done(function( msg ) {	
+						jQuery('.modal-content').children('.modal-body').children('div').remove();
+						jQuery('.modal-content').children('.modal-body').append(msg);
+					});
+	            	//alert(JSON.stringify(json));
+	        	}
+	        });
+	    }
+	});
 
 </script>

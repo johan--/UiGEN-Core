@@ -1,4 +1,4 @@
-.alpaca-item-container{
+/* .alpaca-item-container{
   border-collapse: separate;
   border-color: gray;
   border: 1px dashed #ccc;
@@ -17,12 +17,16 @@
   margin-top: 5px;
   right: 20px;
   z-index:1000;
-} 
+}  */
 
 
 
+.alpaca-fieldset span, .alpaca-fieldset label{
+  text-shadow:none;
+  color:#666 !important;
 
-/* 
+}
+
 .alpaca-fieldset-array-toolbar{
   margin-top:-20px;
 }
@@ -48,4 +52,4 @@ fieldset.alpaca-fieldset fieldset.alpaca-fieldset{
 
 .alpaca-fieldset-legend{
   margin-bottom:10px;
-} */
+} 

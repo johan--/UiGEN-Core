@@ -42,9 +42,9 @@ post-list4:
   debug_type: list
   type: controller
   name: tdc_get_db_loop
-  tpl_part: db-list-item
-  tpl_start: '<table class="table table-bordered"><tr><th>ID</th><th>User_id__</th><th>Picture_url</th><th>Actions</th></tr>'
-  tpl_end: '</table>'
+  tpl_part: basic-article
+  tpl_start: <table class="table table-bordered"><tr><th>ID</th><th>User_id__</th><th>Picture_url</th><th>Actions</th></tr>
+  tpl_end: </table>
   args:
     actions:
       view: podgląd
@@ -55,5 +55,5 @@ post-list4:
 footer5:
   type: tpl-part
   tpl_part: basic-footer
-grid: basic-slim
+grid: basic-fat
 ui_page_name: zdjecia-list
