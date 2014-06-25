@@ -6,6 +6,9 @@
 
 ?>
 <style>
+
+
+
 #pages-panel-add-form{
 	display:none;
 }
@@ -15,6 +18,12 @@
 #pages-panel-add-buttons span{
 	color:#428BCA;
 }
+
+
+.page-panel{
+	float:left; border:1px solid #9E9E9E; border-radius:2px; margin:20px 10px 10px 0px
+}
+
 .page-panel-single-object{
 	float:left;
 	padding-top:4px;
@@ -42,6 +51,8 @@
 	margin:0px;
 	padding:0px;
 }
+
+
 </style>
 
 
@@ -171,10 +182,16 @@
 
 	foreach ($db_array as $key => $value) {		
 		?>		
-			<div style="float:left; border:1px solid #9E9E9E; border-radius:2px; margin:20px 10px 10px 0px">
+			<div class="page-panel" data-type="db">
 				<div style="border-bottom:1px solid #ccc; padding:5px 10px; background-color:#aaa; color:#333;">
-					<?php echo $value['object_name']; ?>
+					<span class="objectname"><?php echo $value['object_name']; ?></span>
 					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+				</div>
+
+				<div>
+					<div style="font-size:11px; padding:3px 6px; border-bottom:1px solid #aaa; text-align:right; ">
+						<span><a href="#" class="delete_element" data-target="<?php echo $key; ?>">delete</a></span>
+					</div>
 				</div>
 				<div>
 					<?php $ob_view = create_display_pages_element( $key , 'view' ); ?>
@@ -182,6 +199,7 @@
 					<?php $ob_view = create_display_pages_element( $key , 'list' ); ?>
 					<br style="clear:both"/>
 				</div>
+
 				<?php
 					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_db.php';
 					if (!file_exists($filename)) {
@@ -234,23 +252,26 @@
 
 				$filename = $hierarchy.'/' . $key  .'-' . $element_type . '-slots-properties.yaml';
 				if (!file_exists($filename)) {
-					$element_return_prop['view_exist'] = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-exclamation-sign"';
+					$element_return_prop['view_exist'] = 'id="recreate-properties" style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-exclamation-sign"';
 					$element_return_prop['object_action_view'] = '<span class="recreatre_object" style="color:rgb(66, 163, 209)">ReCreate<br/>YAML</span>';
+					$element_return_prop['view_href'] = '#';
 				}
 				$filename = $hierarchy.'/' . $key  .'-' . $element_type . '-slots-hierarchy.yaml';
 				if (!file_exists($filename)) {
-					$element_return_prop['view_exist'] = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-exclamation-sign"';
-					$element_return_prop['object_action_view'] = '<span class="recreatre_object" style="color:rgb(66, 163, 209)">ReCreate<br/>YAML</span>';
+					$element_return_prop['view_exist'] = 'style="color:rgb(209, 66, 66)" class="recreate-history glyphicon glyphicon-exclamation-sign"';
+					$element_return_prop['object_action_view'] = '<span style="color:rgb(66, 163, 209)">ReCreate<br/>YAML</span>';
+					$element_return_prop['view_href'] = '#';
 				}
 				
 			}else{
 
 				$check_page = get_page_by_path( $key . '-' . $element_type );
-				$element_return_prop['view_exist'] = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-ban-circle"';
+				$element_return_prop['view_exist'] = 'id="recreate-page" style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-ban-circle"';
 				$object_action_view = '<span class="recreatre_object" style="color:rgb(66, 163, 209)">ReCreate<br/>WP Page</span>';
+				$element_return_prop['view_href'] = '#';
 				if(get_post_status( $check_page -> ID )=='trash'){ 
-					$view_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-trash"'; 
-					$element_return_prop['object_action_view'] = '<span class="untrash_object" style="color:rgb(66, 163, 209)">Untrash</span>';
+					$element_return_prop['view_exist'] = 'style="color:rgb(209, 66, 66)" class="recreate-untrash glyphicon glyphicon-trash" data-target="' . $key . '-' . $element_type . '"'; 
+					$element_return_prop['object_action_view'] = '<span style="color:rgb(66, 163, 209)">Untrash</span>';
 				}
 				
 			}
@@ -327,6 +348,22 @@ jQuery( ".recreatre_object" ).click(function() {
 });
 jQuery( ".more_options" ).click(function() {
 	alert(donateString);
+});
+jQuery( ".delete_element" ).click(function() {
+	//alert(jQuery(this).attr('data-target'));
+	jQuery(this).text('processing...');
+	jQuery(this).css('color','green');
+	jQuery.ajax({
+		
+		type: "POST",
+		url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel-remove-object.php",
+		data: { object_slug: jQuery(this).attr('data-target'), objecttype: jQuery(this).parents('.page-panel').attr('data-type') }
+	})
+	.done(function( msg ) {	
+		//alert(msg);
+		//jQuery(this).append(msg);
+		jQuery(this).parents('.page-panel').remove();
+	});
 });
 
 </script>

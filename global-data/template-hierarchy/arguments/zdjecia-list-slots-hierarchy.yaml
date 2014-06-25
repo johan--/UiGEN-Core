@@ -3,11 +3,12 @@ logo:
   - logo0
 menu:
   - nav-menu-header1
-action: ""
+action:
+  - title-text2
 content-top:
-  - simple-button2
+  - simple-button3
 content-main:
-  - post-list3
+  - post-list4
 footer-top: ""
 footer-main:
-  - footer4
+  - footer5

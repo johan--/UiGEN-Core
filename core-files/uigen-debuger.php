@@ -229,16 +229,24 @@ body.left200{
 #change-grid span{
 		color:#A0CBEF;
 }
+
+
+
+
 </style>
 <?php
 function decorate_debuged_page_header($gridName,$args){
 
+	if ( !current_user_can( 'manage_options' ) ) {
 	?>
-<div style="background-color:rgb(209, 66, 66); color:#fff; padding:20px">
-<span style="line-height:34px">You don't have login as <b>administrator !!!</b> Some of Your actions can't be saved.</span>
-<button type="button" class="btn btn-success" style="float:right">LOGIN</button>
-<br style="clear:both"/>
-</div>
+		<div style="background-color:rgb(209, 66, 66); color:#fff; padding:20px">
+			<span style="line-height:34px">You don't have login as <b>administrator !!!</b> Some of Your actions can't be saved.</span>
+			<a href="<?php echo wp_login_url( home_url() ); ?>" type="button" class="btn btn-success" title="Login" style="float:right;">LOGIN</a>
+			<br style="clear:both"/>
+		</div>
+	<?php
+	}
+	?>
 
 	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
