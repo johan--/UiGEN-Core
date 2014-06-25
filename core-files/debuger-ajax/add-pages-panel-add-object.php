@@ -167,13 +167,10 @@ function ui_register_object($object_name, $objecttype){
 			$users_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-users/arguments/users-arguments.yaml' );
 
 			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
-var_dump('>>>>>>>>>',$users_old_array);
-var_dump('>>>>>>>>>',$users_array);
-		    $users_array = ui_merge_data_array( $users_old_array , $users_array );
-			
-var_dump('>>>>>>>>>',$users_array);
-			file_put_contents( $prop_path . 'uigen-users/arguments/users-arguments.yaml' , Spyc::YAMLDump( $usres_array ));
 
+		    $users_array = ui_merge_data_array( $users_old_array , $users_array );
+
+			file_put_contents( $prop_path . 'uigen-users/arguments/users-arguments.yaml' , Spyc::YAMLDump( $usres_array ));
 
 		}
 
