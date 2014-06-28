@@ -7,10 +7,8 @@ action:
   - nav-menu-header2
 content-top:
   - title-text3
-  - title-text4
-  - user-list5
 content-main:
-  - form-slot6
+  - form-slot4
 footer-top:
-  - excerpt-text7
+  - excerpt-text5
 footer-main: ""

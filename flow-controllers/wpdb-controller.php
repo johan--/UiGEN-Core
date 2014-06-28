@@ -10,18 +10,25 @@ $date = new DateTime();
 // -----     main callbacks functions                                                          ------ //
 // -------------------------------------------------------------------------------------------------- //
 
+/**
+ * CONTROLLER Main function - callback flow function.
+ * This function insert data into user defined database table
+ * 
+ * <b>Arguments example</b><br/><br/>
+ * <code>
+ * bla bla bla
+ * </code>
+ * @example /path/to/example.php How to use this function
+ *
+ * @param array $args Get arguments form flow file
+ * @filesource /UiGEN-Core/flow-controllers/wpdb-controller.php
+ */
 function add_data($args){
 
-
-
 	$posttype_regname = $args['call_prop']['posttype']; 
-
 	$table_name = substr( $args['display_data']['ui_page_name'], 0, strrpos( $args['display_data']['ui_page_name'], "-"));
-	
-
-
 	//$table_name = $args['call_prop']['table_name']; 	
-	
+
 	$guardianArray;
 	$insertArray;
 

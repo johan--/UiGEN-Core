@@ -3,6 +3,20 @@
 // -----     main callbacks functions                                                          ------ //
 // -------------------------------------------------------------------------------------------------- //
 
+
+/**
+ * CONTROLLER Main function - callback flow function.
+ * This function created post after finished flow_step
+ * 
+ * <b>Arguments example</b><br/><br/>
+ * <code>
+ * bla bla bla
+ * </code>
+ * @example /path/to/example.php How to use this function
+ *
+ * @param array $args Get arguments form flow file
+ * @filesource /UiGEN-Core/flow-controllers/post-controller.php
+ */
 function add_posttype($args){
 	
 	$my_post;
@@ -91,7 +105,7 @@ function add_posttype($args){
 
 						//$cat_ids = intval($value['value']);
 						//echo $value['value'];
-						add_attachment(@$my_post_ID,@$value['value']);
+						add_post_attachment(@$my_post_ID,@$value['value']);
 						//wp_set_object_terms( $my_post_ID, $cat_ids, $value['args']['taxonomy'] );					
 					} 
 			}
@@ -104,13 +118,27 @@ function add_posttype($args){
 // -----     technical support functions                                                       ------ //
 // -------------------------------------------------------------------------------------------------- //
 
+/**
+ * CONTROLLER Tech function.
+ * This function get current user id.
+ *
+ * @filesource /UiGEN-Core/flow-controllers/post-controller.php
+ */
 function get_user_ID(){
 	$current_user = wp_get_current_user();
 	//get_id;
 	return $current_user->ID;
 }
 
-function add_attachment($id,$attachFile){			
+/**
+ * CONTROLLER Tech function.
+ * This function linked loaded attachment file with created post.
+ *
+ * @param integer $id Created post id 
+ * @param string $attachFile file to attached
+ * @filesource /UiGEN-Core/flow-controllers/post-controller.php
+ */
+function add_post_attachment($id,$attachFile){			
 	
 	if($attachFile != ''){	
 		$wp_upload_dir = wp_upload_dir();

@@ -430,7 +430,28 @@ jQuery( ".delete_element" ).click(function() {
 	                "rightLabel": "More options"
 	         }
 		}
-	}
+	},
+	"postRender": function(form) {
+	        jQuery(document).on('click', "#pages-panel-add-new-posttype", function() {
+	        	alert(jQuery('#pages-panel-add-form').attr('data-object-type'));
+	        	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'posttype'){
+	        		jQuery('#debugModal').modal('show');
+	        		jQuery('#pages-panel-add-form').slideUp(300);
+	            	
+	            	var json = form.getValue();
+	            	jQuery.ajax({
+						type: "POST",
+						url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel-add-object.php",
+						data: { object_data: json, objecttype: jQuery('#pages-panel-add-form').attr('data-object-type') }
+					})
+					.done(function( msg ) {	
+						jQuery('.modal-content').children('.modal-body').children('div').remove();
+						jQuery('.modal-content').children('.modal-body').append(msg);
+					});
+	            	//alert(JSON.stringify(json));
+	        	}
+	        });
+	    }
 	});
 
 	/* ----------------------------------------------------------- */

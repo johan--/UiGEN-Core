@@ -74,7 +74,7 @@ function add_posttype($args){
 
 						//$cat_ids = intval($value['value']);
 						//echo $value['value'];
-						add_attachment($my_post_ID,@$value['value']);
+						add_import_attachment($my_post_ID,@$value['value']);
 						//wp_set_object_terms( $my_post_ID, $cat_ids, $value['args']['taxonomy'] );					
 					} 
 			}
@@ -93,7 +93,7 @@ function get_user_ID(){
 	return $current_user->ID;
 }
 
-function add_attachment($id,$attachFile){			
+function add_import_attachment($id,$attachFile){			
 	
 	if($attachFile != ''){	
 		$wp_upload_dir = wp_upload_dir();

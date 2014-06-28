@@ -38,7 +38,7 @@ h1, h2,span{
 	z-index:2000;
 	transition: right 0.5s ease-in-out;
 	border-left:5px solid #333;
-	    box-shadow: 0px 0px 15px #000; 
+	box-shadow: 0px 0px 15px #000; 
 }
 #debug-manager.right0{
 	right:0px;
@@ -177,17 +177,46 @@ body.left200{
 	display:none; 
 	position:absolute; 
 	width:100%; 
-	z-index:900; 
-	background-color:#333; 
-	/* box-shadow: 0px 0px 50px #333; */
+	z-index:2500; 
+	background-color:#222; 
+    top:40px;
 	left:0;
+	min-width:300px;
+	box-shadow: 0px 0px 5px #000;
 }
-.portlet-inspect textarea{
-	float:left;	 
-	margin:0; 
-	padding:20px; 
-	font-family:courier; 
-	color:navy;
+.portlet-inspect .portlet-inspect-properties ,.portlet-inspect .portlet-inspect-yaml {
+
+	display:none;
+}
+.portlet-inspect label{
+	color:#aaa !important;
+	text-shadow:0px 0px 3px #000;
+}
+
+.portlet-inspect h2{
+	color:#D2D84F !important;
+	text-shadow:0px 0px 3px #000;
+	margin-left:10px;
+}
+.portlet-inspect .alpaca-controlfield-radio{
+	margin:0px;
+}
+.portlet-inspect .alpaca-fieldset-legend-button-text{
+	line-height:60px;
+}
+
+.slot_properties_header{
+	box-shadow: 0px 0px 5px #000;
+	min-width:300px;
+	position:absolute; 
+	width:100%; 
+	height:40px; 
+	background-color:#D2D84F !important; 
+	z-index:2510; 
+	display:none;
+	padding:10px; 
+	border:1px solid #333;
+	border-radius: 2px;
 }
 
 #pages_creator{
@@ -229,12 +258,63 @@ body.left200{
 #change-grid span{
 		color:#A0CBEF;
 }
+.dropdown-menu{
+	z-index:5000 !important;
+}
 
-
-
-
+.dropdown-menu span{
+	text-shadow:none;
+	color:#333;
+}
+#properties-mask{
+	position:fixed;
+	 width:100%;
+	  height:100%;
+	  top:0;
+	  background-color:rgba(51,51,51,0.7);
+	  z-index:2100
+}
 </style>
+
+<script>
+
+	var static_el_schema = {    
+		    "type": "object",
+		    "properties": {
+		    	"object_name":{
+		            "title":"Page Name"            
+		        },
+		        "more_options": {                    
+		                "type": "boolean"
+		        },
+		        "link_to_exist_page":{
+	                "title":"Link to exist page",
+	                "enum": ["something-else-soon-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
+	                "default":"simple-landing-page-1",
+	                "description": "Create landing page from your exist wordpress page. NOT IMPLEMENTED YET !!!",
+	                "dependencies": "more_options"         
+	            }, 
+		        "view_schema":{
+	                "title":"View Schema",
+	                "enum": ["simple-landing-page-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
+	                "default":"simple-landing-page-1",
+	                "dependencies": "more_options"         
+	            }, 
+			}
+		}
+
+	var list_el_schema = {};
+
+</script>
+
 <?php
+/**
+ * This function decorate display page without debugging mode
+ *
+ * @param string $gridName Get acctualy grid defined into page_template file localized into theme folder. 
+ * @param array $args Get hierarchy properties localized into UiGEN-Core/gloal-data/template-hierarchy/arguments
+ * @filesource /UiGEN-Core/core-files/uigen-debuger.php
+ */
 function decorate_debuged_page_header($gridName,$args){
 
 	if ( !current_user_can( 'manage_options' ) ) {
@@ -247,8 +327,7 @@ function decorate_debuged_page_header($gridName,$args){
 	<?php
 	}
 	?>
-
-	<div class="debug-grid-bar-decorator" data-page-name="<?php echo $args['ui_page_name']; ?>">
+	<div class="debug-grid-bar-decorator draggable-decorator-guardian" data-page-name="<?php echo $args['ui_page_name']; ?>">
 
 		<div id="pages_creator">
 			<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>
@@ -314,11 +393,19 @@ function decorate_debuged_page_header($gridName,$args){
 	</div>
 	<?php
 }
-
+/**
+ * This function decorate UiGEN Slot without debugging mode
+ *
+ * @filesource /UiGEN-Core/core-files/uigen-debuger.php
+ */
 function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
 		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator">
+			<div class="slot_properties_header">
+				<div style="float:left" class="core-properties-title">Slot Core Properties</div>
+				<button style="float:right; margin:-5px -5px 0 0" type="button" class="debug-core-properties-hide btn btn-danger btn-sm"><span class="glyphicon glyphicon glyphicon-remove-circle"></span></button>
+			</div>
 			<div class="tplpart_decorator_options_panel <?php
 			 	if($slot['debug_type'] == 'form'){ echo 'purple'; }
 			 	if($slot['debug_type'] == 'list'){ echo 'light-green'; }
@@ -343,16 +430,19 @@ function decorate_slot($position,$slotName,$slot){
 				  		<a href="Javascript: void(0);" ><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp; Edit Slot</a>
 				  	</li>
 				  	<?php } ?>
-
+				  	<li class="slotSettings">
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Settings</a>
+				    </li>
+					<li class="divider"></li>
 				    <li class="slotProperties">
-				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Properties</a>
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Core Slot Properties</a>
 				    </li>
 				    <li class="debugInspect">
-				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Script</a>
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp; Core Slot Script</a>
 				    </li>
 				    <li class="divider"></li>
 				    <li class="deleteSlot">
-				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp; Delete slot</a>
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-trash"></span>&nbsp;&nbsp; Delete Slot</a>
 				    </li>
 				  </ul>
 				</div>
@@ -362,15 +452,24 @@ function decorate_slot($position,$slotName,$slot){
 				
 			</div>
 
-			<div class="portlet-inspect">				
-				<textarea  class="" rows="5"><?php
+			<div class="portlet-inspect">
+
+				<textarea  class="portlet-inspect-yaml" rows="5"><?php
 					require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-					
 					$fullSlot = array($slotName => $slot);
 					$Data = Spyc::YAMLDump($fullSlot);
 					echo $Data;
 					
 				?></textarea>
+				
+				<textarea  class="portlet-inspect-properties" rows="5"><?php
+					$fullSlot = $slot;
+					$Data = json_encode($fullSlot);
+					echo $Data;
+					
+				?></textarea>
+				<div class="portlet-inspect-properties-form"></div>
+				<button style="float:right" type="button" class="debug-save-core-properties btn btn-success" data-toggle="modal" data-target="#debugModal"><span class="glyphicon glyphicon-floppy-disk"></span> Save properties</button>
 			</div>	
 	<?php
 	}
@@ -476,11 +575,6 @@ window.onload=function(){
 	});*/
 
 
-
-
-
-
-
 	jQuery(document).on('click', "li.slotEdit", function() {
 		alert(donateString);
 	});
@@ -499,12 +593,12 @@ window.onload=function(){
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-forms-list.php",
 			data: {  }
 		})
+
 		.done(function( msg ) {	 
 			jQuery('#debug-manager').append(msg);
 			//loadSlotListHandler();
 		});
 	});
-
 
 	jQuery(document).on('click', "li.deleteSlot", function() {
 		jQuery(this).parent().parent().parent().parent().remove();
@@ -514,16 +608,136 @@ window.onload=function(){
 	});
 
 	jQuery(document).on('click', "li.slotProperties", function() {
-		//alert(donateString);
-		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').css('display','block');
+
+		// disable sortable
+		jQuery('.uigen-act-cell').sortable({ disabled: true });
+
+		// clear opeded panels
+		jQuery('.portlet-inspect').css('display','none');
+		jQuery('.slot_properties_header').css('display','none');
+		jQuery('#properties-mask').remove();
+
+		// add mask
+		jQuery('#onHandler').prepend('<div id="properties-mask">&nbsp;</div>');
+
+ 		// header slot loader
+		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeIn();
+		
+		var data = jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect-properties').val();
+		jQuery('.portlet-inspect-properties-form').children().remove();
+
+		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect-properties-form').alpaca({
+			"data": data,
+			"schema":{    
+			    "type": "object",
+			    "properties": {
+			    	"type":{
+			    		"title":"Slot type",
+		                "enum": ["tpl-part", "controller"],   
+		                "default":"tpl-part"
+			    	},
+			    	"name":{
+			    		 "title":"Controller Name",
+			    		 "enum": ["tdc_get_loop", "tdc_get_user_loop" , "tdc_get_search_loop" , "tdc_get_db_loop"],   
+			    		 "dependencies": "type"      
+			    	},			    	
+			    	"tpl_part":{
+			    		"title":"Template part",
+		                "enum": ["basic-logo-simple", "basic-button", "post-list-item", "basic-article" , "tiled-title" ],   
+		                "default":"tpl-part"
+			    	},
+			    	'tpl_start':{
+			    		 "title":"Slot header decorator"      
+			    	},
+			    	'tpl_end':{
+			    		 "title":"Slot footer decorator"      
+			    	},
+			    	'post_id':{
+			    		 "title":"Post ID included into this slot",
+			    		 "dependencies": "type"       
+			    	},
+			    	'html':{
+			    		"title":"Your html content",
+			    		"dependencies": "type"  
+			    	},
+			    	"query_args": {
+		                "title": "Create WP Query",
+		                "type": "object",
+		                "dependencies": "type",
+			            "properties": {
+			                
+			                "post_type": {
+			                    "title": "Posttype registration name",
+			                    "type": "string"
+			                },
+			                "posts_per_page": {
+			                    "title": "Posts per page",			                    
+			                	"type": "number"
+			                },
+			                "paged": {
+			                    "title": "Set current start page",			                    
+			                    "type": "number"
+			                },
+			            }
+		            },		    	
+			       
+				}
+			},
+			"options": {		
+				"fields": {
+			         "type": {
+			         	"removeDefaultNone": true,			                
+			         },
+			         "name": {
+                    	"dependencies": {
+                        	"type": "controller"
+                    	},
+                    	"removeDefaultNone": true,
+                	},
+                	"query_args": {
+                    	"dependencies": {
+                        	"type": "controller"
+                    	},
+                    	"removeDefaultNone": true,
+                	},
+                	"post_id": {
+                    	"dependencies": {
+                        	"type": "tpl-part"
+                    	},
+                	},
+                	"html": {
+                    	"dependencies": {
+                        	"type": "tpl-part"
+                    	},
+                    	"type": "textarea"
+                	},
+                	"tpl_start":{
+                		"type": "textarea"
+                	},
+                	"tpl_end":{
+                		"type": "textarea"
+                	}
+				}
+			}
+			});
+		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideDown();
+	});
+
+	jQuery(document).on('click', ".debug-core-properties-hide", function() {
+		
+		jQuery('.uigen-act-cell').sortable({ disabled: false });
+		jQuery('#properties-mask').remove();
+		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideUp();
+		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeOut();
 
 	});
 
 	jQuery(document).on('click', "#footer_save_info .undoLast", function() {
-		alert(donateString)
+		alert(donateString);
 	});
 
 	jQuery(document).on('click', "li.debugInspect", function() {
+		jQuery('.portlet-inspect').css('display','none');
 		//alert('inspect');
 		//var insprector_width = jQuery('.debug-grid-bar-decorator').css('width-200');
 
@@ -701,11 +915,6 @@ window.onload=function(){
 				jQuery(ui.item.context).css('width','300px');
 			}
 
-		    
-		
-			
-	
-
       	},
       	receive: function( event, ui ) {
       		reciveGuardian = 1;      	
@@ -718,6 +927,8 @@ window.onload=function(){
 					/* show element content while drop it */
       				jQuery(ui.item.context).children().css('display','block');
       				jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
+      				jQuery(ui.item.context).children('.slot_properties_header').css('display','none');
+
       		}else{
       			if(newElement == 0){
       				jQuery('#saved_info_box').prepend('<p style="display:none">You replace <b>'+droped_name+' slot</b> into another handler. You must save this action.</p>');
@@ -725,20 +936,18 @@ window.onload=function(){
 					/* show element content while drop it */
       				jQuery(ui.item.context).children().css('display','block');
       				jQuery(ui.item.context).children('.portlet-inspect').css('display','none');
+      				jQuery(ui.item.context).children('.slot_properties_header').css('display','none');      				
 
       			}else{
+
       				jQuery('#saved_info_box').prepend('<p style="display:none">You added new element into grid. You must save this action.</p>');
      			}
       		}
       		jQuery('#saved_info_box').children('p').show('slow');
       		jQuery('#footer_save_info').fadeIn('slow');
-
       		
       		// add new param to added object
       		//jQuery(ui.item.context).css('border','2px solid green');
-
-			
-      		
 
       	}
 	});

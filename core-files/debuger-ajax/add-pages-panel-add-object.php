@@ -96,7 +96,7 @@ function ui_register_object($object_name, $objecttype){
 		
 		
 
-		if($objecttype == 'posttype' ){
+		if($objecttype == 'old_posttype' ){
 
 			/*      check is name exist            */
 			foreach ($posttypes_array as $key => $value) {
@@ -131,6 +131,26 @@ function ui_register_object($object_name, $objecttype){
 
 			/* create posttype declarations array */
 			file_put_contents( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump($posttypes_array ));
+
+		}
+
+		if($objecttype == 'posttype' ){
+
+			/* ----------------------------------- */
+			/* 1.1. Create database declaration    */
+			$posttype_array[$object_name] = $_POST['object_data'];
+			$posttype_array[$object_name]['object_name'] = $slug_name;
+
+			/* create posttype declarations array */
+			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+			$posttype_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' );
+			
+			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
+
+		    $posttype_array = ui_merge_data_array( $posttype_old_array , $posttype_array );
+
+			file_put_contents( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump( $posttype_array ));
+
 
 		}
 

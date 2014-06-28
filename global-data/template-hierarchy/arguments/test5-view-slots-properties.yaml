@@ -1,17 +1,9 @@
 ---
-simple-logo0:
-  debug_label: Simple Logo
-  debug_type: static
+grid: basic-article
+logo:
   type: tpl-part
   tpl_part: basic-logo-simple
-  tpl_part_prop: not_implemented
-simple-button1:
-  debug_label: Simple Button
-  debug_type: static
-  type: tpl-part
-  tpl_part: basic-button
-  tpl_part_prop: not_implemented
-nav-menu-header2:
+nav-menu-header:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -26,23 +18,18 @@ nav-menu-header2:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text3:
+title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
   tpl_part: tiled-title
-  tpl_part_prop: not_implementedx
-form-slot4:
-  debug_label: Login form
+  tpl_part_prop: not_implemented
+content-text:
+  debug_label: Content
   debug_type: static
   type: tpl-part
-  tpl_part: login-form
-  tpl_part_prop: not_implementedccc
-excerpt-text5:
-  debug_label: Excerpt
-  debug_type: static
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+footer:
   type: tpl-part
-  tpl_part: basic-excerpt-promo
-  tpl_part_prop: not_implementedxxx
-grid: basic-slim
-ui_page_name: index
+  tpl_part: basic-footer

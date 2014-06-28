@@ -2,16 +2,27 @@
 /*
 Plugin Name: UiGEN core
 Plugin URI: http://uigen.org
-Description: UiGEN classes and libraries - core functions to realize UiGEN display and process modeler
+Description: UiGEN open source classes and libraries - core functions to realize UiGEN display and process modeler
 Authors: UiGEN Team: dadmor | minimal | sirmacik | marsianin 
 Authors URI: dadmor@gmail.com
 */
 
-include('custom_admin_pages.php');
-include('hooks.php');
-/* This plugin add UiGEN classes to uour plugin directory */
+/**
+  * UiGEN Core main plugin file. This plugin add UiGEN classes to yuour plugin directory 
+  * @filesource fdsfdsfdsfds
+  */
 
-// Plugin VERSION
+/* @Minimal Extentions */
+// Check after devel
+//include('custom_admin_pages.php');
+//include('hooks.php');
+
+
+/**
+* UiGEN Constans to chech plugin Version with UiGEN MVC Theme
+*
+* @filesource /UiGEN-Core/uigen-core.php
+*/
 define( 'UiGEN_CORE_VER' , '0.1.3' );
 define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
 define( 'PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core/');
@@ -25,17 +36,20 @@ register_activation_hook($filename,'my_first_install');
 register_deactivation_hook($filename, 'my_first_reinstall');
 
 
-/* skort functions document */
+/* short functions document */
 require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/short-functions/short-functions.php' );
 
 /* pluggables */
-require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
+/* @Minimal Extentions */
+// Check after devel
+// require_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/pluggables.php');
 
 /* tables creation */
-
-if(!class_exists('Custom_Types_Creator')) {
+/* @Minimal Extentions */
+// Check after devel
+/*if(!class_exists('Custom_Types_Creator')) {
   include_once( ABSPATH . '/wp-content/plugins/UiGEN-Core/mpf_specyfic.php');
-}
+}*/
 
 /*$mpf_roles = array(
 	'doctor' => array('read' => false),
@@ -80,9 +94,17 @@ if(!class_exists('Custom_Types_Creator')) {
 	),
 );*/
 
+/**
+  * Plugin install hook
+  * @filesource
+  */
 function my_first_install() {
 
-  if(class_exists('Custom_Types_Creator')) {
+
+	/* Minimal roles solution */
+	/*  	
+	if(class_exists('Custom_Types_Creator')) {
+	
 	$mpf = new Custom_Types_Creator();
 	global $mpf_roles;
 	$mpf->roles=$mpf_roles;
@@ -90,7 +112,7 @@ function my_first_install() {
 	} else {
 		echo 'error, password wrong!';
 		die();
-	}
+	}*/
 
 	/* ---------------------- */
 	/* CREATE DATABASE TABLES */
@@ -179,7 +201,11 @@ function alpaca_lib_init() {
 // UiGEN posttype creator - native plugin methods
 // -------------------------------------------------------------------------------- 
 
-/* register posttypes - from definition file. */
+/**
+ * register posttypes - from definition file. 
+ *
+ * @filesource /UiGEN-Core/uigen-core.php
+ */
 add_action('init', 'uigen_posttypes');
 function uigen_posttypes() {
 
@@ -206,7 +232,9 @@ function uigen_posttypes() {
 	}
 
 	/* rewrite user roles (bad way) */
-	if(class_exists('Custom_Types_Creator')) {
+	/* @Minimal roles solution */
+
+	/*	if(class_exists('Custom_Types_Creator')) {
 		$mpf = new Custom_Types_Creator();
 		global $mpf_roles;
 		$mpf->roles=$mpf_roles;
@@ -214,7 +242,7 @@ function uigen_posttypes() {
 	} else {
 		echo 'error, password wrong!';
 		die();
-	}
+	}*/
 }
 
 
@@ -222,7 +250,11 @@ function uigen_posttypes() {
 // UiGEN taxonomy creator - native plugin methods
 // -------------------------------------------------------------------------------- 
 
-/* register posttypes - from definition file. */
+/**
+ * register posttypes - from definition file.
+ *
+ * @filesource /UiGEN-Core/uigen-core.php
+ */
 add_action('init', 'uigen_taxonomies');
 function uigen_taxonomies() {
 	// -------------------------
@@ -241,8 +273,11 @@ function uigen_taxonomies() {
 // ================================================================================
 
 
-
-/* register metaboxes - from definition file. */
+/**
+ * register metaboxes - from definition file.
+ *
+ * @filesource /UiGEN-Core/uigen-core.php
+ */
 add_action('admin_init', 'uigen_metaboxes');
 function uigen_metaboxes() {
   // -------------------------
@@ -258,7 +293,11 @@ function uigen_metaboxes() {
   }
 }
 
-/* register sidebars - from definition file. */
+/**
+ * register sidebars - from definition file.
+ *
+ * @filesource /UiGEN-Core/uigen-core.php
+ */
 add_action( 'widgets_init', 'ui_register_sidebars' );
 function ui_register_sidebars() {
 	// -------------------------
@@ -287,6 +326,13 @@ include 'core-files/uigen-widgets.php';
 include 'core-files/uigen-shortcodes.php';
 
 //add_action('init', 'check_debuger');
+
+/**
+ * Check debugger
+ *
+ * @filesource /UiGEN-Core/uigen-core.php
+ * @deprecated 
+ */
 add_action('wp_enqueue_scripts', 'check_debuger');
 function check_debuger() {
  
@@ -295,6 +341,7 @@ function check_debuger() {
 
 // #################################################################################
 
+/* Dadmor - redirect non admin usres from backend to frontend */
 // add_action( 'admin_head', 'admin_panel' ); 
 // function admin_panel() {
 //   if ( current_user_can( 'publish_posts' ) ) {
@@ -315,15 +362,16 @@ function check_debuger() {
 // UiGEN Admin Menu
 
 add_action('admin_menu', 'UiGEN_menu');
+
 function UiGEN_menu()
 {   
   // editor + administrator = moderate_comments;
-  // add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
+  add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
   // submenu with calbac
-  //add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
+  add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
   // submenu from defined posttype
-  // add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'manage_options', 'edit.php?post_type=template_hierarchy');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
-  // add_submenu_page('url_uigen_core', 'UiGEN Content parts', 'UiGEN Content parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
+  add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'manage_options', 'edit.php?post_type=template_hierarchy');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
+  add_submenu_page('url_uigen_core', 'UiGEN Content parts', 'UiGEN Content parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
 
 } 
 
@@ -331,7 +379,7 @@ function UiGEN_menu()
 function uigen_core(){
   echo '<div class="wrap">';
   echo '<h2>Welcome to UiGEN CORE plugin.</h2>';
-  echo '<p>UiGEN CORE plugin is pack of classes and libraries - core functions to realize UiGEN display and process modeler.</p>';
+  echo '<p>UiGEN CORE plugin is full open source pack of classes and libraries - core functions to realize UiGEN display and process modeler.</p>';
   
   // check theme version
   if(@constant('UiGEN_THEME_VER') != ''){
@@ -344,27 +392,24 @@ function uigen_core(){
   echo '</div>';
 
 ?>
-<br>
+
+
+
+
 <div class="wrap">
+<div id="message" class="error below-h2"><p>Warning !!!</p><p>UiGEN Core is not stable yet !!!<br/>First beta version will be published on dedicated repo github/uigen soon.</p></div>
 
-
-
-
-
-
-<!--                   WTF!!!!!?????
+<!--                   WTF!!!!!????? -->
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-
+<!--
 srsly, dadmor, please do it like a man, not like a pussy.
+
+dadmor: Who write this childish comment should set solution or go away !!!! 
 -->
 
   
-
-
-
-
  <style>
   .container{margin-bottom:20px; position:relative;}
   .sortable-helper{position:relative; width:840px; height:140px;}
@@ -380,6 +425,7 @@ srsly, dadmor, please do it like a man, not like a pussy.
   <script>
   
   </script>
+  <!--
   <h1>Grid creator</h1>
   <h3>Design your site layout</h3>
   <h4>Or select from custom <a href="#">layouts library</a></h4>
@@ -406,7 +452,7 @@ srsly, dadmor, please do it like a man, not like a pussy.
 	  </tr>    
 	</tbody>  
   </table>
-
+  -->
 </div>
 
 <script>
@@ -487,7 +533,8 @@ function UiGEN_hierarchy_callback(){
 
 }
 
-/**
+/* @Minimal
+ * 
  * get_hash
  * 
  * Creates hash for specyfic user

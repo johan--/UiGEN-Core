@@ -58,6 +58,7 @@ class ThemeDisplayController {
 		}
 		
 	}
+
 	// --------------------------------
 	// MAIN DISPLAY CONTROLLERS
 	// --------------------------------
