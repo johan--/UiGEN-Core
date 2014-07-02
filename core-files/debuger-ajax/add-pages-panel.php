@@ -11,9 +11,13 @@
 }
 #pages-panel-add-buttons span{
 	color:#428BCA;
+	text-shadow:none;
 }
 .page-panel{
-	float:left; border:1px solid #9E9E9E; border-radius:2px; margin:20px 10px 10px 0px
+	float:left; border:1px solid #9E9E9E; border-radius:2px; margin:20px 10px 10px 0px; background-color:#333;
+}
+.page-panel-header{
+	border-bottom:1px solid #ccc; padding:5px 10px; background-color:#aaa;
 }
 .page-panel-single-object{
 	float:left;
@@ -23,7 +27,6 @@
 }
 .page-panel-single-object:hover{
 	background-color:#aaa;
-	
 	cursor:pointer;
 	color:#333 !important;
 }
@@ -46,17 +49,20 @@
 
 <div id="pages-panel-add-buttons">	
 	<h1 style="float:left">Pages Creator</h1>
-	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="page">
-		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span> New page
+	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="db">
+		<span style="color:#A431B9;" class="glyphicon glyphicon-plus"></span><span style="color:#A431B9;" class="glyphicon glyphicon-list-alt"></span> New database
 	</button>
-	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="posttype">
-		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-briefcase"></span> New posttype
-	</button>
-	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="user">
+
+	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="user">
 		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> New users
 	</button>
-	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="db">
-		<span style="color:#38B1AC;" class="glyphicon glyphicon-plus"></span><span style="color:#38B1AC;" class="glyphicon glyphicon-list-alt"></span> New database
+
+	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="posttype">
+		<span style="color:#39BB39;" class="glyphicon glyphicon-plus"></span><span style="color:#39BB39;" class="glyphicon glyphicon-th-list"></span> New posttype
+	</button>
+
+	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="landingpage">
+		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span> New page
 	</button>
 </div>
 <br style="clear:both"/>	
@@ -67,7 +73,7 @@
   		Add new object
 	</div>
 	<div class="panel-body">
-		<div id="add_page" style="display:none"></div>
+		<div id="add_landingpage" style="display:none"></div>
 		<div id="add_posttype" style="display:none" class="form-group"></div>
 		 <div id="add_users" style="display:none"></div>
 		 <div id="add_database" style="display:none"></div>
@@ -85,82 +91,85 @@
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
 	$db_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-database';
+	$landingpages_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-landing-pages';
 	
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
 	$db_array = Spyc::YAMLLoad( $db_prop_path . '/arguments/database-arguments.yaml' );
+	$landingpages_array = Spyc::YAMLLoad( $landingpages_prop_path . '/arguments/landingpages-arguments.yaml' );
 
-	foreach ($posttypes_array as $key => $value) {
-			if(is_page_exist($key.'-view')==true){
-				$view_exist = 'class="glyphicon glyphicon-file"';
-			}else{
-				$object_action_view = '';
-				$check_page = get_page_by_path($key.'-view');
-				$view_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-ban-circle"';
-				$object_action_view = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate<br/>WP Page</span>';
-				if(get_post_status( $check_page -> ID )=='trash'){ 
-					$view_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-trash"'; 
-					$object_action_view = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
-				}
-			}
-
-			if(is_page_exist($key.'-form')==true){
-				$form_exist = 'class="glyphicon glyphicon-file"';
-			}else{
-				$object_action_form = '';
-				$check_page = get_page_by_path($key.'-form');
-				$form_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-ban-circle"';
-				$object_action_form = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate<br/>WP Page</span>';
-				if(get_post_status( $check_page -> ID )=='trash'){ 
-					$form_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-trash"'; 
-					$object_action_form = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
-				}
-			}
-
-			if(is_page_exist($key.'-list')==true){
-				$list_exist = 'class="glyphicon glyphicon-file"';
-			}else{
-				$object_action_list = '';
-				$check_page = get_page_by_path($key.'-list');
-				$list_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-ban-circle"';
-				$object_action_list = '<span class="recreatre_object" style="float:right; text-decoration:underline">ReCreate<br/>WP Page</span>';
-				if(get_post_status( $check_page -> ID )=='trash'){ 
-					$list_exist = 'style="color:rgb(209, 66, 66)" class="glyphicon glyphicon-trash"'; 
-					$object_action_list = '<span class="untrash_object" style="float:right; text-decoration:underline">Untrash</span>';
-				}
-			}
-		?>	
-			<div style="border:1px solid red; float:left; border:1px solid #9E9E9E; border-radius:2px; margin:0px 5px 5px 0px">
-				<div style="border-bottom:1px solid #ccc; padding:5px 10px; background-color:#aaa; color:#333;">
-					<?php echo $value['label']; ?>
+	foreach ($landingpages_array as $key => $value) {
+		?>
+		<div class="page-panel" data-type="landingpage">
+				<div class="page-panel-header" style="background-color: #428BCA;">
+					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-th-list"></span>
+					<span class="objectname"><?php echo $value['object_name']; ?></span>
 					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
 				</div>
-				<div style="margin:10px 5px 7px 5px">
-					<div style="float:left"><span class="glyphicon glyphicon-file" style="font-size:60px;"></span><div style="text-align:center; font-size:11px">View</div></div>
-					<div style="float:left"><span class="glyphicon glyphicon-file" style="font-size:60px;"></span><div style="text-align:center; font-size:11px">Form</div></div>
-					<div style="float:left"><span class="glyphicon glyphicon-file" style="font-size:60px;"></span><div style="text-align:center; font-size:11px">List</div></div>
+
+				<div>
+					<div style="font-size:11px; padding:3px 6px; border-bottom:1px solid #aaa; text-align:right; ">
+						<span><a href="#" class="delete_element" data-target="<?php echo $key; ?>">delete</a></span>
+					</div>
+				</div>
+				<div>
+					<?php $ob_view = create_display_pages_element( $key , 'view' ); ?>
 					<br style="clear:both"/>
 				</div>
+
+				<?php
+					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_landingpage.php';
+					if (!file_exists($filename)) {
+						?>
+					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
+							Warning: <br/>Page Tamplate file doesn't exist !!
+						</div>
+						<?php
+					}
+				?>
 			</div>	
-			<!-- <div class="panel panel-primary" style="width:200px; float:left; margin-right:10px;">
-				<div class="panel-heading">
-			  		<span class="glyphicon glyphicon-briefcase"></span>
-			  		<?php echo $value['label']; ?>
+		<?php
+	}
+
+	foreach ($posttypes_array as $key => $value) {
+		?>
+		<div class="page-panel" data-type="posttype">
+				<div class="page-panel-header" style="background-color: #408A40;">
+					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-th-list"></span>
+					<span class="objectname"><?php echo $value['object_name']; ?></span>
+					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
 				</div>
-				<div class="panel-body"></div>
-				<ul class="list-group">
-				    <li class="list-group-item"><span <?php echo $view_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a><?php echo $object_action_view ?></li>	    
-				    <li class="list-group-item"><span <?php echo $form_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a><?php echo $object_action_form ?></li>
-				    <li class="list-group-item"><span <?php echo $list_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a><?php echo $object_action_list ?></li>
-				</ul>
-				<div class="panel-footer"><a class="more_options" href="#">More options</a></div>
-			</div> -->
+
+				<div>
+					<div style="font-size:11px; padding:3px 6px; border-bottom:1px solid #aaa; text-align:right; ">
+						<span><a href="#" class="delete_element" data-target="<?php echo $key; ?>">delete</a></span>
+					</div>
+				</div>
+				<div>
+					<?php $ob_view = create_display_pages_element( $key , 'view' ); ?>
+					<?php $ob_view = create_display_pages_element( $key , 'form' ); ?>
+					<?php $ob_view = create_display_pages_element( $key , 'list' ); ?>
+					<br style="clear:both"/>
+				</div>
+
+				<?php
+					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_posttype.php';
+					if (!file_exists($filename)) {
+						?>
+					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
+							Warning: <br/>Page Tamplate file doesn't exist !!
+						</div>
+						<?php
+					}
+				?>
+			</div>	
 		<?php
 	}
 
 	foreach ($db_array as $key => $value) {		
 		?>		
 			<div class="page-panel" data-type="db">
-				<div style="border-bottom:1px solid #ccc; padding:5px 10px; background-color:#aaa; color:#333;">
+				<div class="page-panel-header" style="background-color: #7A4185;">
+					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-list-alt"></span>
 					<span class="objectname"><?php echo $value['object_name']; ?></span>
 					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
 				</div>
@@ -198,9 +207,9 @@
 				</div>
 				<div class="panel-body"></div>
 				<ul class="list-group">
-				    <li class="list-group-item"><span <?php echo $view_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true'; ?>">View</a><?php echo $object_action_view ?></li>	    
-				    <li class="list-group-item"><span <?php echo $form_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true'; ?>">Form</a><?php echo $object_action_form ?></li>
-				    <li class="list-group-item"><span <?php echo $list_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true'; ?>">List</a><?php echo $object_action_list ?></li>
+				    <li class="list-group-item"><span <?php echo $view_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-view/?debug=true&pages_creator=true'; ?>">View</a><?php echo $object_action_view ?></li>	    
+				    <li class="list-group-item"><span <?php echo $form_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-form/?debug=true&pages_creator=true'; ?>">Form</a><?php echo $object_action_form ?></li>
+				    <li class="list-group-item"><span <?php echo $list_exist; ?>></span> <a href="<?php echo get_bloginfo('home') . '/' . $key . '-list/?debug=true&pages_creator=true'; ?>">List</a><?php echo $object_action_list ?></li>
 				</ul>
 				<div class="panel-footer"><a class="more_options" href="#">More options</a></div>
 			</div> -->
@@ -218,10 +227,11 @@
 
 				);
 
-			if(is_page_exist( $key . '-' . $element_type ) == true ){
+
+			if(is_page_exist( $key . '-' . $element_type ) == '' ){
 
 				$element_return_prop['view_exist'] = 'class="glyphicon glyphicon-file"';
-				$element_return_prop['view_href'] = get_bloginfo('home') . '/' . $key . '-' . $element_type . '/?debug=true';
+				$element_return_prop['view_href'] = get_bloginfo('home') . '/' . $key . '-' . $element_type . '/?debug=true&pages_creator=true';
 				$element_return_prop['object_action_view'] = '';
 
 				$filename = $hierarchy.'/' . $key  .'-' . $element_type . '-slots-properties.yaml';
@@ -250,6 +260,9 @@
 				
 			}
 
+			if( $_POST['ui_page_name'] == $key . '-' . $element_type ){
+				$element_return_prop['view_exist'] = 'style="text-shadow: 0px 0px 15px #0089FF; color:#fff" class="glyphicon glyphicon-file"';
+			} 
 			?>
 			<div class="page-panel-single-object">
 				<a href="<?php echo $element_return_prop['view_href']; ?>">
@@ -263,13 +276,18 @@
 
 	}
 
-	function is_page_exist($slug){
-		$pages = get_pages();
+	function is_page_exist($_slug){
+		//$pages = get_pages();
+		$pages = get_all_page_ids();		
 		foreach ($pages as $page) { 
-			$apage = $page->post_name;
-			if ($apage == $slug) {				
-				return true;
-			 } 
+			//$apage = $page -> post_name;
+			$apage = get_post( $post )->post_name;			
+			if ($apage == $_slug) {				
+				return $_slug;
+			}else{
+				return '';
+				
+			} 
 		}
 	}
 ?>
@@ -285,24 +303,24 @@ jQuery( ".add-new-page-button" ).click(function() {
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'db'){
 		jQuery('#add_database').css('display','block');
 		jQuery('#add_posttype').css('display','none');
-		jQuery('#add_page').css('display','none');
+		jQuery('#add_landingpage').css('display','none');
 		jQuery('#add_users').css('display','none');
 
 		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-db');
 
 	}
-	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'page'){
+	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'landingpage'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','none');
-		jQuery('#add_page').css('display','block');
+		jQuery('#add_landingpage').css('display','block');
 		jQuery('#add_users').css('display','none');
 
-		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-page');
+		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-landingpage');
 	}
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'user'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','none');
-		jQuery('#add_page').css('display','none');
+		jQuery('#add_landingpage').css('display','none');
 		jQuery('#add_users').css('display','block');
 
 		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-user');
@@ -310,7 +328,7 @@ jQuery( ".add-new-page-button" ).click(function() {
 	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'posttype'){
 		jQuery('#add_database').css('display','none');
 		jQuery('#add_posttype').css('display','block');
-		jQuery('#add_page').css('display','none');
+		jQuery('#add_landingpage').css('display','none');
 		jQuery('#add_users').css('display','none');
 
 		jQuery('.pages-panel-add-new').attr('id','pages-panel-add-new-posttype');
@@ -350,7 +368,7 @@ jQuery( ".delete_element" ).click(function() {
 	/*   NEW PAGE                                                  */
 	/* ----------------------------------------------------------- */
 	var json = "";
-	jQuery("#add_page").alpaca({
+	jQuery("#add_landingpage").alpaca({
 	"data": {
 
 	},
@@ -363,17 +381,18 @@ jQuery( ".delete_element" ).click(function() {
 	        "more_options": {                    
 	                "type": "boolean"
 	        },
-	        "link_to_exist_page":{
-                "title":"Link to exist page",
-                "enum": ["something-else-soon-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
-                "default":"simple-landing-page-1",
-                "description": "Create landing page from your exist wordpress page. NOT IMPLEMENTED YET !!!",
-                "dependencies": "more_options"         
-            }, 
+	        
 	        "view_schema":{
                 "title":"View Schema",
                 "enum": ["simple-landing-page-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
                 "default":"simple-landing-page-1",
+                "dependencies": "more_options"         
+            },
+            "link_to_exist_page":{
+                "title":"Link to exist page",
+                "enum": ["something-else-soon-1", "something-else-soon-2", "something-else-soon-3", "something-else-soon-4" ],   
+                "default":"simple-landing-page-1",
+                "description": "Create landing page from your exist wordpress page. NOT IMPLEMENTED YET !!!",
                 "dependencies": "more_options"         
             }, 
 		}
@@ -384,7 +403,28 @@ jQuery( ".delete_element" ).click(function() {
 	                "rightLabel": "More options"
 	         }
 		}
-	}
+	},
+	"postRender": function(form) {
+	        jQuery(document).on('click', "#pages-panel-add-new-landingpage", function() {
+	        	
+	        	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'landingpage'){
+	        		jQuery('#debugModal').modal('show');
+	        		jQuery('#pages-panel-add-form').slideUp(300);
+	            	
+	            	var json = form.getValue();
+	            	jQuery.ajax({
+						type: "POST",
+						url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel-add-object.php",
+						data: { object_data: json, objecttype: jQuery('#pages-panel-add-form').attr('data-object-type') }
+					})
+					.done(function( msg ) {	
+						jQuery('.modal-content').children('.modal-body').children('div').remove();
+						jQuery('.modal-content').children('.modal-body').append(msg);
+					});
+	            	//alert(JSON.stringify(json));
+	        	}
+	        });
+	    }
 	});
 
 	/* ----------------------------------------------------------- */
@@ -598,7 +638,6 @@ jQuery( ".delete_element" ).click(function() {
 	},
 	"postRender": function(form) {
 			jQuery(document).on('click', "#pages-panel-add-new-db", function() {	
-	        	alert('sadsad');
 	        	if(jQuery('#pages-panel-add-form').attr('data-object-type') == 'db'){
 	        		jQuery('#debugModal').modal('show');
 	        		jQuery('#pages-panel-add-form').slideUp(300);

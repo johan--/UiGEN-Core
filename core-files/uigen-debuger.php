@@ -39,6 +39,7 @@ h1, h2,span{
 	transition: right 0.5s ease-in-out;
 	border-left:5px solid #333;
 	box-shadow: 0px 0px 15px #000; 
+	
 }
 #debug-manager.right0{
 	right:0px;
@@ -93,7 +94,7 @@ body.left200{
 }
 
 .uigen-act-cell{
-	border:2px solid #999; 
+	/* border:2px solid #999;  */
 	padding:10px;
 	margin-bottom:10px;
 	/* display:none; */
@@ -131,11 +132,15 @@ body.left200{
 }
 /* ------------------------*/
 .debug-grid-bar-decorator{
-	background-color:#333; 
+
+	background-image: url(data:image/png;base64,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);
+
+	background-color:#222; 
 	color:#aaa; 
 	font-size:16px; 
 	padding:10px; 
 	margin-bottom:10px;
+	display:none;
 }
 .debug-grid-bar-decorator span{
 	vertical-align:-1px; 
@@ -274,6 +279,23 @@ body.left200{
 	  background-color:rgba(51,51,51,0.7);
 	  z-index:2100
 }
+.debuger-all-options{
+	cursor:pointer;
+	color:rgb(160, 203, 239);
+}
+.debuger-all-options:hover{
+	color:#2d6ca2;
+}
+#add_taxonomy{
+	cursor:pointer;
+}
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
 </style>
 
 <script>
@@ -401,7 +423,7 @@ function decorate_debuged_page_header($gridName,$args){
 function decorate_slot($position,$slotName,$slot){
 	if($position=='start'){
 	?>
-		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator">
+		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator" data-tplname="<?php echo $slot['tpl_part']?>">
 			<div class="slot_properties_header">
 				<div style="float:left" class="core-properties-title">Slot Core Properties</div>
 				<button style="float:right; margin:-5px -5px 0 0" type="button" class="debug-core-properties-hide btn btn-danger btn-sm"><span class="glyphicon glyphicon glyphicon-remove-circle"></span></button>
@@ -410,7 +432,44 @@ function decorate_slot($position,$slotName,$slot){
 			 	if($slot['debug_type'] == 'form'){ echo 'purple'; }
 			 	if($slot['debug_type'] == 'list'){ echo 'light-green'; }
 			 ?>">
-				<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
+				<?php 
+					if($slot['debug_type'] == 'menu'){
+						?>
+							<span class="glyphicon glyphicon-align-justify"></span> &nbsp; &nbsp; 
+						<?php
+					}
+					if($slot['debug_type'] == 'list'){
+						?>
+							<span class="glyphicon glyphicon-th-list"></span> &nbsp; &nbsp; 							
+						<?php
+					}
+					if($slot['debug_type'] == 'static'){
+						?>
+							<span class="glyphicon glyphicon-file"></span> &nbsp; &nbsp; 
+						<?php
+					}
+					if($slot['debug_type'] == 'form'){
+						?>
+							<span class="glyphicon glyphicon-list-alt"></span> &nbsp; &nbsp; 							
+						<?php
+					}
+					if($slot['debug_type'] == 'img'){
+						?>
+							<span class="glyphicon glyphicon glyphicon-picture"></span> &nbsp; &nbsp; 							
+						<?php
+					}
+
+					
+
+/*					{
+
+						?>
+							<span class="glyphicon glyphicon-pushpin"></span> &nbsp; &nbsp; 
+						<?php
+
+					}*/
+				?>
+				
 				<!--Slot name: --><span class="slot_name"><?php echo $slotName; ?></span>
 				
 				<div class="btn-group" style="float:right; margin-top:-6px; margin-right:-6px">
@@ -509,22 +568,7 @@ function decorate_slot($position,$slotName,$slot){
 var donateString = 'This feature not implemented yet.\n If You want donate this please contact me on\ndadmor@gmail.com or wath me on GitHub:\nhttps://github.com/dadmor/UiGEN-Core'
 window.onload=function(){
 
-	function startEffect(){
-		//jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
-		    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
-		    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
-			    // Animation complete.
-			    //jQuery('#debug-manager').css('display','block');
-			    jQuery('body').addClass('right250');
-				jQuery('#debug-manager').addClass('right0');
-			
-				jQuery('#onHandler').css('margin-bottom','500px');
-				jQuery("#debug-manager").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
-					jQuery('#help_panel').fadeIn('slow');
-				});
-			});
-		// });
-	}
+	
 
 
 	jQuery('#ui_grid_selector').mouseenter(function() {
@@ -664,8 +708,7 @@ window.onload=function(){
 		                "title": "Create WP Query",
 		                "type": "object",
 		                "dependencies": "type",
-			            "properties": {
-			                
+			            "properties": {			                
 			                "post_type": {
 			                    "title": "Posttype registration name",
 			                    "type": "string"
@@ -723,6 +766,47 @@ window.onload=function(){
 		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideDown();
 	});
 
+	jQuery(document).on('click', "li.slotSettings", function() {
+		
+				// disable sortable
+		jQuery('.uigen-act-cell').sortable({ disabled: true });
+
+		// clear opeded panels
+		jQuery('.portlet-inspect').css('display','none');
+		jQuery('.slot_properties_header').css('display','none');
+		jQuery('#properties-mask').remove();
+
+		// add mask
+		jQuery('#onHandler').prepend('<div id="properties-mask">&nbsp;</div>');
+
+ 		// header slot loader
+		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeIn();
+		
+		var url = "<?php echo get_template_directory_uri() . '/theme-template-parts/content/content-'; ?>" + jQuery(this).closest('.debug-tplpart-decorator').attr('data-tplname') + ".php";
+		var _this = this;
+		jQuery.ajax({
+			type: "POST",
+			url: url ,
+			data: { 'printschema':'true' }
+		})
+		.done(function( msg ) {	 
+			jQuery('.portlet-inspect-properties-form').children().remove();
+
+			jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect-properties-form').alpaca(jQuery.parseJSON( msg ));
+			jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideDown();
+
+		});
+
+
+		
+
+
+
+		//alert(jQuery(this).closest('.debug-tplpart-decorator').find('.slot_name').text());
+		
+		
+	});
+
 	jQuery(document).on('click', ".debug-core-properties-hide", function() {
 		
 		jQuery('.uigen-act-cell').sortable({ disabled: false });
@@ -774,6 +858,7 @@ window.onload=function(){
 
 	 	}else{
 			show_left_panel();
+			hide_right_panel();
 			jQuery('#new-inspector').fadeIn(1000);
 			jQuery("html, body").delay(500).animate({scrollTop: jQuery('#new-inspector').offset().top-50 }, 500);
 		}
@@ -814,45 +899,81 @@ window.onload=function(){
 			});
 	});
 
+	jQuery(document).on('click', ".debuger-all-options", function() {	
+		
+		refresh_right_panel();
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-all-options.php",
+			data: {  }
+		})
+		.done(function( msg ) {	
+			jQuery('#debug-manager').children().remove();
+			jQuery('#debug-manager').append( msg );
+		});
+
+	});
     jQuery( "div, button" ).disableSelection();
 
+
+	/*
+		ADD PAGES
+	*/
 	jQuery( "#add_pages" ).click(function() {
-		
-		if(jQuery(this).hasClass('open')==true){
-			jQuery(this).removeClass('open');
-			jQuery( "#pages_creator" ).slideUp(300);
-		}else{
+		display_pages_selector();
+	});
+	jQuery(document).on('mouseenter', "#add_pages", function() {
+		jQuery('#all_pages_selector').css('background-color','#222 !important');	
+	});
+	jQuery(document).on('mouseleave', "#add_pages", function() {	
+		jQuery('#all_pagesh_selector').css('background-color','#333 !important');	
+	});
+	jQuery(document).on('click', "#all_pagesh_selector", function() {	
+		display_pages_selector();
+	});	
+	function display_pages_selector(){
 
 			add_progressbar_to_top_pages();
 			jQuery( "#pages_creator" ).slideDown(500);
 			jQuery.ajax({
 				type: "POST",
 				url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-pages-panel.php",
-				data: {  }
+				data: { ui_page_name: jQuery('#ui_page_name').text() }
 			})
 			.done(function( msg ) {	
-				function show_popup(){
+				//function show_popup(){
 			      	jQuery('#pages_creator').children().remove();
-					jQuery('#pages_creator').append(msg);
-					jQuery(this).addClass('open');
-					jQuery( "#pages_creator" ).css('display','none');
-					jQuery( "#pages_creator" ).slideDown(500);
-			   };
-			   window.setTimeout( show_popup, 500 ); // 5 seconds
-				//loadSlotListHandler();
+					jQuery('#pages_creator').append(msg);					
+
+					
+							jQuery( "#pages_creator" ).slideDown(500);
+						
+				
+			   	//};
+			   	//window.setTimeout( show_popup, 500 ); // 5 seconds
+				
 			});
-		}
+	
+	}
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
+	/*
+		ADD TAXONOMY
+	*/
+	jQuery( "#add_taxonomy" ).click(function() {		
+		display_taxonomy_selector(this);
 	});
-
-	jQuery( "#add_taxonomy" ).click(function() {
-		
-		if(jQuery(this).hasClass('open')==true){
-
-			jQuery(this).removeClass('open');
-			jQuery( "#pages_creator" ).slideUp(300);
-		
+	jQuery( "#add_taxonomy" ).mouseenter(function() {
+		jQuery('#all_tax_selector').css('background-color','#222');	
+	});
+	jQuery( "#add_taxonomy" ).mouseleave(function() {
+		jQuery('#all_tax_selector').css('background-color','none');	
+	});
+	function display_taxonomy_selector(_this){
+		if(jQuery(_this).hasClass('open')==true){
+			jQuery(_this).removeClass('open');
+			jQuery( "#pages_creator" ).slideUp(300);		
 		}else{
-
 			jQuery.ajax({
 				type: "POST",
 				url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-taxonomy-panel.php",
@@ -868,11 +989,30 @@ window.onload=function(){
 				//loadSlotListHandler();
 			});
 		}
-	});
+	}
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
+	/*
+		GRID SELECTOR
+	*/
 	jQuery( "#ui_grid_selector" ).click(function() {
+		display_grid_selector();
+		jQuery('#pages_creator').css('display','none');		
+	});
+	jQuery( "#ui_grid_selector" ).mouseenter(function() {
+		jQuery('#all_grid_selector').css('background-color','#222');	
+	});
+	jQuery( "#ui_grid_selector" ).mouseleave(function() {
+		jQuery('#all_grid_selector').css('background-color','none');	
+	});
+	jQuery(document).on('click', "#all_grid_selector", function() {	
+		display_grid_selector();
+		jQuery('#pages_creator').css('display','none');
+	});	
+	function display_grid_selector(){
 		jQuery('#uigen_asset_list').children().remove();
 		show_left_panel();
+		hide_right_panel();
 		jQuery.ajax({
 				type: "POST",
 				url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/add-uigen-assets-grids.php",
@@ -883,9 +1023,9 @@ window.onload=function(){
 			})
 			.done(function( msg ) {	 
 				jQuery('#uigen_asset_list').append(msg);
-			});
-		
-	});
+		});
+	}
+	/* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 	jQuery( ".debug-urlencode" ).click(function() {
 		var YAML = jQuery(this).parent().children('textarea').val();
@@ -1040,7 +1180,19 @@ window.onload=function(){
 		.done(function( msg ) {	
 			jQuery('#debug-manager').append(msg);
 			loadSlotListHandler();
-			startEffect();	
+
+			if(sessionStorage.startEffect == undefined){
+				startEffect();
+			}else{				
+				jQuery( ".debug-grid-bar-decorator" ).css('display','block');
+				jQuery( ".tplpart_decorator_options_panel" ).css('display','block');
+				jQuery('#onHandler').css('margin-bottom','500px');
+				jQuery( ".uigen-act-cell" ).css('border','2px solid #999');
+
+				startEffect();
+			}
+
+
 		});
 	}
 	loadSlotList();	
@@ -1057,13 +1209,56 @@ window.onload=function(){
 	    });
 	}
 
+
+
+	function startEffect(){
+
+		 if(sessionStorage.startEffect = 'defined'){
+		 	jQuery('#debug-manager').addClass('notransition ');
+		 	jQuery('body').addClass('notransition ');
+		 }
+
+		sessionStorage.startEffect = 'defined';
+
+
+		//jQuery( ".uigen-act-cell" ).fadeIn( "slow", function() {
+		    //jQuery( ".tplpart_decorator_options_panel" ).slideDown(300);
+
+		jQuery( ".debug-grid-bar-decorator" ).slideDown( "slow", function() {    
+		    jQuery( ".tplpart_decorator_options_panel" ).slideDown( "slow", function() {
+			    // Animation complete.
+			    //jQuery('#debug-manager').css('display','block');
+			    
+
+			    show_right_panel();
+			
+				jQuery('#onHandler').css('margin-bottom','500px');
+				jQuery("#debug-manager").bind("transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd", function(){ 
+					jQuery('#help_panel').fadeIn('slow');
+					jQuery( ".uigen-act-cell" ).css('border','2px solid #999');
+				});
+			});
+		});
+
+		<?php
+		if($_GET['pages_creator'] == 'true'){
+			?>
+			display_pages_selector();
+			<?php
+		}
+		?>
+
+
+		jQuery('#debug-manager').removeClass('notransition ');
+		jQuery('body').removeClass('notransition ');
+
+		// });
+	}
+
+
 	function show_left_panel(){
 		jQuery('body').addClass('left200');
 		jQuery('#uigen_asset_list').css('left','200px');
-		jQuery('#debug-manager').removeClass('right0');
-		jQuery('#debug-manager').addClass('right-200');
-		jQuery('body').removeClass('right250');
-
 	}
 
 	function hide_left_panel(){
@@ -1075,6 +1270,27 @@ window.onload=function(){
 		jQuery('#uigen_asset_list').css('left','0');
 
 	}
+
+	function show_right_panel(){
+		jQuery('body').addClass('right250');
+		jQuery('#debug-manager').removeClass('right-200');
+		jQuery('#debug-manager').addClass('right0');
+	}
+
+	function hide_right_panel(){
+		jQuery('#debug-manager').removeClass('right0');
+		jQuery('#debug-manager').addClass('right-200');
+		jQuery('body').removeClass('right250');	
+		
+	}
+	function refresh_right_panel(){
+		hide_right_panel();
+		jQuery('#debug-manager').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',   
+		    function(e) {
+		   		show_right_panel();
+		});
+	}
+
 
 	function add_progressbar_to_modal(){
 			var progressBar = '<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>';

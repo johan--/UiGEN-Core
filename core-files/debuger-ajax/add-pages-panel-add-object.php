@@ -22,14 +22,8 @@ if ( current_user_can( 'manage_options' ) ) {
 	/* Swith to add PAGE                                                      */
 	/* ---------------------------------------------------------------------- */
 
-	if($_POST['objecttype']=='page'){
-		?>
-		<div>
-			<pre class="alert alert-warning">
-				<?php _e('This feature not implemented yet.<br/>If You want donate this please contact me on</br>dadmor@gmail.com or wath me on GitHub:</br>https://github.com/dadmor/UiGEN-Core','basic'); ?>
-			</pre>
-		</div>
-		<?php
+	if($_POST['objecttype']=='landingpage'){
+		ui_register_object( $object_name , 'landingpage' );
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -82,16 +76,20 @@ function ui_register_object($object_name, $objecttype){
 
 		/* ----------------------------------- */
 		/* 2.2. Create Form page               */
-
-		ui_create_post($object_name . ' - form' , $objecttype , $slug_name, 'basic-create-post');
-		echo '<div><p style="font-family:courier; color:green;">New form '.$objecttype.' created</p></div>';
 		
+		if($objecttype != 'landingpage' ){
+			ui_create_post($object_name . ' - form' , $objecttype , $slug_name, 'basic-create-post');
+			echo '<div><p style="font-family:courier; color:green;">New form '.$objecttype.' created</p></div>';
+		}
+
 		/* ----------------------------------- */
 		/* 2.3. Create List page               */
 		
-		ui_create_post($object_name . ' - list' , $objecttype , $slug_name);
-		echo '<div><p style="font-family:courier; color:green;">New list '.$objecttype.' created</p></div>';
-
+		if($objecttype != 'landingpage' ){
+			ui_create_post($object_name . ' - list' , $objecttype , $slug_name);
+			echo '<div><p style="font-family:courier; color:green;">New list '.$objecttype.' created</p></div>';
+		}
+		
 		/* ------------------------------------ */
 		
 		
@@ -133,6 +131,27 @@ function ui_register_object($object_name, $objecttype){
 			file_put_contents( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump($posttypes_array ));
 
 		}
+
+		if($objecttype == 'landingpage' ){
+
+			/* ----------------------------------- */
+			/* 1.1. Create database declaration    */
+			$posttype_array[$object_name] = $_POST['object_data'];
+			$posttype_array[$object_name]['object_name'] = $slug_name;
+
+			/* create posttype declarations array */
+			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+			$posttype_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-landing-pages/arguments/landingpages-arguments.yaml' );
+			
+			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
+
+		    $posttype_array = ui_merge_data_array( $posttype_old_array , $posttype_array );
+
+			file_put_contents( $prop_path . 'uigen-landing-pages/arguments/landingpages-arguments.yaml' , Spyc::YAMLDump( $posttype_array ));
+
+
+		}
+
 
 		if($objecttype == 'posttype' ){
 
@@ -205,21 +224,21 @@ function ui_register_object($object_name, $objecttype){
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		// 3.2. Create Form properties and hierarchy yaml file */
-
-		create_properties_and_hierarchy_files($slug_name, $objecttype , 'form');
-		
+		if($objecttype != 'landingpage' ){
+			create_properties_and_hierarchy_files($slug_name, $objecttype , 'form');
+		}
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		// 3.3. Create list properties and hierarchy yaml file */
-
-		create_properties_and_hierarchy_files($slug_name, $objecttype , 'list');
-
+		if($objecttype != 'landingpage' ){
+			create_properties_and_hierarchy_files($slug_name, $objecttype , 'list');
+		}
 		/* ------------------------------------ */
 		/* ------------------------------------ */
 		// 4.1. Create page template php file */
 		
 		$output = "<?php\n";
-		$output .= "/* Template Name: Page Posttype Template */\n";
+		$output .= "/* Template Name: " . $slug_name . " " . $objecttype . " Template */\n";
 		$output .= "get_header();\n";
 		$output .= "\$ui_page_name = \$post -> post_name;\n";
 		$output .= "require_once COREFILES_PATH . 'init-uigen-tdc.php';\n";

@@ -12,8 +12,15 @@ if ( current_user_can( 'manage_options' ) ) {
 	/* Swith to add PAGE                                                      */
 	/* ---------------------------------------------------------------------- */
 
-	if($_POST['objecttype']=='page'){
-		//wp_delete_post(1);
+	if($_POST['objecttype']=='landingpage'){
+		wp_delete_post( get_ID_by_slug( $object_slug . '-view') , true );
+		
+
+		ui_delete_viev_and_hierarhy_files($object_slug, 'landingpage');
+
+		ui_remove_landingpage_declarations($object_slug);
+
+		ui_remove_template_file( $object_slug , 'landingpage' );
 
 	}
 
@@ -70,28 +77,37 @@ function ui_delete_viev_and_hierarhy_files($object_name, $objecttype){
 	$file = $object_name . '-view-slots-properties.yaml';
 	unlink( $plugin_dir . $file );
 
-	$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
-	$file = $object_name . '-list-slots-hierarchy.yaml';
-	unlink( $plugin_dir . $file );
+	if($objecttype != 'landingpage' ){
+		$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
+		$file = $object_name . '-list-slots-hierarchy.yaml';
+		unlink( $plugin_dir . $file );
 
-	$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
-	$file = $object_name . '-list-slots-properties.yaml';
-	unlink( $plugin_dir . $file );
+		$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
+		$file = $object_name . '-list-slots-properties.yaml';
+		unlink( $plugin_dir . $file );
 
-	$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
-	$file = $object_name . '-form-slots-hierarchy.yaml';
-	unlink( $plugin_dir . $file );
+		$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
+		$file = $object_name . '-form-slots-hierarchy.yaml';
+		unlink( $plugin_dir . $file );
 
-	$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
-	$file = $object_name . '-form-slots-properties.yaml';
-	unlink( $plugin_dir . $file );
-		
+		$plugin_dir = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments/';
+		$file = $object_name . '-form-slots-properties.yaml';
+		unlink( $plugin_dir . $file );
+	}	
 }
 
-function ui_remove_posttype_declarations(){
+
+function ui_remove_landingpage_declarations($object_name){
+
+ 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+	$landingpage_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-landing-pages';
+
+	$landingpage_array = Spyc::YAMLLoad( $landingpage_prop_path . '/arguments/landingpages-arguments.yaml' );
+
+	unset( $landingpage_array[$object_name] );
+	file_put_contents( $landingpage_prop_path . '/arguments/landingpages-arguments.yaml' , Spyc::YAMLDump( $landingpage_array ));
 
 }
-
 function ui_remove_db_declarations($object_name){
 
  	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';

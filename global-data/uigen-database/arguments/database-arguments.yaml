@@ -5,16 +5,3 @@ zdjecia:
     - 
       db_column_name: user_id
       db_column_type: int(255)
-test5:
-  object_name: test5
-  db_table_columns:
-    - 
-      db_column_name: zzzz
-      db_column_type: char(255)
-    - 
-      db_column_name: yyy
-      db_column_type: char(255)
-  more_options: 'true'
-  view_schema: clear-data-contest
-  list_schema: clear-data-contest
-  form_schema: clear-data-contest

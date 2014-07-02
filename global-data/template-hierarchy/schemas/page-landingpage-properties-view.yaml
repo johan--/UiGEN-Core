@@ -1,0 +1,47 @@
+---
+# Grid ---------------------------------------------------
+grid: basic-article
+# Slot ---------------------------------------------------------
+logo:  
+  type: tpl-part
+  tpl_part: basic-logo-simple
+  debug_label: Logo
+  debug_type: static
+  debug_content_link: main_logo
+# Menu Slot ----------------------------------------------------
+nav-menu-header:  
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: nav-menu collapse navbar-collapse navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+  debug_label: Main Menu
+  debug_type: menu
+  debug_content_link: empty
+# Content Slot ----------------------------------------------------
+title-text:
+  type: tpl-part
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+  debug_label: Main Title
+  debug_type: static
+  debug_content_link: none
+content-text:
+  type: tpl-part
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+  debug_label: Content
+  debug_type: static
+  debug_content_link: empty
+# Footer Slot ----------------------------------------------------
+footer:
+  type: tpl-part
+  tpl_part: basic-footer
+  debug_label: Content
+  debug_type: static
+  debug_content_link: main_footer

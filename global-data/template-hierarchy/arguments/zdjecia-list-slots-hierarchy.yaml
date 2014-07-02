@@ -8,7 +8,7 @@ action:
 content-top:
   - simple-button3
 content-main:
-  - post-list4
+  - footer4
+  - post-list5
 footer-top: ""
-footer-main:
-  - footer5
+footer-main: ""

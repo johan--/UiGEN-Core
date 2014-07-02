@@ -2,13 +2,13 @@
 logo:
   - simple-logo0
 menu:
-  - simple-button1
-action:
-  - nav-menu-header2
+  - nav-menu-header1
+  - simple-button2
 content-top:
-  - title-text3
+  - simple-logo3
+  - title-text4
 content-main:
-  - form-slot4
+  - form-slot5
 footer-top:
-  - excerpt-text5
+  - excerpt-text6
 footer-main: ""

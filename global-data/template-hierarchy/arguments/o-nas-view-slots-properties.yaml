@@ -1,11 +1,12 @@
 ---
-grid: basic-slim
+grid: basic-article
 logo:
   type: tpl-part
   tpl_part: basic-logo-simple
+  debug_label: Logo
+  debug_type: static
+  debug_content_link: main_logo
 nav-menu-header:
-  debug_label: Nav Menu
-  debug_type: menu
   type: tpl-part
   tpl_part: basic-nav-menu-bootstrap
   menu:
@@ -18,23 +19,26 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
+  debug_label: Main Menu
+  debug_type: menu
+  debug_content_link: empty
 title-text:
-  debug_label: Title
-  debug_type: static
   type: tpl-part
-  tpl_part: titled-title
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
-message-slot:
-  debug_label: Form Message
-  debug_type: form
+  debug_label: Main Title
+  debug_type: static
+  debug_content_link: none
+content-text:
   type: tpl-part
-  name: message-box
-form-slot:
-  debug_label: Form Slot
-  debug_type: form
-  type: controller
-  name: buildForm
-  flow: basic-user-login
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+  debug_label: Content
+  debug_type: static
+  debug_content_link: empty
 footer:
   type: tpl-part
   tpl_part: basic-footer
+  debug_label: Content
+  debug_type: static
+  debug_content_link: main_footer

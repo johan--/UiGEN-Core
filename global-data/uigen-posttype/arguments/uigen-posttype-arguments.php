@@ -1,21 +1,21 @@
 <?php
 $uigen_posttypes = array(
     //----------------------------------------------------------------
-    'template_hierarchy' => array(
-        'label' => 'Template Hierarchy',
+    'landing_content' => array(
+        'label' => 'Landing Content',
         'labels' => array(
-            'name' => 'Template Hierarchy',
-            'singular_name' => 'Template Hierarchy',
+            'name' => 'Landing Content',
+            'singular_name' => 'Landing Content',
         ),
         'supports' => array(
             'title',
-            //'editor',
+            'editor',
             'thumbnail',
             'excerpt',                    
             'author'
         ),
         'public' => true,
-        'show_in_menu' => false,  // plugin menu structure to this posttype is in uigen-core.php with comment line // UiGEN Admin Menu
+        'show_in_menu' => true,  // plugin menu structure to this posttype is in uigen-core.php with comment line // UiGEN Admin Menu
         //'taxonomies' => array('category'),
         //'register_meta_box_cb' =>  'template_hierarchy_box',
     ),

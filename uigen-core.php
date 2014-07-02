@@ -267,6 +267,22 @@ function uigen_taxonomies() {
 	foreach ($debuger_custom_taxonomies as $ui_taxonomy => $props) {
 		register_taxonomy( $ui_taxonomy, $props['post_type'], $props['tax_args'] );
 	}
+
+
+	add_action( 'init', 'create_book_tax' );
+
+	
+	// register landingPage content map	
+	register_taxonomy(
+		'landing_content_hierarchy',
+		array( 'landing_content' ),
+		array(
+			'label' => __( 'Landing Content Hierarchy' ),
+			'rewrite' => array( 'slug' => 'landing-content-hierarchy' ),
+			'hierarchical' => true,
+		)
+	);
+	
 }
 
 
@@ -291,7 +307,26 @@ function uigen_metaboxes() {
   foreach ($uigen_metaboxes as $metabox) {
 	  add_meta_box($metabox[0],$metabox[1],$metabox[2],$metabox[3],$metabox[4],$metabox[5],$metabox[6]);
   }
+
+
+	foreach (array('page') as $type) 
+	{
+	        add_meta_box('my_all_meta', 'Landing page options', 'my_meta_setup', $type, 'normal', 'high');
+	}
+	add_action('save_post','my_meta_save');
+	function my_meta_setup()
+	{
+	    global $post;
+		echo 'sadsad';
+	}
+	function my_meta_save($post_id) 
+	{
+		//echo 'sadsad';
+	}
 }
+
+
+
 
 /**
  * register sidebars - from definition file.
@@ -367,10 +402,11 @@ function UiGEN_menu()
 {   
   // editor + administrator = moderate_comments;
   add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
+  
   // submenu with calbac
-  add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
+  //add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
+  
   // submenu from defined posttype
-  add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'manage_options', 'edit.php?post_type=template_hierarchy');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
   add_submenu_page('url_uigen_core', 'UiGEN Content parts', 'UiGEN Content parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
 
 } 

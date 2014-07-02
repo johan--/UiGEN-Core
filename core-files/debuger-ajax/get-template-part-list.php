@@ -11,7 +11,13 @@
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Form Filters</button><br/>
 	<button type="button" class="btn btn-default btn-sm" style="width:100%; margin-bottom:5px">Data Grid</button><br/>
 -->
-<h2>Slot List</h2>
+<div style="float:left;">
+<h2>Slot List</h2> 
+</div>
+<div style="float:right; margin-top:16px">
+<span style="font-size:20px" class="debuger-all-options glyphicon glyphicon-align-justify"></span>
+</div>
+<br style="clear:both">
 <?php
 
 	require_once("../../../../../wp-load.php");
