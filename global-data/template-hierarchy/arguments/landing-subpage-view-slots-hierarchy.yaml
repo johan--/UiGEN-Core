@@ -4,14 +4,11 @@ logo:
 menu:
   - nav-menu-header1
 content-top:
-  - post-list2
+  - title-text2
+  - content-text3
 content-main:
-  - simple-button3
   - title-text4
   - post-list5
-  - contact-form6
-footer-top:
-  - ico-carousel7
-  - content-text8
+footer-top: ""
 footer-main:
-  - footer119
+  - footer6

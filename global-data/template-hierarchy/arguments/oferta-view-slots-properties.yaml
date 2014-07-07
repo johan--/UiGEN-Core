@@ -57,3 +57,4 @@ footer5:
   debug_content_link: main_footer
 grid: basic-article
 ui_page_name: oferta-view
+ui_slot_list_name: slot-list-for-page1

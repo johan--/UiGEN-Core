@@ -5,14 +5,12 @@ menu:
   - nav-menu-header1
 content-top:
   - media2
-  - title-text3
-  - excerpt-text4
-  - post-list5
 content-main:
-  - simple-button6
+  - excerpt-text3
+  - title-text4
+  - content-text5
 footer-top:
+  - post-list6
   - ico-carousel7
-  - contact-form8
-  - content-text9
 footer-main:
-  - footer11111110
+  - footer8

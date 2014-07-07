@@ -21,13 +21,26 @@
 <?php
 
 	require_once("../../../../../wp-load.php");
+
+
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-	$slotList = Spyc::YAMLLoad(ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/schemas/slot-list.yaml');		
+	$all_properties = Spyc::YAMLLoadString($_POST['yaml']);
+	$listYaml = $all_properties[key($all_properties)]['ui_slot_list_name'];
+	if($listYaml == ''){
+		$listYaml = 'slot-list';
+	}
+	$slotList = Spyc::YAMLLoad(ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/schemas/'.$listYaml.'.yaml');		
 	
+
+	
+
 	global $DTDC;
+
+
 	require_once(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/display-controller.class.php');	
 	@$DTDC = new ThemeDisplayController( $post->ID ); 
-		$DTDC -> args = $slotList;
+
+	$DTDC -> args = $slotList;
 	require_once  TEMPLATEPATH.'/theme-template-parts/flow/basic-test-flow.php'; 
 	@require_once(ABSPATH . 'wp-content/plugins/UiGEN-Core/class/send-post-data_eachwalker.class.php');
 	global $SPD; 

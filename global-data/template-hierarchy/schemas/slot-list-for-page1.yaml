@@ -8,7 +8,6 @@ simple-logo:
   debug_label: Simple Logo
   debug_type: img
   content_link: main_logo
-  element_attr: empty
 # --------------------------------------------------------------
 # Menu Slot ----------------------------------------------------
 # --------------------------------------------------------------
@@ -27,15 +26,15 @@ nav-menu-header:
   debug_label: Nav Menu
   debug_type: menu
   content_link: empty
-  element_attr: empty
 # --------------------------------------------------------------
 # Slot ---------------------------------------------------------
 # --------------------------------------------------------------
 title-text:
   type: tpl-part
   tpl_part: tiled-title
+  args:
+    underline: true
   # -----------------------------
-  element_attr: empty
   debug_label: Title
   debug_type: static
   content_link: empty
@@ -45,11 +44,48 @@ title-text:
 excerpt-text:
   type: tpl-part
   tpl_part: basic-excerpt-promo
+  args:
+    underline: true
   # -----------------------------
   debug_label: Excerpt
   debug_type: static
   content_link: empty
-  element_attr: empty
+# --------------------------------------------------------------
+# Slot ---------------------------------------------------------
+# --------------------------------------------------------------
+content-text:
+  type: tpl-part
+  tpl_part: tiled-content
+  args:
+    underline: true
+  # -----------------------------
+  debug_label: Excerpt
+  debug_type: static
+  content_link: empty
+# --------------------------------------------------------------
+# Slot ---------------------------------------------------------
+# --------------------------------------------------------------
+ico-carousel:
+  type: tpl-part
+  args:
+   post_type: landing_content
+  tpl_part: tiled-item-carousel
+  # -----------------------------
+  debug_label: Excerpt
+  debug_type: static
+  content_link: empty
+# --------------------------------------------------------------
+# Slot ---------------------------------------------------------
+# --------------------------------------------------------------
+media:
+  type: tpl-part
+  args:
+   post_type: landing_content
+  tpl_part: tiled-media
+  # -----------------------------
+  debug_label: Excerpt
+  debug_type: static
+  content_link: empty
 # --------------------------------------------------------------
 # Slot ---------------------------------------------------------
 # --------------------------------------------------------------
@@ -67,8 +103,8 @@ simple-button:
   element_attr:
     element_wraper:
       style: >
-        float:right; margin-left:10px
-    content_wraper:
+        text-align:center
+    title_wraper:
       class: btn btn-primary active
 # --------------------------------------------------------------
 # Post list ----------------------------------------------------
@@ -76,15 +112,29 @@ simple-button:
 post-list:
   type: controller
   name: tdc_get_loop 
-  tpl_part: post-list-item
+  tpl_part: basic-excerpt-box-3
   query_args:
-    post_type: example_posttype
+    post_type: landing_content
     posts_per_page: 10
     # taxonomy'=>$arrayKey,
     # term'=>$term,
     paged: 1
+  element_attr:
+    element_wraper:
+      class: col-md-4
   # -----------------------------
   debug_label: Post list
   debug_type: list
   content_link: empty
-  element_attr: empty
+# --------------------------------------------------------------
+# Slot ---------------------------------------------------------
+# --------------------------------------------------------------
+contact-form7:
+  type: tpl-part
+  args:
+    form_id: 1053
+  tpl_part: tiled-contact7
+  # -----------------------------
+  debug_label: Excerpt
+  debug_type: static
+  content_link: empty

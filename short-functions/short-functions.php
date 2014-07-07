@@ -35,7 +35,7 @@ function uigen_nav_menu(){
 }
 
 function uigen_addattr($element_schema,$attr_data){
-	
+
 	if( $element_schema['element_attr'] == NULL ) { return false; } else {
 		
 		foreach ($element_schema['element_attr'] as $key => $value) {
@@ -52,10 +52,16 @@ function uigen_addattr($element_schema,$attr_data){
 }
 
 function merge_tplpart_prop($element_schema){
-
+	
 	global $TDC;
-	$element_schema = @array_merge($element_schema,$TDC->args[$TDC->current_slot]);
+
+	$element_schema = @array_replace_recursive($element_schema,$TDC->args[$TDC->current_slot]);
 	return $element_schema;
 
 }
 
+function short_text($text, $max) {
+    if (strlen($text)<=$max)
+        return $text;
+    return substr($text, 0, $max-3).'...';
+}

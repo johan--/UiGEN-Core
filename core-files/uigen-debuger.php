@@ -296,10 +296,13 @@ body.left200{
   -ms-transition: none !important;
   transition: none !important;
 }
+.modal{
+	z-index:10000;
+}
 </style>
 
 <script>
-
+	jQuery('body').addClass('debuger');
 	var static_el_schema = {    
 		    "type": "object",
 		    "properties": {
@@ -338,7 +341,6 @@ body.left200{
  * @filesource /UiGEN-Core/core-files/uigen-debuger.php
  */
 function decorate_debuged_page_header($gridName,$args){
-
 	if ( !current_user_can( 'manage_options' ) ) {
 	?>
 		<div style="background-color:rgb(209, 66, 66); color:#fff; padding:20px">
@@ -349,7 +351,7 @@ function decorate_debuged_page_header($gridName,$args){
 	<?php
 	}
 	?>
-	<div class="debug-grid-bar-decorator draggable-decorator-guardian" data-page-name="<?php echo $args['ui_page_name']; ?>">
+	<div class="debug-grid-bar-decorator draggable-decorator-guardian" data-page-name="<?php echo $args['ui_page_name']; ?>" data-slot-list-file="<?php echo $args['ui_slot_list_name']?>">
 
 		<div id="pages_creator">
 			<div style="padding:20px;"><div style="margin-top:20px;" class="progress progress-striped active"><div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div></div>
@@ -490,7 +492,7 @@ function decorate_slot($position,$slotName,$slot){
 				  	</li>
 				  	<?php } ?>
 				  	<li class="slotSettings">
-				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Settings</a>
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Settings and CSS</a>
 				    </li>
 					<li class="divider"></li>
 				    <li class="slotProperties">
@@ -652,7 +654,8 @@ window.onload=function(){
 	});
 
 	jQuery(document).on('click', "li.slotProperties", function() {
-
+		
+		var _this = this;
 		// disable sortable
 		jQuery('.uigen-act-cell').sortable({ disabled: true });
 
@@ -687,7 +690,7 @@ window.onload=function(){
 			    	},			    	
 			    	"tpl_part":{
 			    		"title":"Template part",
-		                "enum": ["basic-logo-simple", "basic-button", "post-list-item", "basic-article" , "tiled-title" ],   
+		                "enum": ["basic-logo-simple", "basic-button", "post-list-item", "basic-article" , "tiled-title" , "basic-excerpt-box-3" , "basic-excerpt-box-2" ],   
 		                "default":"tpl-part"
 			    	},
 			    	'tpl_start':{
@@ -721,6 +724,37 @@ window.onload=function(){
 			                    "title": "Set current start page",			                    
 			                    "type": "number"
 			                },
+			                "tax_query": {
+		               			"title": "Create Taxonomy Filter",
+		                		"type": "object",
+		                		"properties": {	
+				               		"0": {
+						                "title": "Tax Query prop",
+						                "type": "object",
+						                "properties": {
+						                	"taxonomy": {
+						                    	"title": "Taxonomy name",			                    
+						                    	"type": "string"
+						               		},	
+						               		"field": {
+						                    	"title": "Filter by this field type",			                    
+						                    	"type": "string"
+						               		},	
+						               		"terms": {
+						                    	"title": "Terms name",
+						                		"type": "object",
+						                		"properties": {	
+						                			"0": {
+								                    	"title": "Category name",			                    
+								                    	"type": "string"
+								               		},	
+						                		}
+						               		},	
+						   
+						                }
+						            }
+		                		}
+		                	}
 			            }
 		            },		    	
 			       
@@ -742,6 +776,20 @@ window.onload=function(){
                         	"type": "controller"
                     	},
                     	"removeDefaultNone": true,
+
+							"fields": {
+								"post_type": {
+									
+								},
+								"tax_query": {
+									"fields": {
+										"taxonomy": {
+									
+										}
+									}									
+								}
+							}
+						
                 	},
                 	"post_id": {
                     	"dependencies": {
@@ -761,7 +809,28 @@ window.onload=function(){
                 		"type": "textarea"
                 	}
 				}
-			}
+			},
+			"postRender": function(form) {
+			        jQuery(document).on('click', ".debug-save-core-properties", function() {
+			        	debug_core_properties_hide(_this);
+			        	
+			        	var json = form.getValue();
+		            	jQuery.ajax({
+							type: "POST",
+							url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-element-properties.php",
+							data: { 
+								page_name: jQuery('#ui_page_name').text(),
+								object_data: json, 
+								objecttype: jQuery(_this).closest('.debug-tplpart-decorator').attr('id')
+							}
+						})
+						.done(function( msg ) {	
+							jQuery('.modal-content').children('.modal-body').children('div').remove();
+							jQuery('.modal-content').children('.modal-body').append(msg);
+						});
+		            	console.log(json);
+			        });
+			    }
 			});
 		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideDown();
 	});
@@ -780,19 +849,53 @@ window.onload=function(){
 		jQuery('#onHandler').prepend('<div id="properties-mask">&nbsp;</div>');
 
  		// header slot loader
-		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeIn();
-		
+		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeIn();		
 		var url = "<?php echo get_template_directory_uri() . '/theme-template-parts/content/content-'; ?>" + jQuery(this).closest('.debug-tplpart-decorator').attr('data-tplname') + ".php";
 		var _this = this;
+		var textareaVal = jQuery(this).parent().parent().parent().parent().children('.portlet-inspect').children('textarea').val();
 		jQuery.ajax({
 			type: "POST",
 			url: url ,
-			data: { 'printschema':'true' }
+			data: { 
+				'printschema':'true',
+				'slotname':jQuery(_this).closest('.debug-tplpart-decorator').find('.slot_name').text(),
+				'yaml': textareaVal
+			}
 		})
 		.done(function( msg ) {	 
+			
+			msg = jQuery.parseJSON( msg )
+			msg["postRender"] = function(form) {
+		        jQuery(document).on('click', ".debug-save-core-properties", function() {
+		        	
+		        	
+		            	debug_core_properties_hide(_this);
+		            	var json = form.getValue();
+		            	jQuery.ajax({
+							type: "POST",
+							url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-element-settings.php",
+							data: { 
+								page_name: jQuery('#ui_page_name').text(),
+								object_data: json, 
+								objecttype: jQuery(_this).closest('.debug-tplpart-decorator').attr('id')
+							}
+						})
+						.done(function( msg ) {	
+							jQuery('.modal-content').children('.modal-body').children('div').remove();
+							jQuery('.modal-content').children('.modal-body').append(msg);
+						});
+		            	console.log(json);
+		        	
+		        });
+		    }
+
+			//console.log(msg);
+			
+
+
 			jQuery('.portlet-inspect-properties-form').children().remove();
 
-			jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect-properties-form').alpaca(jQuery.parseJSON( msg ));
+			jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect-properties-form').alpaca(msg);
 			jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideDown();
 
 		});
@@ -807,14 +910,16 @@ window.onload=function(){
 		
 	});
 
-	jQuery(document).on('click', ".debug-core-properties-hide", function() {
-		
+	jQuery(document).on('click', ".debug-core-properties-hide", function() {		
+		debug_core_properties_hide(this);
+	});
+
+	function debug_core_properties_hide(_this){
 		jQuery('.uigen-act-cell').sortable({ disabled: false });
 		jQuery('#properties-mask').remove();
-		jQuery(this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideUp();
-		jQuery(this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeOut();
-
-	});
+		jQuery(_this).closest('.debug-tplpart-decorator').find('.portlet-inspect').slideUp();
+		jQuery(_this).closest('.debug-tplpart-decorator').find('.slot_properties_header').fadeOut();
+	}
 
 	jQuery(document).on('click', "#footer_save_info .undoLast", function() {
 		alert(donateString);
@@ -1162,7 +1267,13 @@ window.onload=function(){
 		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/save-slot-history_and_properties.php",
-			data: { hierarchy_yaml: output_hierarchy_yaml , prop_yaml: output_saved_yaml ,ui_page_name: jQuery('#ui_page_name').text(), ui_grid_name: jQuery('#ui_grid_name').text()}
+			data: { 
+				hierarchy_yaml: output_hierarchy_yaml ,
+				prop_yaml: output_saved_yaml ,
+				ui_page_name: jQuery('#ui_page_name').text(), 
+				ui_grid_name: jQuery('#ui_grid_name').text(),
+				ui_slot_list: jQuery('.debug-grid-bar-decorator').attr('data-slot-list-file')
+			}
 		})
 		.done(function( msg ) {	
 			jQuery('.modal-content').children('div').remove();
@@ -1171,11 +1282,12 @@ window.onload=function(){
       		
 	});
 
-	function loadSlotList(){
+	function loadSlotList(_this){
+
 		jQuery.ajax({
 			type: "POST",
 			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/debuger-ajax/get-template-part-list.php?debug=true",
-			data: { yaml: jQuery(this).parent().children('textarea').val(),ui_page_name: jQuery('#ui_page_name').text() }
+			data: {'yaml':jQuery('.debug-grid-bar-decorator .debug-tplpart-decorator .portlet-inspect .portlet-inspect-yaml').val()}
 		})
 		.done(function( msg ) {	
 			jQuery('#debug-manager').append(msg);
@@ -1195,7 +1307,7 @@ window.onload=function(){
 
 		});
 	}
-	loadSlotList();	
+	loadSlotList(this);	
 
 	function loadSlotListHandler(){
 		jQuery('#debug-manager').children('.debug-tplpart-decorator').children('.tplpart_decorator_options_panel').next().next().addClass('ui_slot_element');

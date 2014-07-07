@@ -141,12 +141,12 @@ require_once("../../../../../wp-load.php");
 	});
 
 
-jQuery('body').bind('paste', function(e) {
+/*jQuery('body').bind('paste', function(e) {
 	var data = e.originalEvent.clipboardData.getData('Text');
 	if (data.length > 10) {
 		return false;
 	} else {
 		return true;
 	}
-});
+});*/
 		</script>

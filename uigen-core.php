@@ -243,6 +243,10 @@ function uigen_posttypes() {
 		echo 'error, password wrong!';
 		die();
 	}*/
+
+
+
+
 }
 
 
@@ -280,6 +284,7 @@ function uigen_taxonomies() {
 			'label' => __( 'Landing Content Hierarchy' ),
 			'rewrite' => array( 'slug' => 'landing-content-hierarchy' ),
 			'hierarchical' => true,
+			'show_admin_column' => true,
 		)
 	);
 	
@@ -323,6 +328,10 @@ function uigen_metaboxes() {
 	{
 		//echo 'sadsad';
 	}
+
+
+
+
 }
 
 
