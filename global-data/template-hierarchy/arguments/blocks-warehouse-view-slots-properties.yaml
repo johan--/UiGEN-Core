@@ -1,5 +1,7 @@
 ---
 grid: basic-article
+# Debuger prop -------------------------------------------------
+ui_slot_list_name: slot-list-for-posttype1
 logo:
   type: tpl-part
   tpl_part: basic-logo-simple

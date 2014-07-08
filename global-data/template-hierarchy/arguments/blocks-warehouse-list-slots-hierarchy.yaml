@@ -1,11 +1,11 @@
 ---
 logo:
-  - logo
+  - simple-logo0
 menu:
-  - nav-menu-header
-content-main:
-  - post-list
-footer-top:
-  - nav-menu-footer
-footer-main:
-  - footer
+  - nav-menu-header1
+content-top:
+  - title-text2
+  - post-list3
+content-main: ""
+footer-top: ""
+footer-main: ""

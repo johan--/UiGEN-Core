@@ -12,3 +12,16 @@ blocks-warehouse:
     - author
   public: true
   show_in_menu: true
+new-posttype:
+  label: new-posttype
+  labels:
+    name: new-posttype
+    singular_name: new-posttype
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true

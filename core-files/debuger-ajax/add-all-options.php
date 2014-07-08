@@ -37,4 +37,7 @@ require_once("../../../../../wp-load.php");
 <div class="all-options-buttons" id="xxall_grid_selector">
 	Rebuild slots
 </div>
+<div class="all-options-buttons" id="xxall_grid_selector">
+	Tutorials set
+</div>
 
