@@ -1,9 +1,1 @@
 ---
-o-nas:
-  object_name: o-nas
-landing-subpage:
-  object_name: landing-subpage
-landing-page:
-  object_name: landing-page
-  more_options: 'true'
-  view_schema: simple-landing-page-1

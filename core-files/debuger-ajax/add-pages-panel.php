@@ -49,15 +49,15 @@
 
 <div id="pages-panel-add-buttons">	
 	<h1 style="float:left">Pages Creator</h1>
-	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="db">
+	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="db">
 		<span style="color:#A431B9;" class="glyphicon glyphicon-plus"></span><span style="color:#A431B9;" class="glyphicon glyphicon-list-alt"></span> New database
 	</button>
 
-	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="user">
+	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="user">
 		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> New users
 	</button>
 
-	<button disabled="disabled" style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="posttype">
+	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="posttype">
 		<span style="color:#39BB39;" class="glyphicon glyphicon-plus"></span><span style="color:#39BB39;" class="glyphicon glyphicon-th-list"></span> New posttype
 	</button>
 
@@ -135,7 +135,7 @@
 		<div class="page-panel" data-type="posttype">
 				<div class="page-panel-header" style="background-color: #408A40;">
 					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-th-list"></span>
-					<span class="objectname"><?php echo $value['object_name']; ?></span>
+					<span class="objectname"><?php echo $value['label']; ?></span>
 					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
 				</div>
 
@@ -152,7 +152,7 @@
 				</div>
 
 				<?php
-					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_posttype.php';
+					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_posttype.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">

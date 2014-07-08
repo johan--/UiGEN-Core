@@ -581,33 +581,28 @@ margin:2px 30px 2px 0; */
 /* ----------------------------------------- */
 /* -- FORMS -------------------------------- */
 .flow_form input[type="submit"]{
-	width:216px;
 }
 .form-box{
 	margin-left:-170px;
 }
 .form-label{
-	float:left;
-	width:150px;
-	text-align:right;
+	float:right;
 	margin-right:20px;
-	line-height:27px;
+	line-height:34px;
 }
 .field-description{
 	float:left;
 	width:280px;
-	line-height:28px;
 	margin-left:20px;
 	font-style:italic;
 	color:#777;
 }
 .form-box input{
-	height:25px;	
+
 }
 .form-box input[type="radio"]{
 	float:left;
-	width:30px;
-	height:20px;
+
 }
 .radio-container{
 	clear:both;
@@ -618,17 +613,17 @@ margin:2px 30px 2px 0; */
 	text-align:left;
 } 
 .form-box input[type="text"]{
-	line-height:22px;
+
 	float:left;
-	width:200px;	
+
 }
 .form-box select.select-block{
 	float:left;
-	width:214px;	
+
 }
 .form-box input[type="checkbox"]{
 	float:left;
-	width:14px;
+
 	margin-top:7px;	
 }
 .form-box input[type="password"]{
@@ -638,7 +633,7 @@ margin:2px 30px 2px 0; */
 .form-box .checkbox{
 	color:#868585;
 	margin-left:0;
-	line-height:26px;
+
 }
 .submitBtn{ 
 	margin-top:20px;
@@ -646,7 +641,7 @@ margin:2px 30px 2px 0; */
 /* --- SUMMARY ----------------------------- */
 .summary-name {
 	float:left;
-	width:150px;
+
 	text-align:right;
 	margin-right:20px;
 }

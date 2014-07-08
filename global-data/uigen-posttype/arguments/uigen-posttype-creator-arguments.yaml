@@ -1,1 +1,14 @@
 ---
+blocks-warehouse:
+  label: blocks-warehouse
+  labels:
+    name: blocks-warehouse
+    singular_name: blocks-warehouse
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
