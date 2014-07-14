@@ -16,9 +16,14 @@ To get started, check out <http://uigen.org>!
 
 ## Quick start
 
+INSTALLATION:
 
-Information about quick start soon.
+Very important!!!!
+YAML folder must have write permission
 
+UiGEN-Core/global-data/...
+
+Permission checker is not created now and you must check it manually.
 
 
 ## TEAM
