@@ -206,6 +206,9 @@ body.left200{
 	text-shadow:0px 0px 3px #000;
 	margin-left:10px;
 }
+
+
+
 .portlet-inspect .alpaca-controlfield-radio{
 	margin:0px;
 }
@@ -214,11 +217,26 @@ body.left200{
 }
 .portlet-inspect .alpaca-fieldset-legend-button-text{
 	line-height:60px;
-	font-size:24px;
+	font-size:22px;
 	color:#ccc !important;
-	text-shadow:0px 0px 3px #000;
+	text-shadow:0px 0px 5px #000;
+}
+.portlet-inspect .alpaca-fieldset {
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.control-label{
+	display:block;
+}
+.portlet-inspect .alpaca-controlfield-radio .radio {
+    float:left;
+	margin:-5px 20px 10px 10px !important;
+	padding: 0 !important;
 }
 
+.alpaca-controlfield-helper{ 
+clear:both;
+}
 
 
 .slot_properties_header{
@@ -503,7 +521,7 @@ function decorate_slot($position,$slotName,$slot){
 				  	</li>
 				  	<?php } ?>
 				  	<li class="slotSettings">
-				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp; Settings and CSS</a>
+				    	<a href="Javascript: void(0);"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Settings and CSS</a>
 				    </li>
 					<li class="divider"></li>
 				    <li class="slotProperties">
@@ -601,6 +619,7 @@ window.onload=function(){
 
 
 
+/* HELP TUTORIALS SYSTEM */
 
 /*	var helpHistory = [
 
@@ -630,6 +649,68 @@ window.onload=function(){
 	jQuery('#help_panel').click( "li.slotEdit", function() {
 		jQuery('#help_panel').remove();
 	});*/
+
+
+
+	var tutorial1 = [
+		{
+			'action_name':'click on kurwa mać',
+			'action_start':'click on madafaka',
+			'action_type':'click',
+			'action_workspace':'#nav-menu-header1 .debugInspect',
+			'action_finish':'Oh you son of the fuck. Congrats'
+
+		},
+		{
+			'tut_part_name':'create new posttype',
+			'tut_part_actions':[
+				{},
+				{},
+				{}
+			]			
+		}
+	];
+
+	ui_tutorial(tutorial1);
+
+	function ui_tutorial(tut_data){
+
+		// init tutorial object
+		var tutorialObject = {
+			'tutorial_name':'tutorial1',
+			'tutorial_step':0,
+			'tutorial_data':'' 
+		}
+
+		if(localStorage.ui_tutorial == undefined){
+				
+			// load fefault tutorial
+				
+			tutorialObject['tutorial_data'] = tut_data;
+			localStorage.setItem("ui_tutorial", JSON.stringify(tutorialObject));
+			
+
+			// and run tutorial
+			var tutorial_data = JSON.parse(localStorage.ui_tutorial);
+			//alert(tutorial_data['tutorial_data'][0]['action_name']);
+
+
+		}else{
+
+			// only run tutorial
+			var tutorial_data = JSON.parse(localStorage.ui_tutorial);
+			
+			if(tutorial_data['tutorial_data'][0]['action_type'] == 'click'){
+				jQuery(document).on('click', tutorial_data['tutorial_data'][0]['action_workspace'] , function() {
+					//alert('succes - you click on ');	
+				});
+			}			
+
+		}		
+		
+	}
+/* END HELP TUTORIALS SYSTEM */
+
 
 
 	jQuery(document).on('click', "li.slotEdit", function() {
@@ -774,7 +855,9 @@ window.onload=function(){
 			"options": {		
 				"fields": {
 			         "type": {
-			         	"removeDefaultNone": true,			                
+			         	"removeDefaultNone": true,
+			         	"type": "radio",
+            			"vertical": false			                
 			         },
 			         "name": {
                     	"dependencies": {

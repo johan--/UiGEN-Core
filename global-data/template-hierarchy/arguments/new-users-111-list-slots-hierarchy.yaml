@@ -5,8 +5,7 @@ menu:
   - nav-menu-header1
 content-top: ""
 content-main:
-  - title-text2
-  - content-text3
+  - user-list2
 footer-top: ""
 footer-main:
-  - footer4
+  - footer3

@@ -1,11 +1,12 @@
 ---
-logo0:
+grid: basic-article
+ui_slot_list_name: slot-list-for-users1
+logo:
   type: tpl-part
   tpl_part: basic-logo-simple
-  debug_label: Logo
-  debug_type: static
-  debug_content_link: main_logo
-nav-menu-header1:
+nav-menu-header:
+  debug_label: Nav Menu
+  debug_type: menu
   type: tpl-part
   tpl_part: basic-nav-menu-bootstrap
   menu:
@@ -18,29 +19,18 @@ nav-menu-header1:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-  debug_label: Main Menu
-  debug_type: menu
-  debug_content_link: empty
-title-text2:
+title-text:
+  debug_label: Title
+  debug_type: static
   type: tpl-part
   tpl_part: tiled-title
   tpl_part_prop: not_implemented
-  debug_label: Main Title
+content-text:
+  debug_label: Content
   debug_type: static
-  debug_content_link: none
-content-text3:
   type: tpl-part
   tpl_part: tiled-content
   tpl_part_prop: not_implemented
-  debug_label: Content
-  debug_type: static
-  debug_content_link: empty
-footer4:
+footer:
   type: tpl-part
   tpl_part: basic-footer
-  debug_label: Content
-  debug_type: static
-  debug_content_link: main_footer
-grid: basic-article
-ui_page_name: mainpage-view
-ui_slot_list_name: slot-list-for-page1

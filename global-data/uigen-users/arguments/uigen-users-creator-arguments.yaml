@@ -1,0 +1,7 @@
+---
+new-users:
+  label: new-users
+  role: Subscriber
+  labels:
+    name: new-users
+    singular_name: new-users

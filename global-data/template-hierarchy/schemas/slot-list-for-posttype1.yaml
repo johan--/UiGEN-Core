@@ -50,20 +50,6 @@ simple-button:
       class: btn btn-primary active    
   tpl_part: basic-button
   tpl_part_prop: not_implemented
-# User list ---------------------------------------------------------
-user-list:
-  debug_label: User list
-  debug_type: list
-  type: controller
-  name: tdc_get_user_loop 
-  tpl_part: basic-user-block
-    query_args:
-      fields: all_with_meta
-      role: subscriber
-      search: *'.esc_attr( 'dadmor' ).'*
-      role: administrator
-      role: only_subscriber
-      number:10
 # Post list ---------------------------------------------------------
 post-list:
   debug_label: Post list
@@ -77,6 +63,13 @@ post-list:
     # taxonomy'=>$arrayKey,
     # term'=>$term,
     paged: 1
+# Post meta ---------------------------------------------------------
+post-meta:
+  debug_label: Post meta
+  debug_type: list
+  type: tpl-part
+  tpl_part: basic-meta
+  tpl_part_prop: not_implemented
 # Slot ---------------------------------------------------------
 form-slot:
   debug_label: Form Slot

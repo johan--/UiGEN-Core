@@ -4,8 +4,8 @@ logo:
 menu:
   - nav-menu-header1
 content-top:
-  - title-text2
-  - post-list3
+  - post-list2
+  - paginator3
 content-main: ""
 footer-top: ""
 footer-main: ""

@@ -54,7 +54,7 @@
 	</button>
 
 	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="user">
-		<span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-user"></span> New users
+		<span style="color:#B37323;" class="glyphicon glyphicon-plus"></span><span style="color:#B37323;" class="glyphicon glyphicon-user"></span> New users
 	</button>
 
 	<button style="float:right; margin-left:5px; margin-top:20px" type="button" class="add-new-page-button btn btn-default" style="" data-object-type="posttype">
@@ -89,11 +89,14 @@
 <?php
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-alpacaform-yaml.php';
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+	
 	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
 	$db_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-database';
 	$landingpages_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-landing-pages';
-	
+	$users_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-users';
+
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
+	$users_array = Spyc::YAMLLoad( $users_prop_path . '/arguments/users-arguments.yaml' );
 	$db_array = Spyc::YAMLLoad( $db_prop_path . '/arguments/database-arguments.yaml' );
 	$landingpages_array = Spyc::YAMLLoad( $landingpages_prop_path . '/arguments/landingpages-arguments.yaml' );
 
@@ -101,7 +104,7 @@
 		?>
 		<div class="page-panel" data-type="landingpage">
 				<div class="page-panel-header" style="background-color: #428BCA;">
-					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-th-list"></span>
+					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-file"></span>
 					<span class="objectname"><?php echo $value['object_name']; ?></span>
 					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
 				</div>
@@ -153,6 +156,42 @@
 
 				<?php
 					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_posttype.php';
+					if (!file_exists($filename)) {
+						?>
+					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
+							Warning: <br/>Page Tamplate file doesn't exist !!
+						</div>
+						<?php
+					}
+				?>
+			</div>	
+		<?php
+	}
+
+
+	foreach ($users_array as $key => $value) {
+		?>
+		<div class="page-panel" data-type="user">
+				<div class="page-panel-header" style="background-color: #B37323;">
+					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-user"></span>
+					<span class="objectname"><?php echo $value['label']; ?></span>
+					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+				</div>
+
+				<div>
+					<div style="font-size:11px; padding:3px 6px; border-bottom:1px solid #aaa; text-align:right; ">
+						<span><a href="#" class="delete_element" data-target="<?php echo $key; ?>">delete</a></span>
+					</div>
+				</div>
+				<div>
+					<?php $ob_view = create_display_pages_element( $key , 'view' ); ?>
+					<?php $ob_view = create_display_pages_element( $key , 'form' ); ?>
+					<?php $ob_view = create_display_pages_element( $key , 'list' ); ?>
+					<br style="clear:both"/>
+				</div>
+
+				<?php
+					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_user.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
@@ -513,6 +552,9 @@ jQuery( ".delete_element" ).click(function() {
 	            "enum": ["Administrator", "Contributor", "Author", "Subscriber" ],   
                 "default":"Subscriber",            
 	        },
+	        "custom_role": {                    
+	                "type": "boolean"
+	        },
 	        "more_options": {                    
 	                "type": "boolean"
 	        },
@@ -540,6 +582,9 @@ jQuery( ".delete_element" ).click(function() {
 		"fields": {
 	         "more_options": {
 	                "rightLabel": "More options"
+	         },
+	         "custom_role": {
+	                "rightLabel": "Create custom role (not implemented yet)"
 	         }
 		}
 	},

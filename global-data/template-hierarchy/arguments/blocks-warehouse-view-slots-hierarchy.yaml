@@ -1,12 +1,14 @@
 ---
 logo:
-  - logo
+  - logo0
 menu:
-  - nav-menu-header
+  - nav-menu-header1
+content-top:
+  - title-text2
+  - post-meta3
+  - post-meta4
 content-main:
-  - title-text
-  - content-text
-footer-top:
-  - nav-menu-footer
+  - content-text5
+footer-top: ""
 footer-main:
-  - footer
+  - footer6

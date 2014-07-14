@@ -1,8 +1,10 @@
 ---
-logo0:
+grid: basic-slim
+ui_slot_list_name: slot-list-for-users1
+logo:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header1:
+nav-menu-header:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -17,33 +19,22 @@ nav-menu-header1:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text2:
+title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: tiled-title
+  tpl_part: titled-title
   tpl_part_prop: not_implemented
-post-meta3:
-  debug_label: Post meta
-  debug_type: list
+message-slot:
+  debug_label: Form Message
+  debug_type: form
   type: tpl-part
-  tpl_part: basic-meta
-  tpl_part_prop: not_implemented
-post-meta4:
-  debug_label: Post meta
-  debug_type: list
-  type: tpl-part
-  tpl_part: basic-meta
-  tpl_part_prop: not_implemented
-content-text5:
-  debug_label: Content
-  debug_type: static
-  type: tpl-part
-  tpl_part: tiled-content
-  tpl_part_prop: not_implemented
-footer6:
+  name: message-box
+form-slot:
+  debug_label: Form Slot
+  debug_type: form
+  type: controller
+  name: buildForm
+footer:
   type: tpl-part
   tpl_part: basic-footer
-grid: basic-article
-ui_page_name: blocks-warehouse-view
-ui_slot_list_name: slot-list-for-posttype1

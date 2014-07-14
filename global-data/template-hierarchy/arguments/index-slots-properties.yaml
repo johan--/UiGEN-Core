@@ -82,7 +82,7 @@ post-list6:
   debug_label: Post list
   debug_type: list
   content_link: empty
-ico-carousel7:
+ico-carousel17:
   type: tpl-part
   args:
     post_type: landing_content
@@ -90,7 +90,7 @@ ico-carousel7:
   debug_label: Excerpt
   debug_type: static
   content_link: empty
-excerpt-text8:
+excerpt-text18:
   type: tpl-part
   tpl_part: basic-excerpt-promo
   args:

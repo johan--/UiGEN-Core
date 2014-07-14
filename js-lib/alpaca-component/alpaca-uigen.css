@@ -19,6 +19,18 @@
   z-index:1000;
 }  */
 
+.alpaca-fieldset .form-group{
+  margin:0px;
+}
+.alpaca-fieldset .alpaca-controlfield{
+  margin:0px;
+  padding:0px;
+}
+.alpaca-fieldset legend{
+  margin:0px;
+  padding:0px;
+}
+
 
 
 .alpaca-fieldset span, .alpaca-fieldset label{
@@ -27,29 +39,13 @@
 
 }
 
-.alpaca-fieldset-array-toolbar{
-  margin-top:-20px;
-}
+
 .alpaca-fieldset-array-item-toolbar{
   position:absolute; 
-  top:46px;
+  top:41px;
   float:right;
 }
-.alpaca-fieldset-items-container{
-  margin-bottom: 20px;
-}
-.alpaca-item-container{
-  margin-top:-40px;
-}
-.alpaca-controlfield-container{
- margin-bottom:-20px;
-}
 
-fieldset.alpaca-fieldset fieldset.alpaca-fieldset{
-  margin-top:20px;
-  margin-bottom:10px;
+.alpaca-item-container:hover{
+  background:rgba(150, 150, 150, 0.1);
 }
-
-.alpaca-fieldset-legend{
-  margin-bottom:10px;
-} 

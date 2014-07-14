@@ -196,18 +196,20 @@ function ui_register_object($object_name, $objecttype){
 			/* 1.1. Create database declaration    */
 
 
-			$users_array[$object_name] = $_POST['object_data'];
-			$users_array[$object_name]['object_name'] = $slug_name;
-
-			/* create users declarations array */
-			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
-			$users_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-users/arguments/users-arguments.yaml' );
-
+			$users_array = Spyc::YAMLLoad( $prop_path . 'uigen-users/arguments/users-arguments.yaml' );
+			$users_schema = Spyc::YAMLLoad( $prop_path . 'uigen-users/schemas/uigen-users-creator-schema.yaml' );
+			
+			$users_added_array[$slug_name] = $users_schema['example_user'];
+			$users_added_array[$slug_name]['label'] = $object_name;
+			$users_added_array[$slug_name]['labels']['name'] = $object_name;
+			$users_added_array[$slug_name]['labels']['singular_name'] = $object_name;
+			
 			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
+			$users_array = ui_merge_data_array($users_array,$users_added_array);
+			
+			/* create users declarations array */
+			file_put_contents( $prop_path . 'uigen-users/arguments/users-arguments.yaml' , Spyc::YAMLDump($users_array ));
 
-		    $users_array = ui_merge_data_array( $users_old_array , $users_array );
-
-			file_put_contents( $prop_path . 'uigen-users/arguments/users-arguments.yaml' , Spyc::YAMLDump( $usres_array ));
 
 		}
 
