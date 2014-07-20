@@ -16,10 +16,8 @@ if ( current_user_can( 'manage_options' ) ) {
 		wp_delete_post( get_ID_by_slug( $object_slug . '-view') , true );
 		
 
-		ui_delete_viev_and_hierarhy_files($object_slug, 'landingpage');
-
-		ui_remove_landingpage_declarations($object_slug);
-
+		ui_delete_viev_and_hierarhy_files( $object_slug , 'landingpage' );
+		ui_remove_landingpage_declarations( $object_slug );
 		ui_remove_template_file( $object_slug , 'landingpage' );
 
 	}
@@ -30,6 +28,13 @@ if ( current_user_can( 'manage_options' ) ) {
 
 	if($_POST['objecttype']=='posttype'){
 
+		wp_delete_post( get_ID_by_slug( $object_slug . '-view') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-list') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-form') , true );
+
+		ui_delete_viev_and_hierarhy_files( $object_slug , 'posttype' );
+		ui_remove_posttype_declarations( $object_slug );
+		ui_remove_template_file( $object_slug , 'posttype' );
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -37,6 +42,14 @@ if ( current_user_can( 'manage_options' ) ) {
 	/* ---------------------------------------------------------------------- */
 
 	if($_POST['objecttype']=='user'){
+
+		wp_delete_post( get_ID_by_slug( $object_slug . '-view') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-list') , true );
+		wp_delete_post( get_ID_by_slug( $object_slug . '-form') , true );
+
+		ui_delete_viev_and_hierarhy_files( $object_slug , 'user' );
+		ui_remove_users_declarations( $object_slug );
+		ui_remove_template_file( $object_slug , 'user' );
 
 	}
 
@@ -119,6 +132,32 @@ function ui_remove_db_declarations($object_name){
 	file_put_contents( $db_prop_path . '/arguments/database-arguments.yaml' , Spyc::YAMLDump( $db_array ));
 
 }
+function ui_remove_posttype_declarations($object_name){
+
+ 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+	$posttype_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
+
+	$posttype_array = Spyc::YAMLLoad( $posttype_prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
+
+	unset( $posttype_array[$object_name] );
+	file_put_contents( $posttype_prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump( $posttype_array ));
+
+}
+
+function ui_remove_users_declarations($object_name){
+
+ 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+	$users_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-users';
+
+	$users_array = Spyc::YAMLLoad( $users_prop_path . '/arguments/users-arguments.yaml' );
+
+	unset( $users_array[$object_name] );
+	file_put_contents( $users_prop_path . '/arguments/users-arguments.yaml' , Spyc::YAMLDump( $users_array ));
+
+}
+
+
+
 
 function ui_remove_template_file( $object_name, $objecttype ){
 	

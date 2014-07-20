@@ -1,11 +1,8 @@
 ---
-grid: basic-slim
-# Debuger prop -------------------------------------------------
-ui_slot_list_name: slot-list-for-posttype1
-logo:
+logo0:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header:
+nav-menu-header1:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -20,23 +17,31 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text:
+title-text2:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: titled-title
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
-message-slot:
-  debug_label: Form Message
-  debug_type: form
+title-text3:
+  debug_label: Title
+  debug_type: static
   type: tpl-part
-  name: message-box
-form-slot:
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+message-slot4:
+  type: tpl-part
+  tpl_part: message-box
+  string: 'This if add new posttype form<br/> Salect form and create new posttype now.'
+form-slot5:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
   flow: basic-create-post-block-warehouse
-footer:
+footer6:
   type: tpl-part
   tpl_part: basic-footer
+grid: basic-slim
+ui_page_name: blocks-warehouse-form
+ui_slot_list_name: slot-list-for-posttype1

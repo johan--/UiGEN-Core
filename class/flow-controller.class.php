@@ -12,6 +12,8 @@ class FlowController{
 	public $next_step;
 	public $prev_step;
 
+	public $edit_id;
+
 
 
 	// -----------------------------------------------------------------------------------------------------------------	
@@ -39,12 +41,18 @@ class FlowController{
 			// get first key from flow arg
 			$this -> current_step = $data_arg['prop']['flow'];
 
-			$first_key = array_shift(array_keys($this -> flow_arg[$this -> post_type]));
-			$this -> next_step = $this -> flow_arg[$this -> post_type][$first_key]['next_step'];			
+			$first_key = @array_shift(@array_keys($this -> flow_arg[$this -> post_type]));
+			
+			$this -> next_step = $this -> flow_arg[$this -> post_type][$first_key]['next_step'];	
+
+			$this -> edit_id = $_GET['eid'];		
 
 		}else{
+
 			@$this -> current_step = $this -> postData['nextStep'];
-			@$this -> next_step = $this -> flow_arg[$this -> post_type][$this -> current_step]['next_step'];	
+			@$this -> next_step = $this -> flow_arg[$this -> post_type][$this -> current_step]['next_step'];
+			@$this -> edit_id = $this -> postData['editID'];
+
 		}
 
 		// echo '<br/> ## Flow controll ---------------------------------------------------------------------- #<br/>';
@@ -260,7 +268,10 @@ class FlowController{
 	// flow controlls ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	// ---------------------------------------------------------------------------------------------------
 
+	// must mapped this inputs with executeStep() function
+
 	public function addFlowStepsGroup($data_arg){
+
 				$this -> data_arg = $data_arg;	
 
 				$this -> data_arg['data']['flow_steps'] = array(
@@ -280,8 +291,18 @@ class FlowController{
 						'name' => 'nextStep',
 						'value' => $this -> next_step,
 				), 
-			);		
-			
+				'input_edited_ocject_id' => array(	
+						'important' => true, // value blinded $_POSTed data 
+						'nameHash'=>false,					
+						'id' => 'input_ei',
+						'type' => 'hidden',
+						'name' => 'editID',
+						'value' => $this -> edit_id,
+				), 
+			);
+/*			echo '<pre>';		
+			var_dump($this -> data_arg);
+			echo '</pre>';*/
 	 		return $this -> data_arg;
 	}
 	// ---------------------------------------------------------------------------------------------------

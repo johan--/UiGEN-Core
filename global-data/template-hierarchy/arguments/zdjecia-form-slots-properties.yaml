@@ -22,7 +22,7 @@ title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: titled-title
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
 message-slot:
   type: tpl-part

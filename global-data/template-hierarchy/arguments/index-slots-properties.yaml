@@ -29,7 +29,7 @@ title-text2:
   tpl_part: tiled-title
   args:
     custom_title: Get BLOCKBOX
-    underline: true
+    underline: 'true'
   debug_label: Title
   debug_type: static
   content_link: empty

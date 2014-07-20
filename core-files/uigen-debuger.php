@@ -369,6 +369,8 @@ clear:both;
  * @param array $args Get hierarchy properties localized into UiGEN-Core/gloal-data/template-hierarchy/arguments
  * @filesource /UiGEN-Core/core-files/uigen-debuger.php
  */
+
+
 function decorate_debuged_page_header($gridName,$args){
 	if ( !current_user_can( 'manage_options' ) ) {
 	?>
@@ -452,9 +454,13 @@ function decorate_debuged_page_header($gridName,$args){
  * @filesource /UiGEN-Core/core-files/uigen-debuger.php
  */
 function decorate_slot($position,$slotName,$slot){
+
+
+
+
 	if($position=='start'){
 	?>
-		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator" data-tplname="<?php echo $slot['tpl_part']?>">
+		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator" data-tplname="<?php global $TDC; echo $slot['tpl_part']?>" data-queryposttypename="<?php echo $TDC->args[$TDC->current_slot]['query_args']['post_type']?>" >
 			<div class="slot_properties_header">
 				<div style="float:left" class="core-properties-title">Slot Core Properties</div>
 				<button style="float:right; margin:-5px -5px 0 0" type="button" class="debug-core-properties-hide btn btn-danger btn-sm"><span class="glyphicon glyphicon glyphicon-remove-circle"></span></button>
@@ -953,11 +959,13 @@ window.onload=function(){
 			data: { 
 				'printschema':'true',
 				'slotname':jQuery(_this).closest('.debug-tplpart-decorator').find('.slot_name').text(),
-				'yaml': textareaVal
+				'yaml': textareaVal,
+				'post_id':'<?php global $post; echo $post->ID;?>',
+				'post_type':jQuery(this).closest('.debug-tplpart-decorator').attr('data-queryposttypename')
 			}
 		})
 		.done(function( msg ) {	 
-			
+			alert(msg);
 			msg = jQuery.parseJSON( msg )
 			msg["postRender"] = function(form) {
 		        jQuery(document).on('click', ".debug-save-core-properties", function() {

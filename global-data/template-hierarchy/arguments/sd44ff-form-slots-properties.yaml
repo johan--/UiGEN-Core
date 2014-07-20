@@ -1,9 +1,8 @@
 ---
-grid: basic-slim
-logo:
+logo0:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header:
+nav-menu-header1:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -18,23 +17,26 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text:
+title-text2:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: titled-title
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
-message-slot:
+message-slot3:
   debug_label: Form Message
   debug_type: form
   type: tpl-part
   name: message-box
-form-slot:
+form-slot4:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-user-login
-footer:
+  flow: basic-create-post
+footer5:
   type: tpl-part
   tpl_part: basic-footer
+grid: basic-slim
+ui_page_name: sd44ff-form
+ui_slot_list_name: slot-list-for-posttype1

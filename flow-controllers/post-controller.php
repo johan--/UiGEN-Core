@@ -59,8 +59,10 @@ function add_posttype($args){
 	}
 
 	// Insert the post into the database
-	if (array_key_exists('ID', $my_post)) {
 
+	if( $args['form_data']['data']['flow_steps']['input_edited_ocject_id']['value'] != NULL ){
+	//if (array_key_exists('ID', $my_post)) {
+			$my_post['ID'] = $args['form_data']['data']['flow_steps']['input_edited_ocject_id']['value'];
 			wp_update_post( $my_post );
 			//var_dump($my_post['ID']);
 			$my_post_ID = ($my_post['ID']);

@@ -4,8 +4,9 @@ logo:
 menu:
   - nav-menu-header1
 content-top:
-  - post-list2
-  - paginator3
-content-main: ""
+  - simple-button2
+content-main:
+  - simple-logo3
+  - post-list4
 footer-top: ""
 footer-main: ""

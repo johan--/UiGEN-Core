@@ -1,7 +1,7 @@
 ---
-new-users-111:
-  label: new-users-111
+rejestracja:
+  label: rejestracja
   role: Subscriber
   labels:
-    name: new-users-111
-    singular_name: new-users-111
+    name: rejestracja
+    singular_name: rejestracja

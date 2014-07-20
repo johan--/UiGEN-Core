@@ -19,7 +19,9 @@ class RolesController {
 		$this -> current_step = $FC -> current_step;
 
 		// check if object is edit
-		$this -> eid = @$FC->display_arg['form-slot']['eid'];
+		$this -> eid = @$FC->edit_id;
+
+
 		$this -> hash = @$FC->display_arg['form-slot']['hash'];
 		
 	}	
@@ -46,6 +48,7 @@ class RolesController {
 			'administrator' => 	8,
 		);
 		$acces_guardian = true;
+		
 		// get user acces type from flow
 		@$user_acces = $this -> flow_arg[$this -> post_type][$this -> current_step]['user_acces_type'];	
 
@@ -97,7 +100,7 @@ class RolesController {
 		if($this -> eid != ''){
 
 			// CHECK OBJECT TYPE
-						
+			echo 'edytuję';			
 
 			$post = get_post($this -> eid);
 
@@ -119,6 +122,7 @@ class RolesController {
 				//echo 'nie jestem postem';
 				$acces_guardian = false;
 			}	
+
 
 			if( $this -> post_type == 'register_fields'){
 			// I THINK IS THIS OBJECT ID USER FORM	

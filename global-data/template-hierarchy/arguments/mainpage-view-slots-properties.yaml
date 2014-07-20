@@ -24,18 +24,26 @@ nav-menu-header1:
 title-text2:
   type: tpl-part
   tpl_part: tiled-title
+  args:
+    underline: true
+  debug_label: Title
+  debug_type: static
+  content_link: empty
+title-text3:
+  type: tpl-part
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
   debug_label: Main Title
   debug_type: static
   debug_content_link: none
-content-text3:
+content-text4:
   type: tpl-part
   tpl_part: tiled-content
   tpl_part_prop: not_implemented
   debug_label: Content
   debug_type: static
   debug_content_link: empty
-footer4:
+footer5:
   type: tpl-part
   tpl_part: basic-footer
   debug_label: Content

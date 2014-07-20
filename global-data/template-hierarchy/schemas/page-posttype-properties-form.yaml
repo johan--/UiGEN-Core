@@ -26,7 +26,7 @@ title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: titled-title
+  tpl_part: tiled-title
   tpl_part_prop: not_implemented
 # Footer Slot ----------------------------------------------------
 message-slot:
@@ -40,7 +40,7 @@ form-slot:
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-user-login
+  flow: basic-create-post
 # Footer Slot ----------------------------------------------------
 footer:
   type: tpl-part

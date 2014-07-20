@@ -377,7 +377,11 @@ class ThemeDisplayController {
 
 		if($this -> postFormObject != null){
 			
-			$edit_id = $this->args[$this -> current_slot]['eid'];
+			// depreciated - old endpointparser method
+			//$edit_id = $this->args[$this -> current_slot]['eid'];
+			
+			// new edit id
+			$edit_id = $_GET['eid'];
 			
 			// debuger ----------------------------
 			if($_GET['debug']=='true'){

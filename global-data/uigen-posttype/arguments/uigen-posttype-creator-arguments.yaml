@@ -12,11 +12,11 @@ blocks-warehouse:
     - author
   public: true
   show_in_menu: true
-new-posttype:
-  label: new-posttype
+sd44ff:
+  label: sd44ff
   labels:
-    name: new-posttype
-    singular_name: new-posttype
+    name: sd44ff
+    singular_name: sd44ff
   supports:
     - title
     - editor
