@@ -11,7 +11,8 @@ To get started, check out <http://uigen.org>!
 ## Table of contents
 
  - [Quick start](#quick-start)
- - [Authors](#authors)
+ - [Roadmap](#roadmap)
+ - [Documetation](#documentation)
  - [Copyright and license](#copyright-and-license)
 
 ## Quick start
@@ -29,6 +30,9 @@ Permission checker is not created now and you must check it manually.
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/roadmap.png)
 
+## Documentation
+
+<http://getblockbox.com/getblockbox-docs/>
 
 ## TEAM
 
