@@ -6,9 +6,9 @@ menu:
 content-top: ""
 content-main:
   - title-text2
-  - post-meta3
-  - message-slot4
-  - form-slot5
-footer-top: ""
+  - content-text3
+footer-top:
+  - post-list4
+  - ico-carousel5
 footer-main:
   - footer6

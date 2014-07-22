@@ -29,19 +29,17 @@ post-meta3:
   type: tpl-part
   tpl_part: basic-meta
   tpl_part_prop: not_implemented
-post-meta4:
-  debug_label: Post meta
-  debug_type: list
-  type: tpl-part
-  tpl_part: basic-meta
-  tpl_part_prop: not_implemented
-content-text5:
+  args:
+    meta_label: DDDDDDDDD
+    type: meta
+    value: ui_block_schema
+content-text4:
   debug_label: Content
   debug_type: static
   type: tpl-part
   tpl_part: tiled-content
   tpl_part_prop: not_implemented
-footer6:
+footer5:
   type: tpl-part
   tpl_part: basic-footer
 grid: basic-article

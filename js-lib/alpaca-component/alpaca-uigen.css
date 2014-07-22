@@ -42,9 +42,12 @@
 
 .alpaca-fieldset-array-item-toolbar{
   position:absolute; 
-  top:41px;
+  top:5px;
   float:right;
+  z-index:10000;
+  margin-bottom:-22px;
 }
+
 
 .alpaca-item-container:hover{
   background:rgba(150, 150, 150, 0.1);

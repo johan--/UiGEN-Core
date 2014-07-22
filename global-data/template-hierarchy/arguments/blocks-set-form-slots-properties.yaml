@@ -23,27 +23,19 @@ title-text2:
   type: tpl-part
   tpl_part: tiled-title
   tpl_part_prop: not_implemented
-post-meta3:
-  debug_label: Post meta
-  debug_type: list
-  type: tpl-part
-  tpl_part: basic-meta
-  tpl_part_prop: not_implemented
-message-slot4:
+message-slot3:
   type: tpl-part
   tpl_part: message-box
   string: 'This if add new posttype form<br/> Salect form and create new posttype now.'
-  tpl_start: '<div style="margin-bottom:40px">'
-  tpl_end: '</div>'
-form-slot5:
+form-slot4:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-create-post-block-warehouse
-footer6:
+  flow: basic-create-post
+footer5:
   type: tpl-part
   tpl_part: basic-footer
 grid: basic-slim
-ui_page_name: blocks-warehouse-form
+ui_page_name: blocks-set-form
 ui_slot_list_name: slot-list-for-posttype1

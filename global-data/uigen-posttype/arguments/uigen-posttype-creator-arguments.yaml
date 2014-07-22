@@ -12,11 +12,24 @@ blocks-warehouse:
     - author
   public: true
   show_in_menu: true
-sd44ff:
-  label: sd44ff
+blocks-set:
+  label: blocks-set
   labels:
-    name: sd44ff
-    singular_name: sd44ff
+    name: blocks-set
+    singular_name: blocks-set
+  supports:
+    - title
+    - editor
+    - thumbnail
+    - excerpt
+    - author
+  public: true
+  show_in_menu: true
+sklep:
+  label: sklep
+  labels:
+    name: sklep
+    singular_name: sklep
   supports:
     - title
     - editor

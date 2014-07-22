@@ -3,10 +3,10 @@ logo:
   - logo0
 menu:
   - nav-menu-header1
-content-top:
+content-top: ""
+content-main:
   - title-text2
   - post-meta3
-content-main:
   - content-text4
 footer-top: ""
 footer-main:

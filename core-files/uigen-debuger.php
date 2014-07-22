@@ -224,16 +224,31 @@ body.left200{
 .portlet-inspect .alpaca-fieldset {
   margin-top:10px;
   margin-bottom:10px;
+
 }
-.control-label{
+.portlet-inspect .control-label{
 	display:block;
+	float:left;
+	width:180px;
+	line-height: 36px;
+	text-align:right;
+	margin-right:20px;
+}
+.portlet-inspect .alpaca-controlfield-container{
+	display:block;
+	float:left;
 }
 .portlet-inspect .alpaca-controlfield-radio .radio {
     float:left;
 	margin:-5px 20px 10px 10px !important;
 	padding: 0 !important;
 }
-
+.portlet-inspect .alpaca-controlfield-checkbox{
+	margin-left:200px;
+}
+.portlet-inspect .alpaca-field{
+	clear:both;
+}
 .alpaca-controlfield-helper{ 
 clear:both;
 }

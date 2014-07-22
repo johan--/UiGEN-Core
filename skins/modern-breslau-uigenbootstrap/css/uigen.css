@@ -546,10 +546,10 @@ margin:2px 30px 2px 0; */
 	text-align: right;
 	font-size:22px;
 	margin-top:10px;
-	margin-right:104px;
+	margin-right:20px;
 }
 
-.simpleCart_items td, .simpleCart_items th{ padding:10px; }
+.simpleCart_items td, .simpleCart_items th{ padding:10px; text-align:left; }
 
 .simpleCartpaymantbox{
 	text-align:right;
@@ -583,17 +583,18 @@ margin:2px 30px 2px 0; */
 .flow_form input[type="submit"]{
 }
 .form-box{
-	margin-left:-170px;
+	border-bottom:1px dashed #ddd;
+	padding-bottom:10px;
 }
 .form-label{
 	float:right;
 	margin-right:20px;
 	line-height:34px;
 }
+
+
 .field-description{
-	float:left;
-	width:280px;
-	margin-left:20px;
+	line-height:34px;
 	font-style:italic;
 	color:#777;
 }
@@ -736,4 +737,10 @@ div.wpcf7-validation-errors{
 	width:300px;
 	margin-top:-20px;
 	border:0;
+}
+
+
+.wp-editor-container{
+	border:1px solid #ccc;
+	border-radius: 2px;
 }
