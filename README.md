@@ -25,6 +25,10 @@ UiGEN-Core/global-data/...
 
 Permission checker is not created now and you must check it manually.
 
+## ROADMAP
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/roadmap.png)
+
 
 ## TEAM
 
