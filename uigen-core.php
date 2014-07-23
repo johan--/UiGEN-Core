@@ -3,7 +3,7 @@
 Plugin Name: UiGEN core
 Plugin URI: http://uigen.org
 Description: UiGEN open source classes and libraries - core functions to realize UiGEN display and process modeler
-Authors: UiGEN Team: dadmor | minimal | sirmacik | marsianin 
+Authors: UiGEN Team: dadmor | minimal | sirmacik 
 Authors URI: dadmor@gmail.com
 */
 
@@ -470,7 +470,7 @@ dadmor: Who write this childish comment should set solution or go away !!!!
   <script>
   
   </script>
-  <!--
+  <br/><br/>
   <h1>Grid creator</h1>
   <h3>Design your site layout</h3>
   <h4>Or select from custom <a href="#">layouts library</a></h4>
@@ -497,7 +497,7 @@ dadmor: Who write this childish comment should set solution or go away !!!!
 	  </tr>    
 	</tbody>  
   </table>
-  -->
+
 </div>
 
 <script>

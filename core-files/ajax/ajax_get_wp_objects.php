@@ -66,6 +66,9 @@ function ui_post_list_to_modal($obj) {
       ) */ 
       );
     $query = new WP_Query( $args );
+    
+    echo '<h2>'.get_the_title($obj['post_id']).' linked with:</h2>';
+
     echo '<table class="table" data-child-id="'.$obj['post_id'].'">';  
     echo '<tr>';  
     echo '<th>ID</th>';  
@@ -75,11 +78,30 @@ function ui_post_list_to_modal($obj) {
     echo '</tr>';  
     while ( $query->have_posts() ) {
         $query->the_post(); 
-        echo '<tr>';       
+
+        $rel_id = get_post_meta($query->post->ID,'rel_post_id',true);
+        if($rel_id != ''){
+          $rel_id_title = get_the_title($rel_id);
+        }else{
+          $rel_id_title = '-';
+        }
+        
+        if($obj['post_id'] == $rel_id){
+          $success = 'class="success"';
+          
+           $href = '<td><a style="color:red" href="#" class="remove-parent-relation" data-parent-relation="'.$query->post->ID.'">Unlink this object<a></td>';
+     
+        }else{
+          $success = '';
+          $href = '<td><a href="#" class="parent-relation" data-parent-relation="'.$query->post->ID.'">Link with this object<a></td>';
+         
+        }
+
+        echo '<tr '.$success.'>';       
         echo '<td>'.$query->post->ID.'</td>';
         echo '<td>'.$query->post->post_title.'</td>';
-        echo '<td>'.get_post_meta($query->post->ID,'rel_post_id',true).'</td>';
-        echo '<td><a href="#" class="parent-relation" data-parent-relation="'.$query->post->ID.'">Link with this object<a></td>';
+        echo '<td>'.$rel_id_title.'</td>';
+        echo $href;
         echo '</tr>';
       }
     echo '</table>';       

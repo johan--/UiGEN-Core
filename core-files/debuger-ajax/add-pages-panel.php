@@ -205,6 +205,8 @@
 	}
 
 	foreach ($db_array as $key => $value) {		
+		
+
 		?>		
 			<div class="page-panel" data-type="db">
 				<div class="page-panel-header" style="background-color: #7A4185;">
@@ -215,6 +217,15 @@
 
 				<div>
 					<div style="font-size:11px; padding:3px 6px; border-bottom:1px solid #aaa; text-align:right; ">
+					
+						<span>
+						<?php 
+								foreach( $value['db_table_columns'] as $db_key => $db_cols){
+									echo '['.$db_cols['db_column_name'].'] ' ;
+								}
+						?>
+						</span>
+
 						<span><a href="#" class="delete_element" data-target="<?php echo $key; ?>">delete</a></span>
 					</div>
 				</div>

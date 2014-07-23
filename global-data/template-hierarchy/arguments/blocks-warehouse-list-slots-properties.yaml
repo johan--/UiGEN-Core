@@ -87,6 +87,15 @@ post-list3:
         to_cart:
           net_price_field: ui_block_data
           gross_price_field: ui_block_options
+      - 
+        action_type: Create DB Relation
+        db_relation:
+          db_table_name: relacje-produktow
+          first_param_type: Selected item
+          first_param_column_name: Children_id
+          second_param_type: Post List
+          second_param_column_name: Parent_id
+          second_param_posttype: blocks-set
 excerpt-text4:
   debug_label: Excerpt
   debug_type: static
