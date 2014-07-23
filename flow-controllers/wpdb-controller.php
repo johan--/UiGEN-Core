@@ -25,12 +25,21 @@ $date = new DateTime();
  */
 function add_data($args){
 
+
+	echo '<pre>';
+	var_dump($args['form_data']['data']['zdjecia']);
+	echo '</pre>';
+
 	$posttype_regname = $args['call_prop']['posttype']; 
 	$table_name = substr( $args['display_data']['ui_page_name'], 0, strrpos( $args['display_data']['ui_page_name'], "-"));
+	
+	var_dump('>>>>>>>>>>>',$table_name);
+	
 	//$table_name = $args['call_prop']['table_name']; 	
 
 	$guardianArray;
 	$insertArray;
+
 
 
 	//foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
@@ -68,9 +77,7 @@ function add_data($args){
 	
 	// ------------------------------------
 	$insertGuardian = ncb_guardianSqlFunction($tableName, $guardianArray);
-	
-
-var_dump($insertArray);
+	var_dump($insertArray);
 
 	// ------------------------------------
 	//echo $guardianSql;
@@ -84,13 +91,15 @@ var_dump($insertArray);
           
 	// GROWINGAME SHIT ???? - I hide it [GD]
     //print('Add users points');
-/*    if(!$wpdb->insert($wpdb->prefix.'points_users', array(
-            'user_id' => $user_id,
-            'import_id' => $import_id,
-            'points' => '0',
-        ))) {
-        $error = true;
-    }     */ 
+	/*    
+	if(!$wpdb->insert($wpdb->prefix.'points_users', array(
+        'user_id' => $user_id,
+        'import_id' => $import_id,
+        'points' => '0',
+    ))) {
+    $error = true;
+    }     
+    */ 
     // ^^^^^^^^^^^^^^^^^^^^
 
 }
@@ -111,35 +120,63 @@ function guardianSql_redirect($args){
 	}else{
 		//echo 'mozesz mnie dodac';
 	}
-	
-	
 	//var_dump($FC -> flow_arg[$FC -> post_type][$FC -> current_step]);	
-
 }
 
 
 // -------------------------------------------------------------------------------------------------- //
 // -----     no calback functions                                                              ------ //
 // -------------------------------------------------------------------------------------------------- //
+
+/**
+ * CONTROLLER Tech function.
+ * This function insert data into database custom table
+ *
+ * @param array $args insert data param
+ * 
+ * 'table_name' => 'example_table_name',
+ * 'meta' => array(
+ * 		array('db' => 'column1_name', 'unique' => true), // 'unique' - dont save this same sata twice
+ * 		array('db' => 'column2_name', 'unique' => true)
+ *  )	
+ *
+ * @filesource /UiGEN-Core/flow-controllers/wpdb-controller.php
+ */
 function ncb_add_data($args){
+
+	
+
 	global $wpdb;
 	$tableName = $wpdb->prefix . $args['table_name'];
 	
 
 	$uniQueGuard = ncb_guardianSql($args);
+
 	if($uniQueGuard == true){
 
 		foreach ($args['meta'] as $key => $value) {	
+			
+			//echo '<pre>';
 			//var_dump($value);
+			//echo '</pre>';
+
 			unset($value["unique"]);
 			$insertArray[$key] = $value;
+
+
 		}
+
+		//echo '<pre>';
 		//var_dump($insertArray);
+		//echo '</pre>';
+
 		foreach ($insertArray as $value) {	
 			//var_dump($value);
 			$key_name = key($value);
 			$finalInsertArray[$key_name] = $value[$key_name];
-			//echo $key_name."->".$value[$key_name].'<br/>--------------</br/>';
+			
+			echo $key_name."->".$value[$key_name].'<br/>--------------</br/>';
+
 		}
 		$wpdb->insert( $tableName, $finalInsertArray);
 		
@@ -222,8 +259,6 @@ function ncb_guardianSql($args){
 }
 
 function ncb_guardianSqlFunction($tableName, $guardianArray){ 
-	
-
 
 	global $wpdb;
 	$guardianSql = "
@@ -240,10 +275,6 @@ function ncb_guardianSqlFunction($tableName, $guardianArray){
 				$counter ++;
 			}
 	$insertGuardian = $wpdb->get_var( $guardianSql );
-
-
-
-
 
 	if($insertGuardian == 0){
 		return true;
