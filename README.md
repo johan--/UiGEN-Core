@@ -8,14 +8,21 @@ First beta version will be published on dedicated repo github/uigen soon.
 
 To get started, check out <http://uigen.org>!
 
-## Table of contents
+## TABLE OF CONTEST
 
+ - [Screencast](#screencast)
  - [Quick start](#quick-start)
  - [Roadmap](#roadmap)
  - [Documetation](#documentation)
  - [Copyright and license](#copyright-and-license)
 
-## Quick start
+## SCREENCAST
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/screencast/1_start_from_generated_landing.png)
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/screencast/2_decorate_ladning_for_UiGEN_debuger.png)
+
+## QUICK START
 
 INSTALLATION:
 
@@ -30,7 +37,7 @@ Permission checker is not created now and you must check it manually.
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/roadmap.png)
 
-## Documentation
+## DOCUMENTATION
 
 <http://getblockbox.com/getblockbox-docs/>
 
