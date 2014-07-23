@@ -37,37 +37,36 @@ ___
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/2_decorate_ladning_for_UiGEN_debuger.png)
 ___
 
+> Drag and drop blocks
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/3_Drag_and_drop_box.png)
->bla bla bla
+___
 
+> Block properties list
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/4_box_properties.png)
-bla bla bla
+___
 
+> Edit title block 
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/5_edit_title_block.png)
-bla bla bla
-
+___
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/6_query_post_box.png)
-bla bla bla
+___
 
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/7_query_properties_box.png)
-bla bla bla
-
+___
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/8_change_grid_box.png)
-bla bla bla
-
+___
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/9_pages_users_database_manager.png)
-bla bla bla
-
+___
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/10_yaml_mode.png)
-bla bla bla
+___
 
 
 ## QUICK START
