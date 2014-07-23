@@ -43,6 +43,30 @@ bla bla bla
 bla bla bla
 
 
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/5_edit_title_block.png)
+bla bla bla
+
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/6_query_post_box.png)
+bla bla bla
+
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/7_query_properties_box.png)
+bla bla bla
+
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/8_change_grid_box.png)
+bla bla bla
+
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/9_pages_users_database_manager.png)
+bla bla bla
+
+
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/10_yaml_mode.png)
+bla bla bla
+
+
 ## QUICK START
 
 INSTALLATION:
