@@ -59,12 +59,12 @@ ___
 
 > Edit post query block
 
-![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/7_query_properties_box.png)
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/7_query_properties.png)
 ___
 
 > Change grid
 
-![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/8_change_grid_box.png)
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/8_change_grid.png)
 ___
 
 > Create pages, posttype sets, user sets, and database tables (generated 3 pages on front to one set: form page, list page and view page)
