@@ -52,18 +52,27 @@ ___
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/5_edit_title_block.png)
 ___
 
+> Block of posts query
+
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/6_query_post_box.png)
 ___
 
+> Edit post query block
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/7_query_properties_box.png)
 ___
 
+> Change grid
+
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/8_change_grid_box.png)
 ___
 
+> Create pages, posttype sets, user sets, and database tables (generated 3 pages on front to one set: form page, list page and view page)
+
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/9_pages_users_database_manager.png)
 ___
+
+> Power users could edit all page settings (layout, blocks and their propertiess) in a single YAML file. (on left side all assets aredisplayed: blocks, grids, form elements, flows and walkers)
 
 ![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/10_yaml_mode.png)
 ___
