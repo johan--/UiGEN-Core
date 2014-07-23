@@ -1,12 +1,6 @@
 UiGEN Core 
 =====================
 
-Tech alert !!!
-
-UiGEN Core is not stable yet !!!
-First beta version will be published on dedicated repo github/uigen soon.
-To get started, check out <http://uigen.org>!
-
 1. UiGEN is a solution for Wordpress to build websites using predefined blocks.
 2. It has a GUI for placing those blocks and an API to create new blocks.
 3. It's aimed at rapid development of landing pages, websites, portals, CRM, custom eCommerce solutions or Facebook applications, but you can create pretty much any web app with it.
@@ -16,6 +10,12 @@ To get started, check out <http://uigen.org>!
 7. UiGEN default frontend theme is based on Twitter Bootstrap CSS framework.
 8. UiGEN can create database relations, frontend posttypes manager and forms with custom buisness logic flow.
 9. MockupMe is UiGEN satelite project to generate prototype site from SVG files.
+
+Tech alert !!!
+
+UiGEN Core is not stable yet !!!
+First beta version will be published on dedicated repo github/uigen soon.
+To get started, check out <http://uigen.org>!
 
 ## TABLE OF CONTEST
 
