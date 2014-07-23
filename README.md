@@ -18,9 +18,9 @@ To get started, check out <http://uigen.org>!
 
 ## SCREENCAST
 
-![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/screencast/1_start_from_generated_landing.png)
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/1_start_from_generated_landing.png)
 
-![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/screencast/2_decorate_ladning_for_UiGEN_debuger.png)
+![Image of UiGEN Roadmap](https://github.com/dadmor/UiGEN-Core/blob/master/screencast/2_decorate_ladning_for_UiGEN_debuger.png)
 
 ## QUICK START
 
