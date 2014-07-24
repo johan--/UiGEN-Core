@@ -1,0 +1,13 @@
+---
+logo:
+  - logo
+menu:
+  - nav-menu-header
+# -----------------
+content-main:
+  - post-list
+# -----------------  
+footer-top:
+  - nav-menu-footer
+footer-main:
+  - footer

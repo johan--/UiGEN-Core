@@ -1,0 +1,12 @@
+---
+logo:
+  - simple-logo0
+menu:
+  - nav-menu-header1
+content-top: ""
+content-main:
+  - simple-logo2
+  - post-list3
+footer-top:
+  - excerpt-text4
+footer-main: ""

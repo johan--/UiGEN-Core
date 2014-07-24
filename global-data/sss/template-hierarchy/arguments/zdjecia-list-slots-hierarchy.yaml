@@ -1,0 +1,14 @@
+---
+logo:
+  - logo0
+menu:
+  - nav-menu-header1
+action:
+  - title-text2
+content-top:
+  - simple-button3
+content-main:
+  - footer4
+  - post-list5
+footer-top: ""
+footer-main: ""

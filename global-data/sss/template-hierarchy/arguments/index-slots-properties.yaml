@@ -94,7 +94,7 @@ excerpt-text18:
   type: tpl-part
   tpl_part: basic-excerpt-promo
   args:
-    custom_excerpt: 'GetBlockBox 2014<br/>Copyright BlockBox sp. z. o. o.'
+    custom_excerpt: Copyright BlockBox sp. z. o. o.
   debug_label: Excerpt
   debug_type: static
   content_link: empty

@@ -1,0 +1,13 @@
+---
+logo:
+  - logo0
+menu:
+  - nav-menu-header1
+content-top: ""
+content-main:
+  - title-text2
+  - message-slot3
+  - form-slot4
+footer-top: ""
+footer-main:
+  - footer5

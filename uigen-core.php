@@ -119,47 +119,49 @@ function my_first_install() {
 	global $wpdb;	
 
     require_once UIGENCLASS_PATH . 'Spyc.php';
-	$debuger_db = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' );        
-	foreach ($debuger_db as $db_tb_name => $db_props) {
+    if( file_exists ( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' )){
+		$debuger_db = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' );        
+		foreach ($debuger_db as $db_tb_name => $db_props) {
 
-		$db_create_table_string = '';
-		$db_create_table_string .= "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}".$db_tb_name."` ( \n";
-		$db_create_table_string .= "`ID` int(5) NOT NULL AUTO_INCREMENT, \n";
-			
-		foreach ($db_props['db_table_columns'] as $db_col_props) {
-			$db_create_table_string .= "`".$db_col_props['db_column_name']."` ".$db_col_props['db_column_type']." NOT NULL, \n";
-			//var_dump('db>' , $db_col_props['db_column_name']);
-			//var_dump('db>' , $db_col_props['db_column_type']);
+			$db_create_table_string = '';
+			$db_create_table_string .= "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}".$db_tb_name."` ( \n";
+			$db_create_table_string .= "`ID` int(5) NOT NULL AUTO_INCREMENT, \n";
+				
+			foreach ($db_props['db_table_columns'] as $db_col_props) {
+				$db_create_table_string .= "`".$db_col_props['db_column_name']."` ".$db_col_props['db_column_type']." NOT NULL, \n";
+				//var_dump('db>' , $db_col_props['db_column_name']);
+				//var_dump('db>' , $db_col_props['db_column_type']);
+			}
+
+			$db_create_table_string .= " PRIMARY KEY (`ID`) \n";
+			//$db_create_table_string .= " CHARACTER SET utf8 COLLATE utf8_general_ci \n";
+			$db_create_table_string .= " )  \n";
+			$db_tables_array[$db_tb_name] = $db_create_table_string;
 		}
+		//var_dump($db_tables_array);
 
-		$db_create_table_string .= " PRIMARY KEY (`ID`) \n";
-		//$db_create_table_string .= " CHARACTER SET utf8 COLLATE utf8_general_ci \n";
-		$db_create_table_string .= " )  \n";
-		$db_tables_array[$db_tb_name] = $db_create_table_string;
-	}
-	//var_dump($db_tables_array);
+		// Create tables
+		echo '<pre>';
+		foreach ($db_tables_array as $db_tb => $db_sql_synax) {
+			echo '<br/>----------------<br/>create '.$db_tb.'<br/>----------------<br/>';
+			echo $db_sql_synax;
+			$wpdb->query($db_sql_synax);
+		
+		}
+		echo '</pre>';
 
-	// Create tables
-	echo '<pre>';
-	foreach ($db_tables_array as $db_tb => $db_sql_synax) {
-		echo '<br/>----------------<br/>create '.$db_tb.'<br/>----------------<br/>';
-		echo $db_sql_synax;
-		$wpdb->query($db_sql_synax);
-	
 	}
-	echo '</pre>';
-	/* ---------------------- */
 
 }
 
 function my_first_reinstall(){
   if(class_exists('Custom_Types_Creator')) {
-	  $mpf = new Custom_Types_Creator();
-	  global $mpf_roles;
-  $mpf->roles=$mpf_roles;
-	$mpf->remove_roles();
+  		// minimal roles remover
+		/*$mpf = new Custom_Types_Creator();
+		global $mpf_roles;
+  		$mpf->roles=$mpf_roles;
+		$mpf->remove_roles();*/
   }
-
 }
 
 
@@ -177,6 +179,7 @@ if(@$_GET['debug']=='true'){
 function alpaca_lib_init() {
 
 
+	/* Acceptable way to use the function */
   wp_enqueue_script( 'jquery-ui-datepicker' );
   wp_enqueue_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.datepicker.css' );
   wp_register_style('jquery-ui-datepicker', plugins_url().'/UiGEN-Core/js-lib/datepicker.css' );
@@ -197,6 +200,10 @@ function alpaca_lib_init() {
 
 }
 
+
+
+
+
 // ################################################################################
 // UiGEN posttype creator - native plugin methods
 // -------------------------------------------------------------------------------- 
@@ -216,12 +223,12 @@ function uigen_posttypes() {
 	// -------------------------
 	
 	// include arguments array - depreciated Model !!!!!
-	include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
+	//include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
 
 	// register posttypes from arguments array
-	foreach ($uigen_posttypes as $posttype => $props) {
-	  register_post_type($posttype, $props);
-	}
+	//foreach ($uigen_posttypes as $posttype => $props) {
+	  //register_post_type($posttype, $props);
+	//}
 	// --------------------------------------------------
 
 	/* register posttypes createt form user with debuger !!! */
@@ -305,13 +312,20 @@ function uigen_metaboxes() {
   // Metaboxes definitions
   // -------------------------
 
-  // include arguments array
-  include 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
 
-  // register posttypes from arguments array
-  foreach ($uigen_metaboxes as $metabox) {
-	  add_meta_box($metabox[0],$metabox[1],$metabox[2],$metabox[3],$metabox[4],$metabox[5],$metabox[6]);
-  }
+	if( file_exists ( 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php' )){;
+		// include arguments array
+		include 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
+
+		// register posttypes from arguments array
+		foreach ($uigen_metaboxes as $metabox) {
+		  add_meta_box($metabox[0],$metabox[1],$metabox[2],$metabox[3],$metabox[4],$metabox[5],$metabox[6]);
+		}
+	}else{
+		
+	}
+
+	  
 
 
 	foreach (array('page') as $type) 
@@ -347,9 +361,15 @@ function ui_register_sidebars() {
 	// -------------------------
 	// Metaboxes definitions
 	// -------------------------
-	include 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php';
-	foreach ($uigen_sidebars as $sidebar) {
-		register_sidebar( $sidebar);
+	
+	// sidebar method is depreciated - rebuild it into yaml model
+	if( file_exists ( 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php' )){
+		include 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php';
+		foreach ($uigen_sidebars as $sidebar) {
+			register_sidebar( $sidebar);
+		}
+	}else{
+			
 	}
 }
 
@@ -413,10 +433,13 @@ function UiGEN_menu()
   add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
   
   // submenu with calbac
-  //add_submenu_page('url_uigen_core', 'UiGEN hierarchy', 'UiGEN hierarchy', 'administrator', 'url_uigen_hierarchy', 'UiGEN_hierarchy_callback');
+  add_submenu_page('url_uigen_core', 'UiGEN Grid', 'UiGEN Grid', 'administrator', 'url_uigen_grid', 'UiGEN_grid_callback');
+
+  // submenu with calbac
+  add_submenu_page('url_uigen_core', 'UiGEN Data Loader', 'UiGEN Data Loader', 'administrator', 'url_uigen_data_loader', 'UiGEN_data_loader_callback');
   
   // submenu from defined posttype
-  add_submenu_page('url_uigen_core', 'UiGEN Content parts', 'UiGEN Content parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
+  add_submenu_page('url_uigen_core', 'UiGEN Content Parts', 'UiGEN Content Parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
 
 } 
 
@@ -434,148 +457,61 @@ function uigen_core(){
 	echo '<div id="message" class="error"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:red">You dont have UiGEN Theme consistent.</span> <br/>Download and install UiGEN BASIC Theme form https://github.com/dadmor/UiGEN-MVC-Basic-Theme</p></div>';
   }
 
+  // check yaml prop structure
+  if( file_exists ( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' )){
+	//echo '<div id="message" class="updated"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:#7ad03a"> is CORRECT</span>';
+	//echo '<br/>Your theme is: '.constant('UiGEN_THEME_VER').' </p></div>';
+  }else{
+  	echo '<div id="message" class="error"><p>UiGEN properties is not installed: <a href="#">Install propreties starter kit here</a></p></div>';
+  }
+  
+
   echo '</div>';
 
 ?>
 
-
-
-
 <div class="wrap">
 <div id="message" class="error below-h2"><p>Warning !!!</p><p>UiGEN Core is not stable yet !!!<br/>First beta version will be published on dedicated repo github/uigen soon.</p></div>
-
-<!--                   WTF!!!!!????? -->
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-<!--
-srsly, dadmor, please do it like a man, not like a pussy.
-
-dadmor: Who write this childish comment should set solution or go away !!!! 
--->
-
-  
- <style>
-  .container{margin-bottom:20px; position:relative;}
-  .sortable-helper{position:relative; width:840px; height:140px;}
-  .sortable { width:100%; height:100%; position:relative; list-style-type: none; margin: 0; padding: 0;  border:1px dashed #ccc;  background-color:#fff; box-shadow: inset 3px 3px 5px rgba(0,0,0,0.1);}
-  .sortable li { background-image:none; background-color:#efefef; height: 70px; border:0; box-shadow: inset -1px -1px 1px rgba(0,0,0,0.2); margin:0; opacity:0.8;}
-  .sortable li span { position: absolute; }
-  .ui-state-default{display:inline; float:left; width:280px;}
-  .span-header{ width:100%; background-color:#333; color:#fff; }
-  .span-panel{position:absolute; left:845px; top:0;}
-  .ico{border:1px solid #ccc; width:100px; height:20px; padding:3px; text-align: center;}
-  .delete-span{z-index: 2000;}
-  </style>
-  <script>
-  
-  </script>
-  <br/><br/>
-  <h1>Grid creator</h1>
-  <h3>Design your site layout</h3>
-  <h4>Or select from custom <a href="#">layouts library</a></h4>
-  <table class="wp-list-table widefat plugins">
-	<thead>
-	<tr>
-	  <th>Grid</th><th>Blocks</th>
-	</tr>
-	</thead>
-	<tbody id="the-list">
-	  <tr class="active">
-		<td>
-		  <div id="layout_creator">
-		  <div id="grid">
-
-
-		  </div>
-		  <div id="grid-panel">
-			<div class="button add-container">Add Container [+]</div>
-		  </div>
-		  </div>
-		</td>
-		<td>Blocks</td>
-	  </tr>    
-	</tbody>  
-  </table>
-
-</div>
-
-<script>
-  var resizable_val = {
-	  grid: 70,     
-	  containment: ".sortable",
-	  handles: "e, s",
-	  cancel:false
-	};
-	var sortable_val = {
-	  connectWith: ".sortable",
-	  cursor: 'pointer',
-	};
-
-  var resizable_container = {
-	grid: 70, 
-	handles: "s",   
-  }
-
-
-  $(function() {
-	//$( ".sortable" ).sortable(sortable_val);
-	// $( ".sortable" ).disableSelection();
-	//$( ".ui-state-default" ).resizable(resizable_val);
-
-  });
-
-
-  var container = '<div class="container">';
-  container += '<div class="sortable-helper">';
-  container += '<ul class="sortable">';
-
-  container += '</ul>';
-  container += '</div>';
-
-  container += '<div class="span-panel">';
-  container += '<div class="ico button add-span">Add Span [+]</div>';
-  container += '</div>';
-  container += '</div>';
-
-
-  var span = '<li class="ui-state-default">';
-  span += '<div class="span-header">';
-  span += '<div style="float:left">Span</div>';
-  span += '<div style="float:right"><a class="delete-span" href="#">Remove [X]</a></div>';
-  span += '<br style="clear:both"/>';
-  span += '</div>  ';
-  span += '</li>   ';         
-
-
-
-$("#layout_creator").on( "click",'.add-span', function(event) {
-	$(this).parent().parent().children('.sortable-helper').children('ul').append(span);
-	$(this).parent().parent().children('.sortable-helper').children('ul').children('li:last-child').resizable(resizable_val);
-});
-
-
-$("#layout_creator").on( "click",'.add-container', function(event) {
-	$(this).parent().parent().children('#grid').append(container);
-	$(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').children('ul').sortable(sortable_val);
-	$(this).parent().parent().children('#grid').children('.container:last-child').children('.sortable-helper').resizable(resizable_container);
-});
-
-
-$("#layout_creator").on( "click",'.delete-span', function(event) {
-	event.preventDefault();
-	$(this).parent().parent().parent().remove();
-});
-
-</script>
-
+ 
 <?php
-
 }  
 
 // submenu calback function
-function UiGEN_hierarchy_callback(){
+function UiGEN_grid_callback(){
+	include 'core-files/panel-create-grid.php';
+}
 
+function UiGEN_data_loader_callback(){
+	//include 'core-files/panel-create-grid.php';
+	echo '<div class="wrap">';
+  	echo '<h2>UiGEN CORE Data Loader.</h2>';
+  	echo '<p>Customizing your page from external assets, settings and complete buisness cases</p>';
+
+
+	// check yaml prop structure
+	  if( file_exists ( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' )){
+		echo '<div id="message" class="updated"><p>Starter Kit work CORRECT</span>';
+		echo '</div>';
+	  }else{
+	  	$path = plugin_dir_path( __FILE__ ) . 'global-data';
+		$file = '/global-data-set1.zip'; 
+		
+		//echo $path.$file.'<br>';
+		//global $wp_filesystem;
+		WP_Filesystem();
+		$return = unzip_file($path.$file, $path); 
+		if($return == true){
+			echo '<div id="message" class="updated"><p>Your UiGEN strater kit was installed succesfully</a></p></div>';
+		}else{
+			echo '<div id="message" class="updated">';
+			echo '<pre>';
+			var_dump($return);
+			echo '</pre></div>';
+		}
+	  	
+	  }
+
+	echo '</div>';
 }
 
 /* @Minimal
@@ -613,3 +549,8 @@ function UiGEN_hierarchy_callback(){
 	  return(false);
 	}
  }
+
+
+
+ 		
+ ?>
