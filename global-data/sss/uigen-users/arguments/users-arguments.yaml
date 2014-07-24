@@ -1,7 +1,0 @@
----
-rejestracja:
-  label: rejestracja
-  role: Subscriber
-  labels:
-    name: rejestracja
-    singular_name: rejestracja
