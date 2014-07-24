@@ -80,14 +80,7 @@ ___
 
 ## QUICK START
 
-INSTALLATION:
 
-Very important!!!!
-YAML folder must have write permission
-
-UiGEN-Core/global-data/...
-
-Permission checker is not created now and you must check it manually.
 
 ## ROADMAP
 
