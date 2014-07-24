@@ -1,7 +1,0 @@
----
-example_user:
-  label: Example user
-  role: Subscriber
-  # taxonomies:
-  #   - category
-  # register_meta_box_cb: template_hierarchy_box
