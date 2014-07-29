@@ -1,0 +1,25 @@
+# ---------------------------------------------------------
+text:
+  debug_label: Text label
+  debug_type: static
+  type: text
+# ---------------------------------------------------------
+select:
+  debug_label: Select label
+  debug_type: static
+  type: select
+# ---------------------------------------------------------
+textarea:
+  debug_label: Textarea label
+  debug_type: static
+  type: textarea
+# ---------------------------------------------------------
+post-editor:
+  debug_label: Editor label
+  debug_type: static
+  type: content
+# ---------------------------------------------------------
+file:
+  debug_label: File uploader label
+  debug_type: static
+  type: file-upload

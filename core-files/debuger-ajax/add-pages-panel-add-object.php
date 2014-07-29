@@ -167,6 +167,8 @@ function ui_register_object($object_name, $objecttype){
 			$posttypes_array = ui_merge_data_array($posttypes_array,$posttype_added_array);
 			
 			/* create posttype declarations array */
+
+
 			file_put_contents( $prop_path . 'uigen-posttype/arguments/uigen-posttype-creator-arguments.yaml' , Spyc::YAMLDump($posttypes_array ));
 
 		}
@@ -315,7 +317,14 @@ function create_properties_and_hierarchy_files($slug_name , $objecttype , $eleme
 	
 	}*/
 	$el_schema_prop = Spyc::YAMLLoad( $prop_path . 'template-hierarchy/schemas/page-'. $objecttype .'-properties-'. $element_type .'.yaml' );
-    
+ 
+
+	// Add posttype name to postlist
+	if(($objecttype == 'posttype') && ($element_type =='list')){
+		$el_schema_prop['post-list']['query_args']['post_type'] = $slug_name;
+	}
+
+
 	if($save_file_guardian == true){
 		
 		$yamlObject = file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'. $element_type .'-slots-properties.yaml' , Spyc::YAMLDump( $el_schema_prop ));

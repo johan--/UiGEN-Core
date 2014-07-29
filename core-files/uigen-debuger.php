@@ -470,12 +470,17 @@ function decorate_debuged_page_header($gridName,$args){
  */
 function decorate_slot($position,$slotName,$slot){
 
-
-
-
+	global $TDC;
+	$data_posttype_name = $TDC->args[$TDC->current_slot]['query_args']['post_type'];
+	if($data_posttype_name != ''){
+		//echo $data_posttype_name;
+	}else{
+		$data_posttype_name = explode('-',$TDC->args['ui_page_name']);
+		$data_posttype_name = $data_posttype_name[0];
+	}
 	if($position=='start'){
 	?>
-		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator" data-tplname="<?php global $TDC; echo $slot['tpl_part']?>" data-queryposttypename="<?php echo $TDC->args[$TDC->current_slot]['query_args']['post_type']?>" >
+		<div id="<?php echo $slotName; ?>" class="debug-tplpart-decorator" data-tplname="<?php ; echo $slot['tpl_part']?>" data-posttype-name="<?php echo $data_posttype_name?>" >
 			<div class="slot_properties_header">
 				<div style="float:left" class="core-properties-title">Slot Core Properties</div>
 				<button style="float:right; margin:-5px -5px 0 0" type="button" class="debug-core-properties-hide btn btn-danger btn-sm"><span class="glyphicon glyphicon glyphicon-remove-circle"></span></button>
@@ -976,7 +981,7 @@ window.onload=function(){
 				'slotname':jQuery(_this).closest('.debug-tplpart-decorator').find('.slot_name').text(),
 				'yaml': textareaVal,
 				'post_id':'<?php global $post; echo $post->ID;?>',
-				'post_type':jQuery(this).closest('.debug-tplpart-decorator').attr('data-queryposttypename')
+				'post_type':jQuery(this).closest('.debug-tplpart-decorator').attr('data-posttype-name')
 			}
 		})
 		.done(function( msg ) {	 

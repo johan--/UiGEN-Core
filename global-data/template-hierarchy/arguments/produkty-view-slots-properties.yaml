@@ -1,0 +1,70 @@
+---
+logo0:
+  type: tpl-part
+  tpl_part: basic-logo-simple
+nav-menu-header1:
+  debug_label: Nav Menu
+  debug_type: menu
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: >
+      nav-menu collapse navbar-collapse
+      navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+title-text2:
+  debug_label: Title
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+post-meta3:
+  debug_label: Post meta
+  debug_type: list
+  type: tpl-part
+  tpl_part: basic-meta
+  tpl_part_prop: not_implemented
+  args:
+    meta_label: Podglu0105d produktu
+    type: thumbnail
+    thumbnail_size: large
+  element_attr:
+    content_wraper:
+      style: width=100% height=auto
+post-meta4:
+  debug_label: Post meta
+  debug_type: list
+  type: tpl-part
+  tpl_part: basic-meta
+  tpl_part_prop: not_implemented
+  args:
+    meta_label: hddhfgfjgfj
+    type: meta
+    meta_name: _thumbnail_id
+content-text5:
+  debug_label: Content
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-content
+  tpl_part_prop: not_implemented
+post-meta6:
+  debug_label: Post meta
+  debug_type: list
+  type: tpl-part
+  tpl_part: basic-meta
+  tpl_part_prop: not_implemented
+  args:
+    meta_label: Cena
+    type: meta
+    meta_name: ui_example_data
+footer7:
+  type: tpl-part
+  tpl_part: basic-footer
+grid: basic-article
+ui_page_name: produkty-view
+ui_slot_list_name: slot-list-for-posttype1

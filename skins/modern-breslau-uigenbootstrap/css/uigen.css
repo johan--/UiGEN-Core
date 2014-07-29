@@ -54,7 +54,6 @@ margin-bottom: 20px; */
 }
 #wrapper-contact{
 	background-color:#ececec;
-	
 }
 #wrapper-footer{
 	text-transform:uppercase;	
@@ -649,20 +648,15 @@ margin:2px 30px 2px 0; */
 /* ----------------------------------------- */
 /* -- UPLOADER ----------------------------- */
 .uigen-uploader .progress{
-	margin-top:10px;
-	width:50%;
-	margin-left:170px;
+
 }
-#thumbnail_message{position:absolute; margin-left:270px; display:none !important;}
+#thumbnail_message{display:none !important;}
 #dropzone {
 	border:1px solid #999;   
-	padding:165px 0px;	
-	width:50%;
 	background-size:cover;
 	background-position:center center;
 	text-shadow: 0px 0px 5px #fff;
 	z-index:1000;
-	margin-left:170px;
 }
 #dropzone.in {
 	/* remove */

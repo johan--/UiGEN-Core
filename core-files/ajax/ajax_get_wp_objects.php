@@ -55,6 +55,8 @@ function ui_post_list_as_options($obj) {
  * @filesource /UiGEN-Core/core-files/ajax/ajax_get_wp_objects.php
  */
 function ui_post_list_to_modal($obj) {
+
+
     $args = array(
     'post_type' => $obj['post_type'],
 /*    'meta_query' => array(
@@ -66,6 +68,8 @@ function ui_post_list_to_modal($obj) {
       ) */ 
       );
     $query = new WP_Query( $args );
+
+
     
     echo '<h2>'.get_the_title($obj['post_id']).' linked with:</h2>';
 

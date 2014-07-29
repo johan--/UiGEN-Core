@@ -1,0 +1,7 @@
+---
+rejestacja:
+  label: rejestacja
+  role: Subscriber
+  labels:
+    name: rejestacja
+    singular_name: rejestacja
