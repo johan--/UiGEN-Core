@@ -23,6 +23,7 @@ if ( current_user_can( 'manage_options' ) ) {
 	$hierarchy_data = Spyc::YAMLLoadString($_POST['hierarchy_yaml']);
 	file_put_contents( $prop_path . 'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-hierarchy.yaml' , Spyc::YAMLDump( $hierarchy_data ));
 	
+
 	?>
 	<div class="modal-content">
 	  <div class="modal-header modal-success">

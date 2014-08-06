@@ -183,8 +183,10 @@ function alpaca_lib_init() {
 
 	/* Acceptable way to use the function */
   wp_enqueue_script( 'jquery-ui-datepicker' );
-  wp_enqueue_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.datepicker.css' );
+  
+ // wp_enqueue_style('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery.ui.datepicker.css' );
   wp_register_style('jquery-ui-datepicker', plugins_url().'/UiGEN-Core/js-lib/datepicker.css' );
+ 
   wp_enqueue_style( 'jquery-ui-datepicker');
 
   wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');

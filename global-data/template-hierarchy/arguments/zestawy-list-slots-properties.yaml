@@ -1,10 +1,8 @@
 ---
-grid: basic-fat
-ui_slot_list_name: slot-list-for-posttype1
-logo:
+logo0:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header:
+nav-menu-header1:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -19,12 +17,18 @@ nav-menu-header:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-post-list:
+title-text2:
+  debug_label: Title
+  debug_type: static
+  type: tpl-part
+  tpl_part: tiled-title
+  tpl_part_prop: not_implemented
+post-list3:
   debug_label: Post list
   debug_type: list
   type: controller
   name: tdc_get_loop
-  tpl_part: post-list-item
+  tpl_part: basic-list
   query_args:
     post_type: zestawy
     posts_per_page: "10"
@@ -32,12 +36,19 @@ post-list:
   tpl_start: '<table class=table width=100%>'
   tpl_end: '</table>'
   args:
+    elements:
+      - 
+        list_type: post
+        value: title
     actions:
       - 
         action_type: Add simple relation
         relation:
           related_posttype: zamowienia
-          meta_name_to_link: rel_post_id
-footer:
+          related_with_current_user: 'true'
+footer4:
   type: tpl-part
   tpl_part: basic-footer
+grid: basic-fat
+ui_page_name: zestawy-list
+ui_slot_list_name: slot-list-for-posttype1

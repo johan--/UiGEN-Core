@@ -14,3 +14,15 @@ relacje-produktow:
     - 
       db_column_name: Parent_id
       db_column_type: int(255)
+relacje-zamowien:
+  object_name: relacje-zamowien
+  db_table_columns:
+    - 
+      db_column_name: user_id
+      db_column_type: char(255)
+    - 
+      db_column_name: set_id
+      db_column_type: char(255)
+    - 
+      db_column_name: product_id
+      db_column_type: char(255)

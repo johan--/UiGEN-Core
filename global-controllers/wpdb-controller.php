@@ -126,9 +126,9 @@ function ui_create_SELECT_SQL($args){
 				$select_Sql .= $key." = '". intval($value)."' ";
 				$counter ++;
 			}
-	//echo '<pre>';
-	//print($select_Sql);
-	//echo '</pre>';
+	echo '<pre>';
+	print($select_Sql);
+	echo '</pre>';
 
 	return $select_Sql;
 }

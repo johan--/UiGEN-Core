@@ -7,7 +7,6 @@
 	$json = json_encode($element_settings);
 
 	//$json = stripslashes($json);
-
 	//$json =  str_replace("\\" , "" , $json);
 	
 	$json =  str_replace("/" , "" , $json);
@@ -20,10 +19,10 @@
 
 	//$a = str_replace('/','',json_encode($element_settings));
 	//$a = str_replace("\\" , "" , $a);
-//$a = str_replace('\'','',$a);
-//$a = stripslashes($a);
+	//$a = str_replace('\'','',$a);
+	//$a = stripslashes($a);
 
-	print( $json  );
+	print( $json);
 
 	die();
 

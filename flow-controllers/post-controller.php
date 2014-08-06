@@ -71,6 +71,16 @@ function add_posttype($args){
 	}else{
 		
 			$my_post_ID = wp_insert_post( $my_post );
+			
+			// add relation to parent post
+			if( $args['form_data']['data']['flow_steps']['input_relation_post_id']['value'] != NULL ){
+				add_post_meta(@$my_post_ID, 'rel_post_id', $args['form_data']['data']['flow_steps']['input_relation_post_id']['value'],true);
+			}
+
+			// add relation to parent user
+			if( $args['form_data']['data']['flow_steps']['input_relation_user_id']['value'] != NULL ){
+				add_post_meta(@$my_post_ID, 'rel_user_id', $args['form_data']['data']['flow_steps']['input_relation_user_id']['value'],true);
+			}
 	}
 
 	

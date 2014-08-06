@@ -1,13 +1,13 @@
 ---
 logo:
-  - logo
+  - logo0
 menu:
-  - nav-menu-header
+  - nav-menu-header1
+content-top: ""
 content-main:
-  - title-text
-  - message-slot
-  - form-slot
-footer-top:
-  - nav-menu-footer
+  - title-text2
+  - message-slot3
+  - form-slot4
+footer-top: ""
 footer-main:
-  - footer
+  - footer5

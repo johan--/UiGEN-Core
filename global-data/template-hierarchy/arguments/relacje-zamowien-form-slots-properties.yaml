@@ -1,8 +1,10 @@
 ---
-logo0:
+grid: basic-slim
+ui_slot_list_name: slot-list-for-db1
+logo:
   type: tpl-part
   tpl_part: basic-logo-simple
-nav-menu-header1:
+nav-menu-header:
   debug_label: Nav Menu
   debug_type: menu
   type: tpl-part
@@ -17,25 +19,23 @@ nav-menu-header1:
     fallback_cb: bootstrap_nav::fallback
     menu_id: main-nav
   walker: bootstrap_nav
-title-text2:
+title-text:
   debug_label: Title
   debug_type: static
   type: tpl-part
   tpl_part: tiled-title
   tpl_part_prop: not_implemented
-message-slot3:
+message-slot:
+  debug_label: Form Message
+  debug_type: form
   type: tpl-part
-  tpl_part: message-box
-  string: 'This if add new posttype form<br/> Salect form and create new posttype now.'
-form-slot4:
+  name: message-box
+form-slot:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-create-post
-footer5:
+  flow: basic-add-db-data
+footer:
   type: tpl-part
   tpl_part: basic-footer
-grid: basic-slim
-ui_page_name: zestawy-form
-ui_slot_list_name: slot-list-for-posttype1

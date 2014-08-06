@@ -25,12 +25,12 @@ function ui_init_db_relation($obj){
 	
 	require_once("../../../../../wp-load.php");
 
-	//echo '<pre>';
-	//echo var_dump($obj);
-	//echo '</pre>';
+  	echo '<pre>';
+  	var_dump('ui_init_db_relation',$obj);
+  	echo '</pre>';
 
     $args = array(
-    'post_type' => $obj['post_type'],
+    'post_type' => $obj['posttype_param_posttype'],
 		/* 'meta_query' => array(
          array(
             'key' => $obj['key'],
@@ -43,7 +43,7 @@ function ui_init_db_relation($obj){
     
     echo '<h2>Linked <b>'.get_the_title($obj['post_id']).'</b> with:</h2>';
 
-    echo '<table class="table" data-db-first-column-name="'.$obj['db_first_column_name'].'" data-db-second-column-name="'.$obj['db_second_column_name'].'" data-db-table-name="'.$obj['db_table_name'].'" data-child-id="'.$obj['post_id'].'">';  
+    echo '<table class="table" data-child-id="'.$obj['post_id'].'">';  
     echo '<tr>';  
     echo '<th>Title</th>'; 
     echo '<th>Action</th>';   
@@ -52,21 +52,27 @@ function ui_init_db_relation($obj){
         $query->the_post(); 
 
         echo '<td>'.$query->post->post_title.'</td>';
-        echo '<td><a href="#" class="db-relation" data-parent-relation="'.$query->post->ID.'">Link with this object<a></td>';
+        echo '<td><a href="#" class="db-relation" data-related-object-id="'.$query->post->ID.'">Link with this object<a></td>';
         echo '</tr>';
       }
     echo '</table>';       
-    wp_reset_postdata();    
+    wp_reset_postdata();   
+
+
+
 }
 
 function ui_list_db_related($obj){
 
-  //echo '<pre>';
-  //echo var_dump($obj);
-  //echo '</pre>';
+  echo '<pre>';
+  echo var_dump($obj);
+  echo '</pre>';
 
   require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/global-controllers/wpdb-controller.php';
   $results = ui_select_data_list($obj);
+    echo '<pre>';
+  echo var_dump($results);
+  echo '</pre>';
   echo '<table class="table">';
   foreach( $results as $key => $value){
     echo '<tr>';
@@ -78,7 +84,9 @@ function ui_list_db_related($obj){
 }
 
 function ui_insert_db_relation($obj){
-
+    echo '<pre>';
+    var_dump('ui_insert_db_relation',$obj);
+    echo '</pre>';
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/global-controllers/wpdb-controller.php';
 	ui_insert_data($obj);
 	

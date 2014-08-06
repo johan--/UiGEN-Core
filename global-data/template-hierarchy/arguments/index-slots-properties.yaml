@@ -21,21 +21,27 @@ nav-menu-header1:
   debug_label: Main Menu
   debug_type: menu
   debug_content_link: empty
-  element_attr:
+  args:
     element_wraper:
       style: margin-top:40px;
 title-text2:
   type: tpl-part
-  tpl_part: tiled-title
+  tpl_part: basic-title
   args:
     custom_title: Get BLOCKBOX
-    underline: 'true'
   debug_label: Title
   debug_type: static
   content_link: empty
+  element_attr:
+    element_wraper:
+      class: col-md-12
+    element_body:
+      class: tiled-title tpl-part text-center
+    title_wraper:
+      class: big-title
 content-text3:
   type: tpl-part
-  tpl_part: tiled-content
+  tpl_part: basic-content
   tpl_part_prop: not_implemented
   debug_label: Content
   debug_type: static
@@ -44,12 +50,14 @@ content-text3:
     custom_content: 'Welcome to BlockBox - WebBased application creator.'
   element_attr:
     element_wraper:
+      class: col-md-12 tpl-part excerpt-box
       style: text-align:center
 simple-button4:
   type: tpl-part
   args:
     btn_name: Live DEMO
     btn_type: href
+    btn_url: /?debug=true
   tpl_part: basic-button
   tpl_part_prop: not_implemented
   debug_label: Simple Button
@@ -59,8 +67,29 @@ simple-button4:
     element_wraper:
       style: text-align:center; margin:50px;
     title_wraper:
-      class: btn btn-primary active btn-lg
-title-text5:
+      class: btn btn-primary
+simple-button5:
+  type: tpl-part
+  args:
+    btn_name: Zamawiam
+    btn_type: create_new_related_post
+    new_relation:
+      create_new_posttype: zamowienia
+      related_to_item: select_after_with_form
+      related_to_user: this
+      rel_item_id: "666"
+      rel_user_id: "999"
+  tpl_part: basic-button
+  tpl_part_prop: not_implemented
+  debug_label: Simple Button
+  debug_type: static
+  content_link: empty
+  element_attr:
+    element_wraper:
+      style: text-align:center
+    title_wraper:
+      class: btn btn-primary active
+title-text6:
   type: tpl-part
   tpl_part: tiled-title
   args:
@@ -68,7 +97,7 @@ title-text5:
   debug_label: Title
   debug_type: static
   content_link: empty
-post-list6:
+post-list7:
   type: controller
   name: tdc_get_loop
   tpl_part: basic-excerpt-box-3
@@ -82,7 +111,7 @@ post-list6:
   debug_label: Post list
   debug_type: list
   content_link: empty
-ico-carousel17:
+ico-carousel18:
   type: tpl-part
   args:
     post_type: landing_content
@@ -90,7 +119,7 @@ ico-carousel17:
   debug_label: Excerpt
   debug_type: static
   content_link: empty
-excerpt-text18:
+excerpt-text19:
   type: tpl-part
   tpl_part: basic-excerpt-promo
   args:

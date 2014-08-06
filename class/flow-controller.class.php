@@ -13,7 +13,8 @@ class FlowController{
 	public $prev_step;
 
 	public $edit_id;
-
+	public $relation_post_id;
+	public $relation_user_id;
 
 
 	// -----------------------------------------------------------------------------------------------------------------	
@@ -45,13 +46,19 @@ class FlowController{
 			
 			$this -> next_step = $this -> flow_arg[$this -> post_type][$first_key]['next_step'];	
 
-			$this -> edit_id = $_GET['eid'];		
+			$this -> edit_id = $_GET['eid'];
+
+			$this -> relation_post_id = $_GET['rpid'];	
+			$this -> relation_user_id = $_GET['ruid'];	
 
 		}else{
 
 			@$this -> current_step = $this -> postData['nextStep'];
 			@$this -> next_step = $this -> flow_arg[$this -> post_type][$this -> current_step]['next_step'];
 			@$this -> edit_id = $this -> postData['editID'];
+
+			@$this -> relation_post_id = $this -> postData['rpid'];
+			@$this -> relation_user_id = $this -> postData['ruid'];
 
 		}
 
@@ -299,6 +306,24 @@ class FlowController{
 						'name' => 'editID',
 						'value' => $this -> edit_id,
 				), 
+				'input_relation_post_id' => array(	
+						'important' => true, // value blinded $_POSTed data 
+						'nameHash'=>false,					
+						'id' => 'input_rpid',
+						'type' => 'hidden',
+						'name' => 'rpid',
+						'value' => $this -> relation_post_id,
+				), 
+				'input_relation_user_id' => array(	
+						'important' => true, // value blinded $_POSTed data 
+						'nameHash'=>false,					
+						'id' => 'input_ruid',
+						'type' => 'hidden',
+						'name' => 'ruid',
+						'value' => $this -> relation_user_id,
+				), 
+
+
 			);
 /*			echo '<pre>';		
 			var_dump($this -> data_arg);

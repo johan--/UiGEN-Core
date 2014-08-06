@@ -55,6 +55,7 @@ function ui_post_list_as_options($obj) {
  * @filesource /UiGEN-Core/core-files/ajax/ajax_get_wp_objects.php
  */
 function ui_post_list_to_modal($obj) {
+    
 
 
     $args = array(
@@ -70,10 +71,14 @@ function ui_post_list_to_modal($obj) {
     $query = new WP_Query( $args );
 
 
-    
-    echo '<h2>'.get_the_title($obj['post_id']).' linked with:</h2>';
+  //echo '<pre>';
+  //echo var_dump($obj);
+  //echo '</pre>';
 
-    echo '<table class="table" data-child-id="'.$obj['post_id'].'">';  
+    
+    echo 'dsfdsf<h2>'.get_the_title($obj['post_id']).' linked with:</h2>';
+
+    echo '<table class="table">';  
     echo '<tr>';  
     echo '<th>ID</th>';  
     echo '<th>Title</th>'; 
@@ -91,13 +96,14 @@ function ui_post_list_to_modal($obj) {
         }
         
         if($obj['post_id'] == $rel_id){
+
           $success = 'class="success"';
-          
-           $href = '<td><a style="color:red" href="#" class="remove-parent-relation" data-parent-relation="'.$query->post->ID.'">Unlink this object<a></td>';
+          $href = '<td><a style="color:red" href="#" class="remove-parent-relation" data-related-object-id="'.$query->post->ID.'">Unlink this object<a></td>';
      
         }else{
+
           $success = '';
-          $href = '<td><a href="#" class="parent-relation" data-parent-relation="'.$query->post->ID.'">Link with this object<a></td>';
+          $href = '<td><a href="#" class="parent-relation" data-related-object-id="'.$query->post->ID.'">Link with this object<a></td>';
          
         }
 
@@ -107,6 +113,7 @@ function ui_post_list_to_modal($obj) {
         echo '<td>'.$rel_id_title.'</td>';
         echo $href;
         echo '</tr>';
+        
       }
     echo '</table>';       
     wp_reset_postdata();    

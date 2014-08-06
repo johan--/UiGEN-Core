@@ -166,12 +166,10 @@ class SendPostData {
 
 
 	 					// debug excerption
+	 					// Decorate form element
 						if($_GET['debug']=='true'){
-							echo '<div style="border:1px dashed #666; margin:5px; background-color:#eee">';
-/*								echo '<div style="background-color:#F08043; padding:3px;">';
-									echo '<b>element:</b> '.$this->data_arg['prop']['tpl_path'].'-'.$this -> type;
-								echo '</div>';*/
-							echo $this->data_arg['prop']['tpl_path'] ,$this -> type;
+							decorate_form('start','',$this->data_arg['prop']['tpl_path'].'-'.$this -> type);
+							
 							
 						}
 
@@ -183,6 +181,7 @@ class SendPostData {
 		 				// debug excerption
 						if($_GET['debug']=='true'){
 							echo '</div>';
+							
 						}
 		 			}
 			 	}

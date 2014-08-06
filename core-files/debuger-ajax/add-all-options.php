@@ -9,6 +9,9 @@ require_once("../../../../../wp-load.php");
 .all-options-buttons:hover{
 	background-color:#222;
 }
+.all-options-buttons span{
+	color:rgb(160, 203, 239);
+}
 
 </style>
 <div style="float:left;">
@@ -20,24 +23,24 @@ require_once("../../../../../wp-load.php");
 <br style="clear:both">
 
 <div class="all-options-buttons" style="border-top:1px solid #222;" id="all_pages_selector">
-	Add/edit pages
+	<span class="glyphicon glyphicon-file"></span> &nbsp; Add/edit pages
 </div>
 <div class="all-options-buttons" id="all_tax_selector">
-	Add/edit texonomies
+	<span class="glyphicon glyphicon-tag"></span> &nbsp; Add/edit texonomies
 </div>
 <div class="all-options-buttons" id="xxall_grid_selector">
-	LandingPage content map
+	<span class="glyphicon glyphicon-globe"></span> &nbsp; LandingPage content map
 </div>
 <div class="all-options-buttons" id="xxall_grid_selector">
-	Change skin
+	<span class="glyphicon glyphicon-tint"></span> &nbsp; Change skin
 </div>
 <div class="all-options-buttons" id="all_grid_selector">
-	Change grid
+	<span class="glyphicon glyphicon-th"></span> &nbsp; Change grid
 </div>
 <div class="all-options-buttons" id="xxall_grid_selector">
-	Rebuild slots
+	<span class="glyphicon glyphicon-retweet"></span> &nbsp; Rebuild slots
 </div>
 <div class="all-options-buttons" id="xxall_grid_selector">
-	Tutorials set
+	<span class="glyphicon glyphicon-bullhorn"></span> &nbsp; Tutorials set
 </div>
 
