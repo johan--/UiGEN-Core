@@ -1,11 +1,4 @@
-<!-- WTF!!!!!????? -->
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-<!--
-srsly, dadmor, please do it like a man, not like a pussy.
-dadmor: Who write this childish comment should set solution or go away !!!! 
---> 
+
 <style>
 	.container{margin-bottom:20px; position:relative;}
 	.sortable-helper{position:relative; width:840px; height:140px;}

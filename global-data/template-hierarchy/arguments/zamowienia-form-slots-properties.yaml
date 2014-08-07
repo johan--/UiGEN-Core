@@ -26,13 +26,13 @@ title-text2:
 message-slot3:
   type: tpl-part
   tpl_part: message-box
-  string: 'This if add new posttype form<br/> Salect form and create new posttype now.'
+  string: This if add new posttype form<br/> Salect form and create new posttype now.
 form-slot4:
   debug_label: Form Slot
   debug_type: form
   type: controller
   name: buildForm
-  flow: basic-create-post
+  flow: basic-zamowienie-essence
 footer5:
   type: tpl-part
   tpl_part: basic-footer
