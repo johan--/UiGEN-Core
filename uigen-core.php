@@ -455,10 +455,13 @@ function UiGEN_menu()
   add_menu_page('UiGEN Core', 'UiGEN Core', 'administrator', 'url_uigen_core', 'uigen_core');
   
   // submenu with calbac
-  add_submenu_page('url_uigen_core', 'UiGEN Grid', 'UiGEN Grid', 'administrator', 'url_uigen_grid', 'UiGEN_grid_callback');
+  add_submenu_page('url_uigen_core', 'UiGEN Theme Grid', 'UiGEN Theme Grid', 'administrator', 'url_uigen_grid', 'UiGEN_grid_callback');
 
   // submenu with calbac
   add_submenu_page('url_uigen_core', 'UiGEN Data Loader', 'UiGEN Data Loader', 'administrator', 'url_uigen_data_loader', 'UiGEN_data_loader_callback');
+
+  // submenu with calbac
+  add_submenu_page('url_uigen_core', 'UiGEN Data Grid', 'UiGEN Data Grid', 'administrator', 'url_uigen_data_grid', 'UiGEN_data_grid_callback');
   
   // submenu from defined posttype
   add_submenu_page('url_uigen_core', 'UiGEN Content Parts', 'UiGEN Content Parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
@@ -534,6 +537,11 @@ function UiGEN_data_loader_callback(){
 	  }
 
 	echo '</div>';
+}
+
+// submenu calback function
+function UiGEN_data_grid_callback(){
+	include 'core-files/panel-data-grid.php';
 }
 
 /* @Minimal
