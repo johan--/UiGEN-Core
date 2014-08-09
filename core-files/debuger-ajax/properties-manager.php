@@ -5,10 +5,10 @@ function init_properties_manager($obj){
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	
-	//echo '<h2>Send post prop</h2>';
-	//echo '<pre>';
-	//var_dump($obj);
-	//echo '</pre>';
+/*	echo '<h2>Send post prop</h2>';
+	echo '<pre>';
+	var_dump($obj);
+	echo '</pre>';*/
 
 	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy';
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/'.$obj['ui_page_name'].'-slots-properties.yaml' );

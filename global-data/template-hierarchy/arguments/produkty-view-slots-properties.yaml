@@ -30,7 +30,6 @@ title-text2:
       class: big-title
   args:
     custom_title: PRODUKTY
-    underline: true
 post-meta3:
   debug_label: Post meta
   debug_type: list
@@ -39,7 +38,7 @@ post-meta3:
   tpl_part_prop: not_implemented
   args:
     meta_label: Podgląd produktu
-    type: thumbnail
+    meta_type: thumbnail
     thumbnail_size: large
   element_attr:
     content_wraper:
@@ -51,26 +50,16 @@ post-meta4:
   tpl_part: basic-meta
   tpl_part_prop: not_implemented
   args:
-    meta_label: hddhfgfjgfj
-    type: meta
-    meta_name: _thumbnail_id
+    meta_label: example_data
+    meta_type: meta
+    meta_name: ui_example_data
 content-text5:
   debug_label: Content
   debug_type: static
   type: tpl-part
-  tpl_part: tiled-content
+  tpl_part: basic-content
   tpl_part_prop: not_implemented
-post-meta6:
-  debug_label: Post meta
-  debug_type: list
-  type: tpl-part
-  tpl_part: basic-meta
-  tpl_part_prop: not_implemented
-  args:
-    meta_label: Cena
-    type: meta
-    meta_name: ui_example_data
-footer7:
+footer6:
   type: tpl-part
   tpl_part: basic-footer
 grid: basic-article
