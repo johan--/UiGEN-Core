@@ -21,7 +21,7 @@
 <?php
 
 	require_once("../../../../../wp-load.php");
-
+	require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	$all_properties = Spyc::YAMLLoadString($_POST['yaml']);
@@ -29,7 +29,7 @@
 	if($listYaml == ''){
 		$listYaml = 'slot-list';
 	}
-	$slotList = Spyc::YAMLLoad(ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/schemas/'.$listYaml.'.yaml');		
+	$slotList = Spyc::YAMLLoad(GLOBALDATA_PATH . 'template-hierarchy/schemas/'.$listYaml.'.yaml');		
 	
 
 	

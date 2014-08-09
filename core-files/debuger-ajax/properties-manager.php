@@ -4,13 +4,14 @@ function init_properties_manager($obj){
 
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+	require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 	
 /*	echo '<h2>Send post prop</h2>';
 	echo '<pre>';
 	var_dump($obj);
 	echo '</pre>';*/
 
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy';
+	$prop_path = GLOBALDATA_PATH . 'template-hierarchy';
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/'.$obj['ui_page_name'].'-slots-properties.yaml' );
 
 	//echo '<h2>yaml from disc</h2>';

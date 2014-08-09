@@ -1,7 +1,7 @@
 <?php
 require_once("../../../../../wp-load.php");
 require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-	
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );	
 
 if ( current_user_can( 'manage_options' ) ) {
 
@@ -60,7 +60,7 @@ if ( current_user_can( 'manage_options' ) ) {
 
 function ui_register_object($object_name, $objecttype){
 
-		$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+		$prop_path = GLOBALDATA_PATH;
 		$slug_name = sanitize_title($object_name);
 		
 
@@ -140,7 +140,7 @@ function ui_register_object($object_name, $objecttype){
 			$posttype_array[$object_name]['object_name'] = $slug_name;
 
 			/* create posttype declarations array */
-			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+			$prop_path = GLOBALDATA_PATH;
 			$posttype_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-landing-pages/arguments/landingpages-arguments.yaml' );
 			
 			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
@@ -181,7 +181,7 @@ function ui_register_object($object_name, $objecttype){
 			$db_array[$object_name]['object_name'] = $slug_name;
 
 			/* create posttype declarations array */
-			$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+			$prop_path = GLOBALDATA_PATH;
 			$db_old_array = Spyc::YAMLLoad( $prop_path . 'uigen-database/arguments/database-arguments.yaml' );
 			
 			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
@@ -299,7 +299,7 @@ function ui_create_post($object_name, $objecttype , $slug_name, $flow_name = fal
 function create_properties_and_hierarchy_files($slug_name , $objecttype , $element_type){
 		
 	// $element_type -> view form list
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+	$prop_path = GLOBALDATA_PATH;
 	
 	$save_file_guardian = true;
 	$yamlDir = $prop_path . 'template-hierarchy/arguments/';
@@ -328,7 +328,7 @@ function create_properties_and_hierarchy_files($slug_name , $objecttype , $eleme
 	if($save_file_guardian == true){
 		
 		$yamlObject = file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'. $element_type .'-slots-properties.yaml' , Spyc::YAMLDump( $el_schema_prop ));
-		echo '<div><p style="font-family:courier; color:green;">Add form properties<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+		echo '<div><p style="font-family:courier; color:green;">Add form properties<br>plugins/UiGEN-Core/'.GLOBALDATA_PATH.'/template-hierarchy/arguments</p></div>';
 	
 		if (empty($yamlObject)) {
 	    	echo '<div><p style="font-family:courier; color:red;">Properties Error: the '.$yamlPath.' is empty/not accessible.</p></div>';
@@ -356,7 +356,7 @@ function create_properties_and_hierarchy_files($slug_name , $objecttype , $eleme
 	if($save_file_guardian == true){
 		
 		$yamlObject = file_put_contents( $prop_path . 'template-hierarchy/arguments/'. $slug_name . '-'. $element_type .'-slots-hierarchy.yaml' , Spyc::YAMLDump( $el_schema_hist ));
-		echo '<div><p style="font-family:courier; color:green;">Add form hierarchy<br>plugins/UiGEN-Core/global-data/template-hierarchy/arguments</p></div>';
+		echo '<div><p style="font-family:courier; color:green;">Add form hierarchy<br>'.GLOBALDATA_PATH.'/template-hierarchy/arguments</p></div>';
 		
 		if (empty($yamlObject)) {
 			echo '<div><p style="font-family:courier; color:red;">Hierarchy Error: the '.$yamlPath.' is empty/not accessible.</p></div>';

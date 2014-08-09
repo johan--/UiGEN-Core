@@ -479,18 +479,6 @@ function profile_customizer_add(){
 	>
 	<input type="hidden" name="role" value="<?php print($_REQUEST['role']); ?>" />
 	
-    <?php
-/*        $metabox = array(
-        'args' => array(
-            'data_path'=>'http://localhost/medica/wp-content/plugins/UiGEN-Core/global-data/uigen-alpacaform/arguments/',
-            'schema_file'=>'kontrakt-schema.json',
-            'options' => '{}'
-            ) 
-        );
-        alpacaform_box($post, $metabox);*/
-    ?>
-
-
 	<script type="text/javascript">
 		var role = '<?php print($_REQUEST["role"]); ?>';
 		if(role != '') {

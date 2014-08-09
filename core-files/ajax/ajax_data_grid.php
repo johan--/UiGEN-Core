@@ -4,7 +4,9 @@ require_once("../../../../../wp-load.php");
 function ui_save_data_grid($obj){
 	if ( current_user_can( 'manage_options' ) ) {
     //var_dump($obj['yaml']);
-    file_put_contents( ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-data-grids/'.$obj['filename'] , Spyc::YAMLDump( $obj['yaml'] ));
+    require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
+
+    file_put_contents( GLOBALDATA_PATH.'uigen-data-grids/'.$obj['filename'] , Spyc::YAMLDump( $obj['yaml'] ));
 
 
   }else{

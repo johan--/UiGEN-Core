@@ -23,14 +23,12 @@ Authors URI: dadmor@gmail.com
 *
 * @filesource /UiGEN-Core/uigen-core.php
 */
-define( 'UiGEN_CORE_VER' , '0.1.3' );
-define( 'SKIN_NAME' , 'modern-breslau-uigenbootstrap' );
-define( 'EMAIL_SALT' , ';Lp/10>2yp*-SP-=6,[7&N[XZfVUn!EKP{][MvyOni|/i]B.@=/$|XL|OOP(;Q!a^-<I}Q&b4>BV' );
-define( 'PLUGIN_DIR', ABSPATH.'/wp-content/plugins/UiGEN-Core/');
 
-define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/' );
-define( 'GLOBALDATA_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/' );
-define( 'UIGENCLASS_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/class/' );
+
+
+
+define( 'UiGEN_CORE_VER' , '0.1.3' );
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 
 $filename = __FILE__;
 register_activation_hook($filename,'my_first_install');
@@ -324,8 +322,8 @@ function uigen_metaboxes() {
   // Metaboxes definitions
   // -------------------------
 
-
-	if( file_exists ( 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php' )){;
+// GLOBAL DATA AR IN UPLOADS FOLDER
+/*	if( file_exists ( 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php' )){;
 		// include arguments array
 		include 'global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
 
@@ -335,7 +333,7 @@ function uigen_metaboxes() {
 		}
 	}else{
 		
-	}
+	}*/
 
 	  
 
@@ -375,14 +373,15 @@ function ui_register_sidebars() {
 	// -------------------------
 	
 	// sidebar method is depreciated - rebuild it into yaml model
-	if( file_exists ( 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php' )){
+	// GLOBAL DATA AR IN UPLOADS FOLDER
+/*	if( file_exists ( 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php' )){
 		include 'global-data/uigen-sidebars/arguments/uigen-sidebars-arguments.php';
 		foreach ($uigen_sidebars as $sidebar) {
 			register_sidebar( $sidebar);
 		}
 	}else{
 			
-	}
+	}*/
 }
 
 
@@ -391,15 +390,16 @@ function ui_register_sidebars() {
 // #################################################################################
 // CORE FILES
 // include alpacaform box
-include 'core-files/uigen-alpacaform-box.php';
+//include 'core-files/uigen-alpacaform-box.php';
+
 // include save as file box
-include 'core-files/uigen-saveasfile-box.php';
+//include 'core-files/uigen-saveasfile-box.php';
 
 // create native plugin widgets
-include 'core-files/uigen-widgets.php';
+// include 'core-files/uigen-widgets.php';
 
 // create native plugin widgets
-include 'core-files/uigen-shortcodes.php';
+// include 'core-files/uigen-shortcodes.php';
 
 //add_action('init', 'check_debuger');
 
@@ -477,7 +477,7 @@ function uigen_core(){
 	//echo '<div id="message" class="updated"><p>UiGEN Theme <b>compatibility</b> check: <span style="color:#7ad03a"> is CORRECT</span>';
 	//echo '<br/>Your theme is: '.constant('UiGEN_THEME_VER').' </p></div>';
   }else{
-  	echo '<div id="message" class="error"><p>UiGEN properties is not installed: <a href="#">Install propreties starter kit here</a></p></div>';
+  	echo '<div id="message" class="error"><p>UiGEN properties is not installed: <a href="'.get_bloginfo('home').'/wp-admin/admin.php?page=url_uigen_data_loader">Install propreties starter kit here</a></p></div>';
   }
   
 
@@ -497,6 +497,7 @@ function UiGEN_grid_callback(){
 }
 
 function UiGEN_data_loader_callback(){
+
 	//include 'core-files/panel-create-grid.php';
 	echo '<div class="wrap">';
   	echo '<h2>UiGEN CORE Data Loader.</h2>';
@@ -508,8 +509,20 @@ function UiGEN_data_loader_callback(){
 		echo '<div id="message" class="updated"><p>Starter Kit work CORRECT</span>';
 		echo '</div>';
 	  }else{
-	  	$path = plugin_dir_path( __FILE__ ) . 'global-data';
-		$file = '/global-data-set1.zip'; 
+
+	  	//$path = plugin_dir_path( __FILE__ ) . 'global-data';
+
+	  	// create ditectory
+		$wp_upload = wp_upload_dir();
+		echo $wp_upload['basedir'].'/global-data';
+		mkdir($wp_upload['basedir'].'/global-data', 0744);
+
+		copy( plugin_dir_path( __FILE__ ) . 'global-data/global-data-set1.zip' , $wp_upload['basedir'].'/global-data/global-data-set1.zip');
+
+
+
+	  	$path = GLOBALDATA_PATH;
+		$file = 'global-data-set1.zip'; 
 		
 		//echo $path.$file.'<br>';
 		//global $wp_filesystem;

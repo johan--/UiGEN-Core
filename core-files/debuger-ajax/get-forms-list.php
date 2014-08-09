@@ -2,7 +2,8 @@
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-debuger.php';
-	$formList = Spyc::YAMLLoad(ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/schemas/form-list.yaml');
+	require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
+	$formList = Spyc::YAMLLoad(GLOBALDATA_PATH . 'template-hierarchy/schemas/form-list.yaml');
 	
 	foreach ($formList as $key => $value) {
 		

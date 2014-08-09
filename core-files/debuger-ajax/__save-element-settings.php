@@ -5,9 +5,10 @@
 
 require_once("../../../../../wp-load.php");
 require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 if ( current_user_can( 'manage_options' ) ) {
 
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy';
+	$prop_path = GLOBALDATA_PATH . 'template-hierarchy';
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/'.$_POST['page_name'].'-slots-properties.yaml' );
 
 	//var_dump($posttypes_array[$_POST['objecttype']]);

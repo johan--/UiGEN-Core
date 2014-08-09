@@ -1,5 +1,6 @@
 <?php
 require_once("../../../../../wp-load.php");
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 ?>
 <style>
 #pages-panel-add-form{
@@ -20,7 +21,7 @@ require_once("../../../../../wp-load.php");
 
 <?php
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-taxonomy';
+	$prop_path = GLOBALDATA_PATH . 'uigen-taxonomy';
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-taxonomy-creator-arguments.yaml' );
 	foreach ($posttypes_array as $key => $value) {
 

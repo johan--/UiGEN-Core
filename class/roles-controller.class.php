@@ -99,10 +99,14 @@ class RolesController {
 
 		if($this -> eid != ''){
 
-			// CHECK OBJECT TYPE
-			echo 'edytuję';			
-
 			$post = get_post($this -> eid);
+
+			// CHECK OBJECT TYPE
+			echo '<div style="background-color:#666; color:#fff; padding:5px; ">';
+			echo 'UiGEN message: You editing '.get_the_title($this -> eid);	
+			echo '</div>';		
+
+			
 
 			if( @$this -> post_type == @$post -> post_type){
 				echo 'co jest...';

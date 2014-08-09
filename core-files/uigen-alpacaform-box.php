@@ -317,7 +317,7 @@ function render_taxonomy_to_alpaca_string($args){
 
 // save post function
 function save_alpaca_form_box( $post_id ) {
-  include ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
+  include GLOBALDATA_PATH . 'uigen-metaboxes/arguments/uigen-metaboxes-arguments.php';
   foreach ($uigen_metaboxes as $metabox) {
     if ( (isset($_POST['publish']) || isset($_POST['save'])) && $_REQUEST['post_type'] == $metabox[3]) {
       update_post_meta($post_id, 'ui_'.$metabox[0], $_POST[$metabox[0].'_output_field']);

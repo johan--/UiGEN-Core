@@ -1,5 +1,6 @@
 <?php
     require_once("../../../../../wp-load.php");
+    require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 ?>
 <style>
 
@@ -90,10 +91,10 @@
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-alpacaform-yaml.php';
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-posttype';
-	$db_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-database';
-	$landingpages_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-landing-pages';
-	$users_prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/uigen-users';
+	$prop_path = GLOBALDATA_PATH . 'uigen-posttype';
+	$db_prop_path = GLOBALDATA_PATH . 'uigen-database';
+	$landingpages_prop_path = GLOBALDATA_PATH . 'uigen-landing-pages';
+	$users_prop_path = GLOBALDATA_PATH . 'uigen-users';
 
 	$posttypes_array = Spyc::YAMLLoad( $prop_path . '/arguments/uigen-posttype-creator-arguments.yaml' );
 	$users_array = Spyc::YAMLLoad( $users_prop_path . '/arguments/users-arguments.yaml' );
@@ -269,7 +270,7 @@
 
 	function create_display_pages_element( $key , $element_type ){
 			
-			$hierarchy = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/template-hierarchy/arguments';
+			$hierarchy = GLOBALDATA_PATH . 'template-hierarchy/arguments';
 			$element_return_prop = array(
 				'view_exist' => '',
 				'view_href' => '',

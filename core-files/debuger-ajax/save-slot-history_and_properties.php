@@ -1,7 +1,7 @@
 <?php
 require_once("../../../../../wp-load.php");
 require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
-	
+require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );	
 
 if ( current_user_can( 'manage_options' ) ) {
 	
@@ -16,7 +16,7 @@ if ( current_user_can( 'manage_options' ) ) {
 	$prop_data['ui_slot_list_name'] = $_POST['ui_slot_list'];
 	
 
-	$prop_path = ABSPATH . 'wp-content/plugins/UiGEN-Core/global-data/';
+	$prop_path = GLOBALDATA_PATH;
 
 	file_put_contents( $prop_path . 'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-properties.yaml' , Spyc::YAMLDump( $prop_data ));
 
