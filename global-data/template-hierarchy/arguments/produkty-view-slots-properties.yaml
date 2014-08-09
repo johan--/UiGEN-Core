@@ -21,8 +21,16 @@ title-text2:
   debug_label: Title
   debug_type: static
   type: tpl-part
-  tpl_part: tiled-title
+  tpl_part: basic-title
   tpl_part_prop: not_implemented
+  element_attr:
+    element_body:
+      class: tiled-title tpl-part text-center
+    title_wraper:
+      class: big-title
+  args:
+    custom_title: PRODUKTY
+    underline: true
 post-meta3:
   debug_label: Post meta
   debug_type: list
@@ -30,7 +38,7 @@ post-meta3:
   tpl_part: basic-meta
   tpl_part_prop: not_implemented
   args:
-    meta_label: Podglu0105d produktu
+    meta_label: Podgląd produktu
     type: thumbnail
     thumbnail_size: large
   element_attr:

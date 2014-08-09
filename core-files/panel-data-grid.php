@@ -6,6 +6,8 @@
 	wp_enqueue_style('data-grid-css');
 
 	$selected_grid = $_GET['grid'];
+
+	var_dump($GLOBALS['wp_object_cache']->cache['options']['alloptions']);
 ?>
 
 
@@ -15,11 +17,21 @@
 	
 	<div style="float:left">
 		<div>
-			<h3><?php echo $selected_grid; ?></h3>
-			<button class="button button-large" id="new_data_grid" style="float:right; margin-top:-42px;">New data grid</button>
+			<?php if($selected_grid != 'new'){?>
+				<h3 id="file_name"><?php echo $selected_grid; ?></h3>
+				<a href="<?php echo get_bloginfo('home');?>/wp-admin/admin.php?page=url_uigen_data_grid&grid=new" ><button class="button button-large" id="new_data_grid" style="float:right; margin-top:-42px;">New data grid</button></a>
+			<?php }else{ ?>
+				<h3><input id="file_name" type="text" placeholder="insert name of new data grid" style="width:400px; height:40px; line-height:40px; padding:0px 10px"/></h3>
+			<?php } ?>
 		</div>
 		<div id="my_grid"></div>
+
 		<button class="button button-primary button-large" id="handson_save" style="float:right; margin-top:5px;">Save data grid</button>
+		
+		<div style="background-color:#ccc; padding:11px 8px">
+		<input type="checkbox" /> Build autostart global browser-objest from this data 
+		</div>
+		
 	</div>
 	<div style="float:right">
 
@@ -71,7 +83,13 @@
 
 jQuery( document ).ready(function() {
   	function getData() {	
-		return <?php echo json_encode($data_grid); ?>;
+		return <?php
+		if($selected_grid != 'new'){
+		 echo json_encode($data_grid);
+		}else{
+		 echo "[['']]";	
+		} 
+		?>;
 	}
 	jQuery("#my_grid").handsontable({
 		data: getData(),
@@ -85,18 +103,46 @@ jQuery( document ).ready(function() {
 		colHeaders: true,
 		minSpareRows: 1,
 		contextMenu: true,
-		comments: true,
-		cell: [
-		{row: 1, col: 1, comment: "Test comment"},
-		{row: 2, col: 2, comment: "Sample"}
-		]
+		//comments: true,
+		//cell: [
+		//{row: 1, col: 1, comment: "Test comment"},
+		//{row: 2, col: 2, comment: "Sample"}
+		//]
 	});
 
 	jQuery('#handson_save').on('click',function(){
 		var data = jQuery("#my_grid").data('handsontable');
 		console.log(data.getData());
 
+
+		jQuery.ajax({
+			type: "POST",
+			url: "<?php echo plugins_url();?>/UiGEN-Core/core-files/ajax/ajax_data_grid.php",
+			data: {
+				'callback':'ui_save_data_grid',
+				'args':{
+					'yaml':data.getData(),
+					<?php if($selected_grid == 'new'){?>
+						'filename':jQuery('#file_name').val()+'.yaml',
+						'newfile':'true',
+					<?php }else{ ?>
+						'filename':jQuery('#file_name').text(),
+						'newfile':'false',
+					<?php } ?>
+				}
+			}	
+		})
+		.done(function( msg ) {	
+			//jQuery('#debug-manager').append(msg);	
+			alert('OK');		
+		});
+
+		
+
 	});
+
+
+
 
 
 

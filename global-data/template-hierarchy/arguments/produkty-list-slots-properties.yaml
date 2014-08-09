@@ -32,6 +32,7 @@ post-list2:
       - 
         list_type: post
         value: title
+        as_url: 'true'
       - 
         list_type: meta
         value: title

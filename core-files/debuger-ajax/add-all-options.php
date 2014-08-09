@@ -44,3 +44,9 @@ require_once("../../../../../wp-load.php");
 	<span class="glyphicon glyphicon-bullhorn"></span> &nbsp; Tutorials set
 </div>
 
+
+<br><br/><br><br/>
+<div style="font-size:11px; margin-bottom:5px">Powered By:</div>
+
+<img src="<?php echo plugins_url();?>/UiGEN-Core/img/uigen_logo_horizontal_inverse.png" width="90%" height="auto">
+

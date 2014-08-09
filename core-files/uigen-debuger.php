@@ -444,6 +444,7 @@ function decorate_debuged_page_header($gridName,$args){
 		</div>
 
 		<div>
+			
 			<span style="font-size:28px" class="ui_page_ico glyphicon glyphicon-file"></span>
 			<span class="ui_page_label" style="font-size:22px">Page:</span> <span id="ui_page_name" style="font-size:26px"><?php echo $args['ui_page_name']; ?></span>
 

@@ -40,6 +40,7 @@ post-list3:
       - 
         list_type: post
         value: title
+        as_url: 'true'
     actions:
       - 
         action_type: Add simple relation

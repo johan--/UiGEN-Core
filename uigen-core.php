@@ -165,9 +165,7 @@ function my_first_reinstall(){
   }
 }
 
-add_action('init', 'uigen_scripts');
 function uigen_scripts(){
-
 
 	wp_enqueue_script( 'jquery' );	
 	wp_register_script( 'uigen-js', plugins_url().'/UiGEN-Core/js-lib/uigen-navigation/uigen-basic-navigation.js');
@@ -176,14 +174,8 @@ function uigen_scripts(){
 	wp_register_script( 'masked-input',  plugins_url().'/UiGEN-Core/js-lib/masked.jquery.js');
 	wp_enqueue_script( 'masked-input' );
 
-	
-	
-	
-
 	/* Acceptable way to use the function */
 	//wp_enqueue_script( 'jquery-ui' );
-
-
 
 	//wp_register_style('jquery-ui-datepicker', plugins_url().'/UiGEN-Core/js-lib/datepicker.css' );
 	//wp_enqueue_style('jquery-ui',  plugins_url().'/UiGEN-Core/js-lib/jquery.ui.css' );
@@ -191,39 +183,37 @@ function uigen_scripts(){
 	//wp_enqueue_style( 'jquery-ui-datepicker');
 
 }
+add_action( 'wp_enqueue_scripts', 'uigen_scripts' );
+
 
 // ################################################################################
 // UiGEN alpaca lib init - native plugin libraries
 // https://github.com/gitana/alpaca
 // -------------------------------------------------------------------------------- 
+function alpaca_lib_init() {
 
+	wp_enqueue_script( 'jquery' );	
+	wp_register_script( 'uigen-js', plugins_url().'/UiGEN-Core/js-lib/uigen-navigation/uigen-basic-navigation.js');
+	wp_enqueue_script( 'uigen-js' );
+
+	wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');
+	wp_enqueue_script( 'jquery-tmpl' );
+
+	//wp_register_script( 'alpaca-js', 'http://www.alpacajs.org/js/alpaca.min.js');
+	wp_register_script( 'alpaca-js',  plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.js');
+	wp_enqueue_script( 'alpaca-js' );
+
+	wp_register_style( 'alpaca-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.css' );
+	wp_enqueue_style('alpaca-css');
+
+	wp_register_style( 'alpaca-uigen-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca-uigen.css' );
+	wp_enqueue_style('alpaca-uigen-css');
+
+}
 add_action('admin_enqueue_scripts', 'alpaca_lib_init');
 if(@$_GET['debug']=='true'){
 	alpaca_lib_init();
 }
-
-function alpaca_lib_init() {
-
-
-  wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');
-  wp_enqueue_script( 'jquery-tmpl' );
-
-  //wp_register_script( 'alpaca-js', 'http://www.alpacajs.org/js/alpaca.min.js');
-  wp_register_script( 'alpaca-js',  plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.js');
-  wp_enqueue_script( 'alpaca-js' );
-
-  wp_register_style( 'alpaca-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca.css' );
-  wp_enqueue_style('alpaca-css');
-
-  wp_register_style( 'alpaca-uigen-css', plugins_url().'/UiGEN-Core/js-lib/alpaca-component/alpaca-uigen.css' );
-  wp_enqueue_style('alpaca-uigen-css');
-
-
-
-}
-
-
-
 
 
 // ################################################################################
