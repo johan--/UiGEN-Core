@@ -510,20 +510,21 @@ function UiGEN_data_loader_callback(){
 		echo '</div>';
 	  }else{
 
+	  	/* single source mode */
 	  	//$path = plugin_dir_path( __FILE__ ) . 'global-data';
-
+	  	// $file = '/global-data-set1.zip'; 
+	  	
+	  	/* multi set */
 	  	// create ditectory
 		$wp_upload = wp_upload_dir();
 		echo $wp_upload['basedir'].'/global-data';
 		mkdir($wp_upload['basedir'].'/global-data', 0744);
 
 		copy( plugin_dir_path( __FILE__ ) . 'global-data/global-data-set1.zip' , $wp_upload['basedir'].'/global-data/global-data-set1.zip');
-
-
-
 	  	$path = GLOBALDATA_PATH;
 		$file = 'global-data-set1.zip'; 
-		
+		/* ----------------- */
+
 		//echo $path.$file.'<br>';
 		//global $wp_filesystem;
 		WP_Filesystem();
