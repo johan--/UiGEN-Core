@@ -51,6 +51,10 @@ class FlowController{
 			$this -> relation_post_id = $_GET['rpid'];	
 			$this -> relation_user_id = $_GET['ruid'];	
 
+			if($_GET['fs'] != ''){
+				$this -> current_step = $_GET['fs'];
+			}
+
 		}else{
 
 			@$this -> current_step = $this -> postData['nextStep'];
@@ -175,7 +179,7 @@ class FlowController{
 				
 				/*				
 				echo '<pre>';
-				print_r($value);
+				print_r(array($value));
 				echo '</pre>';
 				*/
 

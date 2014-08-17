@@ -24,7 +24,7 @@ function login_user($args){
 	}
 
 	if($login_guardian == true){
-			$wp_user_array['user_login'] = $wp_user_array['user_email'];
+		$wp_user_array['user_login'] = $wp_user_array['user_email'];
 	}
 
 	// login section
@@ -38,11 +38,18 @@ function login_user($args){
 	$block_redirect = true;
 	foreach (@$args['call_prop']['confirmed_statuses'] as $key => $value) {
 		
+
 		if($key==@$user->roles[0]){
 			if($value == true){
 				if(get_user_meta($user->ID, 'ui_status', true) == 'not_confirmed'){
 					wp_logout();
 					$my_message = 'Nie potwierdziłeś rejestracji za pomocą linka wysłanego na twój adres email';
+					$FC->flow_arg['user_login'][$FC->current_step]['msg'][2] = $my_message;
+					$block_redirect = false;
+				}
+				if(get_user_meta($user->ID, 'ui_status', true) == 'deleted'){
+					wp_logout();
+					$my_message = 'Konto zostało usunięte. Zaloguj się jako inny uzytkownik';
 					$FC->flow_arg['user_login'][$FC->current_step]['msg'][2] = $my_message;
 					$block_redirect = false;
 				}
@@ -73,6 +80,7 @@ function login_user($args){
 
 
 function register_user($args){
+	$data_key = key($args['form_data']['data']); 
 	global $wpdb;
 	$wp_user_array;
 	$wp_mail_array;
@@ -80,7 +88,7 @@ function register_user($args){
 	// lock login and delegate to email
 	$login_guardian = true;
 
-	foreach ($args['form_data']['data']['register_fields'] as $key => $value) {	
+	foreach ($args['form_data']['data'][$data_key] as $key => $value) {	
 
 		if($key == 'user_pass'){
 			$wp_user_array['user_pass'] = $value['value'];
@@ -144,7 +152,7 @@ function register_user($args){
 			    array('user_login', $wp_user_array['user_login']), array('ID', $user_id),
 			    array('%s'), array('%d'));*/
 		//}
-		var_dump('user array ->',$wp_user_array);
+		//var_dump('user array ->',$wp_user_array);
 		wp_update_user( $wp_user_array );
 	
 	}else{
@@ -231,40 +239,85 @@ function register_user($args){
 
 }
 function change_password($args){
+	$data_key = key($args['form_data']['data']); 
 	global $FC;
 	$wp_user_array;
-	foreach ($args['form_data']['data']['register_fields'] as $key => $value) {	
+	foreach ($args['form_data']['data'][$data_key] as $key => $value) {	
 
 		if($key == 'user_pass'){
 			$wp_user_array['user_pass'] = $value['value'];
 		}
 		if($key == 'user_email'){			
-			$wp_user_array['user_login'] = $value['value'];
+			$wp_user_array['user_email'] = $value['value'];
 		}		
 	}
 	$user_info = get_userdata(get_current_user_id());
 	
 
-
+	// dont send email 
 	if($user_info == ""){
 		$my_message = 'Aby zmienić hasło powinieneś sie najpierw zalogować';
-		$FC->flow_arg['register_fields'][$FC->current_step]['msg'][2] = $my_message;
+		$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $my_message;
 	}
 
 
-	if($wp_user_array['user_login'] == $user_info->user_login){
+	
+
+	if($wp_user_array['user_email'] == $user_info->user_email || validate_hash( $_POST['uid'] , $_POST['hash'] , false )){
+		
 		$my_message = 'Twoje nowe hasło zostało zmienione na: '.$wp_user_array['user_pass'];
-		$FC->flow_arg['register_fields'][$FC->current_step]['msg'][2] = $my_message;
+		$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $my_message;
+		
+
 		@wp_update_user( array ('ID' => $user_info->ID, 'user_pass' => $wp_user_array['user_pass'] ) ) ;
 
-	}else{
 
-		$my_message = 'Podałeś adres email nie należący do Twojego konta';
-		$FC->flow_arg['register_fields'][$FC->current_step]['msg'][2] = $my_message;
+
+
+	}else{
+		// Chceck is user have admin role
+		if($user_info->roles[0] == 'administrator'){
+			$my_message = 'Zmieniasz hasło użytkownika:'.$wp_user_array['user_email'];
+			$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $my_message;
+			//@wp_update_user( array ('ID' => $user_info->ID, 'user_pass' => $wp_user_array['user_pass'] ) ) ;
+			
+		}else{
+			$my_message = 'Podałeś adres email nie należący do Twojego konta';
+			$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $my_message;
+		}
 	}
+
+	// send email
+	if($args['call_prop']['send_email'] == true){
+		// add content email template
+		include(TEMPLATEPATH . '/theme-template-parts/mail/'.$wp_mail_array['email_message'].'.php');
+		//var_dump($wp_mail_array);
+		ts_sendEmail($wp_mail_array['user_email'],$wp_mail_array['email_title'],$mail_content,$wp_mail_array['email_header']);
+	}
+
+
+
 	
 }
+function key_confirmation($args){
+	
+	global $FC;
 
+	
+	$data_key = key($args['form_data']['data']); 
+
+	if(validate_hash($_GET['uid'],$_GET['hash'])){
+		
+		update_user_meta($_GET['uid'], $args['meta_name'],$args['meta_value']);
+		$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $args['msg_true'];
+	}else{
+		$FC->flow_arg[$data_key][$FC->current_step]['msg'][2] = $args['msg_false'];
+	}
+}
+
+function user_logout($args){
+	wp_logout();
+}
 
 
 ?>

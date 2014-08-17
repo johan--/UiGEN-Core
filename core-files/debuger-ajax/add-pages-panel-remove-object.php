@@ -161,9 +161,9 @@ function ui_remove_users_declarations($object_name){
 
 function ui_remove_template_file( $object_name, $objecttype ){
 	
-	$theme_dir = get_template_directory();
-	$file = '/UiGEN_Tpl_' . $object_name . '_' . $objecttype . '.php';
-	unlink( $theme_dir . $file );
+	//$theme_dir = get_template_directory();
+	//$file = '/UiGEN_Tpl_' . $object_name . '_' . $objecttype . '.php';
+	//unlink( $theme_dir . $file );
 
 }
 

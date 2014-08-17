@@ -186,9 +186,49 @@ function ui_register_object($object_name, $objecttype){
 			
 			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/init-uigen-yaml-get-merge.php';
 
+		    // update yaml file
+
 		    $db_array = ui_merge_data_array( $db_old_array , $db_array );
 
 			file_put_contents( $prop_path . 'uigen-database/arguments/database-arguments.yaml' , Spyc::YAMLDump( $db_array ));
+
+					    // create new table
+
+			global $wpdb;	
+
+		    //require_once UIGENCLASS_PATH . 'Spyc.php';
+		    
+			//$debuger_db = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' );    
+			$debuger_db = $db_array;
+
+			foreach ($debuger_db as $db_tb_name => $db_props) {
+
+				$db_create_table_string = '';
+				$db_create_table_string .= "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}".$db_tb_name."` ( \n";
+				$db_create_table_string .= "`ID` int(5) NOT NULL AUTO_INCREMENT, \n";
+					
+				foreach ($db_props['db_table_columns'] as $db_col_props) {
+					$db_create_table_string .= "`".$db_col_props['db_column_name']."` ".$db_col_props['db_column_type']." NOT NULL, \n";
+					//var_dump('db>' , $db_col_props['db_column_name']);
+					//var_dump('db>' , $db_col_props['db_column_type']);
+				}
+
+				$db_create_table_string .= " PRIMARY KEY (`ID`) \n";
+				//$db_create_table_string .= " CHARACTER SET utf8 COLLATE utf8_general_ci \n";
+				$db_create_table_string .= " )  \n";
+				$db_tables_array[$db_tb_name] = $db_create_table_string;
+			}
+			//var_dump($db_tables_array);
+
+			// Create tables
+			echo '<pre>';
+			foreach ($db_tables_array as $db_tb => $db_sql_synax) {
+				echo '<br/>----------------<br/>create '.$db_tb.'<br/>----------------<br/>';
+				echo $db_sql_synax;
+				$wpdb->query($db_sql_synax);
+			
+			}
+			echo '</pre>';
 
 
 		}
@@ -239,18 +279,18 @@ function ui_register_object($object_name, $objecttype){
 		/* ------------------------------------ */
 		// 4.1. Create page template php file */
 		
-		$output = "<?php\n";
-		$output .= "/* Template Name: " . $slug_name . " " . $objecttype . " Template */\n";
-		$output .= "get_header();\n";
-		$output .= "\$ui_page_name = \$post -> post_name;\n";
-		$output .= "require_once COREFILES_PATH . 'init-uigen-tdc.php';\n";
-		$output .= "require_once COREFILES_PATH . 'init-uigen-yaml-get-merge.php';\n";
-		$output .= "require_once COREFILES_PATH . 'init-uigen-flow.php';\n";
-		$output .= "\$TDC -> tdc_get_grid(\$args['grid'], \$args, \$slots_handler,\$SPD);\n";
-		$output .= "get_footer();\n";
+		//$output = "<?php\n";
+		//$output .= "/* Template Name: " . $slug_name . " " . $objecttype . " Template */\n";
+		//$output .= "get_header();\n";
+		//$output .= "\$ui_page_name = \$post -> post_name;\n";
+		//$output .= "require_once COREFILES_PATH . 'init-uigen-tdc.php';\n";
+		//$output .= "require_once COREFILES_PATH . 'init-uigen-yaml-get-merge.php';\n";
+		//$output .= "require_once COREFILES_PATH . 'init-uigen-flow.php';\n";
+		//$output .= "\$TDC -> tdc_get_grid(\$args['grid'], \$args, \$slots_handler,\$SPD);\n";
+		//$output .= "get_footer();\n";
 
-		//chmod($prop_path . TEMPLATEPATH, 0755);
-		file_put_contents(  TEMPLATEPATH . '/UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' , $output);
+		// /*chmod($prop_path . TEMPLATEPATH, 0755);*/
+		//file_put_contents(  TEMPLATEPATH . '/UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' , $output);
 		
 }
 
@@ -266,7 +306,10 @@ function ui_create_post($object_name, $objecttype , $slug_name, $flow_name = fal
 
 	/* Insert the post into the database */
 	$new_post = wp_insert_post( $my_post );
- 	update_post_meta( $new_post, '_wp_page_template', 'UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' );
+ 	
+	/* add pageTemplate to created post */
+ 	//update_post_meta( $new_post, '_wp_page_template', 'UiGEN_Tpl_' . $slug_name . '_'.$objecttype.'.php' );
+	
 	// TO DO - check $slug_name and post slug and reorganized process
 
 	/* Add page to nav-menu */

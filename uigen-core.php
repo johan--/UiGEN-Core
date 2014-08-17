@@ -28,6 +28,7 @@ Authors URI: dadmor@gmail.com
 
 
 define( 'UiGEN_CORE_VER' , '0.1.3' );
+
 require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
 
 $filename = __FILE__;
@@ -115,7 +116,7 @@ function my_first_install() {
 
 	/* ---------------------- */
 	/* CREATE DATABASE TABLES */
-	global $wpdb;	
+/*	global $wpdb;	
 
     require_once UIGENCLASS_PATH . 'Spyc.php';
     if( file_exists ( GLOBALDATA_PATH . 'uigen-database/arguments/database-arguments.yaml' )){
@@ -149,7 +150,7 @@ function my_first_install() {
 		}
 		echo '</pre>';
 
-	}
+	}*/
 
 }
 
@@ -452,9 +453,12 @@ function UiGEN_menu()
 
   // submenu with calbac
   add_submenu_page('url_uigen_core', 'UiGEN Data Grid', 'UiGEN Data Grid', 'administrator', 'url_uigen_data_grid', 'UiGEN_data_grid_callback');
+
+  // submenu with calbac
+  add_submenu_page('url_uigen_core', 'UiGEN GFX files', 'UiGEN GFX files', 'administrator', 'url_uigen_gfx_files', 'UiGEN_gfx_files_callback');
   
   // submenu from defined posttype
-  add_submenu_page('url_uigen_core', 'UiGEN Content Parts', 'UiGEN Content Parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
+  //add_submenu_page('url_uigen_core', 'UiGEN Content Parts', 'UiGEN Content Parts', 'manage_options', 'edit.php?post_type=content_parts');  //add_submenu_page('url_uigencore', 'Dodaj', 'Dodaj', 'administrator', 'url_add_mod', 'moderator_ADD');  
 
 } 
 
@@ -510,21 +514,20 @@ function UiGEN_data_loader_callback(){
 		echo '</div>';
 	  }else{
 
-	  	/* single source mode */
 	  	//$path = plugin_dir_path( __FILE__ ) . 'global-data';
-	  	// $file = '/global-data-set1.zip'; 
-	  	
-	  	/* multi set */
+
 	  	// create ditectory
 		$wp_upload = wp_upload_dir();
 		echo $wp_upload['basedir'].'/global-data';
 		mkdir($wp_upload['basedir'].'/global-data', 0744);
 
 		copy( plugin_dir_path( __FILE__ ) . 'global-data/global-data-set1.zip' , $wp_upload['basedir'].'/global-data/global-data-set1.zip');
+
+
+
 	  	$path = GLOBALDATA_PATH;
 		$file = 'global-data-set1.zip'; 
-		/* ----------------- */
-
+		
 		//echo $path.$file.'<br>';
 		//global $wp_filesystem;
 		WP_Filesystem();
@@ -585,5 +588,49 @@ function UiGEN_data_grid_callback(){
  }
 
 
+function UiGEN_gfx_files_callback(){
+
+echo '<div class="wrap">';
+echo '<h2>GFX files</h2>';
+echo '<p>...</p>';
+
+	echo '<div id="message" class="updated">';
+		
+		$wp_upload = wp_upload_dir();
+
+		echo '<p>This instance GFX <b>files dir path:</b> ';
+		echo $wp_upload['basedir'].'/gfx</p>';
+
+		echo '<p>This instance GFX <b>files url path:</b> ';
+		echo $wp_upload['baseurl'].'/gfx</p>';
+
+	echo '</div>';
+
+?>
+	<table class="wp-list-table widefat plugins" style="min-width:200px">
+	<thead>
+	<th scope="col" id="name" class="manage-column column-name" style="">Files into GFX folder</th>	</tr>	</thead>
+	<tbody id="the-list">
+		<?php
+			if ($handle = opendir($wp_upload['basedir'] . '/gfx')) {
+			        while (false !== ($entry = readdir($handle))) {
+			            if ($entry != "." && $entry != "..") {
+			            	?>
+								<tr class="active update">
+									<td class="column-description desc">
+										<?php echo $entry ?> 	
+									</td>
+								</tr>
+			            	<?php
+			            }
+			        }
+			        closedir($handle);
+			   }
+		?>
+	</tbody>
+	</table>
+<?php
+echo '</div>';
+}
  		
  ?>

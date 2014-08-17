@@ -1,0 +1,203 @@
+{
+    "title":"Custom posttype",
+    "description":"Register custom posttype into wordpress",
+    "type":"object",
+    "properties":{
+        "labels":{
+            "title": "Labels",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "title": "Name",
+                    "description":"general name for the post type, usually plural. The same as, and overridden by $post_type_object->label",
+                    "type": "string"
+                },
+                "singular_name": {
+                    "title": "Singular name",
+                    "description":"name for one object of this post type. Defaults to value of name",
+                    "type": "string"
+                },
+                "menu_name": {
+                    "title": "Menu name",
+                    "description":"the menu name text. This string is the name to give menu items. Defaults to value of name",
+                    "type": "string"
+                },
+                "all_items": {
+                    "title": "All items",
+                    "description":"the all items text used in the menu. Default is the Name label",
+                    "type": "string"
+                },
+                "add_new": {
+                    "title": "Add new",
+                    "description":"the add new text. The default is Add New for both hierarchical and non-hierarchical types. When internationalizing this string, please use a gettext context matching your post type. Example: _x('Add New', 'product');",
+                    "type": "string"
+                },
+                "add_new_item": {
+                    "title": "Add new item",
+                    "description":" the add new item text. Default is Add New Post/Add New Page",
+                    "type": "string"
+                },
+                "edit_item": {
+                    "title": "Edit item",
+                    "description":"the edit item text. Default is Edit Post/Edit Page",
+                    "type": "string"
+                },
+                "new_item": {
+                    "title": "New item",
+                    "description":"the new item text. Default is New Post/New Page",
+                    "type": "string"
+                },               
+                "view_item": {
+                    "title": "View item",
+                    "description":"the view item text. Default is View Post/View Page",
+                    "type": "string"
+                },
+                "search_items": {
+                    "title": "Search items",
+                    "description":"the search items text. Default is Search Posts/Search Pages",
+                    "type": "string"
+                },
+                "not_found": {
+                    "title": "Not found",
+                    "description":"the not found text. Default is No posts found/No pages found",
+                    "type": "string"
+                },
+                "not_found_in_trash": {
+                    "title": "Not found in trash",
+                    "description":"the not found in trash text. Default is No posts found in Trash/No pages found in Trash",
+                    "type": "string"
+                },
+                "parent_item_colon": {
+                    "title": "Parent item colon",
+                    "description":"the parent text. This string isn't used on non-hierarchical types. In hierarchical ones the default is Parent Page",
+                    "type": "string"
+                }
+
+
+            }
+        },
+        "publicly_queryable":{
+            "title":"Publicly queryable",
+            "description":" Whether queries can be performed on the front end as part of parse_request().",
+            "type": "radio",
+            "default":"true",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]            
+        },
+        "show_ui":{
+            "title":"Show UI",
+            "description":"Whether to generate a default UI for managing this post type in the admin.",
+            "type": "radio",
+            "default":"true",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]            
+        },
+        "show_in_menu":{
+            "title":"Show in menu",
+            "description":"Where to show the post type in the admin menu. show_ui must be true.",
+            "type": "radio",
+            "default":"true",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]            
+        },
+        "query_var":{
+            "title":"Query var",
+            "description":" Sets the query_var key for this post type.",
+            "type": "radio",
+            "default":"true",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]         
+        },
+        "rewrite":{
+            "title":"Rewrite",
+            "description":"Triggers the handling of rewrites for this post type. To prevent rewrites, set to false.",
+            "type": "radio",
+            "default":"true",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]         
+        },
+        "capability_type":{
+            "title":"Capability type",
+            "description":"The string to use to build the read, edit, and delete capabilities. May be passed as an array to allow for alternative plurals when using this argument as a base to construct the capabilities, e.g. array('story', 'stories') the first array element will be used for the singular capabilities and the second array element for the plural capabilities, this is instead of the auto generated version if no array is given which would be 'storys'. By default the capability_type is used as a base to construct capabilities. It seems that `map_meta_cap` needs to be set to true, to make this work.",
+            "type": "radio",
+            "default":"post",
+            "required": true,
+            "enum":[
+                "post",
+                "page"
+            ]         
+        },
+        "has_archive":{
+            "title":"Has archive",
+            "description":"Enables post type archives. Will use $post_type as archive slug by default.",
+            "type": "radio",
+            "default":"false",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]         
+        },
+         "hierarchical":{
+            "title":"Hierarchical",
+            "description":"Whether the post type is hierarchical (e.g. page). Allows Parent to be specified. The 'supports' parameter should contain 'page-attributes' to show the parent select box on the editor page.",
+            "type": "radio",
+            "default":"false",
+            "required": true,
+            "enum":[
+                "true",
+                "false"
+            ]         
+        },
+        "menu_position":{
+            "title":"Menu Position",
+            "description":"The position in the menu order the post type should appear. show_in_menu must be true.",
+            "type": "radio",
+            "default":"null",
+            "required": true,
+            "enum":[
+                "null",
+                "5",
+                "10",
+                "15",
+                "20",
+                "25",
+                "60",
+                "65",
+                "70",
+                "75",
+                "80",
+                "100"
+            ]         
+        },        
+        "supports": {
+            "title": "Supports",
+            "description":"An alias for calling add_post_type_support() directly. As of 3.5, boolean false can be passed as value instead of an array to prevent default (title and editor) behavior.",
+            "type": "array", 
+            "items": {
+                "type": "object",
+                "properties": {
+                    "cell_name": {                        
+                        "type": "string",
+                        "enum": ["title", "editor", "author","thumbnail", "excerpt", "trackbacks","custom-fields", "comments", "revisions","page-attributes"]
+                    }
+                }
+            }
+        }
+    }
+}

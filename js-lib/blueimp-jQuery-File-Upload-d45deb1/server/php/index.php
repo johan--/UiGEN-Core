@@ -12,11 +12,21 @@
 
 error_reporting(E_ALL | E_STRICT);
 require('upload.class.php');
+require_once("../../../../../../../wp-load.php");
 
 $fileSubfolder = $_GET['type'];
 if($fileSubfolder == ''){
     $fileSubfolder = 'uigen';
 }
 //$fileSubfolder = 'fuck';
+$upload_dir = wp_upload_dir();
 
-$upload_handler = new UploadHandler($fileSubfolder);
+
+$uigen_upload_args = array(
+	'subfolder' => $fileSubfolder,
+	'upload_main_url' => $upload_dir['baseurl'],
+	'upload_main_dir' => $upload_dir['basedir']
+	);
+
+
+$upload_handler = new UploadHandler($uigen_upload_args);

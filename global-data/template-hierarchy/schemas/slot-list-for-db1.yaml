@@ -1,0 +1,100 @@
+# Slot ---------------------------------------------------------
+# Template part with logotype options
+simple-logo:
+  debug_label: Simple Logo
+  debug_type: static
+  type: tpl-part
+  tpl_part: basic-logo-simple
+  tpl_part_prop: not_implemented
+# Menu Slot ----------------------------------------------------
+nav-menu-header:
+  debug_label: Nav Menu
+  debug_type: menu
+  type: tpl-part
+  tpl_part: basic-nav-menu-bootstrap
+  menu:
+    container: div
+    container_class: nav-menu collapse navbar-collapse navbar-ex1-collapse no-margin
+    theme_location: main-menu-login
+    menu_class: nav navbar-nav
+    fallback_cb: bootstrap_nav::fallback
+    menu_id: main-nav
+  walker: bootstrap_nav
+  
+# Slot ---------------------------------------------------------
+title-text:
+  type: tpl-part
+  tpl_part: basic-title
+  args:
+    underline: true
+  element_attr:
+    element_body:
+      class: tiled-title tpl-part text-center
+    title_wraper:
+      class: big-title
+  # -----------------------------
+  debug_label: Title
+  debug_type: static
+  content_link: empty
+
+# Slot ---------------------------------------------------------
+excerpt-text:
+  debug_label: Excerpt
+  debug_type: static
+  type: tpl-part
+  tpl_part: basic-excerpt-promo
+  tpl_part_prop: not_implemented
+
+# Slot ---------------------------------------------------------
+simple-button:
+  debug_label: Simple Button
+  debug_type: static
+  type: tpl-part
+  args:
+    btn_name: Example Button
+    btn_type: href
+  element_attr:
+    element_wraper:
+      style: >
+        float:right; margin-left:10px
+    content_wraper:
+      class: btn btn-primary active    
+  tpl_part: basic-button
+  tpl_part_prop: not_implemented
+
+# DB list ---------------------------------------------------------
+db-list:
+  debug_label: Data base list
+  debug_type: list
+  type: controller
+  name: tdc_get_user_loop 
+  tpl_part: basic-user-block
+    query_args:
+      number:10
+
+# Slot ---------------------------------------------------------
+form-slot:
+  debug_label: Form Slot
+  debug_type: form
+  type: controller
+  name: buildForm
+  flow: basic-user-login
+# Slot ---------------------------------------------------------
+message-slot:
+  debug_label: Form Message
+  debug_type: form
+  type: tpl-part
+  name: message-box
+# Slot ---------------------------------------------------------
+paginator:
+  debug_label: User paginator
+  debug_type: form
+  paginate: user-list
+  type: tpl-part
+  tpl_part: user-paginator
+# Slot ---------------------------------------------------------
+query-filter:
+  debug_label: Form filter
+  debug_type: form
+  type: tpl-part
+  tpl_part: query-filter

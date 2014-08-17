@@ -275,10 +275,10 @@ class ThemeDisplayController {
 		//global $wp_query;
 		//
 		$user_query = new WP_User_Query(  $slot['query_args'] );
-		
+
 		// Get the results
 		$authors = $user_query->get_results();
-		
+
 		$this -> loopCounter = 0;
 
 		if ( ! empty( $user_query->results ) ) {
@@ -314,12 +314,23 @@ class ThemeDisplayController {
 	}
 	// ------------------------------------------------
 	public function tdc_get_db_loop($slot){
+
+
 		//$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." WHERE user_id = ".$current_user->ID."".$req_nr);
 		//$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." WHERE offer_id IN (".$posts_ids_Array.") ".$worker_id.$req_nr);
 
+		// http://www.mysqlperformanceblog.com/2013/10/22/the-power-of-mysqls-group_concat/
+
 		global $wpdb;	
-		$tableName = $wpdb->prefix . "zdjecia";
-     	$myresults = $wpdb->get_results("SELECT * FROM ".$tableName." ORDER BY user_id DESC");
+		$tableName = $wpdb->prefix . $slot['db_query_args']['table'];
+     	$myresults = $wpdb->get_results("SELECT DISTINCT set_id, GROUP_CONCAT(DISTINCT product_id ORDER BY product_id) AS child_id_list FROM ".$tableName." group by set_id ");
+     	
+/*		echo '<pre>';
+		var_dump($myresults);
+		echo '<pre>';*/
+
+
+
      	foreach ($myresults  as $value) {
      		$this -> db_row = $value;
      		$this -> tdc_get_content($slot);	

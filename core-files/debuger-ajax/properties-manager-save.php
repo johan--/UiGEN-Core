@@ -2,6 +2,8 @@
 
 
 function save_data($obj){
+
+	global $wpdb;
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );

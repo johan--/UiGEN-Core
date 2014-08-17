@@ -97,11 +97,14 @@ function add_posttype($args){
 	//foreach ($args['form_data']['data'][$posttype_regname] as $key => $value) {	
 			
 			// add meta firlds
-			foreach ($args['call_prop']['meta'] as $prop_value) {	
-
-					if($key == $prop_value){
-
-						update_post_meta(@$my_post_ID, $key, $value['value']);						
+			foreach ($args['call_prop']['meta'] as $prop_value) {					
+					
+					if($key == $prop_value){						
+						update_post_meta(@$my_post_ID, $key, $value['value']);	
+						
+						if($value['value'] == ''){
+							delete_post_meta(@$my_post_ID, $key, $value['value']); 
+						}					
 					} 
 			}
 			// add taxonomy
@@ -191,10 +194,16 @@ function add_post_attachment($id,$attachFile){
 		//require_once(ABSPATH . 'wp-admin/includes/file.php');
 		//require_once(ABSPATH . 'wp-admin/includes/media.php');
 		
-		$attach_data = wp_generate_attachment_metadata( $attach_id, ABSPATH.'wp-content/uploads/uigen_'.date('Y') .'/'.$filename ); // $upload_dir.$obrazlogo );
+		//var_dump('>>',$wp_upload_dir['basedir'].'/uigen_'.date('Y') .'/'.$filename);
+
+		$attach_data = wp_generate_attachment_metadata( $attach_id, $wp_upload_dir['basedir'].'/uigen_'.date('Y') .'/'.$filename ); // $upload_dir.$obrazlogo );
+		
+		
+
 		wp_update_attachment_metadata( $attach_id, $attach_data);
 		
-		update_attached_file( $attach_id, $file);
+		update_attached_file( $attach_id, 'uigen_'.date('Y') .'/'. $filename);
+
 		update_post_meta($id,'_thumbnail_id',$attach_id);
 		/*
 		if($thumb=='true'){

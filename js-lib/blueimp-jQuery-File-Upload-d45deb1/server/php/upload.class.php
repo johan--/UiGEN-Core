@@ -33,7 +33,7 @@ class UploadHandler
         'min_height' => 'Image requires a minimum height'
     );
 
-    function __construct($fileSubfolder,$options = null, $initialize = true) {
+    function __construct($uigen_upload_args,$options = null, $initialize = true) {
 /*        $fileSubfolder = 'fuck';
         $fileSubfolder = $_GET['type'];
         if($fileSubfolder == ''){
@@ -41,13 +41,15 @@ class UploadHandler
         }
 */
 
+
         $this->options = array(
+
             'script_url' => $this->get_full_url().'/',
             //'upload_dir' => dirname($_SERVER['SCRIPT_FILENAME']).'/files/',
             //'upload_url' => $this->get_full_url().'/files/',
 
-            'upload_dir' => realpath('../../../../../../../wp-content/uploads/').'/'.$fileSubfolder.'_'.date('Y').'/',
-            'upload_url' => 'http://w4t.hekate-design.pl/wp-content/uploads/'.$fileSubfolder.'_'.date('Y'),
+            'upload_dir' => $uigen_upload_args['upload_main_dir'].'/'.$uigen_upload_args['subfolder'].'_'.date('Y').'/',
+            'upload_url' => $uigen_upload_args['upload_main_url'].'/'.$uigen_upload_args['subfolder'].'_'.date('Y'),
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',

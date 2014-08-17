@@ -2,9 +2,21 @@
 
 function init_properties_manager($obj){
 
+
+	/* error multisite wpdb fix http://wordpress.org/support/topic/running-wordpress-tests-with-phpunit */
+/*	define( 'DOING_AJAX', true );
+	global $wpdb;
+	global $wp_embed;
+	$GLOBALS[ '_wp_deprecated_widgets_callbacks' ] = array();*/
+	/* ---- */
+	//define('WP_INSTALLING', 1);
+
+	global $wpdb;
 	require_once("../../../../../wp-load.php");
 	require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/class/Spyc.php';
 	require_once( ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/defines-const.php' );
+
+
 	
 /*	echo '<h2>Send post prop</h2>';
 	echo '<pre>';
@@ -19,9 +31,12 @@ function init_properties_manager($obj){
 	//var_dump($posttypes_array[$obj['slotname']]);
 	//echo '</pre>';
 
-	
-	require_once get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-schema.php';
-	
+	if(file_exists ( get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-schema.php' )){
+		require_once get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-schema.php';
+	}else{
+		echo '<pre>Shema file from this block not exist</pre>';
+	}
+
 /*	echo '<h2>yaml from disc</h2>';
 	echo '<pre>';
 	var_dump($element_settings);
@@ -32,9 +47,11 @@ function init_properties_manager($obj){
 	$args = json_encode($args);
 	$element_attr = json_encode($element_attr);
 
-
-	require_once get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-options.php';
-
+	if(file_exists ( get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-options.php' )){
+		require_once get_template_directory() . '/theme-template-parts/content-properties-api/content-'.$posttypes_array[$obj['slotname']]['tpl_part'].'-options.php';
+	}else{
+		echo '<pre>Options file from this block not exist</pre>';
+	}
 ?>
 
 <style>
