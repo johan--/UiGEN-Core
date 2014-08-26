@@ -14,7 +14,7 @@ UiGEN Core
 Tech alert !!!
 
 UiGEN Core is not stable yet !!!
-First beta version will be published on dedicated repo github/uigen soon.
+First beta version will be published on dedicated repo github/uigen at 17.11.2014.
 To get started, check out <http://uigen.org>!
 
 ## TABLE OF CONTEST
@@ -89,4 +89,8 @@ ___
 ## DOCUMENTATION
 
 <http://getblockbox.com/getblockbox-docs/>
+
+## COPYRIGHT AND LICENCE
+
+GPL
 
