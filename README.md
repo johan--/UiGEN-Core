@@ -12,10 +12,11 @@ UiGEN Core
 9. MockupMe is UiGEN satelite project to generate prototype site from SVG files.
 
 Tech alert !!!
+--------------
 
 UiGEN Core is not stable yet !!!
 First beta version will be published on dedicated repo github/uigen at 17.11.2014.
-To get started, check out <http://uigen.org>!
+
 
 ## TABLE OF CONTEST
 
