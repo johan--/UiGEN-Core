@@ -1,9 +1,10 @@
 ---
 skinloader:
   css:
-    - bootstrap.min.css
+    #- bootstrap.min.css
+    - bootstrap-nomobile.css
     - bootstrap-theme.min.css
-    - uigen.css
+    - uigen.css    
   js:
-    - bootstrap.min.js
+    - bootstrap.js
 

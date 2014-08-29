@@ -186,6 +186,18 @@ class FlowController{
 				call_user_func_array($key,array($value)); 				   
 			}
 		}
+
+
+		// SCRIPT EXECUTE
+		//echo 'SCRIPT EXECUTE';
+		$formula = $this -> flow_arg[$this -> post_type][$this -> current_step]['formula'];
+		echo '<script>';
+		echo 'jQuery( document ).ready(function() {';
+		echo $formula;
+		echo '});';
+		echo '</script>';
+
+
 	}
 
 	public function runInControllers($data_arg){

@@ -147,9 +147,9 @@ margin-bottom: 20px; */
 	color:#535353;
 }
 .big-title{
-	margin-top:80px;
+	padding-top:80px;
 	text-transform:uppercase;
-	margin-bottom:10px;
+	margin-bottom:20px;
 	font-size:36px;
 	line-height:42px;
 	font-weight:300;

@@ -51,7 +51,8 @@ class ThemeDisplayController {
 
 		// INIT DEBUGER
 		if($_GET['debug']=='true'){
-			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-debuger.php';
+			//require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/uigen-debuger.php';
+			require_once ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/backbone-test.php';
 			//wp_register_script( 'jquery-ui', '//code.jquery.com/ui/1.10.4/jquery-ui.js');
 			wp_enqueue_script( 'jquery-ui-sortable' ); 
 			wp_enqueue_script( 'jquery-ui-droppable' ); 
@@ -71,7 +72,9 @@ class ThemeDisplayController {
 				echo '<pre class="alert alert-warning" style="margin:20px"><b>SLOT HANDLER INFO</b><br>Slot handler is not defined</pre>'; 
 	
 			}
-			decorate_debuged_page_header( $grid_name, $args );
+			
+			/* Debuger */
+			//decorate_debuged_page_header( $grid_name, $args );
 
 		}
 		
@@ -117,7 +120,11 @@ class ThemeDisplayController {
 		if($slot != NULL){	
 
 			if($_GET['debug']=='true'){
-				decorate_slot('start',$slotName,$slot);
+
+				/* Debuger */
+				//decorate_slot('start',$slotName,$slot);
+
+
 			}		
 			
 			// Add custom code before template code
@@ -138,7 +145,10 @@ class ThemeDisplayController {
 
 			// debuger ----------------------------
 			if($_GET['debug']=='true'){
-				decorate_slot('end',$slotName,$slot);
+				
+				/* Debuger */
+				//decorate_slot('end',$slotName,$slot);
+				
 			}
 			// ------------------------------------
 
@@ -256,7 +266,10 @@ class ThemeDisplayController {
 
 		$this -> loopCounter = 0;
 		if ( have_posts() ) { 
-			while ( have_posts() ) : the_post(); 					
+			while ( have_posts() ) : the_post(); 
+				//echo '<pre>';
+				//var_dump($slot);
+				//echo '</pre>';					
 				$this -> tdc_get_content($slot);	
 				$this -> loopCounter ++;		
 			endwhile; 

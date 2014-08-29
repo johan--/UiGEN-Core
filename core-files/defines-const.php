@@ -8,6 +8,9 @@ define( 'COREFILES_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/core-files/'
 
 $wp_upload = wp_upload_dir();
 define( 'GLOBALDATA_PATH' , $wp_upload['basedir'].'/global-data/' );
+define( 'GLOBALDATA_URI' , $wp_upload['baseurl'].'/global-data/' );
+define( 'GFX_URL' , $wp_upload['baseurl'].'/gfx/' );
+define( 'GFX_DIR' , $wp_upload['basedir'].'/gfx/' );
 
 define( 'UIGENCLASS_PATH' , ABSPATH . 'wp-content/plugins/UiGEN-Core/class/' );
 

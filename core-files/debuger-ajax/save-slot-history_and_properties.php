@@ -21,9 +21,15 @@ if ( current_user_can( 'manage_options' ) ) {
 	file_put_contents( $prop_path . 'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-properties.yaml' , Spyc::YAMLDump( $prop_data ));
 
 	$hierarchy_data = Spyc::YAMLLoadString($_POST['hierarchy_yaml']);
+
+	echo '<h2>hierarchy_data</h2>';
+	echo '<pre>';
+	var_dump($hierarchy_data);
+	echo '</pre>';
+
 	file_put_contents( $prop_path . 'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-hierarchy.yaml' , Spyc::YAMLDump( $hierarchy_data ));
 	
-
+	echo $prop_path . 'template-hierarchy/arguments/'.$_POST['ui_page_name'].'-slots-hierarchy.yaml'
 	?>
 	<div class="modal-content">
 	  <div class="modal-header modal-success">

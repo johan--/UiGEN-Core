@@ -165,8 +165,9 @@ function my_first_reinstall(){
 }
 
 function uigen_scripts(){
-
+	
 	wp_enqueue_script( 'jquery' );	
+
 	wp_register_script( 'uigen-js', plugins_url().'/UiGEN-Core/js-lib/uigen-navigation/uigen-basic-navigation.js');
 	wp_enqueue_script( 'uigen-js' );
 
@@ -191,9 +192,9 @@ add_action( 'wp_enqueue_scripts', 'uigen_scripts' );
 // -------------------------------------------------------------------------------- 
 function alpaca_lib_init() {
 
-	wp_enqueue_script( 'jquery' );	
-	wp_register_script( 'uigen-js', plugins_url().'/UiGEN-Core/js-lib/uigen-navigation/uigen-basic-navigation.js');
-	wp_enqueue_script( 'uigen-js' );
+	wp_enqueue_script( 'jquery' );
+	//wp_enqueue_script( 'backbone' );
+	
 
 	wp_register_script( 'jquery-tmpl',  plugins_url().'/UiGEN-Core/js-lib/jquery.tmpl.js');
 	wp_enqueue_script( 'jquery-tmpl' );
@@ -233,13 +234,13 @@ function uigen_posttypes() {
 	// Posttypes definitions
 	// -------------------------
 	
-	// include arguments array - depreciated Model !!!!!
-	//include 'global-data/uigen-posttype/arguments/uigen-posttype-arguments.php';
+	//include arguments array - depreciated Model !!!!!
+	include GLOBALDATA_PATH . 'uigen-posttype/arguments/uigen-posttype-arguments.php';
 
 	// register posttypes from arguments array
-	//foreach ($uigen_posttypes as $posttype => $props) {
-	  //register_post_type($posttype, $props);
-	//}
+	foreach ($uigen_posttypes as $posttype => $props) {
+	  register_post_type($posttype, $props);
+	}
 	// --------------------------------------------------
 
 	/* register posttypes createt form user with debuger !!! */
@@ -287,7 +288,12 @@ function uigen_taxonomies() {
 	require_once UIGENCLASS_PATH . 'Spyc.php';
 	$debuger_custom_taxonomies = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-taxonomy/arguments/uigen-taxonomy-creator-arguments.yaml' );        
 	foreach ($debuger_custom_taxonomies as $ui_taxonomy => $props) {
-		register_taxonomy( $ui_taxonomy, $props['post_type'], $props['tax_args'] );
+		
+		//echo '<pre>';
+		//var_dump($props);
+		//echo '</pre>';
+
+		register_taxonomy( $props['ui_taxonomy'], $props['ui_object_type'], $props['ui_args'] );
 	}
 
 
@@ -295,6 +301,17 @@ function uigen_taxonomies() {
 
 	
 	// register landingPage content map	
+/*	register_taxonomy(
+		'kierunek_hier',
+		array( 'kierunek' ),
+		array(
+			'label' => __( 'kierunek-h' ),
+			'rewrite' => array( 'slug' => 'kierunek-hier' ),
+			'hierarchical' => true,
+			'show_admin_column' => true,
+		)
+	);*/
+
 	register_taxonomy(
 		'landing_content_hierarchy',
 		array( 'landing_content' ),
@@ -589,14 +606,12 @@ function UiGEN_data_grid_callback(){
 
 
 function UiGEN_gfx_files_callback(){
-
+$wp_upload = wp_upload_dir(); 
 echo '<div class="wrap">';
 echo '<h2>GFX files</h2>';
 echo '<p>...</p>';
 
 	echo '<div id="message" class="updated">';
-		
-		$wp_upload = wp_upload_dir();
 
 		echo '<p>This instance GFX <b>files dir path:</b> ';
 		echo $wp_upload['basedir'].'/gfx</p>';

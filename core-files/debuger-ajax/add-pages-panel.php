@@ -107,7 +107,7 @@
 				<div class="page-panel-header" style="background-color: #428BCA;">
 					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-file"></span>
 					<span class="objectname"><?php echo $value['object_name']; ?></span>
-					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+					<!-- <span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span> -->
 				</div>
 
 				<div>
@@ -121,14 +121,15 @@
 				</div>
 
 				<?php
-					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_landingpage.php';
+				// IS PAGETEMPLATE EXIST - depreciated
+/*					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_landingpage.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
 							Warning: <br/>Page Tamplate file doesn't exist !!
 						</div>
 						<?php
-					}
+					}*/
 				?>
 			</div>	
 		<?php
@@ -140,7 +141,7 @@
 				<div class="page-panel-header" style="background-color: #408A40;">
 					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-th-list"></span>
 					<span class="objectname"><?php echo $value['label']; ?></span>
-					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+					<!-- <span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span> -->
 				</div>
 
 				<div>
@@ -156,14 +157,15 @@
 				</div>
 
 				<?php
-					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_posttype.php';
+				// IS PAGETEMPLATE EXIST - depreciated
+					/*$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_posttype.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
 							Warning: <br/>Page Tamplate file doesn't exist !!
 						</div>
 						<?php
-					}
+					}*/
 				?>
 			</div>	
 		<?php
@@ -176,7 +178,7 @@
 				<div class="page-panel-header" style="background-color: #B37323;">
 					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-user"></span>
 					<span class="objectname"><?php echo $value['label']; ?></span>
-					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+					<!-- <span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span> -->
 				</div>
 
 				<div>
@@ -192,14 +194,15 @@
 				</div>
 
 				<?php
-					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_user.php';
+				// IS PAGETEMPLATE EXIST - depreciated
+/*					$filename = get_template_directory().'/UiGEN_Tpl_'. $key .'_user.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
 							Warning: <br/>Page Tamplate file doesn't exist !!
 						</div>
 						<?php
-					}
+					}*/
 				?>
 			</div>	
 		<?php
@@ -213,7 +216,7 @@
 				<div class="page-panel-header" style="background-color: #7A4185;">
 					<span style="margin:3px -2px 0 0" class="glyphicon glyphicon-list-alt"></span>
 					<span class="objectname"><?php echo $value['object_name']; ?></span>
-					<span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span>
+					<!-- <span style="float:right; margin:3px -2px 0 0" class="glyphicon glyphicon-cog"></span> -->
 				</div>
 
 				<div>
@@ -238,14 +241,15 @@
 				</div>
 
 				<?php
-					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_db.php';
+				// IS PAGETEMPLATE EXIST - depreciated
+/*					$filename = get_template_directory().'/UiGEN_Tpl_'.$value['object_name'].'_db.php';
 					if (!file_exists($filename)) {
 						?>
 					   	<div style="padding:5px 10px; background-color:rgb(209, 66, 66); color:#fff; font-size:11px;">
 							Warning: <br/>Page Tamplate file doesn't exist !!
 						</div>
 						<?php
-					}
+					}*/
 				?>
 			</div>	
 
@@ -312,7 +316,7 @@
 			}
 
 			if( $_POST['ui_page_name'] == $key . '-' . $element_type ){
-				$element_return_prop['view_exist'] = 'style="text-shadow: 0px 0px 15px #0089FF; color:#fff" class="glyphicon glyphicon-file"';
+				$element_return_prop['view_exist'] = 'style="text-shadow: 0px 0px 15px #0089FF; color:rgb(239, 239, 160)" class="glyphicon glyphicon-file"';
 			} 
 			?>
 			<div class="page-panel-single-object">

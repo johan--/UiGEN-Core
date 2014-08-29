@@ -71,17 +71,39 @@ class SendPostData {
 	public function addSendForm($edit_id = false){
 		/*
 			create form to send Get data
-		*/	
-		
-		$output ='
-		<form class="flow_form" action="'.$this->data_arg['prop']['source'].'" method="post" enctype="multipart/form-data">';
-		 	
-		 	if($this->data_arg['prop']['nonce'] == true){
-				$output .='
-		 		<input type="hidden" name="_nonce" value="g3r23hr63df4s24g6f4vw4s445dgg4">';
+		*/
 
-		 	}		 
-	 	echo $output;
+			//echo '#### ADD SEND FORM PAYPAL TEST####';
+			//echo '<pre>';
+			//var_dump($_POST);
+			//echo '</pre>';
+			//echo '<pre>';
+			//var_dump($_GET);
+			//echo '</pre>';
+
+
+			// check is form is simple chart
+			global $FC;
+			$first_steps_group_key = @key($FC->flow_arg);
+			$current_step = $this->data_arg['data']['flow_steps']['input_current_step']['value'];
+		
+					
+			$output ='
+			<form class="flow_form" action="'.$this->data_arg['prop']['source'].'" method="post" enctype="multipart/form-data">';
+			 	
+		 	if($this->data_arg['prop']['nonce'] == true){
+				$output .='<input type="hidden" name="_nonce" value="g3r23hr63df4s24g6f4vw4s445dgg4">';
+
+		 	}	
+			
+			if($FC->flow_arg[$first_steps_group_key][$current_step]['action']=='cart'){
+				$output .='<div class="___simpleCart_shelfItem">';
+			}
+
+	 
+	 		echo $output;
+	 		$output = '';
+
 		 	
 		 	foreach( $this->data_arg['data'] as $groupName => $groupValue){ 
 			 	// check Flow acces 
@@ -194,17 +216,45 @@ class SendPostData {
 			// SUBMIT
  			// ------------------------------------------------------------------------------------
 
+
+			
+
+			//echo '<pre>';
+			//var_dump($FC->flow_arg[$first_steps_group_key][$current_step]['action']);
+			//echo '</pre>';
+
+
+
 			if($this->data_arg['prop']['submit'] == 'false'){				
 				//$output = 'false'; 
 				$output .= '<div class="submitBtn"><input style="display:none" class="'.$this->data_arg['prop']['submit_class'].'" type="submit" value="'.$this->data_arg['prop']['submit'].'"></div>';
 
 			}else{
 				//$output = 'true'; 
-				$output .= '<div class="submitBtn"><input class="'.$this->data_arg['prop']['submit_class'].'" type="submit" value="'.$this->data_arg['prop']['submit'].'"></div>';
+
+				if(($FC->flow_arg[$first_steps_group_key][$current_step]['action']==null)||($FC->flow_arg[$first_steps_group_key][$current_step]['action']=='post')){
+					$output .= '<div class="submitBtn"><input class="'.$this->data_arg['prop']['submit_class'].'" type="submit" value="'.$this->data_arg['prop']['submit'].'"></div>';
+				}
+				if($FC->flow_arg[$first_steps_group_key][$current_step]['action']=='cart'){
+					$output .= '<div class="submitBtn"><a id="ui_add_to_chart_submit" href="javascript:;" data-toggle="modal" data-target="#simpleCart" class="item_add '.$this->data_arg['prop']['submit_class'].'" >'.$this->data_arg['prop']['submit'].'</a></div>';
+					$output .= '<script>
+						jQuery(".flow_form").submit(function(e){ e.preventDefault(); });
+						jQuery("#ui_add_to_chart_submit").click(function(){
+							add_to_chart_callback();
+						});
+					</script>';
+				}
+
+
 			}
 
 			/* create extra submit */
 			//var_dump($this->data_arg['prop']['extra_submit']);
+
+
+			if($FC->flow_arg[$first_steps_group_key][$current_step]['action']=='cart'){
+				$output .='</div>'; // catd schelf item end
+			}
 
 			$output .='</form>';
 			echo $output;

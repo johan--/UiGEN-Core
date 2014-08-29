@@ -18,7 +18,7 @@ function init_properties_manager($obj){
 
 
 	
-/*	echo '<h2>Send post prop</h2>';
+	/*	echo '<h2>Send post prop</h2>';
 	echo '<pre>';
 	var_dump($obj);
 	echo '</pre>';*/

@@ -68,9 +68,18 @@ h1, h2,span{
 }
 
 
-.ui_page_label, .ui_page_ico, #ui_page_name{
+.ui_page_label, .ui_page_ico {
 	color:#D2D84F !important;
 }
+#ui_page_name{
+	color:rgb(160, 203, 239);
+}
+
+#ui_page_name:hover{
+	color:#2d6ca2;
+	cursor:pointer;
+}
+
 body{
 	position:relative;
 	transition: margin-left 0.5s ease-in-out,margin-right 0.5s ease-in-out;
@@ -112,7 +121,7 @@ body.left200{
 	/* display:none; */
 	/* box-shadow: 0px 0px 10px #888888; */
 	min-height:60px !important;
-	background-color: rgb(255,255,255);
+	background-color: rgba(255,255,255,0.8);
 
 }
 .ui-state-active{
@@ -446,7 +455,10 @@ function decorate_debuged_page_header($gridName,$args){
 		<div>
 			
 			<span style="font-size:28px" class="ui_page_ico glyphicon glyphicon-file"></span>
+			<!-- THIS SPAN IS USED FROM JQUERY TO MANIPULATED DEBUGER AJAX PROCESSES -->
 			<span class="ui_page_label" style="font-size:22px">Page:</span> <span id="ui_page_name" style="font-size:26px"><?php echo $args['ui_page_name']; ?></span>
+			<!-- END off SHITTY SOLUTION and read backbone documentation RIGHT NOW !!!! -->
+			<span style="font-size:14px" class="glyphicon glyphicon-eye-open"></span><span style="font-size:14px">preview</span>
 
 			<div  style="float:right; margin-right:10px; margin-top:3px; font-size:18px">
 				<div id="add_pages">
@@ -459,7 +471,7 @@ function decorate_debuged_page_header($gridName,$args){
 		</div>
 		<div id="ui_grid_selector" style="margin-top:5px; margin-left:5px; margin-bottom:10px">
 			<div style="float:left">
-				<span class="glyphicon glyphicon-th-large"></span> <span>Grid name:</span>
+				<span class="glyphicon glyphicon-th"></span> <span>Grid:</span>
 				<span id="ui_grid_name"><?php echo $gridName; ?></span>
 			</div>
 			<div id="change-grid" style="float:left; margin-left:10px; margin-top:3px; font-size:12px">
@@ -735,6 +747,17 @@ window.onload=function(){
 	jQuery('#add_pages').mouseleave(function() {
 		jQuery('#add_pages').find('span').css('color','#A0CBEF');
 	});
+
+
+	jQuery( "#ui_page_name" ).mouseenter(function() {
+		//jQuery('#all_grid_selector').css('background-color','#222');	
+	});
+	jQuery( "#ui_page_name" ).mouseleave(function() {
+		//jQuery('#all_grid_selector').css('background-color','none');	
+	});
+	jQuery(document).on('click', "#ui_page_name", function() {		
+		window.location.href = '<?php echo get_permalink(); ?>';
+	});	
 
 
 
@@ -1425,9 +1448,9 @@ window.onload=function(){
 			}
 		})
 		.done(function( msg ) {	
-			location.reload();
+			//location.reload();
 			//jQuery('.modal-content').children('div').remove();
-			//jQuery('.modal-content').append(msg);
+			jQuery('.modal-content').append(msg);
 		});
       		
 	});
@@ -1592,17 +1615,11 @@ window.onload=function(){
 
 
 	var listener = function() {
-	  alert('once');
+	  //alert('once');
 	  window.removeEventListener('scroll', listener, false);
 	};
-
 	window.addEventListener('scroll', listener, false);
 
-
-
-/*    window.onscroll = function (event) {
-			  alert('asdsad');
-			}*/
 
 
 

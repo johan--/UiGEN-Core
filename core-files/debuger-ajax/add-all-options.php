@@ -47,5 +47,5 @@ require_once("../../../../../wp-load.php");
 </br>
 
 <div style="font-size:11px; margin-bottom:5px">Powered By:</div>
-<img src="<?php echo plugins_url();?>/UiGEN-Core/img/uigen_logo_horizontal_inverse.png" width="90%" height="auto">
+<img src="<?php echo plugins_url();?>/UiGEN-Core/img/uigen_logo_horizontal_inverse.png" width="100%" height="auto">
 
