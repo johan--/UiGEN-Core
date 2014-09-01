@@ -18,4 +18,4 @@ require_once UIGENCLASS_PATH . 'Spyc.php';
 $uigen_main_prop = Spyc::YAMLLoad( GLOBALDATA_PATH . 'uigen-main-prop/arguments/main-prop.yaml' ); 
 
 define( 'SKIN_NAME' , $uigen_main_prop['skin']);
-?>
+

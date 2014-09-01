@@ -1,5 +1,5 @@
-<?php
-class FlowController{
+<?class
+php FlowController{
 
 	public $flow_arg; // flow controller args
 	public $data_arg; // send post data args
