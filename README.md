@@ -14,8 +14,7 @@ UiGEN Core
 Tech alert !!!
 --------------
 
-UiGEN Core is not stable yet !!!
-First beta version will be published on dedicated repo github/uigen at 17.11.2014.
+UiGEN Core project is close now. 
 
 
 ## TABLE OF CONTEST
